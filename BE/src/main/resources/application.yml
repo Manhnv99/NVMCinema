@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/nvmcinema
+    url: jdbc:mysql://${HOST}/nvmcinema
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
   jpa:
@@ -9,3 +9,5 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+jwt:
+  secretKey: "d3775c0fefb657b49d334eacae493726e131ea10e36b9f8800185b05d210ddd4"
