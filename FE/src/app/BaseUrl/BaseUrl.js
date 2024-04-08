@@ -15,6 +15,8 @@ export const ROUTE_MANAGEMENT_STATISTICS = "/management-statistics";
 export const ROUTE_MANAGEMENT_MOVIE = "/management-movie";
 
 export const ROUTE_MANAGEMENT_STAFF = "/management-staff";
+export const ROUTE_MANAGEMENT_STAFF_ADD = "/management-staff/add";
+export const ROUTE_MANAGEMENT_STAFF_UPDATE = "/management-staff/update/:id";
 
 export const ROUTE_MANAGEMENT_ORDER = "/management-order";
 

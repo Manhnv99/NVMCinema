@@ -17,22 +17,22 @@ public class ValidUtils{
 
     public boolean isCccdValid(String cccd) {
         if (cccd.length() != 12) {
-            return false;
+            return true;
         }
         if (!cccd.startsWith("0")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public boolean isPhoneValid(String phone) {
         if (phone.length() != 10) {
-            return false;
+            return true;
         }
         if (!phone.startsWith("0")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
 }

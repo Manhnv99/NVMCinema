@@ -25,6 +25,10 @@ export const AdminLayoutManagement = ({ children }) => {
 
     const childrenMovie = [
         {
+            key: ROUTE_MANAGEMENT_MOVIE,
+            label: "Phim",
+        },
+        {
             key: ROUTE_MANAGEMENT_DIRECTOR,
             label: "Đạo Diễn",
         },
@@ -68,7 +72,7 @@ export const AdminLayoutManagement = ({ children }) => {
 
     return (
         <Layout style={{
-            height: "100vh"
+            minHeight: "100vh"
         }}>
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 <div className="demo-logo-vertical" />
@@ -89,13 +93,13 @@ export const AdminLayoutManagement = ({ children }) => {
                             label: 'Hóa Đơn',
                         },
                         {
-                            key: '',
+                            key: 'parentArea',
                             icon: <UploadOutlined />,
                             label: 'Quản Lý Khu Vực',
                             children: childrenArea
                         },
                         {
-                            key: ROUTE_MANAGEMENT_MOVIE,
+                            key: 'parentMovie',
                             icon: <UploadOutlined />,
                             label: 'Quản Lý Phim',
                             children: childrenMovie

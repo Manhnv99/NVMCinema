@@ -70,6 +70,9 @@ public class User extends PrimaryEntity implements UserDetails {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "status")
+    private boolean status;
+
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;

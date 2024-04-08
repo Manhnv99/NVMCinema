@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UrlPath {
 
-    public static final String URL_AUTHENTICATION = "/api/auth";
+    public static final String URL_API_AUTHENTICATION = "/api/auth";
 
     public static final String URL_API_ADMIN = "/api/admin";
 

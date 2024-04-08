@@ -11,6 +11,7 @@ export const useLogin = () => {
     const handleRequestLoginAPI = async (loginRequest) => {
         try {
             const response = await LoginAPI.fetchLoginAPI(loginRequest);
+            console.log(response);
             //set Token to localStorage
             localStorage.setItem("token", response.data.token);
             //show message login success

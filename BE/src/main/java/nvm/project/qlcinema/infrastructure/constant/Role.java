@@ -6,6 +6,8 @@ public enum Role {
 
     ROLE_ADMIN_AREA, //chỉ có quyền trong khu vực đó
 
-    ROLE_STAFF // chỉ có quyền bán hàng
+    ROLE_STAFF, // chỉ có quyền bán hàng
+
+    ROLE_CLIENT
 
 }

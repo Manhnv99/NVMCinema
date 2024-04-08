@@ -1,4 +1,4 @@
-export const baseURL = "http://localhost:8080/"
+export const baseURL = "http://localhost:8080"
 
 // base API Follow by role
 
@@ -13,13 +13,14 @@ export const URL_API_STAFF = "/api/staff";
 export const URL_API_CLIENT = "/api/client";
 
 // các API của authen
-//API Login
 export const URL_LOGIN_API = URL_AUTHENTICATION + "/login";
 
-//API Register
 export const URL_REGISTER_API = URL_AUTHENTICATION + "/register";
 
+export const URL_PUT_REGISTER_API = URL_AUTHENTICATION + "/put-register";
+
 // các API của admin
+export const URL_API_ADMIN_STAFF_MANAGEMENT = URL_API_ADMIN + "/staff-management";
 
 
 // các API của admin-area
