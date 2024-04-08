@@ -29,7 +29,7 @@ public class AdminCountryManagementServiceImpl implements AdminCountryManagement
     @Override
     public PageableObject<AdminCountryManagementListCountryResponse> getListCountry(AdminCountryManagementListCountryRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage(), request.getPage());
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getPage());
             return new PageableObject<>(adminCountryManagementRepository.getListCountry(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();

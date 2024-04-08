@@ -29,7 +29,7 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
     @Override
     public PageableObject<AdminDirectorManagementListDirectorResponse> getListDirector(AdminDirectorManagementListDirectorRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
+            PageRequest pageRequest = PageRequest.of(request.getPage()-1, request.getSize());
             return new PageableObject<>(adminDirectorManagementRepository.getListDirector(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();

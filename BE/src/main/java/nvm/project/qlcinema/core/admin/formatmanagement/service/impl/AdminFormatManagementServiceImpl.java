@@ -29,7 +29,7 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
     @Override
     public PageableObject<AdminFormatManagementListFormatResponse> getListFormat(AdminFormatManagementListFormatRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage(), request.getPage());
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getPage());
             return new PageableObject<>(adminFormatManagementRepository.getListFormat(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();

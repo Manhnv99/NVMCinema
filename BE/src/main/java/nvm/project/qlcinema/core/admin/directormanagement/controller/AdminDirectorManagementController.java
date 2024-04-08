@@ -42,7 +42,7 @@ public class AdminDirectorManagementController {
         return adminDirectorManagementService.postDirector(request);
     }
 
-    @PutMapping("/post-director")
+    @PutMapping("/put-director")
     public ResponseObject putDirector(@RequestBody AdminDirectorManagementPutDirectorRequest request){
         return adminDirectorManagementService.putDirector(request);
     }

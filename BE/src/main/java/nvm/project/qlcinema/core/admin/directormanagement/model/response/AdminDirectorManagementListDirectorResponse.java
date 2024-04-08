@@ -20,7 +20,7 @@ public interface AdminDirectorManagementListDirectorResponse {
     int getAge();
 
     @Value("#{target.description}")
-    String description();
+    String getDescription();
 
     @Value("#{target.deleted}")
     boolean getDeleted();

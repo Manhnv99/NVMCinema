@@ -29,7 +29,7 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
     @Override
     public PageableObject<AdminAreaManagementListAreaResponse> getListArea(AdminAreaManagementListAreaRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage(), request.getPage());
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getPage());
             return new PageableObject<>(adminAreaManagementRepository.getListArea(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();

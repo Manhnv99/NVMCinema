@@ -26,7 +26,7 @@ public interface AdminStaffManagementStaffRepository extends UserRepository {
                 		u.role AS role,
                 		u.status AS status,
                 		a.name AS areaName
-                FROM `user` u
+                FROM `users` u
                 JOIN area a on u.area_id = a.id
                 WHERE
                 (
@@ -54,7 +54,7 @@ public interface AdminStaffManagementStaffRepository extends UserRepository {
                 		u.status AS status,
                 		a.id AS areaId,
                 		u.image_url AS imageUrl
-                FROM `user` u
+                FROM `users` u
                 JOIN area a on u.area_id = a.id
                 WHERE u.id = :userId
                 """,nativeQuery = true)
@@ -73,7 +73,7 @@ public interface AdminStaffManagementStaffRepository extends UserRepository {
                 		u.role AS role,
                 		u.status AS status,
                 		a.name AS areaName
-                FROM `user` u
+                FROM `users` u
                 JOIN area a on u.area_id = a.id
                 WHERE u.id = :userId
                 """,nativeQuery = true)

@@ -17,21 +17,19 @@ public interface AdminDirectorManagementRepository extends JpaRepository<Directo
 
     @Query("""
             SELECT d FROM Director d
-            ORDER BY d.createdAt DESC
+            ORDER BY d.createdAt DESC LIMIT 1
             """)
     Optional<Director> getNewest();
-
-
 
     @Query("""
                 SELECT d FROM Director d
                 WHERE
                 (
-                    d.name = :#{#postRequest.name} AND
-                    d.age = :#{#postRequest.age} AND
-                    d.gender = :#{#postRequest.gender} AND
-                    d.description = :#{#postRequest.description}
-                ) 
+                    d.name = :#{ #postRequest.name } AND
+                    d.age = :#{ #postRequest.age } AND
+                    d.gender = :#{ #postRequest.gender } AND
+                    d.description = :#{ #postRequest.description }
+                )
             """)
     Optional<Director> isDirectorExist(AdminDirectorManagementPostDirectorRequest postRequest);
 
@@ -46,9 +44,9 @@ public interface AdminDirectorManagementRepository extends JpaRepository<Directo
                 FROM director d
                 WHERE
                 (
-                    :#{#request.inputSearch} IS NULL OR d.code LIKE :#{ "%" + #request.inputSearch + "%" } OR
-                    :#{#request.inputSearch} IS NULL OR d.name LIKE :#{ "%" + #request.inputSearch + "%" } OR
-                    :#{#request.inputSearch} IS NULL OR d.age LIKE :#{ "%" + #request.inputSearch + "%" } OR
+                    ( :#{#request.inputSearch} IS NULL OR d.code LIKE :#{"%" + #request.inputSearch + "%"} ) OR
+                    ( :#{#request.inputSearch} IS NULL OR d.name LIKE :#{"%" + #request.inputSearch + "%"} ) OR
+                    ( :#{#request.inputSearch} IS NULL OR d.age LIKE :#{"%" + #request.inputSearch + "%"} ) 
                 )
                 """,nativeQuery = true)
     Page<AdminDirectorManagementListDirectorResponse> getListDirector(Pageable pageable, AdminDirectorManagementListDirectorRequest request);
