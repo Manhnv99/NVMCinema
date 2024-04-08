@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User extends PrimaryEntity implements UserDetails {
 
     @Column(name = "code")
@@ -72,6 +73,9 @@ public class User extends PrimaryEntity implements UserDetails {
 
     @Column(name = "status")
     private boolean status;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)

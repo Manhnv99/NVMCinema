@@ -11,6 +11,7 @@ import nvm.project.qlcinema.entity.base.PrimaryEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Manhnv99
@@ -54,5 +55,11 @@ public class PromotionEvent extends PrimaryEntity {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

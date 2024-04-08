@@ -15,6 +15,7 @@ import nvm.project.qlcinema.entity.base.PrimaryEntity;
 import nvm.project.qlcinema.infrastructure.constant.Subtitle;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Manhnv99
@@ -81,5 +82,11 @@ public class Movie extends PrimaryEntity {
     @ManyToOne
     @JoinColumn(name = "format_id",referencedColumnName = "id")
     private Format formatId;
+
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

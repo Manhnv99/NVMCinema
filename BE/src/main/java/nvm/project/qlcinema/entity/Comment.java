@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 
+import java.util.Date;
+
 /**
  * @author Manhnv99
  */
@@ -37,5 +39,8 @@ public class Comment extends PrimaryEntity {
     @ManyToOne
     @JoinColumn(name = "client_id" , referencedColumnName = "id")
     private Client clientId;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

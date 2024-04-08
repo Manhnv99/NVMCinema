@@ -1,8 +1,8 @@
 package nvm.project.qlcinema.core.admin.staffmanagement.controller;
 
 import lombok.RequiredArgsConstructor;
-import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminManagementListStaffRequest;
-import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminManagementListStaffResponse;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminStaffManagementListStaffRequest;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementListStaffResponse;
 import nvm.project.qlcinema.core.admin.staffmanagement.service.AdminStaffManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
 import nvm.project.qlcinema.core.common.ResponseObject;
@@ -29,8 +29,8 @@ public class AdminStaffManagementController {
     }
 
     @GetMapping("/get-search-staff")
-    public PageableObject<AdminManagementListStaffResponse> getListStaff(AdminManagementListStaffRequest adminManagementListStaffRequest){
-        return adminStaffManagementService.getListStaff(adminManagementListStaffRequest);
+    public PageableObject<AdminStaffManagementListStaffResponse> getListStaff(AdminStaffManagementListStaffRequest adminStaffManagementListStaffRequest){
+        return adminStaffManagementService.getListStaff(adminStaffManagementListStaffRequest);
     }
 
     @GetMapping("/get-one-staff")

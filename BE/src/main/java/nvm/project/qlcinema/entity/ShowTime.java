@@ -14,6 +14,7 @@ import nvm.project.qlcinema.entity.base.PrimaryEntity;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Manhnv99
@@ -48,5 +49,11 @@ public class ShowTime extends PrimaryEntity {
     @ManyToOne
     @JoinColumn(name = "room_id",referencedColumnName = "id")
     private Room roomId;
+
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 
+import java.util.Date;
+
 /**
  * @author Manhnv99
  */
@@ -31,5 +33,11 @@ public class Country extends PrimaryEntity {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

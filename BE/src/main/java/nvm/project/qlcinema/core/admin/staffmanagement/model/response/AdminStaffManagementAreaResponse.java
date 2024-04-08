@@ -2,7 +2,7 @@ package nvm.project.qlcinema.core.admin.staffmanagement.model.response;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public interface AdminManagementAreaResponse {
+public interface AdminStaffManagementAreaResponse {
 
     @Value("#{target.id}")
     String getId();

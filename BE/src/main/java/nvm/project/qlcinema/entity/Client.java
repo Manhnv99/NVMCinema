@@ -2,14 +2,18 @@ package nvm.project.qlcinema.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
+import nvm.project.qlcinema.infrastructure.constant.Role;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Manhnv99
@@ -24,7 +28,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "subtitle")
+@Table(name = "client")
 public class Client extends PrimaryEntity {
 
     @Column(name = "code")
@@ -56,5 +60,15 @@ public class Client extends PrimaryEntity {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }

@@ -14,6 +14,8 @@ import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 import nvm.project.qlcinema.infrastructure.constant.RateStar;
 
+import java.util.Date;
+
 /**
  * @author Manhnv99
  */
@@ -41,5 +43,8 @@ public class Rate extends PrimaryEntity {
     @ManyToOne
     @JoinColumn(name = "client_id" , referencedColumnName = "id")
     private Client clientId;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

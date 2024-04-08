@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 
+import java.util.Date;
+
 /**
  * @author Manhnv99
  */
@@ -41,8 +43,7 @@ public class TicketChair extends PrimaryEntity {
     @JoinColumn(name = "show_time_id",referencedColumnName = "id")
     private ShowTime showTimeId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private User userId;
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

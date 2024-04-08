@@ -1,7 +1,7 @@
 package nvm.project.qlcinema.core.admin.staffmanagement.service;
 
-import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminManagementListStaffRequest;
-import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminManagementListStaffResponse;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminStaffManagementListStaffRequest;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementListStaffResponse;
 import nvm.project.qlcinema.core.common.PageableObject;
 import nvm.project.qlcinema.core.common.ResponseObject;
 
@@ -9,7 +9,7 @@ public interface AdminStaffManagementService {
 
     ResponseObject getListArea();
 
-    PageableObject<AdminManagementListStaffResponse> getListStaff(AdminManagementListStaffRequest adminManagementListStaffRequest);
+    PageableObject<AdminStaffManagementListStaffResponse> getListStaff(AdminStaffManagementListStaffRequest adminStaffManagementListStaffRequest);
 
     ResponseObject getOneStaff(String userId);
 

@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -126,6 +127,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         postUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         postUser.setPhoneNumber(registerRequest.getPhoneNumber());
         postUser.setAddress(registerRequest.getAddress());
+        postUser.setCreatedAt(new Date());
         for (Role role : Role.values()){
             if(registerRequest.getRole().equals(role.name())){
                 postUser.setRole(role);

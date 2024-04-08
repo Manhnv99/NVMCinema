@@ -10,6 +10,7 @@ import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author Manhnv99
@@ -35,5 +36,11 @@ public class ComboFood extends PrimaryEntity {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

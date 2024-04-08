@@ -14,6 +14,7 @@ import nvm.project.qlcinema.infrastructure.constant.FormalityOrder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Manhnv99
@@ -28,7 +29,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "director")
+@Table(name = "orders")
 public class Order extends PrimaryEntity {
 
     @Column(name = "total_price")
@@ -55,5 +56,12 @@ public class Order extends PrimaryEntity {
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User userId;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id",referencedColumnName = "id")
+    private Client clientId;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

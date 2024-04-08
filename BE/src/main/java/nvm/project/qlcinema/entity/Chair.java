@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 
+import java.util.Date;
+
 /**
  * @author Manhnv99
  */
@@ -36,10 +38,17 @@ public class Chair extends PrimaryEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "status")
     private boolean status; //true là ghế dùng được, false là ghế đang hỏng
 
     @ManyToOne
     @JoinColumn(name = "room_id" , referencedColumnName = "id")
     private Room roomId;
+
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

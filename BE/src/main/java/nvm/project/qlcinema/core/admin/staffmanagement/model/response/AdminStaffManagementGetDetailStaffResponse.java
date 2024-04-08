@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 
-public interface AdminManagementGetDetailStaffResponse {
+public interface AdminStaffManagementGetDetailStaffResponse {
     @Value("#{target.id}")
     String getId();
 

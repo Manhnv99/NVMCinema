@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 
-public interface AdminManagementGetOneStaffResponse {
+public interface AdminStaffManagementListStaffResponse {
 
     @Value("#{target.id}")
     String getId();
@@ -39,10 +39,7 @@ public interface AdminManagementGetOneStaffResponse {
     @Value("#{target.role}")
     String getRole();
 
-    @Value("#{target.areaId}")
-    String getAreaId();
-
-    @Value("#{target.imageUrl}")
-    String getImageUrl();
+    @Value("#{target.areaName}")
+    String getArea();
 
 }

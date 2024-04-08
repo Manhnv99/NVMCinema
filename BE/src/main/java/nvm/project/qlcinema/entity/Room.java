@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 
+import java.util.Date;
+
 /**
  * @author Manhnv99
  */
@@ -36,5 +38,11 @@ public class Room extends PrimaryEntity {
     @ManyToOne
     @JoinColumn(name = "branch_id" , referencedColumnName = "id")
     private Branch branchId;
+
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

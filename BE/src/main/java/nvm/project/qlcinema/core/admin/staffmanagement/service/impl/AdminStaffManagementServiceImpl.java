@@ -1,10 +1,10 @@
 package nvm.project.qlcinema.core.admin.staffmanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminManagementListStaffRequest;
-import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminManagementListStaffResponse;
-import nvm.project.qlcinema.core.admin.staffmanagement.repository.AdminManagementAreaRepository;
-import nvm.project.qlcinema.core.admin.staffmanagement.repository.AdminManagementStaffRepository;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminStaffManagementListStaffRequest;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementListStaffResponse;
+import nvm.project.qlcinema.core.admin.staffmanagement.repository.AdminStaffManagementAreaRepository;
+import nvm.project.qlcinema.core.admin.staffmanagement.repository.AdminStaffManagementStaffRepository;
 import nvm.project.qlcinema.core.admin.staffmanagement.service.AdminStaffManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
 import nvm.project.qlcinema.core.common.ResponseObject;
@@ -22,14 +22,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminStaffManagementServiceImpl implements AdminStaffManagementService {
 
-    private final AdminManagementAreaRepository adminManagementAreaRepository;
+    private final AdminStaffManagementAreaRepository adminStaffManagementAreaRepository;
 
-    private final AdminManagementStaffRepository adminManagementStaffRepository;
+    private final AdminStaffManagementStaffRepository adminStaffManagementStaffRepository;
 
     @Override
     public ResponseObject getListArea() {
         try {
-            return new ResponseObject(adminManagementAreaRepository.getListArea());
+            return new ResponseObject(adminStaffManagementAreaRepository.getListArea());
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách khu vực!");
@@ -38,10 +38,10 @@ public class AdminStaffManagementServiceImpl implements AdminStaffManagementServ
     }
 
     @Override
-    public PageableObject<AdminManagementListStaffResponse> getListStaff(AdminManagementListStaffRequest request) {
+    public PageableObject<AdminStaffManagementListStaffResponse> getListStaff(AdminStaffManagementListStaffRequest request) {
         try {
             PageRequest pageRequest = PageRequest.of(request.getPage() - 1,request.getSize());
-            return new PageableObject<>(adminManagementStaffRepository.getListStaff(
+            return new PageableObject<>(adminStaffManagementStaffRepository.getListStaff(
                     pageRequest,
                     request
             ));
@@ -55,10 +55,10 @@ public class AdminStaffManagementServiceImpl implements AdminStaffManagementServ
     @Override
     public ResponseObject getOneStaff(String userId) {
         try {
-            if(adminManagementStaffRepository.getOneStaff(userId) == null){
+            if(adminStaffManagementStaffRepository.getOneStaff(userId) == null){
                 throw new Exception();
             }else{
-                return new ResponseObject(adminManagementStaffRepository.getOneStaff(userId));
+                return new ResponseObject(adminStaffManagementStaffRepository.getOneStaff(userId));
             }
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
@@ -70,10 +70,10 @@ public class AdminStaffManagementServiceImpl implements AdminStaffManagementServ
     @Override
     public ResponseObject getDetailStaff(String userId) {
         try {
-            if(adminManagementStaffRepository.getDetailStaff(userId) == null){
+            if(adminStaffManagementStaffRepository.getDetailStaff(userId) == null){
                 throw new Exception();
             }else{
-                return new ResponseObject(adminManagementStaffRepository.getDetailStaff(userId));
+                return new ResponseObject(adminStaffManagementStaffRepository.getDetailStaff(userId));
             }
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
@@ -85,7 +85,7 @@ public class AdminStaffManagementServiceImpl implements AdminStaffManagementServ
     @Override
     public ResponseObject deleteStaff(String userId) {
         try {
-            Optional<User> userOptional = adminManagementStaffRepository.findById(userId);
+            Optional<User> userOptional = adminStaffManagementStaffRepository.findById(userId);
             if(userOptional.isEmpty()){
                 throw new Exception();
             }else{
@@ -94,7 +94,7 @@ public class AdminStaffManagementServiceImpl implements AdminStaffManagementServ
                 }else{
                     userOptional.get().setStatus(true);
                 }
-                adminManagementStaffRepository.save(userOptional.get());
+                adminStaffManagementStaffRepository.save(userOptional.get());
                 return new ResponseObject("Thay đổi trạng thái nhân viên thành công!");
             }
         }catch (Exception e){

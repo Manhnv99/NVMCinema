@@ -1,19 +1,17 @@
 package nvm.project.qlcinema.core.admin.staffmanagement.repository;
 
-import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminManagementListStaffRequest;
-import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminManagementGetDetailStaffResponse;
-import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminManagementGetOneStaffResponse;
-import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminManagementListStaffResponse;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminStaffManagementListStaffRequest;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementGetDetailStaffResponse;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementGetOneStaffResponse;
+import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementListStaffResponse;
 import nvm.project.qlcinema.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface AdminManagementStaffRepository extends UserRepository {
+public interface AdminStaffManagementStaffRepository extends UserRepository {
 
     @Query(value = """
                 SELECT 	u.id AS id,
@@ -40,7 +38,7 @@ public interface AdminManagementStaffRepository extends UserRepository {
                     (:#{#request.inputSearch} IS NULL OR a.name LIKE :#{"%" + #request.inputSearch + "%"} )
                 )
                 """,nativeQuery = true)
-    Page<AdminManagementListStaffResponse> getListStaff(Pageable pageable, AdminManagementListStaffRequest request);
+    Page<AdminStaffManagementListStaffResponse> getListStaff(Pageable pageable, AdminStaffManagementListStaffRequest request);
 
     @Query(value = """
                 SELECT 	u.id AS id,
@@ -60,7 +58,7 @@ public interface AdminManagementStaffRepository extends UserRepository {
                 JOIN area a on u.area_id = a.id
                 WHERE u.id = :userId
                 """,nativeQuery = true)
-    AdminManagementGetOneStaffResponse getOneStaff(String userId);
+    AdminStaffManagementGetOneStaffResponse getOneStaff(String userId);
 
     @Query(value = """
                 SELECT 	u.id AS id,
@@ -79,6 +77,6 @@ public interface AdminManagementStaffRepository extends UserRepository {
                 JOIN area a on u.area_id = a.id
                 WHERE u.id = :userId
                 """,nativeQuery = true)
-    AdminManagementGetDetailStaffResponse getDetailStaff(String userId);
+    AdminStaffManagementGetDetailStaffResponse getDetailStaff(String userId);
 
 }
