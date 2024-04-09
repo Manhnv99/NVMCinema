@@ -1,30 +1,34 @@
-import { DirectorManagementAPI } from "../../../../apis/Admin/Directormanagement/DirectorManagementAPI"
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { useState } from "react";
+import { DirectorManagementAPI } from "../../../../apis/Admin/DirectorManagement/DirectorManagementAPI";
 
 export const useDirector = () => {
 
     //dispatch
     const dispatch = useDispatch();
     //listDirector
-    const [listDirector, setListDirector] = useState([]);
+    const [listData, setListData] = useState([]);
     const [totalElement, setTotalElement] = useState(1);
+    //datadetail
+    const [dataDetail, setDataList] = useState({});
+    //state 
+    const [render, setRender] = useState(false);
 
 
 
     //fetchPost
-    const fetchPostDirector = async (data, callback) => {
+    const handleFetchPost = async (data, handleClose) => {
         //set Loading True
         dispatch(setLoadingTrue());
         try {
             const response = await DirectorManagementAPI.fetchPostDirector(data);
             //show Success Message
             if (response.data.success) {
-                fetchListSearchDirector("", 1);
+                handleFetchListSearch("", 1);
                 message.success(response.data.message);
-                callback();
+                handleClose();
             }
         } catch (e) {
             dispatch(setLoadingFalse());
@@ -35,16 +39,16 @@ export const useDirector = () => {
     };
 
     //fetchPut
-    const fetchPutDirector = async (data, callback) => {
-        //set Loading True
+    const handleFetchPut = async (data, handleClose) => {
+        // set Loading True
         dispatch(setLoadingTrue());
         try {
             const response = await DirectorManagementAPI.fetchPutDirector(data);
             //show Success Message
             if (response.data.success) {
-                fetchListSearchDirector("", 1);
+                handleFetchListSearch("", 1);
                 message.success(response.data.message);
-                callback();
+                handleClose();
             }
         } catch (e) {
             dispatch(setLoadingFalse());
@@ -55,7 +59,7 @@ export const useDirector = () => {
     };
 
     //fetchDelete
-    const fetchDeleteDirector = async (directorId) => {
+    const handleFetchDelete = async (directorId) => {
         //set Loading True
         dispatch(setLoadingTrue());
         try {
@@ -63,7 +67,7 @@ export const useDirector = () => {
             //show Success Message
             message.success(response.data.message);
             if (response.data.success) {
-                fetchListSearchDirector("", 1);
+                handleFetchListSearch("", 1);
             }
             dispatch(setLoadingFalse());
         } catch (e) {
@@ -75,12 +79,12 @@ export const useDirector = () => {
     };
 
     //handle Fetch List Search
-    const fetchListSearchDirector = async (inputSearch, page) => {
+    const handleFetchListSearch = async (inputSearch, page) => {
         //set Loading True
         dispatch(setLoadingTrue());
         try {
             const response = await DirectorManagementAPI.fetchListSearch(inputSearch, page);
-            setListDirector(response.data.data);
+            setListData(response.data.data);
             setTotalElement(response.data.totalPages * response.data.data.length);
             dispatch(setLoadingFalse());
         } catch (e) {
@@ -91,12 +95,31 @@ export const useDirector = () => {
         }
     }
 
+    //handleGetDetail
+    const handleFetchDetail = async (directorId) => {
+        dispatch(setLoadingTrue());
+        try {
+            const response = await DirectorManagementAPI.fetchDetailDirector(directorId);
+            if (response.data.success) {
+                setRender(!render);
+                setDataList(response.data.data);
+                dispatch(setLoadingFalse());
+            }
+        } catch (e) {
+            dispatch(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    };
+
 
     return {
-        fetchPostDirector,
-        fetchPutDirector,
-        fetchDeleteDirector,
-        fetchListSearchDirector, listDirector, totalElement
+        handleFetchPost,
+        handleFetchDelete,
+        handleFetchPut,
+        handleFetchListSearch, listData, totalElement,
+        handleFetchDetail, dataDetail, render
     }
 
 }

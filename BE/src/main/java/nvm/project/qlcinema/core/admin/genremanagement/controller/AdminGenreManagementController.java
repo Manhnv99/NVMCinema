@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.genremanagement.controller;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementListGenreRequest;
-import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPostGenreRequest;
-import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPutGenreRequest;
+import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPostRequest;
+import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPutRequest;
 import nvm.project.qlcinema.core.admin.genremanagement.model.response.AdminGenreManagementListGenreResponse;
 import nvm.project.qlcinema.core.admin.genremanagement.service.AdminGenreManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
@@ -38,12 +38,12 @@ public class AdminGenreManagementController {
     }
 
     @PostMapping("/post-genre")
-    public ResponseObject postGenre(@RequestBody AdminGenreManagementPostGenreRequest postRequest){
+    public ResponseObject postGenre(@RequestBody AdminGenreManagementPostRequest postRequest){
         return adminGenreManagementService.postGenre(postRequest);
     }
 
     @PutMapping("/put-genre")
-    public ResponseObject putGenre(@RequestBody AdminGenreManagementPutGenreRequest putRequest){
+    public ResponseObject putGenre(@RequestBody AdminGenreManagementPutRequest putRequest){
         return adminGenreManagementService.putGenre(putRequest);
     }
 

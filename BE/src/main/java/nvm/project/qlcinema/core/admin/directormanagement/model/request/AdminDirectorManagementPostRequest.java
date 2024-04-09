@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminDirectorManagementPostDirectorRequest {
+public class AdminDirectorManagementPostRequest {
 
     @NotBlank(message = "Tên đạo diễn không được để trống!")
     private String name;

@@ -6,7 +6,30 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MovieManagement from './pages/Admin/AdminMovieManagement/MovieManagement';
 import StaffManagement from './pages/Admin/AdminStaffManagement/StaffManagement';
 import { AdminLayoutManagement } from './layouts/Admin/AdminLayoutManagement';
-import { ROUTE_AUTHORIZATION, ROUTE_FORBIDDEN, ROUTE_LOGIN, ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_CHAIR, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STAFF_ADD, ROUTE_MANAGEMENT_STAFF_UPDATE, ROUTE_MANAGEMENT_STATISTICS, ROUTE_MANAGEMENT_WELCOME } from './app/BaseUrl/BaseUrl';
+import {
+  ROUTE_AUTHORIZATION,
+  ROUTE_FORBIDDEN,
+  ROUTE_LOGIN,
+  ROUTE_MANAGEMENT_AREA,
+  ROUTE_MANAGEMENT_BRANCH,
+  ROUTE_MANAGEMENT_CHAIR,
+  ROUTE_MANAGEMENT_COUNTRY,
+  ROUTE_MANAGEMENT_DIRECTOR,
+  ROUTE_MANAGEMENT_FORMAT,
+  ROUTE_MANAGEMENT_GENRE,
+  ROUTE_MANAGEMENT_MOVIE,
+  ROUTE_MANAGEMENT_MOVIE_ADD,
+  ROUTE_MANAGEMENT_MOVIE_UPDATE,
+  ROUTE_MANAGEMENT_ORDER,
+  ROUTE_MANAGEMENT_PROMOTION,
+  ROUTE_MANAGEMENT_ROOM,
+  ROUTE_MANAGEMENT_SHOWTIME,
+  ROUTE_MANAGEMENT_STAFF,
+  ROUTE_MANAGEMENT_STAFF_ADD,
+  ROUTE_MANAGEMENT_STAFF_UPDATE,
+  ROUTE_MANAGEMENT_STATISTICS,
+  ROUTE_MANAGEMENT_WELCOME
+} from './app/BaseUrl/BaseUrl';
 import { AreaManagement } from './pages/Admin/AdminAreaManagement/AreaManagement';
 import { BranchManagement } from './pages/Admin/AdminBranchManagement/BranchManagement';
 import { ChairManagement } from './pages/Admin/AdminChairManagement/ChairManagement';
@@ -26,6 +49,8 @@ import { ForbiddenPage } from './pages/Error/Forbidden/ForbiddenPage';
 import { GlobalLoading } from './app/Loading/GlobalLoading';
 import { StaffProvider } from './pages/Admin/AdminStaffManagement/store/provider/StaffProvider';
 import { AddOrUpdateStaffManagement } from './pages/Admin/AdminStaffManagement/layout/AddOrUpdateStaffManagement';
+import { MovieProvider } from './pages/Admin/AdminMovieManagement/store/provider/MovieProvider';
+import { AddOrUpdateMovieManagement } from './pages/Admin/AdminMovieManagement/layout/AddOrUpdateMovieManagement';
 
 function App() {
 
@@ -63,7 +88,23 @@ function App() {
     {
       key: ROUTE_MANAGEMENT_MOVIE,
       route: ROUTE_MANAGEMENT_MOVIE,
-      component: <MovieManagement />,
+      component: <MovieProvider>
+        <MovieManagement />
+      </MovieProvider>,
+    },
+    {
+      key: ROUTE_MANAGEMENT_MOVIE_ADD,
+      route: ROUTE_MANAGEMENT_MOVIE_ADD,
+      component: <MovieProvider>
+        <AddOrUpdateMovieManagement />
+      </MovieProvider>,
+    },
+    {
+      key: ROUTE_MANAGEMENT_MOVIE_UPDATE,
+      route: ROUTE_MANAGEMENT_MOVIE_UPDATE,
+      component: <MovieProvider>
+        <AddOrUpdateMovieManagement />
+      </MovieProvider>,
     },
     {
       key: ROUTE_MANAGEMENT_GENRE,

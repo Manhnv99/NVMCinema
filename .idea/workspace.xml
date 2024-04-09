@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="80b5d20c-a7c7-4f39-bcee-a67cabe1750d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/controller/AdminMovieManagementController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/model/request/AdminMovieManagementPostRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/model/request/AdminMovieManagementPutRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/model/response/AdminMovieManagementListCountryResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/model/response/AdminMovieManagementListDirectorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/model/response/AdminMovieManagementListFormatResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/model/response/AdminMovieManagementListGenreResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/repository/AdminMovieManagementCountryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/repository/AdminMovieManagementDirectorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/repository/AdminMovieManagementFormatRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/repository/AdminMovieManagementGenreRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/repository/AdminMovieManagementRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/service/AdminMovieManagementService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/moviemanagement/service/impl/AdminMovieManagementServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/controller/AdminAreaManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/controller/AdminAreaManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/model/request/AdminAreaManagementPostAreaRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/model/request/AdminAreaManagementPostRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/model/request/AdminAreaManagementPutAreaRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/model/request/AdminAreaManagementPutRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/repository/AdminAreaManagementRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/repository/AdminAreaManagementRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/service/AdminAreaManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/service/AdminAreaManagementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/service/impl/AdminAreaManagementServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/areamanagement/service/impl/AdminAreaManagementServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/controller/AdminCountryManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/controller/AdminCountryManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/model/request/AdminCountryManagementPostCountryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/model/request/AdminCountryManagementPostRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/model/request/AdminCountryManagementPutCountryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/model/request/AdminCountryManagementPutRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/service/AdminCountryManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/service/AdminCountryManagementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/service/impl/AdminCountryManagementServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/countrymanagement/service/impl/AdminCountryManagementServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/controller/AdminDirectorManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/controller/AdminDirectorManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/model/request/AdminDirectorManagementPostDirectorRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/model/request/AdminDirectorManagementPostRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/model/request/AdminDirectorManagementPutDirectorRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/model/request/AdminDirectorManagementPutRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/repository/AdminDirectorManagementRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/repository/AdminDirectorManagementRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/service/AdminDirectorManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/service/AdminDirectorManagementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/service/impl/AdminDirectorManagementServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/directormanagement/service/impl/AdminDirectorManagementServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/controller/AdminFormatManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/controller/AdminFormatManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/model/request/AdminFormatManagementPostFormatRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/model/request/AdminFormatManagementPostRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/model/request/AdminFormatManagementPutFormatRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/model/request/AdminFormatManagementPutRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/service/AdminFormatManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/service/AdminFormatManagementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/service/impl/AdminFormatManagementServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/formatmanagement/service/impl/AdminFormatManagementServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/controller/AdminGenreManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/controller/AdminGenreManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/model/request/AdminGenreManagementPostGenreRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/model/request/AdminGenreManagementPostRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/model/request/AdminGenreManagementPutGenreRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/model/request/AdminGenreManagementPutRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/service/AdminGenreManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/service/AdminGenreManagementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/service/impl/AdminGenreManagementServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/core/admin/genremanagement/service/impl/AdminGenreManagementServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/entity/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/entity/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/infrastructure/constant/UrlPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/nvm/project/qlcinema/infrastructure/constant/UrlPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/app/BaseUrl/BaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/app/BaseUrl/BaseUrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminAreaManagement/AreaManagement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminAreaManagement/AreaManagement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminCountryManagement/CountryManagement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminCountryManagement/CountryManagement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminDirectorManagement/DirectorManagement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminDirectorManagement/DirectorManagement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminDirectorManagement/components/ModalAddOrUpdate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminDirectorManagement/components/ModalAddOrUpdate.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminDirectorManagement/components/ModalDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminDirectorManagement/components/ModalDetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminDirectorManagement/hooks/useDirector.js" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminDirectorManagement/hooks/useDirector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminFormatManagement/FormatManagement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminFormatManagement/FormatManagement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminGenreManagement/GenreManagement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminGenreManagement/GenreManagement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminStaffManagement/components/TableComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminStaffManagement/components/TableComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE/src/pages/Admin/AdminStaffManagement/layout/AddOrUpdateStaffManagement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FE/src/pages/Admin/AdminStaffManagement/layout/AddOrUpdateStaffManagement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Requirement.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Requirement.docx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2esAMHJLrEanpeipSPidFPYRVJw" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="80b5d20c-a7c7-4f39-bcee-a67cabe1750d" name="Changes" comment="" />
+      <created>1712682862714</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712682862714</updated>
+      <workItem from="1712682864276" duration="6000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

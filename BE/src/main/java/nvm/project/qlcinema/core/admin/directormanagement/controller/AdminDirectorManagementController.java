@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.directormanagement.controller;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementListDirectorRequest;
-import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPostDirectorRequest;
-import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPutDirectorRequest;
+import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPostRequest;
+import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPutRequest;
 import nvm.project.qlcinema.core.admin.directormanagement.model.response.AdminDirectorManagementListDirectorResponse;
 import nvm.project.qlcinema.core.admin.directormanagement.service.AdminDirectorManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
@@ -38,12 +38,12 @@ public class AdminDirectorManagementController {
     }
 
     @PostMapping("/post-director")
-    public ResponseObject postDirector(@RequestBody AdminDirectorManagementPostDirectorRequest request){
+    public ResponseObject postDirector(@RequestBody AdminDirectorManagementPostRequest request){
         return adminDirectorManagementService.postDirector(request);
     }
 
     @PutMapping("/put-director")
-    public ResponseObject putDirector(@RequestBody AdminDirectorManagementPutDirectorRequest request){
+    public ResponseObject putDirector(@RequestBody AdminDirectorManagementPutRequest request){
         return adminDirectorManagementService.putDirector(request);
     }
 

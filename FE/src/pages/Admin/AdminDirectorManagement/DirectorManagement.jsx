@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { DEFAUTL_PAGE_SIZE } from "../../../app/Constant/PaginationConstant";
 import { ModalDetail } from "./components/ModalDetail";
 import { useDirector } from "./hooks/useDirector";
+import Swal from "sweetalert2";
 
 export const DirectorManagement = () => {
 
@@ -14,15 +15,17 @@ export const DirectorManagement = () => {
     const [openModalDetail, setOpenModalDetail] = useState(false);
     //searchValue
     const [searchValue, setSearchValue] = useState("");
-    //directorId
-    const [directorId, setDirectorId] = useState(undefined);
-    const [detailDirectorId, setDetailDirectorId] = useState(undefined);
     //what Action
     const [whatAction, setWhatAction] = useState("post");
 
     //custom Hooks
-    const { fetchDeleteDirector,
-        fetchListSearchDirector, listDirector, totalElement } = useDirector();
+    const {
+        handleFetchDelete,
+        handleFetchPut,
+        handleFetchPost,
+        handleFetchListSearch, listData, totalElement,
+        handleFetchDetail, dataDetail, render
+    } = useDirector();
     //useRef
     const timeOutId = useRef();
 
@@ -47,7 +50,7 @@ export const DirectorManagement = () => {
                     <div className="cursor-pointer text-[16px]">
                         <Tooltip title="Cập nhật" color="#030405">
                             <Button style={{ backgroundColor: "#030405", color: "#fff" }} onClick={() => {
-                                setDirectorId(record.id);
+                                handleFetchDetail(record.id);
                                 setWhatAction("put");
                                 setOpenModalAddOrUpdate(true);
                             }}>
@@ -55,7 +58,7 @@ export const DirectorManagement = () => {
                             </Button>
                         </Tooltip>
                         <Tooltip title="Chi tiết" className="mx-[10px]" onClick={() => {
-                            setDetailDirectorId(record.id);
+                            handleFetchDetail(record.id);
                             setOpenModalDetail(true);
                         }}>
                             <Button>
@@ -63,7 +66,19 @@ export const DirectorManagement = () => {
                             </Button>
                         </Tooltip>
                         <Tooltip title={record.status ? "Xóa nhân viên" : "Hoạt động lại"} color="red">
-                            <Button style={{ backgroundColor: "red", color: "#fff" }} onClick={() => fetchDeleteDirector(record.id)}>
+                            <Button style={{ backgroundColor: "red", color: "#fff" }} onClick={() => {
+                                Swal.fire({
+                                    title: "Bạn có chắc muốn thay đổi trạng thái của đạo diễn này?",
+                                    icon: "question",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                }).then(result => {
+                                    if (result.isConfirmed) {
+                                        handleFetchDelete(record.id);
+                                    }
+                                })
+                            }}>
                                 <FontAwesomeIcon icon={faTrash} />
                             </Button>
                         </Tooltip>
@@ -75,7 +90,7 @@ export const DirectorManagement = () => {
 
     //useEffect
     useEffect(() => {
-        fetchListSearchDirector(searchValue, 1);
+        handleFetchListSearch(searchValue, 1);
     }, []);
 
     //handleChangeSearchValue
@@ -83,15 +98,27 @@ export const DirectorManagement = () => {
         clearTimeout(timeOutId.current);
         setSearchValue(e.target.value);
         timeOutId.current = setTimeout(() => {
-            fetchListSearchDirector(e.target.value, 1);
+            handleFetchListSearch(e.target.value, 1);
         }, [500]);
     }
 
     return (
         <>
-            {<ModalDetail openModal={openModalDetail} setOpenModal={setOpenModalDetail} directorId={detailDirectorId} />}
-            {<ModalAddOrUpdate openModal={openModalAddOrUpdate} setOpenModal={setOpenModalAddOrUpdate} directorId={directorId} whatAction={whatAction} setWhatAction={setWhatAction} />}
-            <div className="container max-w-[1200px] mx-auto">
+            {<ModalDetail
+                openModal={openModalDetail}
+                setOpenModal={setOpenModalDetail}
+                dataDetail={dataDetail}
+            />}
+            {<ModalAddOrUpdate
+                openModal={openModalAddOrUpdate}
+                setOpenModal={setOpenModalAddOrUpdate}
+                dataDetail={dataDetail}
+                render={render}
+                whatAction={whatAction}
+                handleFetchPut={handleFetchPut}
+                handleFetchPost={handleFetchPost}
+            />}
+            <div className="container mx-auto">
                 <div className="shadow-xl rounded-[5px] px-[20px] py-[20px]">
                     <p className="font-bold font-sans text-2xl mb-[10px]">
                         <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-[10px]" />
@@ -100,7 +127,7 @@ export const DirectorManagement = () => {
                     <Input
                         className="h-[50px]"
                         type="text"
-                        placeholder="Tìm kiếm dạo diễn..."
+                        placeholder="Tìm kiếm đạo diễn theo mã, tên..."
                         value={searchValue}
                         onChange={handleSearchList}
                     >
@@ -122,12 +149,12 @@ export const DirectorManagement = () => {
                     className="mt-[10px]"
                     columns={columns}
                     scroll={{ x: "1300px" }}
-                    dataSource={listDirector}
+                    dataSource={listData}
                     pagination={false}
                 >
                 </Table>
                 <Pagination onChange={(page) => {
-                    fetchListSearchDirector(searchValue, page);
+                    handleFetchListSearch(searchValue, page);
                 }}
                     pageSize={DEFAUTL_PAGE_SIZE}
                     total={totalElement}

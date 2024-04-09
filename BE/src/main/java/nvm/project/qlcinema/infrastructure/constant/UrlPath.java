@@ -21,6 +21,8 @@ public class UrlPath {
 
     public static final String URL_API_ADMIN_STAFF_MANAGEMENT = URL_API_ADMIN + "/staff-management";
 
+    public static final String URL_API_ADMIN_MOVIE_MANAGEMENT = URL_API_ADMIN + "/movie-management";
+
     public static final String URL_API_ADMIN_DIRECTOR_MANAGEMENT = URL_API_ADMIN + "/director-management";
 
     public static final String URL_API_ADMIN_FORMAT_MANAGEMENT = URL_API_ADMIN + "/format-management";

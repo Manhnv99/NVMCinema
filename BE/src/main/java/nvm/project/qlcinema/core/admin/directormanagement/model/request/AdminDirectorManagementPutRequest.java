@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminDirectorManagementPutDirectorRequest extends AdminDirectorManagementPostDirectorRequest{
+public class AdminDirectorManagementPutRequest extends AdminDirectorManagementPostRequest {
 
     private String directorId;
 

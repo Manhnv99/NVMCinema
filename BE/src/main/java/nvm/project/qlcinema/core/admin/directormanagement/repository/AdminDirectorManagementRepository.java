@@ -1,7 +1,7 @@
 package nvm.project.qlcinema.core.admin.directormanagement.repository;
 
 import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementListDirectorRequest;
-import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPostDirectorRequest;
+import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPostRequest;
 import nvm.project.qlcinema.core.admin.directormanagement.model.response.AdminDirectorManagementListDirectorResponse;
 import nvm.project.qlcinema.entity.Director;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,7 @@ public interface AdminDirectorManagementRepository extends JpaRepository<Directo
                     d.description = :#{ #postRequest.description }
                 )
             """)
-    Optional<Director> isDirectorExist(AdminDirectorManagementPostDirectorRequest postRequest);
+    Optional<Director> isDirectorExist(AdminDirectorManagementPostRequest postRequest);
 
     @Query(value = """
                 SELECT  d.id AS id,

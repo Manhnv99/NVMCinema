@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminGenreManagementPutGenreRequest extends AdminGenreManagementPostGenreRequest {
+public class AdminGenreManagementPutRequest extends AdminGenreManagementPostRequest {
 
     private String genreId;
 

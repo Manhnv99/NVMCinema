@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.formatmanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementListFormatRequest;
-import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPostFormatRequest;
-import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPutFormatRequest;
+import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPostRequest;
+import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPutRequest;
 import nvm.project.qlcinema.core.admin.formatmanagement.model.response.AdminFormatManagementListFormatResponse;
 import nvm.project.qlcinema.core.admin.formatmanagement.repository.AdminFormatManagementRepository;
 import nvm.project.qlcinema.core.admin.formatmanagement.service.AdminFormatManagementService;
@@ -29,7 +29,7 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
     @Override
     public PageableObject<AdminFormatManagementListFormatResponse> getListFormat(AdminFormatManagementListFormatRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getPage());
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
             return new PageableObject<>(adminFormatManagementRepository.getListFormat(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
@@ -39,7 +39,7 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
     }
 
     @Override
-    public ResponseObject postFormat(AdminFormatManagementPostFormatRequest postRequest) {
+    public ResponseObject postFormat(AdminFormatManagementPostRequest postRequest) {
         List<String> errors = new ArrayList<>();
 
         //check isExist
@@ -67,7 +67,7 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
     }
 
     @Override
-    public ResponseObject putFormat(AdminFormatManagementPutFormatRequest putRequest) {
+    public ResponseObject putFormat(AdminFormatManagementPutRequest putRequest) {
         List<String> errors = new ArrayList<>();
 
         //check isExist

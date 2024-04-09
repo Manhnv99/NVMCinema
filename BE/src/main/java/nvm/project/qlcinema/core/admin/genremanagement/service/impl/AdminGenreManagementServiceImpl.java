@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.genremanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementListGenreRequest;
-import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPostGenreRequest;
-import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPutGenreRequest;
+import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPostRequest;
+import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPutRequest;
 import nvm.project.qlcinema.core.admin.genremanagement.model.response.AdminGenreManagementListGenreResponse;
 import nvm.project.qlcinema.core.admin.genremanagement.repository.AdminGenreManagementRepository;
 import nvm.project.qlcinema.core.admin.genremanagement.service.AdminGenreManagementService;
@@ -29,7 +29,7 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
     @Override
     public PageableObject<AdminGenreManagementListGenreResponse> getListGenre(AdminGenreManagementListGenreRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage(), request.getPage());
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
             return new PageableObject<>(adminGenreManagementRepository.getListGenre(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
@@ -39,7 +39,7 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
     }
 
     @Override
-    public ResponseObject postGenre(AdminGenreManagementPostGenreRequest postRequest) {
+    public ResponseObject postGenre(AdminGenreManagementPostRequest postRequest) {
         List<String> errors = new ArrayList<>();
 
         //check isExist
@@ -67,7 +67,7 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
     }
 
     @Override
-    public ResponseObject putGenre(AdminGenreManagementPutGenreRequest putRequest) {
+    public ResponseObject putGenre(AdminGenreManagementPutRequest putRequest) {
         List<String> errors = new ArrayList<>();
 
         //check isExist

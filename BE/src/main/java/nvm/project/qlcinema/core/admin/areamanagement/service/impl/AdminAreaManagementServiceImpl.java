@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.areamanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementListAreaRequest;
-import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPostAreaRequest;
-import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPutAreaRequest;
+import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPostRequest;
+import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPutRequest;
 import nvm.project.qlcinema.core.admin.areamanagement.model.response.AdminAreaManagementListAreaResponse;
 import nvm.project.qlcinema.core.admin.areamanagement.repository.AdminAreaManagementRepository;
 import nvm.project.qlcinema.core.admin.areamanagement.service.AdminAreaManagementService;
@@ -29,7 +29,7 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
     @Override
     public PageableObject<AdminAreaManagementListAreaResponse> getListArea(AdminAreaManagementListAreaRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getPage());
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
             return new PageableObject<>(adminAreaManagementRepository.getListArea(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
@@ -39,7 +39,7 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
     }
 
     @Override
-    public ResponseObject postArea(AdminAreaManagementPostAreaRequest postRequest) {
+    public ResponseObject postArea(AdminAreaManagementPostRequest postRequest) {
         List<String> errors = new ArrayList<>();
 
         //check isExist
@@ -54,9 +54,9 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
         Optional<Area> AreaNewest = adminAreaManagementRepository.getNewest();
         if(AreaNewest.isPresent()){
             String code = AreaNewest.get().getCode();
-            postArea.setCode(code.substring(0,2)+((Integer.parseInt(code.substring(2)))+1));
+            postArea.setCode(code.substring(0,4)+((Integer.parseInt(code.substring(4)))+1));
         }else{
-            postArea.setCode("DN1");
+            postArea.setCode("AREA1");
         }
         postArea.setName(postRequest.getName());
         postArea.setDeleted(true);
@@ -67,7 +67,7 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
     }
 
     @Override
-    public ResponseObject putArea(AdminAreaManagementPutAreaRequest putRequest) {
+    public ResponseObject putArea(AdminAreaManagementPutRequest putRequest) {
         List<String> errors = new ArrayList<>();
 
         //check isExist

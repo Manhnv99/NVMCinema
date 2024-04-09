@@ -29,8 +29,8 @@ public interface AdminAreaManagementRepository extends JpaRepository<Area,String
                 FROM area a
                 WHERE
                 (
-                    ( :#{#request.inputSearch} IS NULL OR a.code LIKE :#{ "%" + #request.inputSearch +"%"} ) OR
-                    ( :#{#request.inputSearch} IS NULL OR a.name LIKE :#{ "%" + #request.inputSearch +"%"} )
+                    ( :#{#request.inputSearch} IS NULL OR a.code LIKE :#{ "%" + #request.inputSearch + "%" } ) OR
+                    ( :#{#request.inputSearch} IS NULL OR a.name LIKE :#{ "%" + #request.inputSearch + "%" } )
                 )
                 """,nativeQuery = true)
     Page<AdminAreaManagementListAreaResponse> getListArea(Pageable pageable, AdminAreaManagementListAreaRequest request);

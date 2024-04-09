@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.directormanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementListDirectorRequest;
-import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPostDirectorRequest;
-import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPutDirectorRequest;
+import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPostRequest;
+import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPutRequest;
 import nvm.project.qlcinema.core.admin.directormanagement.model.response.AdminDirectorManagementListDirectorResponse;
 import nvm.project.qlcinema.core.admin.directormanagement.repository.AdminDirectorManagementRepository;
 import nvm.project.qlcinema.core.admin.directormanagement.service.AdminDirectorManagementService;
@@ -50,7 +50,7 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
     }
 
     @Override
-    public ResponseObject postDirector(AdminDirectorManagementPostDirectorRequest postRequest) {
+    public ResponseObject postDirector(AdminDirectorManagementPostRequest postRequest) {
         List<String> errors = new ArrayList<>();
 
         //check exist
@@ -67,7 +67,7 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
             String code = getNewest.get().getCode();
             postDirector.setCode(code.substring(0,2)+((Integer.parseInt(code.substring(2)))+1));
         }else{
-            postDirector.setCode("DG1");
+            postDirector.setCode("DR1");
         }
         postDirector.setName(postRequest.getName());
         postDirector.setGender(postRequest.isGender());
@@ -81,7 +81,7 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
     }
 
     @Override
-    public ResponseObject putDirector(AdminDirectorManagementPutDirectorRequest putRequest) {
+    public ResponseObject putDirector(AdminDirectorManagementPutRequest putRequest) {
         List<String> errors = new ArrayList<>();
 
         //check exist

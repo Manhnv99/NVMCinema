@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { StaffManagementAPI } from '../../../../apis/Admin/StaffManagement/StaffManagementAPI';
 import { setLoadingFalse, setLoadingTrue } from '../../../../app/Redux/Slice/LoadingSlice';
+import Swal from "sweetalert2";
 
 export const AddOrUpdateStaffManagement = () => {
 
@@ -38,54 +39,65 @@ export const AddOrUpdateStaffManagement = () => {
     }, []);
 
     //handle Add
-    const handleAddStaff = () => {
-        if (id === undefined) {
-            const fieldsValue = {
-                ...form.getFieldsValue(),
-                birthDay: dayjs(form.getFieldsValue().birthDay).format("YYYY-MM-DD")
-            };
-            const formData = new FormData();
-            formData.append("code", fieldsValue.code);
-            formData.append("name", fieldsValue.name);
-            formData.append("cccd", fieldsValue.cccd);
-            formData.append("gender", fieldsValue.gender);
-            formData.append("birthDay", fieldsValue.birthDay);
-            formData.append("email", fieldsValue.email);
-            formData.append("password", fieldsValue.password);
-            formData.append("phoneNumber", fieldsValue.phoneNumber);
-            formData.append("address", fieldsValue.address);
-            formData.append("role", fieldsValue.role);
-            formData.append("areaId", fieldsValue.areaId);
-            if (fieldsValue.image === undefined) {
-                formData.append("image", new File([], "empty-file"));
+    const handleAddOrUpdateStaff = () => {
+        const result = Swal.fire({
+            title: id === undefined ? "Bạn có chắc muốn thêm nhân viên này?" : "Bạn có chắc muốn cập nhật nhân viên này?",
+            icon: "question",
+            showCancelButton: true,
+            allowOutsideClick: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+        });
+        if (result.isConfirmed) {
+            console.log("run");
+            if (id === undefined) {
+                const fieldsValue = {
+                    ...form.getFieldsValue(),
+                    birthDay: dayjs(form.getFieldsValue().birthDay).format("YYYY-MM-DD")
+                };
+                const formData = new FormData();
+                formData.append("code", fieldsValue.code);
+                formData.append("name", fieldsValue.name);
+                formData.append("cccd", fieldsValue.cccd);
+                formData.append("gender", fieldsValue.gender);
+                formData.append("birthDay", fieldsValue.birthDay);
+                formData.append("email", fieldsValue.email);
+                formData.append("password", fieldsValue.password);
+                formData.append("phoneNumber", fieldsValue.phoneNumber);
+                formData.append("address", fieldsValue.address);
+                formData.append("role", fieldsValue.role);
+                formData.append("areaId", fieldsValue.areaId);
+                if (fieldsValue.image === undefined) {
+                    formData.append("image", new File([], "empty-file"));
+                } else {
+                    formData.append("image", fieldsValue.image.file.originFileObj);
+                }
+                fetchRegister(formData);
             } else {
-                formData.append("image", fieldsValue.image.file.originFileObj);
+                //put Staff
+                const fieldsValue = {
+                    ...form.getFieldsValue(),
+                    birthDay: dayjs(form.getFieldsValue().birthDay).format("YYYY-MM-DD")
+                };
+                const formData = new FormData();
+                formData.append("id", id);
+                formData.append("code", fieldsValue.code);
+                formData.append("name", fieldsValue.name);
+                formData.append("cccd", fieldsValue.cccd);
+                formData.append("gender", fieldsValue.gender);
+                formData.append("birthDay", fieldsValue.birthDay);
+                formData.append("email", fieldsValue.email);
+                formData.append("phoneNumber", fieldsValue.phoneNumber);
+                formData.append("address", fieldsValue.address);
+                formData.append("role", fieldsValue.role);
+                formData.append("areaId", fieldsValue.areaId);
+                if (fieldsValue.image === undefined) {
+                    formData.append("image", new File([], "empty-file"));
+                } else {
+                    formData.append("image", fieldsValue.image.file.originFileObj);
+                }
+                fetchPutRegister(formData);
             }
-            fetchRegister(formData);
-        } else {
-            //put Staff
-            const fieldsValue = {
-                ...form.getFieldsValue(),
-                birthDay: dayjs(form.getFieldsValue().birthDay).format("YYYY-MM-DD")
-            };
-            const formData = new FormData();
-            formData.append("id", id);
-            formData.append("code", fieldsValue.code);
-            formData.append("name", fieldsValue.name);
-            formData.append("cccd", fieldsValue.cccd);
-            formData.append("gender", fieldsValue.gender);
-            formData.append("birthDay", fieldsValue.birthDay);
-            formData.append("email", fieldsValue.email);
-            formData.append("phoneNumber", fieldsValue.phoneNumber);
-            formData.append("address", fieldsValue.address);
-            formData.append("role", fieldsValue.role);
-            formData.append("areaId", fieldsValue.areaId);
-            if (fieldsValue.image === undefined) {
-                formData.append("image", new File([], "empty-file"));
-            } else {
-                formData.append("image", fieldsValue.image.file.originFileObj);
-            }
-            fetchPutRegister(formData);
         }
     }
 
@@ -157,7 +169,7 @@ export const AddOrUpdateStaffManagement = () => {
                 <Form
                     className='container mx-auto max-w-[1200px] my-[20px]'
                     form={form}
-                    onFinish={handleAddStaff}
+                    onFinish={handleAddOrUpdateStaff}
                     onFinishFailed={handleAddStaffFailed}
                 >
                     {/*Row 1*/}

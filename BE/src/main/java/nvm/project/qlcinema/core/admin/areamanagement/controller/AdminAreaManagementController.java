@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.areamanagement.controller;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementListAreaRequest;
-import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPostAreaRequest;
-import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPutAreaRequest;
+import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPostRequest;
+import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPutRequest;
 import nvm.project.qlcinema.core.admin.areamanagement.model.response.AdminAreaManagementListAreaResponse;
 import nvm.project.qlcinema.core.admin.areamanagement.service.AdminAreaManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
@@ -38,12 +38,12 @@ public class AdminAreaManagementController {
     }
 
     @PostMapping("/post-area")
-    public ResponseObject postArea(@RequestBody AdminAreaManagementPostAreaRequest postRequest){
+    public ResponseObject postArea(@RequestBody AdminAreaManagementPostRequest postRequest){
         return adminAreaManagementService.postArea(postRequest);
     }
 
     @PutMapping("/put-area")
-    public ResponseObject putArea(@RequestBody AdminAreaManagementPutAreaRequest putRequest){
+    public ResponseObject putArea(@RequestBody AdminAreaManagementPutRequest putRequest){
         return adminAreaManagementService.putArea(putRequest);
     }
 

@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.formatmanagement.controller;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementListFormatRequest;
-import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPostFormatRequest;
-import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPutFormatRequest;
+import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPostRequest;
+import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPutRequest;
 import nvm.project.qlcinema.core.admin.formatmanagement.model.response.AdminFormatManagementListFormatResponse;
 import nvm.project.qlcinema.core.admin.formatmanagement.service.AdminFormatManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
@@ -38,12 +38,12 @@ public class AdminFormatManagementController {
     }
 
     @PostMapping("/post-format")
-    public ResponseObject postFormat(@RequestBody AdminFormatManagementPostFormatRequest postRequest){
+    public ResponseObject postFormat(@RequestBody AdminFormatManagementPostRequest postRequest){
         return adminFormatManagementService.postFormat(postRequest);
     }
 
     @PutMapping("/put-format")
-    public ResponseObject putFormat(@RequestBody AdminFormatManagementPutFormatRequest putRequest){
+    public ResponseObject putFormat(@RequestBody AdminFormatManagementPutRequest putRequest){
         return adminFormatManagementService.putFormat(putRequest);
     }
 

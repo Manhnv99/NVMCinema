@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.countrymanagement.controller;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementListCountryRequest;
-import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementPostCountryRequest;
-import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementPutCountryRequest;
+import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementPostRequest;
+import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementPutRequest;
 import nvm.project.qlcinema.core.admin.countrymanagement.model.response.AdminCountryManagementListCountryResponse;
 import nvm.project.qlcinema.core.admin.countrymanagement.service.AdminCountryManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
@@ -38,12 +38,12 @@ public class AdminCountryManagementController {
     }
 
     @PostMapping("/post-country")
-    public ResponseObject postCountry(@RequestBody AdminCountryManagementPostCountryRequest postRequest){
+    public ResponseObject postCountry(@RequestBody AdminCountryManagementPostRequest postRequest){
         return adminCountryManagementService.postCountry(postRequest);
     }
 
     @PutMapping("/put-country")
-    public ResponseObject putCountry(@RequestBody AdminCountryManagementPutCountryRequest putRequest){
+    public ResponseObject putCountry(@RequestBody AdminCountryManagementPutRequest putRequest){
         return adminCountryManagementService.putCountry(putRequest);
     }
 

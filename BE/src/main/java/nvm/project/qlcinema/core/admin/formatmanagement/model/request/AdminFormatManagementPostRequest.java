@@ -1,4 +1,4 @@
-package nvm.project.qlcinema.core.admin.genremanagement.model.request;
+package nvm.project.qlcinema.core.admin.formatmanagement.model.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminGenreManagementPostGenreRequest {
+public class AdminFormatManagementPostRequest {
 
     @NotBlank(message = "Tên format không được để trống!")
     private String name;

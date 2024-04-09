@@ -2,8 +2,8 @@ package nvm.project.qlcinema.core.admin.countrymanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementListCountryRequest;
-import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementPostCountryRequest;
-import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementPutCountryRequest;
+import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementPostRequest;
+import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementPutRequest;
 import nvm.project.qlcinema.core.admin.countrymanagement.model.response.AdminCountryManagementListCountryResponse;
 import nvm.project.qlcinema.core.admin.countrymanagement.repository.AdminCountryManagementRepository;
 import nvm.project.qlcinema.core.admin.countrymanagement.service.AdminCountryManagementService;
@@ -29,7 +29,7 @@ public class AdminCountryManagementServiceImpl implements AdminCountryManagement
     @Override
     public PageableObject<AdminCountryManagementListCountryResponse> getListCountry(AdminCountryManagementListCountryRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getPage());
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
             return new PageableObject<>(adminCountryManagementRepository.getListCountry(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
@@ -39,7 +39,7 @@ public class AdminCountryManagementServiceImpl implements AdminCountryManagement
     }
 
     @Override
-    public ResponseObject postCountry(AdminCountryManagementPostCountryRequest postRequest) {
+    public ResponseObject postCountry(AdminCountryManagementPostRequest postRequest) {
         List<String> errors = new ArrayList<>();
 
         //check isExist
@@ -56,7 +56,7 @@ public class AdminCountryManagementServiceImpl implements AdminCountryManagement
             String code = CountryNewest.get().getCode();
             postCountry.setCode(code.substring(0,2)+((Integer.parseInt(code.substring(2)))+1));
         }else{
-            postCountry.setCode("DN1");
+            postCountry.setCode("CT1");
         }
         postCountry.setName(postRequest.getName());
         postCountry.setDeleted(true);
@@ -67,7 +67,7 @@ public class AdminCountryManagementServiceImpl implements AdminCountryManagement
     }
 
     @Override
-    public ResponseObject putCountry(AdminCountryManagementPutCountryRequest putRequest) {
+    public ResponseObject putCountry(AdminCountryManagementPutRequest putRequest) {
         List<String> errors = new ArrayList<>();
 
         //check isExist

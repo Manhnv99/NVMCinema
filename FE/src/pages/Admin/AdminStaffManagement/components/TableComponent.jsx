@@ -1,4 +1,5 @@
-import { Table, Button, Tooltip, Tag, Pagination } from "antd"
+import { Table, Button, Tooltip, Tag, Pagination } from "antd";
+import Swal from "sweetalert2";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faLayerGroup, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
@@ -64,7 +65,19 @@ export const TableComponent = () => {
                             </Button>
                         </Tooltip>
                         <Tooltip title={record.status ? "Xóa nhân viên" : "Hoạt động lại"} color="red">
-                            <Button onClick={() => fetchDeleteStaff(record.id)} style={{ backgroundColor: "red", color: "#fff" }}>
+                            <Button onClick={() => {
+                                Swal.fire({
+                                    title: "Bạn có chắc muốn thay đổi trạng thái của nhân viên này ?",
+                                    icon: "question",
+                                    showCloseButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                }).then(result => {
+                                    if (result.isConfirmed) {
+                                        fetchDeleteStaff(record.id);
+                                    }
+                                })
+                            }} style={{ backgroundColor: "red", color: "#fff" }}>
                                 <FontAwesomeIcon icon={faTrash} />
                             </Button>
                         </Tooltip>

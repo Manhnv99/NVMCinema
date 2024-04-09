@@ -1,4 +1,4 @@
-package nvm.project.qlcinema.core.admin.areamanagement.model.request;
+package nvm.project.qlcinema.core.admin.countrymanagement.model.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminAreaManagementPostAreaRequest {
+public class AdminCountryManagementPostRequest {
 
     @NotBlank(message = "Tên đất nước không được để trống!")
     private String name;

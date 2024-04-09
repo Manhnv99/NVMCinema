@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminFormatManagementPutFormatRequest extends AdminFormatManagementPostFormatRequest{
+public class AdminFormatManagementPutRequest extends AdminFormatManagementPostRequest {
 
     private String formatId;
 

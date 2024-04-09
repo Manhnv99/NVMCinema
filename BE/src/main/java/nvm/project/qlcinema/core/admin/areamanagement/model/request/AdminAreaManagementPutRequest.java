@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminAreaManagementPutAreaRequest extends AdminAreaManagementPostAreaRequest {
+public class AdminAreaManagementPutRequest extends AdminAreaManagementPostRequest {
 
     private String areaId;
 

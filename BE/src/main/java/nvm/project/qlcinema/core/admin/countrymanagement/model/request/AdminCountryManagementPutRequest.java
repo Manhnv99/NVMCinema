@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminCountryManagementPutCountryRequest extends AdminCountryManagementPostCountryRequest {
+public class AdminCountryManagementPutRequest extends AdminCountryManagementPostRequest {
 
     private String countryId;
 

@@ -1,53 +1,41 @@
 import { Form, Modal, Typography, Input, Radio, Button, message } from "antd";
-import { useDirector } from "../hooks/useDirector";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { DirectorManagementAPI } from "../../../../apis/Admin/Directormanagement/DirectorManagementAPI";
-import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
+import Swal from "sweetalert2";
 
-export const ModalAddOrUpdate = ({ openModal, setOpenModal, directorId, whatAction, setWhatAction }) => {
+export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, whatAction, handleFetchPut, handleFetchPost }) => {
 
     //useForm
     const [form] = Form.useForm();
-    //custom Hooks
-    const { fetchPostDirector, fetchPutDirector } = useDirector();
-    //dispatch
-    const dispatch = useDispatch();
 
 
     //useEffect
     useEffect(() => {
-        if (whatAction === "put") {
-            handleFetchDetail(directorId);
-        }
-    }, [directorId, whatAction]);
+        console.log("run");
+        console.log(dataDetail);
+        handleFillFieldsValue(dataDetail);
+    }, [render]);//state re-render;
 
     //handleAddOrUpdate
     const handleAddOrUpdate = () => {
-        if (whatAction === "post") {
-            //fetchPost
-            fetchPostDirector(form.getFieldsValue(), handleCloseModal);
-        } else {
-            const fieldsValue = { ...form.getFieldsValue() };
-            fieldsValue.directorId = directorId;
-            //fetchPost
-            fetchPutDirector(fieldsValue, handleCloseModal);
-        }
-    };
-
-    //handleGetDetail
-    const handleFetchDetail = async (directorId) => {
-        dispatch(setLoadingTrue());
-        try {
-            const response = await DirectorManagementAPI.fetchDetailDirector(directorId);
-            dispatch(setLoadingFalse());
-            handleFillFieldsValue(response.data.data);
-        } catch (e) {
-            dispatch(setLoadingFalse());
-            for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+        Swal.fire({
+            title: whatAction === "post" ? "Bạn có chắc muốn thêm đạo diễn này?" : "Bạn có chắc muốn cập nhật đạo diễn này?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+        }).then(result => {
+            if (result.isConfirmed) {
+                if (whatAction === "post") {
+                    //fetchPost
+                    handleFetchPost(form.getFieldsValue(), handleCloseModal);
+                } else {
+                    const fieldsValue = { ...form.getFieldsValue() };
+                    fieldsValue.directorId = dataDetail.id;
+                    //fetchPut
+                    handleFetchPut(fieldsValue, handleCloseModal);
+                }
             }
-        }
+        });
     };
 
     const handleFillFieldsValue = (data) => {
@@ -65,18 +53,13 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, directorId, whatActi
 
     const handleCloseModal = () => {
         form.resetFields();
-        if (whatAction === "post") {
-            setWhatAction("put");
-        } else {
-            setWhatAction("post");
-        }
         setOpenModal(false);
     };
 
     return (
         <>
             <Modal
-                title={<Typography.Title level={3}>{directorId === undefined ? "Thêm Đạo Diễn" : "Cập Nhật Đạo Diễn"}</Typography.Title>}
+                title={<Typography.Title level={3}>{whatAction === "post" ? "Thêm Đạo Diễn" : "Cập Nhật Đạo Diễn"}</Typography.Title>}
                 open={openModal}
                 style={{ marginTop: '-50px' }} // Tùy chỉnh khoảng cách từ top
                 onCancel={handleCloseModal}
