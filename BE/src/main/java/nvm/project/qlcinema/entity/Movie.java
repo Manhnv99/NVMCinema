@@ -48,7 +48,7 @@ public class Movie extends PrimaryEntity {
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
-    @Column(name = "video_path",columnDefinition = "varchar(max)")
+    @Column(name = "video_path",columnDefinition = "varchar(10000)")
     private String videoPath;
 
     @Column(name = "banner_id")

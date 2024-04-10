@@ -23,8 +23,8 @@ requestAPI.interceptors.response.use(
         if (error.response && error.response.status === 401) {
             //redirect To Login
             //remove item from localStorage
-            // localStorage.removeItem("token");
-            // window.location.href = ROUTE_AUTHORIZATION;
+            localStorage.removeItem("token");
+            window.location.href = ROUTE_AUTHORIZATION;
         } else if (error.response && error.response.status === 403) {
             //redirect To Page 403
             window.location.href = ROUTE_FORBIDDEN;

@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface AdminCountryManagementRepository extends JpaRepository<Country,String> {
 
     @Query("""
-            SELECT f FROM Country f ORDER BY f.createdAt DESC
+            SELECT f FROM Country f ORDER BY f.createdAt DESC LIMIT 1
             """)
     Optional<Country> getNewest();
 

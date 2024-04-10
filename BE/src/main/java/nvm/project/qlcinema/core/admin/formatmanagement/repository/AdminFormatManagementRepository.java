@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface AdminFormatManagementRepository extends JpaRepository<Format,String> {
 
     @Query("""
-            SELECT f FROM Format f ORDER BY f.createdAt DESC
+            SELECT f FROM Format f ORDER BY f.createdAt DESC LIMIT 1
             """)
     Optional<Format> getNewest();
 

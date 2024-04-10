@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface AdminAreaManagementRepository extends JpaRepository<Area,String> {
 
     @Query("""
-            SELECT a FROM Area a ORDER BY a.createdAt DESC
+            SELECT a FROM Area a ORDER BY a.createdAt DESC LIMIT 1
             """)
     Optional<Area> getNewest();
 

@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface AdminGenreManagementRepository extends JpaRepository<Genre,String> {
 
     @Query("""
-            SELECT g FROM Genre g ORDER BY g.createdAt DESC
+            SELECT g FROM Genre g ORDER BY g.createdAt DESC LIMIT 1
             """)
     Optional<Genre> getNewest();
 
