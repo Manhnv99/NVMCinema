@@ -1,4 +1,4 @@
-import { Table, Button, Tooltip, Tag, Pagination } from "antd";
+import { Table, Button, Tooltip, Tag, Pagination, Image } from "antd";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faLayerGroup, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +27,18 @@ export const TableComponent = () => {
 
     //columns table
     const columns = [
+        {
+            title: "Ảnh đại diện", dataIndex: "imageUrl", key: "imageUrl",
+            render: (imageUrl) => (
+                <Image
+                    width={150}
+                    src={imageUrl}
+                    style={{
+                        borderRadius: "5px"
+                    }}
+                />
+            )
+        },
         { title: "Mã Nhân Viên", dataIndex: "code", key: "code" },
         { title: "Tên Nhân Viên", dataIndex: "name", key: "name" },
         { title: "Căn Cước", dataIndex: "cccd", key: "cccd" },
@@ -70,6 +82,7 @@ export const TableComponent = () => {
                                     title: "Bạn có chắc muốn thay đổi trạng thái của nhân viên này ?",
                                     icon: "question",
                                     showCloseButton: true,
+                                    showCancelButton: true,
                                     confirmButtonColor: "#3085d6",
                                     cancelButtonColor: "#d33",
                                 }).then(result => {

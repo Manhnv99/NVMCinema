@@ -25,7 +25,8 @@ public interface AdminStaffManagementStaffRepository extends UserRepository {
                 		u.address AS address,
                 		u.role AS role,
                 		u.status AS status,
-                		a.name AS areaName
+                		a.name AS areaName,
+                		u.image_url AS imageUrl
                 FROM `users` u
                 JOIN area a on u.area_id = a.id
                 WHERE

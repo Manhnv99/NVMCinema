@@ -42,4 +42,7 @@ public interface AdminStaffManagementListStaffResponse {
     @Value("#{target.areaName}")
     String getArea();
 
+    @Value("#{target.imageUrl}")
+    String getImageUrl();
+
 }

@@ -1,14 +1,19 @@
 package nvm.project.qlcinema.core.admin.moviemanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import nvm.project.qlcinema.core.admin.moviemanagement.model.request.AdminMovieManagementListMovieRequest;
 import nvm.project.qlcinema.core.admin.moviemanagement.model.request.AdminMovieManagementPostRequest;
 import nvm.project.qlcinema.core.admin.moviemanagement.model.request.AdminMovieManagementPutRequest;
+import nvm.project.qlcinema.core.admin.moviemanagement.model.response.AdminMovieManagementDetailMovieResponse;
+import nvm.project.qlcinema.core.admin.moviemanagement.model.response.AdminMovieManagementGetOneMovieResponse;
+import nvm.project.qlcinema.core.admin.moviemanagement.model.response.AdminMovieManagementListMovieResponse;
 import nvm.project.qlcinema.core.admin.moviemanagement.repository.AdminMovieManagementCountryRepository;
 import nvm.project.qlcinema.core.admin.moviemanagement.repository.AdminMovieManagementDirectorRepository;
 import nvm.project.qlcinema.core.admin.moviemanagement.repository.AdminMovieManagementFormatRepository;
 import nvm.project.qlcinema.core.admin.moviemanagement.repository.AdminMovieManagementGenreRepository;
 import nvm.project.qlcinema.core.admin.moviemanagement.repository.AdminMovieManagementRepository;
 import nvm.project.qlcinema.core.admin.moviemanagement.service.AdminMovieManagementService;
+import nvm.project.qlcinema.core.common.PageableObject;
 import nvm.project.qlcinema.core.common.ResponseObject;
 import nvm.project.qlcinema.entity.Country;
 import nvm.project.qlcinema.entity.Director;
@@ -18,6 +23,7 @@ import nvm.project.qlcinema.entity.Movie;
 import nvm.project.qlcinema.infrastructure.config.cloudinary.CloudinaryConfig;
 import nvm.project.qlcinema.infrastructure.constant.Subtitle;
 import nvm.project.qlcinema.infrastructure.exception.RestApiException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +48,40 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     private final AdminMovieManagementGenreRepository adminMovieManagementGenreRepository;
 
     private final CloudinaryConfig cloudinaryConfig;
+
+    @Override
+    public PageableObject<AdminMovieManagementListMovieResponse> getSearchListMovie(AdminMovieManagementListMovieRequest request) {
+        try {
+            PageRequest pageRequest = PageRequest.of(request.getPage(),request.getSize());
+            return new PageableObject<>(adminMovieManagementRepository.getSearchListMovie(pageRequest,request));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách phim!");
+            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getOneMovie(String id) {
+        try {
+            return new ResponseObject(adminMovieManagementRepository.getOneMovie(id));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được bộ phim này!");
+            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getDetailMovie(String id) {
+        try {
+            return new ResponseObject(adminMovieManagementRepository.getDetailMovie(id));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được bộ phim này!");
+            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @Override
     public ResponseObject postMovie(AdminMovieManagementPostRequest postRequest) throws IOException {
@@ -177,4 +217,19 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
 
         return new ResponseObject("Cập nhật thành công bộ phim!");
     }
+
+    @Override
+    public ResponseObject deleteMovie(String id) {
+        List<String> errors = new ArrayList<>();
+        //check isExist
+        Optional<Movie> isMovieExist = adminMovieManagementRepository.findById(id);
+        if(isMovieExist.isEmpty()){
+            errors.add("Không tìm thấy bộ phim này!");
+            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        }
+        adminMovieManagementRepository.deleteById(id);
+
+        return new ResponseObject("Thay đổi trạng thái bộ phim thành công!");
+    }
+
 }
