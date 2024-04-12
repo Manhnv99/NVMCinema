@@ -2,8 +2,6 @@ package nvm.project.qlcinema.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -12,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
-import nvm.project.qlcinema.infrastructure.constant.Subtitle;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -60,12 +57,11 @@ public class Movie extends PrimaryEntity {
     @Column(name = "actor")
     private String actor;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "LONGTEXT")
     private String description;
 
     @Column(name = "subtitle")
-    @Enumerated(EnumType.STRING)
-    private Subtitle subTitle;
+    private String subTitle;
 
     @ManyToOne
     @JoinColumn(name = "director_id",referencedColumnName = "id")

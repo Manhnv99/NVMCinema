@@ -52,7 +52,7 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     @Override
     public PageableObject<AdminMovieManagementListMovieResponse> getSearchListMovie(AdminMovieManagementListMovieRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage(),request.getSize());
+            PageRequest pageRequest = PageRequest.of(request.getPage() -1,request.getSize());
             return new PageableObject<>(adminMovieManagementRepository.getSearchListMovie(pageRequest,request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
@@ -101,7 +101,7 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         //check isExist Entity
         Optional<Country> isCountryExist = adminMovieManagementCountryRepository.findById(postRequest.getCountryId());
         if(isCountryExist.isEmpty()){
-            errors.add("Không tìm thấy đất nước bạn chọn!");
+            errors.add("Không tìm thấy quốc gia bạn chọn!");
         }
         Optional<Director> isDirectorExist = adminMovieManagementDirectorRepository.findById(postRequest.getDirectorId());
         if(isDirectorExist.isEmpty()){
@@ -129,13 +129,13 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         postMovie.setReleaseDate(postRequest.getReleaseDate());
         postMovie.setVideoPath(postRequest.getVideoPath());
         postMovie.setActor(postRequest.getActor());
-        postMovie.setDescription(postRequest.getCode());
+        postMovie.setDescription(postRequest.getDescription());
         var result=cloudinaryConfig.upload(postRequest.getBanner());//upload image to cloudinary
         postMovie.setBannerId((String) result.get("public_id"));
         postMovie.setBannerUrl((String) result.get("url"));
         for (Subtitle subtitle : Subtitle.values()){
-            if(postRequest.getSubTitle().equals(subtitle.name())){
-                postMovie.setSubTitle(subtitle);
+            if(postRequest.getSubTitle().equals(subtitle.getName())){
+                postMovie.setSubTitle(subtitle.getName());
             }
         }
         postMovie.setDirectorId(isDirectorExist.get());
@@ -170,7 +170,7 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         //check isExist Entity
         Optional<Country> isCountryExist = adminMovieManagementCountryRepository.findById(putRequest.getCountryId());
         if(isCountryExist.isEmpty()){
-            errors.add("Không tìm thấy đất nước bạn chọn!");
+            errors.add("Không tìm thấy quốc gia bạn chọn!");
         }
         Optional<Director> isDirectorExist = adminMovieManagementDirectorRepository.findById(putRequest.getDirectorId());
         if(isDirectorExist.isEmpty()){
@@ -198,15 +198,16 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         putMovie.setReleaseDate(putRequest.getReleaseDate());
         putMovie.setVideoPath(putRequest.getVideoPath());
         putMovie.setActor(putRequest.getActor());
-        putMovie.setDescription(putRequest.getCode());
+        putMovie.setDescription(putRequest.getDescription());
         if(!putRequest.getBanner().isEmpty()){
+            cloudinaryConfig.delete(putMovie.getBannerId());
             var result=cloudinaryConfig.upload(putRequest.getBanner());//upload image to cloudinary
             putMovie.setBannerId((String) result.get("public_id"));
             putMovie.setBannerUrl((String) result.get("url"));
         }
         for (Subtitle subtitle : Subtitle.values()){
-            if(putRequest.getSubTitle().equals(subtitle.name())){
-                putMovie.setSubTitle(subtitle);
+            if(putRequest.getSubTitle().equals(subtitle.getName())){
+                putMovie.setSubTitle(subtitle.getName());
             }
         }
         putMovie.setDirectorId(isDirectorExist.get());
@@ -227,9 +228,55 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
             errors.add("Không tìm thấy bộ phim này!");
             throw new RestApiException(errors,HttpStatus.NOT_FOUND);
         }
-        adminMovieManagementRepository.deleteById(id);
+        Movie deleteMovie = isMovieExist.get();
+        deleteMovie.setDeleted(!deleteMovie.isDeleted());
+        adminMovieManagementRepository.save(deleteMovie);
 
         return new ResponseObject("Thay đổi trạng thái bộ phim thành công!");
+    }
+
+    @Override
+    public ResponseObject getListCountry() {
+        try {
+            return new ResponseObject(adminMovieManagementCountryRepository.getListCountry());
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách quốc gia!");
+            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getListDirector() {
+        try {
+            return new ResponseObject(adminMovieManagementDirectorRepository.getListDirector());
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách đạo diễn!");
+            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getListFormat() {
+        try {
+            return new ResponseObject(adminMovieManagementFormatRepository.getListFormat());
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách phân giải!");
+            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getListGenre() {
+        try {
+            return new ResponseObject(adminMovieManagementGenreRepository.getListGenre());
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách thể loại!");
+            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

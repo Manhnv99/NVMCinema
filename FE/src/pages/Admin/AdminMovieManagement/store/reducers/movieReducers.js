@@ -1,15 +1,30 @@
-import { SET_LIST_MOVIE_CONSTANT } from "../constant/movieConstant";
+import { SET_INFOR_LIST_MOVIE_CONSTANT, SET_INFOR_SEARCH_CONSTANT } from "../constant/movieConstant";
 
 export const INITIAL_STATE = {
-    listMovie: []
+    inforListMovie: {
+        listMovie: [],
+        totalElement: 0
+    },
+    inforSearch: {
+        name: "",
+        director: "",
+        genre: "",
+        format: "",
+        country: ""
+    }
 };
 
 export const movieReducers = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case SET_LIST_MOVIE_CONSTANT:
+        case SET_INFOR_LIST_MOVIE_CONSTANT:
             return {
-                state,
-                listMovie: action.payload
+                ...state,
+                inforListMovie: action.payload
+            }
+        case SET_INFOR_SEARCH_CONSTANT:
+            return {
+                ...state,
+                inforSearch: action.payload
             }
         default:
             return state

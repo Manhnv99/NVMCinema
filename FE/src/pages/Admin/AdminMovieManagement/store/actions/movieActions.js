@@ -1,9 +1,16 @@
-import { SET_LIST_MOVIE_CONSTANT } from "../constant/movieConstant"
+import { SET_INFOR_LIST_MOVIE_CONSTANT, SET_INFOR_SEARCH_CONSTANT } from "../constant/movieConstant"
 
 
-export const setListMovieAction = (payload) => {
+export const setInforListMovieAction = (payload) => {
     return {
-        type: SET_LIST_MOVIE_CONSTANT,
+        type: SET_INFOR_LIST_MOVIE_CONSTANT,
+        payload: payload
+    }
+}
+
+export const setInforSearchAction = (payload) => {
+    return {
+        type: SET_INFOR_SEARCH_CONSTANT,
         payload: payload
     }
 }

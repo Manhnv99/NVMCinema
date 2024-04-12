@@ -47,7 +47,7 @@ public class AdminMovieManagementPostRequest {
     @NotBlank(message = "Thể loại phim chưa được chọn!")
     private String genreId;
 
-    @NotBlank(message = "Đất nước của phim chưa được chọn!")
+    @NotBlank(message = "Quốc gia của phim chưa được chọn!")
     private String countryId;
 
     @NotBlank(message = "Độ phân giải của phim chưa được chọn!")

@@ -23,4 +23,12 @@ public interface AdminMovieManagementService {
 
     ResponseObject deleteMovie(String id);
 
+    ResponseObject getListCountry();
+
+    ResponseObject getListDirector();
+
+    ResponseObject getListFormat();
+
+    ResponseObject getListGenre();
+
 }

@@ -38,7 +38,7 @@ export const AdminLayoutManagement = ({ children }) => {
         },
         {
             key: ROUTE_MANAGEMENT_COUNTRY,
-            label: "Đất Nước",
+            label: "Quốc Gia",
         },
         {
             key: ROUTE_MANAGEMENT_GENRE,

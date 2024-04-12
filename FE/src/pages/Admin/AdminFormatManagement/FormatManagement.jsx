@@ -1,6 +1,6 @@
 import { Input, Table, Pagination, Button, Tag, Tooltip } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faLayerGroup, faPenToSquare, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faLayerGroup, faPenToSquare, faEye, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalAddOrUpdate } from "./components/ModalAddOrUpdate";
 import { useEffect, useRef, useState } from "react";
 import { DEFAUTL_PAGE_SIZE } from "../../../app/Constant/PaginationConstant";
@@ -59,7 +59,7 @@ export const FormatManagement = () => {
                                 <FontAwesomeIcon icon={faEye} />
                             </Button>
                         </Tooltip>
-                        <Tooltip title={record.status ? "Xóa phân giải" : "Hoạt động lại"} color="red">
+                        <Tooltip title={record.deleted ? "Xóa phân giải" : "Hoạt động lại"} color="red">
                             <Button style={{ backgroundColor: "red", color: "#fff" }} onClick={() => {
                                 Swal.fire({
                                     title: "Bạn có chắc muốn thay đổi trạng thái của phân giải này?",
@@ -112,21 +112,19 @@ export const FormatManagement = () => {
                 handleFetchPut={handleFetchPut}
                 handleFetchPost={handleFetchPost}
             />}
-            <div className="container mx-auto">
-                <div className="shadow-xl rounded-[5px] px-[20px] py-[20px]">
-                    <p className="font-bold font-sans text-2xl mb-[10px]">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-[10px]" />
-                        Tìm kiếm phân giải
-                    </p>
-                    <Input
-                        className="h-[50px]"
-                        type="text"
-                        placeholder="Tìm kiếm phân giải theo mã, tên..."
-                        value={searchValue}
-                        onChange={handleSearchList}
-                    >
-                    </Input>
-                </div>
+            <div className="shadow-xl rounded-[5px] px-[20px] py-[20px]">
+                <p className="font-bold font-sans text-2xl mb-[10px]">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-[10px]" />
+                    Tìm kiếm phân giải
+                </p>
+                <Input
+                    className="h-[50px]"
+                    type="text"
+                    placeholder="Tìm kiếm phân giải theo mã, tên..."
+                    value={searchValue}
+                    onChange={handleSearchList}
+                >
+                </Input>
             </div>
             <div className="mt-[50px]">
                 <div className="flex justify-between items-center">
@@ -137,7 +135,10 @@ export const FormatManagement = () => {
                     <Button onClick={() => {
                         setOpenModalAddOrUpdate(true);
                         setWhatAction("post");
-                    }} type="primary" className="h-[40px]">Thêm phân giải</Button>
+                    }} type="primary" className="h-[40px]">
+                        <FontAwesomeIcon icon={faPlus} className="mr-[5px]" />
+                        Thêm phân giải
+                    </Button>
                 </div>
                 <Table
                     className="mt-[10px]"

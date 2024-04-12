@@ -59,4 +59,24 @@ public class AdminMovieManagementController {
         return adminMovieManagementService.deleteMovie(id);
     }
 
+    @GetMapping("/get-list-country")
+    public ResponseObject getListCountry(){
+        return adminMovieManagementService.getListCountry();
+    }
+
+    @GetMapping("/get-list-director")
+    public ResponseObject getListDirector(){
+        return adminMovieManagementService.getListDirector();
+    }
+
+    @GetMapping("/get-list-genre")
+    public ResponseObject getListGenre(){
+        return adminMovieManagementService.getListGenre();
+    }
+
+    @GetMapping("/get-list-format")
+    public ResponseObject getListFormat(){
+        return adminMovieManagementService.getListFormat();
+    }
+
 }

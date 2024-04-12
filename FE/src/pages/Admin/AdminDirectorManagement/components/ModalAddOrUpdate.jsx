@@ -10,8 +10,6 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
 
     //useEffect
     useEffect(() => {
-        console.log("run");
-        console.log(dataDetail);
         handleFillFieldsValue(dataDetail);
     }, [render]);//state re-render;
 

@@ -2,10 +2,29 @@ import { Card, Row, Col, Form, Input, Select, Button } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { FilterOutlined } from "@ant-design/icons";
+import { useContext } from "react";
+import { MovieContext } from "../store/context/context";
+import { useFetchEntity } from "../hooks/useFetchEntity";
+import { setInforSearchAction } from "../store/actions/movieActions";
 
 export const SearchComponent = () => {
 
+    //useForm
     const [form] = Form.useForm();
+    //useContext
+    const [state, dispatch] = useContext(MovieContext);
+    //custom hooks
+    const { listCountry, listDirector, listGenre, listFormat } = useFetchEntity();
+
+
+    const handleChangeSearchValue = () => {
+        dispatch(setInforSearchAction(form.getFieldsValue()));
+    }
+
+    const handleClearFieldsValue = () => {
+        form.resetFields();
+        dispatch(setInforSearchAction(form.getFieldsValue()));
+    }
 
     return (
         <Card
@@ -19,6 +38,7 @@ export const SearchComponent = () => {
         >
             <Form
                 form={form}
+                onFinish={handleChangeSearchValue}
             >
                 <Row gutter={20} style={{
                     justifyContent: "center",
@@ -40,9 +60,10 @@ export const SearchComponent = () => {
                             <Select
                                 allowClear
                                 placeholder="--Chọn tác giả--"
-                                options={[
-
-                                ]}
+                                options={listDirector.map(item => ({
+                                    label: item.name,
+                                    value: item.name
+                                }))}
                             />
                         </Form.Item>
                     </Col>
@@ -59,9 +80,10 @@ export const SearchComponent = () => {
                             <Select
                                 allowClear
                                 placeholder="--Chọn thể loại--"
-                                options={[
-
-                                ]}
+                                options={listGenre.map(item => ({
+                                    label: item.name,
+                                    value: item.name,
+                                }))}
                             />
                         </Form.Item>
                     </Col>
@@ -73,9 +95,10 @@ export const SearchComponent = () => {
                             <Select
                                 allowClear
                                 placeholder="--Chọn phân giải--"
-                                options={[
-
-                                ]}
+                                options={listFormat.map(item => ({
+                                    label: item.name,
+                                    value: item.name
+                                }))}
                             />
                         </Form.Item>
                     </Col>
@@ -92,9 +115,10 @@ export const SearchComponent = () => {
                             <Select
                                 allowClear
                                 placeholder="--Chọn đất nước--"
-                                options={[
-
-                                ]}
+                                options={listCountry.map(item => ({
+                                    label: item.name,
+                                    value: item.name
+                                }))}
                             />
                         </Form.Item>
                     </Col>
@@ -102,11 +126,11 @@ export const SearchComponent = () => {
                     </Col>
                 </Row>
                 <div className="flex justify-center items-center">
-                    <Button type="primary">
+                    <Button type="primary" htmlType="submit">
                         <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-[5px]" />
                         Tìm kiếm
                     </Button>
-                    <Button type="primary" danger className="ml-[10px]">
+                    <Button type="primary" danger className="ml-[10px]" onClick={handleClearFieldsValue}>
                         <FontAwesomeIcon icon={faArrowsRotate} className="mr-[5px]" />
                         Làm mới bộ lọc
                     </Button>

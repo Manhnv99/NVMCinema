@@ -59,7 +59,7 @@ export const AreaManagement = () => {
                                 <FontAwesomeIcon icon={faEye} />
                             </Button>
                         </Tooltip>
-                        <Tooltip title={record.status ? "Xóa nhân viên" : "Hoạt động lại"} color="red">
+                        <Tooltip title={record.deleted ? "Xóa khu vực" : "Hoạt động lại"} color="red">
                             <Button style={{ backgroundColor: "red", color: "#fff" }} onClick={() => {
                                 Swal.fire({
                                     title: "Bạn có chắc muốn thay đổi trạng thái của khu vực này?",
@@ -112,21 +112,19 @@ export const AreaManagement = () => {
                 handleFetchPut={handleFetchPut}
                 handleFetchPost={handleFetchPost}
             />}
-            <div className="container max-w-[1200px] mx-auto">
-                <div className="shadow-xl rounded-[5px] px-[20px] py-[20px]">
-                    <p className="font-bold font-sans text-2xl mb-[10px]">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-[10px]" />
-                        Tìm kiếm khu vực
-                    </p>
-                    <Input
-                        className="h-[50px]"
-                        type="text"
-                        placeholder="Tìm kiếm khu vực..."
-                        value={searchValue}
-                        onChange={handleSearchList}
-                    >
-                    </Input>
-                </div>
+            <div className="shadow-xl rounded-[5px] px-[20px] py-[20px]">
+                <p className="font-bold font-sans text-2xl mb-[10px]">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-[10px]" />
+                    Tìm kiếm khu vực
+                </p>
+                <Input
+                    className="h-[50px]"
+                    type="text"
+                    placeholder="Tìm kiếm khu vực..."
+                    value={searchValue}
+                    onChange={handleSearchList}
+                >
+                </Input>
             </div>
             <div className="mt-[50px]">
                 <div className="flex justify-between items-center">

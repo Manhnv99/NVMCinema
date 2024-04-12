@@ -22,6 +22,8 @@ export const URL_PUT_REGISTER_API = URL_AUTHENTICATION + "/put-register";
 // các API của admin
 export const URL_API_ADMIN_STAFF_MANAGEMENT = URL_API_ADMIN + "/staff-management";
 
+export const URL_API_ADMIN_MOVIE_MANAGEMENT = URL_API_ADMIN + "/movie-management";
+
 export const URL_API_ADMIN_DIRECTOR_MANAGEMENT = URL_API_ADMIN + "/director-management";
 
 export const URL_API_ADMIN_FORMAT_MANAGEMENT = URL_API_ADMIN + "/format-management";

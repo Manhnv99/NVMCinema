@@ -49,7 +49,6 @@ export const AddOrUpdateStaffManagement = () => {
             cancelButtonColor: "#d33",
         });
         if (result.isConfirmed) {
-            console.log("run");
             if (id === undefined) {
                 const fieldsValue = {
                     ...form.getFieldsValue(),
@@ -161,7 +160,7 @@ export const AddOrUpdateStaffManagement = () => {
                 <FontAwesomeIcon icon={faBackward} className='text-[30px] mr-[10px]' />
                 Quay lại
             </span>
-            <p className='my-[20px] font-sans font-bold text-[20px]'>
+            <p className='mt-[40px] mb-[20px] font-sans font-bold text-[20px]'>
                 <FontAwesomeIcon icon={faAddressBook} className='text-[30px] mr-[5px]' />
                 {id === undefined ? "Thêm Nhân Viên" : "Cập Nhật Nhân Viên"}
             </p>

@@ -46,6 +46,6 @@ public interface AdminMovieManagementListMovieResponse {
     String getFormat();
 
     @Value("#{target.deleted}")
-    String getDeleted();
+    boolean getDeleted();
 
 }
