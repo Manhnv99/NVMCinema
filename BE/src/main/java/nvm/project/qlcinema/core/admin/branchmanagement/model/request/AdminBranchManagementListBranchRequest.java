@@ -10,4 +10,6 @@ public class AdminBranchManagementListBranchRequest extends PageableRequest {
 
     private String inputSearch;
 
+    private String areaId;
+
 }

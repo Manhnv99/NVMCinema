@@ -399,19 +399,39 @@ export const AddOrUpdateMovieManagement = () => {
                             </Form.Item>
                         </Col>
                         <Col span={11}>
-                            <Form.Item
-                                label="Chọn Banner"
-                                name="banner"
-                            >
-                                <Upload
-                                    action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                                    listType="picture-card"
-                                    maxCount={1}
-                                    onPreview={handlePreview}
+                            {id === undefined
+                                ?
+                                <Form.Item
+                                    label="Chọn Banner"
+                                    name="banner"
+                                    rules={[
+                                        { required: true, message: "Bạn chưa chọn banner cho bộ phim này!" }
+                                    ]}
                                 >
-                                    Upload
-                                </Upload>
-                            </Form.Item>
+                                    <Upload
+                                        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                                        listType="picture-card"
+                                        maxCount={1}
+                                        onPreview={handlePreview}
+                                    >
+                                        Upload
+                                    </Upload>
+                                </Form.Item>
+                                :
+                                <Form.Item
+                                    label="Chọn Banner"
+                                    name="banner"
+                                >
+                                    <Upload
+                                        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                                        listType="picture-card"
+                                        maxCount={1}
+                                        onPreview={handlePreview}
+                                    >
+                                        Upload
+                                    </Upload>
+                                </Form.Item>
+                            }
                             {previewImage && (
                                 <Image
                                     wrapperStyle={{ display: 'none' }}
@@ -426,27 +446,23 @@ export const AddOrUpdateMovieManagement = () => {
                         </Col>
                     </Row>
                     {/*Row 8*/}
-                    <Row gutter={20} style={{
-                        justifyContent: "center",
-                        marginTop: "20px"
-                    }}>
-                        <Col span={11}>
+                    {id !== undefined &&
+                        <div>
                             <p className='font-bold text-[18px]'>
                                 <FontAwesomeIcon icon={faImages} className='text-[20px] mr-[5px]' />
                                 Ảnh banner
                             </p>
                             <Image
-                                width={1200}
+                                width="100%"
                                 height={500}
                                 style={{
                                     objectFit: "cover",
-                                    borderRadius: "10px"
+                                    borderRadius: "10px",
                                 }}
                                 src={bannerImg}
                             />
-                        </Col>
-                        <Col span={11} />
-                    </Row>
+                        </div>
+                    }
                     <div className='flex justify-end pb-[30px]'>
                         <Button type='primary' htmlType='submit'>{id === undefined ? "Thêm Bộ Phim" : "Cập Nhật Bộ Phim"}</Button>
                     </div>

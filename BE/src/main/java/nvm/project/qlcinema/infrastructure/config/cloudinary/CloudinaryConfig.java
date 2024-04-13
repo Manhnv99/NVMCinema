@@ -24,7 +24,7 @@ public class CloudinaryConfig {
         valuesMap.put("api_key", "399527952585688");
         valuesMap.put("api_secret", "q1j99tlBNxR4dD2iwtSJJ6jR0rQ");
         valuesMap.put("upload_preset","nvmstore");
-        valuesMap.put("folder","NVMQLBV");
+        valuesMap.put("folder","nvmcinema");
         cloudinary = new Cloudinary(valuesMap);
     }
 

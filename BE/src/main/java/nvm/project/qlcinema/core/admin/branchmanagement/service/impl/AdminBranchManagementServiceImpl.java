@@ -14,6 +14,7 @@ import nvm.project.qlcinema.entity.Area;
 import nvm.project.qlcinema.entity.Branch;
 import nvm.project.qlcinema.infrastructure.config.cloudinary.CloudinaryConfig;
 import nvm.project.qlcinema.infrastructure.exception.RestApiException;
+import nvm.project.qlcinema.utils.ValidUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,8 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
     private final AdminBranchManagementAreaRepository adminBranchManagementAreaRepository;
 
     private final CloudinaryConfig cloudinaryConfig;
+
+    private final ValidUtils validUtils;
 
     @Override
     public PageableObject<AdminBranchManagementListBranchResponse> getListBranch(AdminBranchManagementListBranchRequest request) {
@@ -72,15 +75,21 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
-        //check isExist
-        Optional<Branch> isBranchNameExist = adminBranchManagementRepository.findByName(postRequest.getName());
-        if(isBranchNameExist.isPresent()){
-            errors.add("Đã tồn tại tên chi nhánh này!");
+        if(validUtils.isPhoneValid(postRequest.getHostLine())){
+            errors.add("Số hostline không đúng định dạng!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
-        Optional<Branch> isBranchEmailExist = adminBranchManagementRepository.findByEmail(postRequest.getEmail());
-        if(isBranchEmailExist.isPresent()){
-            errors.add("Đã tồn tại email chi nhánh này!");
+
+        //check isExist
+        Optional<Branch> isBranchExist = adminBranchManagementRepository.isBranchExist(
+                postRequest.getName(),
+                postRequest.getEmail(),
+                postRequest.getAddress(),
+                postRequest.getHostLine(),
+                postRequest.getAreaId()
+        );
+        if(isBranchExist.isPresent()){
+            errors.add("Đã tồn tại chi nhánh này trong hệ thống!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
@@ -118,6 +127,11 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
+        if(validUtils.isPhoneValid(putRequest.getHostLine())){
+            errors.add("Số hostline không đúng định dạng!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+
         //check isExist
         Optional<Branch> branchOptional = adminBranchManagementRepository.findById(putRequest.getId());
         if(branchOptional.isEmpty()){
@@ -125,17 +139,19 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }else{
             if(!branchOptional.get().getName().equals(putRequest.getName()) ||
-                    !branchOptional.get().getEmail().equals(putRequest.getEmail())){
-                Optional<Branch> isBranchNameExist = adminBranchManagementRepository.findByName(putRequest.getName());
-                if(isBranchNameExist.isPresent()){
-                    errors.add("Đã tồn tại tên chi nhánh này!");
-                }
-                Optional<Branch> isBranchEmailExist = adminBranchManagementRepository.findByEmail(putRequest.getEmail());
-                if(isBranchEmailExist.isPresent()){
-                    errors.add("Đã tồn tại email chi nhánh này!");
-                }
-                //throw Error
-                if(!errors.isEmpty()){
+                    !branchOptional.get().getEmail().equals(putRequest.getEmail())||
+                    !branchOptional.get().getHostLine().equals(putRequest.getHostLine())||
+                    !branchOptional.get().getAddress().equals(putRequest.getAddress())
+            ){
+                Optional<Branch> isBranchExist = adminBranchManagementRepository.isBranchExist(
+                        putRequest.getName(),
+                        putRequest.getEmail(),
+                        putRequest.getAddress(),
+                        putRequest.getHostLine(),
+                        putRequest.getAreaId()
+                );
+                if(isBranchExist.isPresent()){
+                    errors.add("Đã tồn tại chi nhánh này trong hệ thống!");
                     throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
                 }
             }

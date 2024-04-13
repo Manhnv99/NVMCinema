@@ -20,9 +20,10 @@ public interface AdminBranchManagementRepository extends JpaRepository<Branch,St
             """)
     Optional<Branch> getNewest();
 
-    Optional<Branch> findByName(String name);
-
-    Optional<Branch> findByEmail(String email);
+    @Query("""
+            SELECT b FROM Branch b WHERE (b.name = :name AND b.email = :email AND b.address = :address  AND b.hostLine = :hostLine) AND b.areaId.id = :areaId
+            """)
+    Optional<Branch> isBranchExist(String name,String email,String address,String hostLine,String areaId);
 
     @Query(value = """
                 SELECT  b.id AS id,
@@ -44,6 +45,8 @@ public interface AdminBranchManagementRepository extends JpaRepository<Branch,St
                     ( :#{#request.inputSearch} IS NULL OR b.address LIKE :#{ "%" + #request.inputSearch + "%" } ) OR
                     ( :#{#request.inputSearch} IS NULL OR b.hostline LIKE :#{ "%" + #request.inputSearch + "%" } )
                 )
+                AND
+                ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%"+ #request.areaId +"%" } )
                 """,nativeQuery = true)
     Page<AdminBranchManagementListBranchResponse> getListBranch(Pageable pageable, AdminBranchManagementListBranchRequest request);
 

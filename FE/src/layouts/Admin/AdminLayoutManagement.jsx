@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
 import { useState } from 'react';
-import { ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_CHAIR, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
+import { ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
 import { useNavigate } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 
@@ -58,11 +58,7 @@ export const AdminLayoutManagement = ({ children }) => {
         {
             key: ROUTE_MANAGEMENT_ROOM,
             label: "Phòng Chiếu",
-        },
-        {
-            key: ROUTE_MANAGEMENT_CHAIR,
-            label: "Ghế Ngồi",
-        },
+        }
     ];
 
 

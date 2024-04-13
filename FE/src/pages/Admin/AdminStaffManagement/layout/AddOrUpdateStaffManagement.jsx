@@ -330,19 +330,39 @@ export const AddOrUpdateStaffManagement = () => {
                             </Col>
                         }
                         <Col span={11}>
-                            <Form.Item
-                                label="Chọn ảnh"
-                                name="image"
-                            >
-                                <Upload
-                                    action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                                    listType="picture-card"
-                                    maxCount={1}
-                                    onPreview={handlePreview}
+                            {id === undefined
+                                ?
+                                <Form.Item
+                                    label="Chọn ảnh"
+                                    name="image"
+                                    rules={[
+                                        { required: true, message: "Bạn chưa chọn ảnh đại diện!" }
+                                    ]}
                                 >
-                                    Upload
-                                </Upload>
-                            </Form.Item>
+                                    <Upload
+                                        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                                        listType="picture-card"
+                                        maxCount={1}
+                                        onPreview={handlePreview}
+                                    >
+                                        Upload
+                                    </Upload>
+                                </Form.Item>
+                                :
+                                <Form.Item
+                                    label="Chọn ảnh"
+                                    name="image"
+                                >
+                                    <Upload
+                                        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                                        listType="picture-card"
+                                        maxCount={1}
+                                        onPreview={handlePreview}
+                                    >
+                                        Upload
+                                    </Upload>
+                                </Form.Item>
+                            }
                             {previewImage && (
                                 <Image
                                     wrapperStyle={{ display: 'none' }}

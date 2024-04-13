@@ -12,10 +12,10 @@ import nvm.project.qlcinema.infrastructure.constant.UrlPath;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,9 +39,9 @@ public class AdminBranchManagementController {
         return adminBranchManagementService.getListArea();
     }
 
-    @GetMapping("/get-detail-branch/{areaId}")
-    public ResponseObject getDetailBranch(@PathVariable String areaId){
-        return adminBranchManagementService.getDetailBranch(areaId);
+    @GetMapping("/get-detail-branch/{id}")
+    public ResponseObject getDetailBranch(@PathVariable String id){
+        return adminBranchManagementService.getDetailBranch(id);
     }
 
     @GetMapping("/get-one-branch/{id}")
@@ -50,12 +50,12 @@ public class AdminBranchManagementController {
     }
 
     @PostMapping("/post-branch")
-    public ResponseObject postBranch(@RequestBody AdminBranchManagementPostRequest postRequest) throws IOException {
+    public ResponseObject postBranch(@ModelAttribute AdminBranchManagementPostRequest postRequest) throws IOException {
         return adminBranchManagementService.postBranch(postRequest);
     }
 
     @PutMapping("/put-branch")
-    public ResponseObject putBranch(@RequestBody AdminBranchManagementPutRequest putRequest) throws IOException {
+    public ResponseObject putBranch(@ModelAttribute AdminBranchManagementPutRequest putRequest) throws IOException {
         return adminBranchManagementService.putBranch(putRequest);
     }
 

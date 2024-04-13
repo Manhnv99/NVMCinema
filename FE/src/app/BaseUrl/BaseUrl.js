@@ -38,7 +38,5 @@ export const ROUTE_MANAGEMENT_BRANCH = "/management-branch";
 
 export const ROUTE_MANAGEMENT_ROOM = "/management-room";
 
-export const ROUTE_MANAGEMENT_CHAIR = "/management-chair";
-
 export const ROUTE_MANAGEMENT_SHOWTIME = "/management-showtime";
 //END Route Admin

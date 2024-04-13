@@ -2,7 +2,7 @@ import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { useState } from "react";
-import { DirectorManagementAPI } from "../../../../apis/Admin/DirectorManagement/DirectorManagementAPI";
+import { DirectorManagementAPI } from "../../../../apis/Admin/Directormanagement/DirectorManagementAPI";
 
 export const useDirector = () => {
 
