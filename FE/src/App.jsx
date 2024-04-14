@@ -12,7 +12,6 @@ import {
   ROUTE_LOGIN,
   ROUTE_MANAGEMENT_AREA,
   ROUTE_MANAGEMENT_BRANCH,
-  ROUTE_MANAGEMENT_CHAIR,
   ROUTE_MANAGEMENT_COUNTRY,
   ROUTE_MANAGEMENT_DIRECTOR,
   ROUTE_MANAGEMENT_FORMAT,
@@ -32,7 +31,6 @@ import {
 } from './app/BaseUrl/BaseUrl';
 import { AreaManagement } from './pages/Admin/AdminAreaManagement/AreaManagement';
 import { BranchManagement } from './pages/Admin/AdminBranchManagement/BranchManagement';
-import { ChairManagement } from './pages/Admin/AdminChairManagement/ChairManagement';
 import { CountryManagement } from './pages/Admin/AdminCountryManagement/CountryManagement';
 import { DirectorManagement } from './pages/Admin/AdminDirectorManagement/DirectorManagement';
 import { FormatManagement } from './pages/Admin/AdminFormatManagement/FormatManagement';
@@ -145,11 +143,6 @@ function App() {
       key: ROUTE_MANAGEMENT_ROOM,
       route: ROUTE_MANAGEMENT_ROOM,
       component: <RoomManagement />,
-    },
-    {
-      key: ROUTE_MANAGEMENT_CHAIR,
-      route: ROUTE_MANAGEMENT_CHAIR,
-      component: <ChairManagement />,
     },
     {
       key: ROUTE_MANAGEMENT_STATISTICS,

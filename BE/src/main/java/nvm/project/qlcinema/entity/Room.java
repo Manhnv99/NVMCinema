@@ -40,9 +40,9 @@ public class Room extends PrimaryEntity {
     private Branch branchId;
 
     @Column(name = "deleted")
-    private boolean deleted;
+    private boolean deleted = true;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private Date createdAt = new Date();
 
 }

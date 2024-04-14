@@ -1,6 +1,7 @@
 package nvm.project.qlcinema.core.admin.roommanagement.repository;
 
 import nvm.project.qlcinema.core.admin.roommanagement.model.request.AdminRoomManagementListRoomRequest;
+import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementDetailRoomResponse;
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementGetOneRoomResponse;
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListAreaResponse;
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListBranchResponse;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface AdminRoomManagementRepository extends JpaRepository<Room,String> {
@@ -39,12 +42,28 @@ public interface AdminRoomManagementRepository extends JpaRepository<Room,String
                 SELECT  r.id AS id,
                         r.code AS code,
                         r.name AS name,
-                        b.id AS branchId
+                        b.id AS branchId,
+                        (SELECT COUNT(*) FROM chair c WHERE c.room_id = :id) AS totalChair
                 FROM room r
                 JOIN branch b ON r.branch_id = b.id
                 WHERE r.id = :id
                 """,nativeQuery = true)
     AdminRoomManagementGetOneRoomResponse getOneRoom(String id);
+
+    @Query(value = """
+                SELECT  r.id AS id,
+                        r.code AS code,
+                        r.name AS name,
+                        b.name AS branch,
+                        a.name AS area,
+                        (SELECT COUNT(*) FROM chair c WHERE c.room_id = :id) AS totalChair,
+                        r.deleted AS deleted
+                FROM room r
+                JOIN branch b ON r.branch_id = b.id
+                JOIN area a ON b.area_id = a.id
+                WHERE r.id = :id
+                """,nativeQuery = true)
+    AdminRoomManagementDetailRoomResponse getDetailRoom(String id);
 
     @Query(value = """
                 SELECT  a.id AS id,
@@ -62,5 +81,12 @@ public interface AdminRoomManagementRepository extends JpaRepository<Room,String
                 b.deleted = true AND b.area_id = :areaId
                 """,nativeQuery = true)
     AdminRoomManagementListBranchResponse getListBranch(String areaId);
+
+    @Query("""
+            SELECT r FROM Room r ORDER BY r.createdAt DESC LIMIT 1
+            """)
+    Optional<Room> getNewest();
+
+    Optional<Room> findRoomByName(String name);
 
 }

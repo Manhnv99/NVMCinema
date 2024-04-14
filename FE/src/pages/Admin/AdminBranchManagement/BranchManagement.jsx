@@ -1,12 +1,12 @@
 import { Input, Table, Pagination, Button, Tag, Tooltip, Card, Row, Col, Form, Select, Image } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faLayerGroup, faPenToSquare, faEye, faTrash, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
-import { ModalAddOrUpdate } from "./components/ModalAddOrUpdate";
 import { useEffect, useRef, useState } from "react";
 import { DEFAUTL_PAGE_SIZE } from "../../../app/Constant/PaginationConstant";
 import { ModalDetail } from "./components/ModalDetail";
 import Swal from "sweetalert2";
 import { useBranch } from "./hooks/useBranch";
+import { ModalAddOrUpdate } from "./components/ModalAddOrUpdate";
 
 export const BranchManagement = () => {
 
