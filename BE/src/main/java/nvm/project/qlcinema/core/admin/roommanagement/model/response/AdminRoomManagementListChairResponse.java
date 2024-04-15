@@ -10,10 +10,7 @@ public interface AdminRoomManagementListChairResponse {
     @Value("#{target.name}")
     String getName();
 
-    @Value("#{target.columnC}")
-    String getColumn();
-
-    @Value("#{target.rowC}")
-    Integer getRow();
+    @Value("#{target.maxRow}")
+    int getMaxRow();
 
 }

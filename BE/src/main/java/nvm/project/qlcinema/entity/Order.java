@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 import nvm.project.qlcinema.infrastructure.constant.FormalityOrder;
+import nvm.project.qlcinema.infrastructure.constant.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -31,6 +32,9 @@ import java.util.Date;
 @Entity
 @Table(name = "orders")
 public class Order extends PrimaryEntity {
+
+    @Column(name = "code")
+    private String code;
 
     @Column(name = "total_price")
     private BigDecimal totalPrice;
@@ -63,5 +67,7 @@ public class Order extends PrimaryEntity {
 
     @Column(name = "created_at")
     private Date createdAt;
+
+    private OrderStatus orderStatus; //khi đơn quá thời gian mà trạng thái là chưa duyệt thì sẽ tự động thành đã hủy
 
 }

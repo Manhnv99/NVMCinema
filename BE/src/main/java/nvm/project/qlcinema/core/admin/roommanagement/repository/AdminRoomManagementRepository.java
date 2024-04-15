@@ -73,8 +73,7 @@ public interface AdminRoomManagementRepository extends RoomRepository {
     @Query(value = """
                 SELECT  c.id AS id,
                         c.name AS name,
-                        c.columnC AS columnC,
-                        c.rowC AS rowC
+                        c.max_row AS maxRow
                 FROM chair c
                 WHERE c.room_id = :roomId ORDER BY c.created_at ASC
                 """,nativeQuery = true)

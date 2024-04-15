@@ -12,9 +12,12 @@ export const ModalChair = ({ openModal, setOpenModal, render, roomId }) => {
     const [listChair, setListChair] = useState([]);
 
     useEffect(() => {
-        handleFetchListChair(roomId).then(response => {
-
-        })
+        if (roomId !== "") {
+            handleFetchListChair(roomId).then(response => {
+                console.log(response);
+                setListChair(response.data.data);
+            })
+        }
     }, [render]);
 
     const handleCloseModal = () => {
@@ -27,8 +30,32 @@ export const ModalChair = ({ openModal, setOpenModal, render, roomId }) => {
             open={openModal}
             onCancel={handleCloseModal}
             footer={false}
+            style={{
+                minWidth: "850px"
+            }}
         >
-
+            <div className="text-center">
+                {listChair.map((item, index) => {
+                    return (
+                        <>
+                            {(index % 10 === 0) &&
+                                <span className="relative cursor-pointer">
+                                    <span className="absolute top-[-25px] left-[-25px] text-[18px]">{item.name.substring(0, 1)}</span>
+                                </span>
+                            }
+                            <span className="relative cursor-pointer">
+                                <span style={{
+                                    top: "-70%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)"
+                                }} className="absolute text-[#FFF] font-medium">{item.name}</span>
+                                <FontAwesomeIcon icon={faCouch} className="text-[35px] mx-[13px] my-[10px]" />
+                            </span>
+                            {(index + 1) % 10 === 0 && <br />}
+                        </>
+                    )
+                })}
+            </div>
         </Modal>
     )
 }

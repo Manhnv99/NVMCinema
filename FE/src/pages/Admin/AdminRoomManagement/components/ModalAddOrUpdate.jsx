@@ -192,7 +192,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
                 </Row>
                 {onUpdateChair || whatAction === "post" ?
                     <>
-                        <Row>
+                        <Row className="mt-[20px]">
                             <Col span={24}>
                                 <Form.Item
                                     label="Cột hàng ghế từ"

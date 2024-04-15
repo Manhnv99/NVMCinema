@@ -189,12 +189,12 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
                     Optional<Chair> isChairExist = adminRoomManagementChairRepository.getNewest();
                     if(isChairExist.isEmpty()){
                         adminRoomManagementChairRepository.save(new Chair(
-                                "CHAIR1", columns+i,columns,i, true, roomSaved, true,new Date()
+                                "CHAIR1", columns+i,row, true, roomSaved, true,new Date()
                         ));
                     }else{
                         adminRoomManagementChairRepository.save(new Chair(
                                 isChairExist.get().getCode().substring(0,5)+((Integer.parseInt(isChairExist.get().getCode().substring(5)))+1),
-                                columns+i,columns,i, true, roomSaved, true,new Date()
+                                columns+i,row, true, roomSaved, true,new Date()
                         ));
                     }
                 }

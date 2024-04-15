@@ -20,12 +20,14 @@ export const TableComponent = () => {
     const [currentPage, setCurrentPage] = useState(1);
     //openModal
     const [openModalAddOrUpdate, setOpenModalAddOrUpdate] = useState(false);
-    const [whatAction, setWhatAction] = useState("post");
+    const [renderModalAddOrUpdate, setRenderModalAddOrUpdate] = useState(false);
     const [openModalDetail, setOpenModalDetail] = useState(false);
+    const [renderModalDetail, setRenderModalDetail] = useState(false);
     const [openModalChair, setOpenModalChair] = useState(false);
+    const [renderModalChair, setRenderModalChair] = useState(false);
+    const [whatAction, setWhatAction] = useState("post");
     //state
     const [roomId, setRoomId] = useState("");
-    const [render, setRender] = useState(false);
 
     const columns = [
         { title: "Mã Phòng Chiếu", dataIndex: "code", key: "code" },
@@ -54,7 +56,7 @@ export const TableComponent = () => {
                         <Tooltip title="Cập nhật" color="#030405">
                             <Button style={{ backgroundColor: "#030405", color: "#fff" }} onClick={() => {
                                 setRoomId(record.id);
-                                setRender(!render);
+                                setRenderModalAddOrUpdate(!renderModalAddOrUpdate);
                                 setWhatAction("put");
                                 setOpenModalAddOrUpdate(true);
                             }}>
@@ -64,7 +66,7 @@ export const TableComponent = () => {
                         <Tooltip title="Chi tiết" className="mx-[10px]">
                             <Button onClick={() => {
                                 setRoomId(record.id);
-                                setRender(!render);
+                                setRenderModalDetail(!renderModalDetail);
                                 setOpenModalDetail(true);
                             }}>
                                 <FontAwesomeIcon icon={faEye} />
@@ -92,7 +94,7 @@ export const TableComponent = () => {
                             <Button onClick={() => {
                                 setOpenModalChair(true);
                                 setRoomId(record.id);
-                                setRender(!render);
+                                setRenderModalChair(!renderModalChair)
                             }}>
                                 <FontAwesomeIcon icon={faCouch} />
                             </Button>
@@ -113,12 +115,12 @@ export const TableComponent = () => {
 
     return (
         <>
-            {<ModalChair openModal={openModalChair} setOpenModal={setOpenModalChair} render={render} roomId={roomId} />}
+            {<ModalChair openModal={openModalChair} setOpenModal={setOpenModalChair} render={renderModalChair} roomId={roomId} />}
             {<ModalDetail
                 openModal={openModalDetail}
                 setOpenModal={setOpenModalDetail}
                 roomId={roomId}
-                render={render}
+                render={renderModalDetail}
             />}
             {<ModalAddOrUpdate
                 openModal={openModalAddOrUpdate}
@@ -126,7 +128,7 @@ export const TableComponent = () => {
                 whatAction={whatAction}
                 id={roomId}
                 key={"ModalAddOrUpdate"}
-                render={render}
+                render={renderModalAddOrUpdate}
             />}
             <div className="mt-[25px] shadow-xl">
                 <Card

@@ -18,7 +18,7 @@ import java.util.Date;
  */
 
 /**
- *  Object TicketChai sẽ là các ghế sẽ được tạo sau khi tạo ShowTime
+ *  Object TicketChair sẽ là các ghế sẽ được tạo sau khi tạo ShowTime
  *  Người dùng sẽ book những hàng ghế này
  */
 
@@ -29,9 +29,6 @@ import java.util.Date;
 @Entity
 @Table(name = "ticket_chair")
 public class TicketChair extends PrimaryEntity {
-
-    @Column(name = "ticket_code")
-    private String ticketCode;
 
     @Column(name = "chair_name")
     private String chairName;

@@ -10,9 +10,11 @@ export const ModalDetail = ({ openModal, setOpenModal, roomId, render }) => {
     const { handleFetchDetailRoom } = useRoom();
 
     useEffect(() => {
-        handleFetchDetailRoom(roomId).then(response => {
-            setDetailRoom(response.data.data);
-        });
+        if (roomId !== "") {
+            handleFetchDetailRoom(roomId).then(response => {
+                setDetailRoom(response.data.data);
+            });
+        }
     }, [render]);
 
     return (
