@@ -38,6 +38,12 @@ public class Chair extends PrimaryEntity  {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "columnC")
+    private String column;
+
+    @Column(name = "rowC")
+    private int row;
+
     @Column(name = "status")
     private boolean status = true; //true là ghế dùng được, false là ghế đang hỏng
 

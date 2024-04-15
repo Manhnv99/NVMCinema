@@ -10,6 +10,7 @@ import nvm.project.qlcinema.core.common.PageableObject;
 import nvm.project.qlcinema.core.common.ResponseObject;
 import nvm.project.qlcinema.infrastructure.constant.UrlPath;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,11 @@ public class AdminRoomManagementController {
         return adminRoomManagementService.getDetailRoom(id);
     }
 
+    @GetMapping("/get-list-chair/{roomId}")
+    public ResponseObject getListChair(@PathVariable String roomId){
+        return adminRoomManagementService.getListChair(roomId);
+    }
+
     @GetMapping("/get-list-area")
     public ResponseObject getListArea(){
         return adminRoomManagementService.getListArea();
@@ -59,6 +65,11 @@ public class AdminRoomManagementController {
     @PutMapping("/put-room")
     public ResponseObject putRoom(@RequestBody AdminRoomManagementPutRoomRequest putRequest){
         return adminRoomManagementService.putRoom(putRequest);
+    }
+
+    @DeleteMapping("/delete-room/{id}")
+    public ResponseObject putRoom(@PathVariable String id){
+        return adminRoomManagementService.deleteRoom(id);
     }
 
 }

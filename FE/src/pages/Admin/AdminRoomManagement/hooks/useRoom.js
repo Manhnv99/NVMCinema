@@ -33,6 +33,48 @@ export const useRoom = () => {
         }
     };
 
+    const handleFetchOneRoom = async (id) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await RoomManagementAPI.fetchGetOne(id);
+            dispatchStore(setLoadingFalse());
+            return response;
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    }
+
+    const handleFetchListChair = async (roomId) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await RoomManagementAPI.fetchListChair(roomId);
+            dispatchStore(setLoadingFalse());
+            return response;
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    }
+
+    const handleFetchDetailRoom = async (id) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await RoomManagementAPI.fetchGetDetail(id);
+            dispatchStore(setLoadingFalse());
+            return response;
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    }
+
     const handleFetchListArea = async () => {
         try {
             const response = await RoomManagementAPI.fetchListArea();
@@ -55,10 +97,60 @@ export const useRoom = () => {
         }
     }
 
+    const handleFetchPostBranch = async (postRequest, handleClose) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await RoomManagementAPI.fetchPost(postRequest);
+            message.success(response.data.message);
+            handleClose();
+            handleFetchListSearchRoom("", "", 1);
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    }
+
+    const handleFetchPutBranch = async (putRequest, handleClose) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await RoomManagementAPI.fetchPut(putRequest);
+            message.success(response.data.message);
+            handleClose();
+            handleFetchListSearchRoom("", "", 1);
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    }
+
+    const handleFetchDeleteBranch = async (id,) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await RoomManagementAPI.fetchDelete(id);
+            message.success(response.data.message);
+            handleFetchListSearchRoom("", "", 1);
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    }
+
     return {
         handleFetchListSearchRoom,
         handleFetchListArea, listArea,
-        handleFetchListBranch, listBranch
+        handleFetchListBranch, listBranch,
+        handleFetchPostBranch,
+        handleFetchPutBranch,
+        handleFetchDeleteBranch,
+        handleFetchOneRoom,
+        handleFetchDetailRoom,
+        handleFetchListChair
     }
 
 }

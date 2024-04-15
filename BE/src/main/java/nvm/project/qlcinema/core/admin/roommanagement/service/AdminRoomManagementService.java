@@ -15,6 +15,8 @@ public interface AdminRoomManagementService {
 
     ResponseObject getDetailRoom(String id);
 
+    ResponseObject getListChair(String roomId);
+
     ResponseObject getListArea();
 
     ResponseObject getListBranch(String areaId);
@@ -22,5 +24,7 @@ public interface AdminRoomManagementService {
     ResponseObject postRoom(AdminRoomManagementPostRoomRequest postRequest);
 
     ResponseObject putRoom(AdminRoomManagementPutRoomRequest putRequest);
+
+    ResponseObject deleteRoom(String id);
 
 }

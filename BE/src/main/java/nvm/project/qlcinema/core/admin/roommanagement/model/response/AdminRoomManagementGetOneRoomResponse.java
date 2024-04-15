@@ -16,6 +16,9 @@ public interface AdminRoomManagementGetOneRoomResponse {
     @Value("#{target.branchId}")
     String getBranchId();
 
+    @Value("#{target.areaId}")
+    String getAreaId();
+
     @Value("#{target.totalChair}")
     Long getTotalChair();
 

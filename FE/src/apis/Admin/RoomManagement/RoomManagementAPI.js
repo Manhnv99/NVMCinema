@@ -29,6 +29,13 @@ export class RoomManagementAPI {
         });
     };
 
+    static fetchListChair = (roomId) => {
+        return requestAPI({
+            method: "GET",
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/get-list-chair/${roomId}`,
+        });
+    };
+
     static fetchListArea = () => {
         return requestAPI({
             method: "GET",
@@ -56,6 +63,13 @@ export class RoomManagementAPI {
             method: "PUT",
             url: URL_API_ADMIN_ROOM_MANAGEMENT + "/put-room",
             data: putRequest
+        });
+    };
+
+    static fetchDelete = (id) => {
+        return requestAPI({
+            method: "DELETE",
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/delete-room/${id}`,
         });
     };
 

@@ -5,6 +5,7 @@ import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomMa
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementGetOneRoomResponse;
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListAreaResponse;
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListBranchResponse;
+import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListChairResponse;
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListRoomResponse;
 import nvm.project.qlcinema.entity.Room;
 import nvm.project.qlcinema.repository.RoomRepository;
@@ -45,9 +46,11 @@ public interface AdminRoomManagementRepository extends RoomRepository {
                         r.code AS code,
                         r.name AS name,
                         b.id AS branchId,
+                        a.id AS areaId,
                         (SELECT COUNT(*) FROM chair c WHERE c.room_id = :id) AS totalChair
                 FROM room r
                 JOIN branch b ON r.branch_id = b.id
+                JOIN area a ON b.area_id = a.id
                 WHERE r.id = :id
                 """,nativeQuery = true)
     AdminRoomManagementGetOneRoomResponse getOneRoom(String id);
@@ -66,6 +69,16 @@ public interface AdminRoomManagementRepository extends RoomRepository {
                 WHERE r.id = :id
                 """,nativeQuery = true)
     AdminRoomManagementDetailRoomResponse getDetailRoom(String id);
+
+    @Query(value = """
+                SELECT  c.id AS id,
+                        c.name AS name,
+                        c.columnC AS columnC,
+                        c.rowC AS rowC
+                FROM chair c
+                WHERE c.room_id = :roomId ORDER BY c.created_at ASC
+                """,nativeQuery = true)
+    List<AdminRoomManagementListChairResponse> getListChair(String roomId);
 
     @Query(value = """
                 SELECT  a.id AS id,

@@ -1,20 +1,31 @@
-import { Card, Button, Table, Pagination, Tooltip, Image, Tag } from "antd";
+import { Card, Button, Table, Pagination, Tooltip, Tag } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLayerGroup, faPenToSquare, faEye, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faLayerGroup, faPenToSquare, faEye, faTrash, faPlus, faCouch } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { RoomContext } from "../store/context/context";
 import { useRoom } from "../hooks/useRoom";
+import { ModalAddOrUpdate } from "./ModalAddOrUpdate";
+import { ModalDetail } from "./ModalDetail";
+import { ModalChair } from "./ModalChair";
 
 export const TableComponent = () => {
 
     //useContext
     const [state, dispatch] = useContext(RoomContext);
     //custom Hook
-    const { handleFetchListSearchRoom } = useRoom();
+    const { handleFetchListSearchRoom, handleFetchDeleteBranch } = useRoom();
     //page
     const [currentPage, setCurrentPage] = useState(1);
+    //openModal
+    const [openModalAddOrUpdate, setOpenModalAddOrUpdate] = useState(false);
+    const [whatAction, setWhatAction] = useState("post");
+    const [openModalDetail, setOpenModalDetail] = useState(false);
+    const [openModalChair, setOpenModalChair] = useState(false);
+    //state
+    const [roomId, setRoomId] = useState("");
+    const [render, setRender] = useState(false);
 
     const columns = [
         { title: "Mã Phòng Chiếu", dataIndex: "code", key: "code" },
@@ -41,12 +52,21 @@ export const TableComponent = () => {
                 return (
                     <div className="cursor-pointer text-[16px]">
                         <Tooltip title="Cập nhật" color="#030405">
-                            <Button style={{ backgroundColor: "#030405", color: "#fff" }} >
+                            <Button style={{ backgroundColor: "#030405", color: "#fff" }} onClick={() => {
+                                setRoomId(record.id);
+                                setRender(!render);
+                                setWhatAction("put");
+                                setOpenModalAddOrUpdate(true);
+                            }}>
                                 <FontAwesomeIcon icon={faPenToSquare} />
                             </Button>
                         </Tooltip>
                         <Tooltip title="Chi tiết" className="mx-[10px]">
-                            <Button>
+                            <Button onClick={() => {
+                                setRoomId(record.id);
+                                setRender(!render);
+                                setOpenModalDetail(true);
+                            }}>
                                 <FontAwesomeIcon icon={faEye} />
                             </Button>
                         </Tooltip>
@@ -60,12 +80,21 @@ export const TableComponent = () => {
                                     confirmButtonColor: "#3085d6",
                                     cancelButtonColor: "#d33",
                                 }).then(result => {
-                                    // if (result.isConfirmed) {
-
-                                    // }
+                                    if (result.isConfirmed) {
+                                        handleFetchDeleteBranch(record.id);
+                                    }
                                 })
                             }} style={{ backgroundColor: "red", color: "#fff" }}>
                                 <FontAwesomeIcon icon={faTrash} />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip title="Ghế ngồi" className="mx-[10px]">
+                            <Button onClick={() => {
+                                setOpenModalChair(true);
+                                setRoomId(record.id);
+                                setRender(!render);
+                            }}>
+                                <FontAwesomeIcon icon={faCouch} />
                             </Button>
                         </Tooltip>
                     </div>
@@ -84,6 +113,21 @@ export const TableComponent = () => {
 
     return (
         <>
+            {<ModalChair openModal={openModalChair} setOpenModal={setOpenModalChair} render={render} roomId={roomId} />}
+            {<ModalDetail
+                openModal={openModalDetail}
+                setOpenModal={setOpenModalDetail}
+                roomId={roomId}
+                render={render}
+            />}
+            {<ModalAddOrUpdate
+                openModal={openModalAddOrUpdate}
+                setOpenModal={setOpenModalAddOrUpdate}
+                whatAction={whatAction}
+                id={roomId}
+                key={"ModalAddOrUpdate"}
+                render={render}
+            />}
             <div className="mt-[25px] shadow-xl">
                 <Card
                     title={
@@ -93,7 +137,10 @@ export const TableComponent = () => {
                         </span>
                     }
                     extra={
-                        <Button type="primary" className="h-[40px] text-[15px]">
+                        <Button onClick={() => {
+                            setWhatAction("post");
+                            setOpenModalAddOrUpdate(true);
+                        }} type="primary" className="h-[40px] text-[15px]">
                             <FontAwesomeIcon icon={faPlus} className="mr-[5px]" />
                             Thêm phòng chiếu
                         </Button>

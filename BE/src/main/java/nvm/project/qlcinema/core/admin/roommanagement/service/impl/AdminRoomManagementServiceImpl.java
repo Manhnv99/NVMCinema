@@ -69,6 +69,17 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
     }
 
     @Override
+    public ResponseObject getListChair(String roomId) {
+        try{
+            return new ResponseObject(adminRoomManagementRepository.getListChair(roomId));
+        }catch(Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách ghế!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
     public ResponseObject getListArea() {
         try{
             return new ResponseObject(adminRoomManagementRepository.getListArea());
@@ -154,6 +165,23 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
         return new ResponseObject("Cập nhật phòng chiếu thành công!");
     }
 
+    @Override
+    public ResponseObject deleteRoom(String id) {
+        try{
+            Optional<Room> isRoomExist = adminRoomManagementRepository.findById(id);
+            if(isRoomExist.isEmpty()){
+                throw new Exception();
+            }
+            isRoomExist.get().setDeleted(!isRoomExist.get().isDeleted());
+            adminRoomManagementRepository.save(isRoomExist.get());
+            return new ResponseObject("Cập nhật trạng thái phòng chiếu thành công!");
+        }catch(Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được phòng chiếu này!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     private void generateChair(List<String> listC ,int row,Room roomSaved,String type){
         try {
             for (String columns: listC){
@@ -161,12 +189,12 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
                     Optional<Chair> isChairExist = adminRoomManagementChairRepository.getNewest();
                     if(isChairExist.isEmpty()){
                         adminRoomManagementChairRepository.save(new Chair(
-                                "CHAIR1", columns+i, true, roomSaved, true,new Date()
+                                "CHAIR1", columns+i,columns,i, true, roomSaved, true,new Date()
                         ));
                     }else{
                         adminRoomManagementChairRepository.save(new Chair(
                                 isChairExist.get().getCode().substring(0,5)+((Integer.parseInt(isChairExist.get().getCode().substring(5)))+1),
-                                columns+i, true, roomSaved, true,new Date()
+                                columns+i,columns,i, true, roomSaved, true,new Date()
                         ));
                     }
                 }
