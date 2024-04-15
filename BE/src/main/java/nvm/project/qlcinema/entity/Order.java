@@ -2,6 +2,8 @@ package nvm.project.qlcinema.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -68,6 +70,8 @@ public class Order extends PrimaryEntity {
     @Column(name = "created_at")
     private Date createdAt;
 
+    @Column(name = "order_status")
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; //khi đơn quá thời gian mà trạng thái là chưa duyệt thì sẽ tự động thành đã hủy
 
 }
