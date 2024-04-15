@@ -5,6 +5,7 @@ import nvm.project.qlcinema.core.admin.moviemanagement.model.response.AdminMovie
 import nvm.project.qlcinema.core.admin.moviemanagement.model.response.AdminMovieManagementGetOneMovieResponse;
 import nvm.project.qlcinema.core.admin.moviemanagement.model.response.AdminMovieManagementListMovieResponse;
 import nvm.project.qlcinema.entity.Movie;
+import nvm.project.qlcinema.repository.MovieRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminMovieManagementRepository extends JpaRepository<Movie,String> {
+public interface AdminMovieManagementRepository extends MovieRepository {
 
     Optional<Movie> findByCode(String code);
 

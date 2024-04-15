@@ -1,18 +1,19 @@
 package nvm.project.qlcinema.core.admin.roommanagement.repository;
 
-import nvm.project.qlcinema.entity.Chair;
-import org.springframework.data.jpa.repository.JpaRepository;
+import nvm.project.qlcinema.repository.ChairRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface AdminRoomManagementChairRepository extends JpaRepository<Chair,String> {
+public interface AdminRoomManagementChairRepository extends ChairRepository {
 
+    @Modifying
+    @Transactional
     @Query("""
-            SELECT c FROM Chair c ORDER BY c.createdAt DESC LIMIT 1
+            DELETE FROM Chair c WHERE c.roomId.id = :roomId
             """)
-    Optional<Chair> getNewest();
+    void deleteByRoomId(String roomId);
 
 }

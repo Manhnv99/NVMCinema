@@ -3,6 +3,7 @@ package nvm.project.qlcinema.core.admin.areamanagement.repository;
 import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementListAreaRequest;
 import nvm.project.qlcinema.core.admin.areamanagement.model.response.AdminAreaManagementListAreaResponse;
 import nvm.project.qlcinema.entity.Area;
+import nvm.project.qlcinema.repository.AreaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminAreaManagementRepository extends JpaRepository<Area,String> {
+public interface AdminAreaManagementRepository extends AreaRepository {
 
     @Query("""
             SELECT a FROM Area a ORDER BY a.createdAt DESC LIMIT 1

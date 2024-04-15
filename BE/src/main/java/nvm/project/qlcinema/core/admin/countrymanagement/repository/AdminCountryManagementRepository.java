@@ -3,6 +3,7 @@ package nvm.project.qlcinema.core.admin.countrymanagement.repository;
 import nvm.project.qlcinema.core.admin.countrymanagement.model.request.AdminCountryManagementListCountryRequest;
 import nvm.project.qlcinema.core.admin.countrymanagement.model.response.AdminCountryManagementListCountryResponse;
 import nvm.project.qlcinema.entity.Country;
+import nvm.project.qlcinema.repository.CountryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminCountryManagementRepository extends JpaRepository<Country,String> {
+public interface AdminCountryManagementRepository extends CountryRepository {
 
     @Query("""
             SELECT f FROM Country f ORDER BY f.createdAt DESC LIMIT 1

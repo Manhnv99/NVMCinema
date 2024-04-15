@@ -30,7 +30,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "chair")
-public class Chair extends PrimaryEntity {
+public class Chair extends PrimaryEntity  {
 
     @Column(name = "code")
     private String code;
@@ -39,7 +39,7 @@ public class Chair extends PrimaryEntity {
     private String name;
 
     @Column(name = "status")
-    private boolean status; //true là ghế dùng được, false là ghế đang hỏng
+    private boolean status = true; //true là ghế dùng được, false là ghế đang hỏng
 
     @ManyToOne
     @JoinColumn(name = "room_id" , referencedColumnName = "id")

@@ -4,6 +4,7 @@ import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDir
 import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPostRequest;
 import nvm.project.qlcinema.core.admin.directormanagement.model.response.AdminDirectorManagementListDirectorResponse;
 import nvm.project.qlcinema.entity.Director;
+import nvm.project.qlcinema.repository.DirectorRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminDirectorManagementRepository extends JpaRepository<Director,String> {
+public interface AdminDirectorManagementRepository extends DirectorRepository {
 
     @Query("""
             SELECT d FROM Director d

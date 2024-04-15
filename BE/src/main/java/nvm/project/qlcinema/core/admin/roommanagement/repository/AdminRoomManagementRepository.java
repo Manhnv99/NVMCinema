@@ -7,16 +7,18 @@ import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomMa
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListBranchResponse;
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListRoomResponse;
 import nvm.project.qlcinema.entity.Room;
+import nvm.project.qlcinema.repository.RoomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AdminRoomManagementRepository extends JpaRepository<Room,String> {
+public interface AdminRoomManagementRepository extends RoomRepository {
 
     @Query(value = """
                 SELECT  r.id AS id,
@@ -71,7 +73,7 @@ public interface AdminRoomManagementRepository extends JpaRepository<Room,String
                 FROM area a
                 WHERE a.deleted = true
                 """,nativeQuery = true)
-    AdminRoomManagementListAreaResponse getListArea();
+    List<AdminRoomManagementListAreaResponse> getListArea();
 
     @Query(value = """
                 SELECT  b.id AS id,
@@ -80,7 +82,7 @@ public interface AdminRoomManagementRepository extends JpaRepository<Room,String
                 WHERE
                 b.deleted = true AND b.area_id = :areaId
                 """,nativeQuery = true)
-    AdminRoomManagementListBranchResponse getListBranch(String areaId);
+    List<AdminRoomManagementListBranchResponse> getListBranch(String areaId);
 
     @Query("""
             SELECT r FROM Room r ORDER BY r.createdAt DESC LIMIT 1

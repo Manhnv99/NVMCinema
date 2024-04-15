@@ -13,6 +13,8 @@ public interface AdminRoomManagementService {
 
     ResponseObject getOneRoom(String id);
 
+    ResponseObject getDetailRoom(String id);
+
     ResponseObject getListArea();
 
     ResponseObject getListBranch(String areaId);

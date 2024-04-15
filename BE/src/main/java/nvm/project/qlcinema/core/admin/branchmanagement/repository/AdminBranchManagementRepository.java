@@ -4,6 +4,7 @@ import nvm.project.qlcinema.core.admin.branchmanagement.model.request.AdminBranc
 import nvm.project.qlcinema.core.admin.branchmanagement.model.response.AdminBranchManagementGetOneResponse;
 import nvm.project.qlcinema.core.admin.branchmanagement.model.response.AdminBranchManagementListBranchResponse;
 import nvm.project.qlcinema.entity.Branch;
+import nvm.project.qlcinema.repository.BranchRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminBranchManagementRepository extends JpaRepository<Branch,String> {
+public interface AdminBranchManagementRepository extends BranchRepository {
 
     @Query("""
             SELECT b FROM Branch b ORDER BY b.createdAt DESC LIMIT 1

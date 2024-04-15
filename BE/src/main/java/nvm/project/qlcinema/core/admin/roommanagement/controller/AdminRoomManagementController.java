@@ -2,6 +2,8 @@ package nvm.project.qlcinema.core.admin.roommanagement.controller;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.roommanagement.model.request.AdminRoomManagementListRoomRequest;
+import nvm.project.qlcinema.core.admin.roommanagement.model.request.AdminRoomManagementPostRoomRequest;
+import nvm.project.qlcinema.core.admin.roommanagement.model.request.AdminRoomManagementPutRoomRequest;
 import nvm.project.qlcinema.core.admin.roommanagement.model.response.AdminRoomManagementListRoomResponse;
 import nvm.project.qlcinema.core.admin.roommanagement.service.AdminRoomManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
@@ -10,6 +12,9 @@ import nvm.project.qlcinema.infrastructure.constant.UrlPath;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +36,11 @@ public class AdminRoomManagementController {
         return adminRoomManagementService.getOneRoom(id);
     }
 
+    @GetMapping("/get-detail-room/{id}")
+    public ResponseObject getDetailRoom(@PathVariable String id){
+        return adminRoomManagementService.getDetailRoom(id);
+    }
+
     @GetMapping("/get-list-area")
     public ResponseObject getListArea(){
         return adminRoomManagementService.getListArea();
@@ -41,6 +51,14 @@ public class AdminRoomManagementController {
         return adminRoomManagementService.getListBranch(areaId);
     }
 
+    @PostMapping("/post-room")
+    public ResponseObject postRoom(@RequestBody AdminRoomManagementPostRoomRequest postRequest){
+        return adminRoomManagementService.postRoom(postRequest);
+    }
 
+    @PutMapping("/put-room")
+    public ResponseObject putRoom(@RequestBody AdminRoomManagementPutRoomRequest putRequest){
+        return adminRoomManagementService.putRoom(putRequest);
+    }
 
 }

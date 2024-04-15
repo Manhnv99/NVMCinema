@@ -3,6 +3,7 @@ package nvm.project.qlcinema.core.admin.genremanagement.repository;
 import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementListGenreRequest;
 import nvm.project.qlcinema.core.admin.genremanagement.model.response.AdminGenreManagementListGenreResponse;
 import nvm.project.qlcinema.entity.Genre;
+import nvm.project.qlcinema.repository.GenreRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminGenreManagementRepository extends JpaRepository<Genre,String> {
+public interface AdminGenreManagementRepository extends GenreRepository {
 
     @Query("""
             SELECT g FROM Genre g ORDER BY g.createdAt DESC LIMIT 1

@@ -2,6 +2,7 @@ package nvm.project.qlcinema.core.admin.moviemanagement.repository;
 
 import nvm.project.qlcinema.core.admin.moviemanagement.model.response.AdminMovieManagementListFormatResponse;
 import nvm.project.qlcinema.entity.Format;
+import nvm.project.qlcinema.repository.FormatRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AdminMovieManagementFormatRepository extends JpaRepository<Format,String> {
+public interface AdminMovieManagementFormatRepository extends FormatRepository {
 
     @Query(value = """
                 SELECT  f.id AS id,

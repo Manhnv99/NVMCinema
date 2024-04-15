@@ -12,6 +12,7 @@ import nvm.project.qlcinema.core.admin.roommanagement.service.AdminRoomManagemen
 import nvm.project.qlcinema.core.common.PageableObject;
 import nvm.project.qlcinema.core.common.ResponseObject;
 import nvm.project.qlcinema.entity.Branch;
+import nvm.project.qlcinema.entity.Chair;
 import nvm.project.qlcinema.entity.Room;
 import nvm.project.qlcinema.infrastructure.exception.RestApiException;
 import org.springframework.data.domain.PageRequest;
@@ -40,7 +41,7 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
             return new PageableObject<>(adminRoomManagementRepository.getListSearchRoom(pageRequest,roomRequest));
         }catch(Exception e){
             List<String> errors = new ArrayList<>();
-            errors.add("Không lấy được danh sách phòng!");
+            errors.add("Không lấy được danh sách phòng chiếu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
@@ -51,7 +52,18 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
             return new ResponseObject(adminRoomManagementRepository.getOneRoom(id));
         }catch(Exception e){
             List<String> errors = new ArrayList<>();
-            errors.add("Không lấy được phòng này!");
+            errors.add("Không lấy được phòng chiếu này!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getDetailRoom(String id) {
+        try{
+            return new ResponseObject(adminRoomManagementRepository.getDetailRoom(id));
+        }catch(Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được phòng chiếu này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
@@ -107,20 +119,66 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
         postRoom.setName(postRequest.getName());
         postRoom.setBranchId(isBranchExist.get());
         Room roomSaved = adminRoomManagementRepository.save(postRoom);
-
         //post Chair
-        for (String columns: postRequest.getColumns()){
-            for(int i = 0 ; i < postRequest.getRow() ; i++){
+        generateChair(postRequest.getColumns(),postRequest.getRow(),roomSaved,"post");
 
-            }
-        }
-
-        return null;
+        return new ResponseObject("Tạo phòng chiếu thành công!");
     }
 
     @Override
     public ResponseObject putRoom(AdminRoomManagementPutRoomRequest putRequest) {
-        return null;
+        List<String> errors = new ArrayList<>();
+        //put Room
+        Optional<Room> optionalRoom = adminRoomManagementRepository.findById(putRequest.getId());
+        if(optionalRoom.isEmpty()){
+            errors.add("Không tìm thấy phòng chiếu này!");
+            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        }
+        Optional<Branch> isBranchExist = adminRoomManagementBranchRepository.findById(putRequest.getBranchId());
+        if(isBranchExist.isEmpty()){
+            errors.add("Không tìm thấy chi nhánh này!");
+            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        }
+
+        Room putRoom = optionalRoom.get();
+        putRoom.setName(putRequest.getName());
+        putRoom.setBranchId(isBranchExist.get());
+        Room roomSaved = adminRoomManagementRepository.save(putRoom);
+        //put Chair
+        if(putRequest.getRow() != 0 && !putRequest.getColumns().isEmpty()){
+            //update ghế
+            adminRoomManagementChairRepository.deleteByRoomId(putRoom.getId());
+            generateChair(putRequest.getColumns(), putRequest.getRow(), roomSaved,"put");
+        }
+
+        return new ResponseObject("Cập nhật phòng chiếu thành công!");
+    }
+
+    private void generateChair(List<String> listC ,int row,Room roomSaved,String type){
+        try {
+            for (String columns: listC){
+                for(int i = 1 ; i <= row ; i++){
+                    Optional<Chair> isChairExist = adminRoomManagementChairRepository.getNewest();
+                    if(isChairExist.isEmpty()){
+                        adminRoomManagementChairRepository.save(new Chair(
+                                "CHAIR1", columns+i, true, roomSaved, true,new Date()
+                        ));
+                    }else{
+                        adminRoomManagementChairRepository.save(new Chair(
+                                isChairExist.get().getCode().substring(0,5)+((Integer.parseInt(isChairExist.get().getCode().substring(5)))+1),
+                                columns+i, true, roomSaved, true,new Date()
+                        ));
+                    }
+                }
+            }
+        }catch (Exception e){
+            if(type.equalsIgnoreCase("post")){
+                adminRoomManagementRepository.delete(roomSaved);
+            }
+            List<String> errors = new ArrayList<>();
+            errors.add("Đã xảy ra 1 vài lỗi");
+            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

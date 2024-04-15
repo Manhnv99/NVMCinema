@@ -3,6 +3,7 @@ package nvm.project.qlcinema.core.admin.formatmanagement.repository;
 import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementListFormatRequest;
 import nvm.project.qlcinema.core.admin.formatmanagement.model.response.AdminFormatManagementListFormatResponse;
 import nvm.project.qlcinema.entity.Format;
+import nvm.project.qlcinema.repository.FormatRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminFormatManagementRepository extends JpaRepository<Format,String> {
+public interface AdminFormatManagementRepository extends FormatRepository {
 
     @Query("""
             SELECT f FROM Format f ORDER BY f.createdAt DESC LIMIT 1
