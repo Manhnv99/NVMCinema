@@ -51,9 +51,9 @@ public class ShowTime extends PrimaryEntity {
     private Room roomId;
 
     @Column(name = "deleted")
-    private boolean deleted = true;
+    private boolean deleted;
 
     @Column(name = "created_at")
-    private Date createdAt = new Date();
+    private Date createdAt;
 
 }

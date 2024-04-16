@@ -40,6 +40,8 @@ export const URL_API_ADMIN_ROOM_MANAGEMENT = URL_API_ADMIN + "/room-management";
 
 export const URL_API_ADMIN_CHAIR_MANAGEMENT = URL_API_ADMIN + "/chair-management";
 
+export const URL_API_ADMIN_SHOWTIME_MANAGEMENT = URL_API_ADMIN + "/showtime-management";
+
 export const URL_API_ADMIN_STATISTICS_MANAGEMENT = URL_API_ADMIN + "/statistics-management"
     ;
 export const URL_API_ADMIN_ORDER_MANAGEMENT = URL_API_ADMIN + "/order-management";

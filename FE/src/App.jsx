@@ -50,6 +50,7 @@ import { AddOrUpdateStaffManagement } from './pages/Admin/AdminStaffManagement/l
 import { MovieProvider } from './pages/Admin/AdminMovieManagement/store/provider/MovieProvider';
 import { AddOrUpdateMovieManagement } from './pages/Admin/AdminMovieManagement/layout/AddOrUpdateMovieManagement';
 import { RoomProvider } from './pages/Admin/AdminRoomManagement/store/provider/RoomProvider';
+import { ShowTimeProvider } from './pages/Admin/AdminShowTimeManagement/store/provider/ShowTimeProvider';
 
 function App() {
 
@@ -113,7 +114,9 @@ function App() {
     {
       key: ROUTE_MANAGEMENT_SHOWTIME,
       route: ROUTE_MANAGEMENT_SHOWTIME,
-      component: <ShowTimeManagement />,
+      component: <ShowTimeProvider>
+        <ShowTimeManagement />
+      </ShowTimeProvider>,
     },
     {
       key: ROUTE_MANAGEMENT_FORMAT,
