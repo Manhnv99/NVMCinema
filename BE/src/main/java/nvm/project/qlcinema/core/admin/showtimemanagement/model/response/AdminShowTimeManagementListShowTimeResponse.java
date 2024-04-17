@@ -11,6 +11,9 @@ public interface AdminShowTimeManagementListShowTimeResponse {
     @Value("#{target.id}")
     String getId();
 
+    @Value("#{target.banner}")
+    String getBanner();
+
     @Value("#{target.movie}")
     String getMovie();
 

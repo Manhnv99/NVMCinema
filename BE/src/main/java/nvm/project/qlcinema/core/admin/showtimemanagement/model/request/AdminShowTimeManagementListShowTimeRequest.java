@@ -8,12 +8,12 @@ import nvm.project.qlcinema.core.common.PageableRequest;
 @Setter
 public class AdminShowTimeManagementListShowTimeRequest extends PageableRequest {
 
-    private String movieName;
+    private String movieName = "";
 
-    private String areaId;
+    private String areaId = "";
 
-    private String branchId;
+    private String branchId = "";
 
-    private String roomId;
+    private String roomId = "";
 
 }

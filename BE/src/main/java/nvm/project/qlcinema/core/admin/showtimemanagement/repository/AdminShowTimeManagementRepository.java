@@ -4,6 +4,7 @@ import nvm.project.qlcinema.core.admin.showtimemanagement.model.request.AdminSho
 import nvm.project.qlcinema.core.admin.showtimemanagement.model.response.AdminShowTimeManagementGetDetailResponse;
 import nvm.project.qlcinema.core.admin.showtimemanagement.model.response.AdminShowTimeManagementGetListAreaResponse;
 import nvm.project.qlcinema.core.admin.showtimemanagement.model.response.AdminShowTimeManagementGetListBranchResponse;
+import nvm.project.qlcinema.core.admin.showtimemanagement.model.response.AdminShowTimeManagementGetListMovieResponse;
 import nvm.project.qlcinema.core.admin.showtimemanagement.model.response.AdminShowTimeManagementGetListRoomResponse;
 import nvm.project.qlcinema.core.admin.showtimemanagement.model.response.AdminShowTimeManagementGetOneResponse;
 import nvm.project.qlcinema.core.admin.showtimemanagement.model.response.AdminShowTimeManagementListShowTimeResponse;
@@ -24,6 +25,7 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
 
     @Query(value = """
                 SELECT  st.id AS id,
+                        m.banner_url AS banner,
                         m.name AS movie,
                         r.name AS room,
                         b.name AS branch,
@@ -43,14 +45,14 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
                     ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId +"%" } ) AND
                     ( :#{#request.roomId} IS NULL OR r.id LIKE :#{ "%" + #request.roomId +"%" } )
                 )
-                AND st.screening_date >= CURRENT_DATE
                 """,nativeQuery = true)
+//                AND st.screening_date >= CURRENT_DATE
     Page<AdminShowTimeManagementListShowTimeResponse> getListSearchShowTime(Pageable pageable, AdminShowTimeManagementListShowTimeRequest request);
 
     @Query(value = """
                 SELECT  st.screening_date AS screeningDate,
                         st.time_start AS timeStart,
-                        st.ticketPrice AS ticketPrice,
+                        st.ticket_price AS ticketPrice,
                         r.id AS roomId,
                         b.id AS branchId,
                         a.id AS areaId,
@@ -68,7 +70,7 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
                 SELECT  st.id AS id,
                         st.screening_date AS screeningDate,
                         st.time_start AS timeStart,
-                        st.ticketPrice AS ticketPrice,
+                        st.ticket_price AS ticketPrice,
                         r.name AS room,
                         b.name AS branch,
                         a.name AS area,
@@ -108,13 +110,22 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
                 """,nativeQuery = true)
     List<AdminShowTimeManagementGetListRoomResponse> getListRoom(String branchId);
 
+    @Query(value = """
+                SELECT  m.id AS id,
+                        m.name AS name
+                FROM movie m
+                WHERE m.deleted = true
+                """,nativeQuery = true)
+    List<AdminShowTimeManagementGetListMovieResponse> getListMovie();
+
     @Query("""
             SELECT st FROM ShowTime st
             WHERE
                 (st.screeningDate = :screeningDate) AND
                 (st.timeStart = :timeStart) AND
                 (st.movieId.id = :movieId) AND
-                (st.roomId.id = :roomId)
+                (st.roomId.id = :roomId) AND
+                st.screeningDate >= CURRENT_DATE
             """)
     Optional<ShowTime> isShowTimeDuplicate(LocalDate screeningDate, Time timeStart,String movieId,String roomId);
 

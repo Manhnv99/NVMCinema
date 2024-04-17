@@ -2,12 +2,15 @@ package nvm.project.qlcinema.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
+import nvm.project.qlcinema.infrastructure.constant.PromotionEventStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -47,7 +50,7 @@ public class PromotionEvent extends PrimaryEntity {
     @Column(name = "promotion_price")
     private BigDecimal promotionPrice;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "varchar(10000)")
     private String description;
 
     @Column(name = "image_id")
@@ -61,5 +64,9 @@ public class PromotionEvent extends PrimaryEntity {
 
     @Column(name = "created_at")
     private Date createdAt;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private PromotionEventStatus promotionEventStatus;
 
 }

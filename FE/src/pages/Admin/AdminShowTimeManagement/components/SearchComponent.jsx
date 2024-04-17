@@ -30,6 +30,7 @@ export const SearchComponent = () => {
     }
 
     const handleChangeSearchValue = () => {
+        console.log(form.getFieldsValue());
         dispatch(setInforSearchAction(form.getFieldsValue()));
     }
 
@@ -54,9 +55,9 @@ export const SearchComponent = () => {
                     <Col span={11}>
                         <Form.Item
                             label="Tên phim"
-                            name="name"
+                            name="movieName"
                         >
-                            <Input placeholder="Nhập tên phim" />
+                            <Input allowClear placeholder="Nhập tên phim" />
                         </Form.Item>
                     </Col>
                     <Col span={11}>

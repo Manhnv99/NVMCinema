@@ -59,6 +59,13 @@ export class ShowTimeManagementAPI {
         });
     };
 
+    static fetchListMovie = () => {
+        return requestAPI({
+            method: "GET",
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-list-movie`,
+        });
+    };
+
     static fetchPost = (postRequest) => {
         return requestAPI({
             method: "POST",

@@ -9,6 +9,7 @@ export const useFetchEntity = () => {
     const [listArea, setListArea] = useState([]);
     const [listBranch, setListBranch] = useState([]);
     const [listRoom, setListRoom] = useState([]);
+    const [listMovie, setListMovie] = useState([]);
 
     const handleFetchListArea = async () => {
         try {
@@ -43,10 +44,22 @@ export const useFetchEntity = () => {
         }
     };
 
+    const handleFetchListMovie = async () => {
+        try {
+            const response = await ShowTimeManagementAPI.fetchListMovie();
+            setListMovie(response.data.data);
+        } catch (e) {
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    }
+
     return {
         handleFetchListArea, listArea,
         handleFetchListBranch, listBranch,
-        handleFetchListRoom, listRoom
+        handleFetchListRoom, listRoom,
+        handleFetchListMovie, listMovie
     }
 
 }

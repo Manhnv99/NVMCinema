@@ -30,8 +30,86 @@ export const useShowTime = () => {
         }
     };
 
+    const handleFetchGetOneShowTime = async (id) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await ShowTimeManagementAPI.fetchGetOne(id);
+            dispatchStore(setLoadingFalse());
+            return response;
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    };
+
+    const handleFetchGetDetailShowTime = async (id) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await ShowTimeManagementAPI.fetchGetDetail(id);
+            dispatchStore(setLoadingFalse());
+            return response;
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    };
+
+    const handleFetchListTicketChair = async (showTimeId) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await ShowTimeManagementAPI.fetchListTicketChair(showTimeId);
+            dispatchStore(setLoadingFalse());
+            return response;
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    }
+
+    const handlePostShowTime = async (postRequest, handleCloseModal) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await ShowTimeManagementAPI.fetchPost(postRequest);
+            message.success(response.data.message);
+            handleFetchListSearchShowTime("", "", "", "", 1);
+            handleCloseModal();
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    };
+
+    const handlePutShowTime = async (putRequest, handleCloseModal) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await ShowTimeManagementAPI.fetchPut(putRequest);
+            message.success(response.data.message);
+            handleFetchListSearchShowTime("", "", "", "", 1);
+            handleCloseModal();
+        } catch (e) {
+            dispatchStore(setLoadingFalse());
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    };
+
+
     return {
-        handleFetchListSearchShowTime
+        handleFetchListSearchShowTime,
+        handlePostShowTime,
+        handlePutShowTime,
+        handleFetchGetOneShowTime,
+        handleFetchGetDetailShowTime,
+        handleFetchListTicketChair
     }
 
 }

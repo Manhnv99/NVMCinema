@@ -375,7 +375,7 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Mô tả phim không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input.TextArea rows={5} allowClear />
                             </Form.Item>
                         </Col>
                     </Row>

@@ -1,7 +1,7 @@
-import { ToastContainer } from 'react-toastify'
-import './App.css'
-import { useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from 'react-toastify';
+import './App.css';
+import { useCallback } from 'react';
+import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MovieManagement from './pages/Admin/AdminMovieManagement/MovieManagement';
 import StaffManagement from './pages/Admin/AdminStaffManagement/StaffManagement';
@@ -51,6 +51,7 @@ import { MovieProvider } from './pages/Admin/AdminMovieManagement/store/provider
 import { AddOrUpdateMovieManagement } from './pages/Admin/AdminMovieManagement/layout/AddOrUpdateMovieManagement';
 import { RoomProvider } from './pages/Admin/AdminRoomManagement/store/provider/RoomProvider';
 import { ShowTimeProvider } from './pages/Admin/AdminShowTimeManagement/store/provider/ShowTimeProvider';
+import { PromotionEventProvider } from './pages/Admin/AdminPromotionManagement/store/provider/PromotionEventProvider';
 
 function App() {
 
@@ -88,23 +89,26 @@ function App() {
     {
       key: ROUTE_MANAGEMENT_MOVIE,
       route: ROUTE_MANAGEMENT_MOVIE,
-      component: <MovieProvider>
-        <MovieManagement />
-      </MovieProvider>,
+      component:
+        <MovieProvider>
+          <MovieManagement />
+        </MovieProvider>,
     },
     {
       key: ROUTE_MANAGEMENT_MOVIE_ADD,
       route: ROUTE_MANAGEMENT_MOVIE_ADD,
-      component: <MovieProvider>
-        <AddOrUpdateMovieManagement />
-      </MovieProvider>,
+      component:
+        <MovieProvider>
+          <AddOrUpdateMovieManagement />
+        </MovieProvider>,
     },
     {
       key: ROUTE_MANAGEMENT_MOVIE_UPDATE,
       route: ROUTE_MANAGEMENT_MOVIE_UPDATE,
-      component: <MovieProvider>
-        <AddOrUpdateMovieManagement />
-      </MovieProvider>,
+      component:
+        <MovieProvider>
+          <AddOrUpdateMovieManagement />
+        </MovieProvider>,
     },
     {
       key: ROUTE_MANAGEMENT_GENRE,
@@ -114,9 +118,10 @@ function App() {
     {
       key: ROUTE_MANAGEMENT_SHOWTIME,
       route: ROUTE_MANAGEMENT_SHOWTIME,
-      component: <ShowTimeProvider>
-        <ShowTimeManagement />
-      </ShowTimeProvider>,
+      component:
+        <ShowTimeProvider>
+          <ShowTimeManagement />
+        </ShowTimeProvider>,
     },
     {
       key: ROUTE_MANAGEMENT_FORMAT,
@@ -146,9 +151,10 @@ function App() {
     {
       key: ROUTE_MANAGEMENT_ROOM,
       route: ROUTE_MANAGEMENT_ROOM,
-      component: <RoomProvider>
-        <RoomManagement />
-      </RoomProvider>,
+      component:
+        <RoomProvider>
+          <RoomManagement />
+        </RoomProvider>,
     },
     {
       key: ROUTE_MANAGEMENT_STATISTICS,
@@ -158,7 +164,10 @@ function App() {
     {
       key: ROUTE_MANAGEMENT_PROMOTION,
       route: ROUTE_MANAGEMENT_PROMOTION,
-      component: <PromotionManagement />,
+      component:
+        <PromotionEventProvider>
+          <PromotionManagement />
+        </PromotionEventProvider>,
     },
     {
       key: ROUTE_MANAGEMENT_ORDER,
@@ -169,23 +178,26 @@ function App() {
     {
       key: ROUTE_MANAGEMENT_STAFF,
       route: ROUTE_MANAGEMENT_STAFF,
-      component: <StaffProvider>
-        <StaffManagement />
-      </StaffProvider>
+      component:
+        <StaffProvider>
+          <StaffManagement />
+        </StaffProvider>
     },
     {
       key: ROUTE_MANAGEMENT_STAFF_ADD,
       route: ROUTE_MANAGEMENT_STAFF_ADD,
-      component: <StaffProvider>
-        <AddOrUpdateStaffManagement />
-      </StaffProvider>
+      component:
+        <StaffProvider>
+          <AddOrUpdateStaffManagement />
+        </StaffProvider>
     },
     {
       key: ROUTE_MANAGEMENT_STAFF_UPDATE,
       route: ROUTE_MANAGEMENT_STAFF_UPDATE,
-      component: <StaffProvider>
-        <AddOrUpdateStaffManagement />
-      </StaffProvider>
+      component:
+        <StaffProvider>
+          <AddOrUpdateStaffManagement />
+        </StaffProvider>
     },
   ];
 

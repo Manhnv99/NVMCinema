@@ -1,4 +1,4 @@
-import { Modal, Row, Col } from "antd";
+import { Modal } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from "react";
@@ -14,7 +14,6 @@ export const ModalChair = ({ openModal, setOpenModal, render, roomId }) => {
     useEffect(() => {
         if (roomId !== "") {
             handleFetchListChair(roomId).then(response => {
-                console.log(response);
                 setListChair(response.data.data);
             })
         }

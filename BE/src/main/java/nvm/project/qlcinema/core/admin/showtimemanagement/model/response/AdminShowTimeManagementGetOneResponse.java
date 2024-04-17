@@ -15,7 +15,7 @@ public interface AdminShowTimeManagementGetOneResponse {
     Time getTimeStart();
 
     @Value("#{target.ticketPrice}")
-    BigDecimal ticketPrice();
+    BigDecimal getTicketPrice();
 
     @Value("#{target.roomId}")
     String getRoomId();

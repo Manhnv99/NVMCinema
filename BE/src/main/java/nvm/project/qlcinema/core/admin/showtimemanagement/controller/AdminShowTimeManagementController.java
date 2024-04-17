@@ -63,6 +63,11 @@ public class AdminShowTimeManagementController {
         return adminShowTimeManagementService.getListRoom(branchId);
     }
 
+    @GetMapping("/get-list-movie")
+    public ResponseObject getListMovie(){
+        return adminShowTimeManagementService.getListMovie();
+    }
+
     @PostMapping("/post-showtime")
     public ResponseObject postShowTime(@RequestBody AdminShowTimeManagementPostRequest postRequest) throws ParseException {
         return adminShowTimeManagementService.postShowTime(postRequest);

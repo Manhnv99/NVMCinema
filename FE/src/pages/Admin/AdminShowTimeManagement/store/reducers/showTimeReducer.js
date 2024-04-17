@@ -19,7 +19,7 @@ export const showTimeReducer = (state = INITIAL_STATE, action) => {
         case SET_INFOR_LIST_SEARCH_CONSTANT:
             return {
                 ...state,
-                inforListSearch: action.payload
+                inforListShowTime: action.payload
             }
         case SET_INFOR_SEARCH_CONSTANT:
             return {

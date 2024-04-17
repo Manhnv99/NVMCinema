@@ -5,10 +5,10 @@ const StaffManagement = () => {
 
 
     return (
-        <div className="container max-w-[1200px] mx-auto">
+        <>
             <SearchComponent />
             <TableComponent />
-        </div>
+        </>
     )
 }
 

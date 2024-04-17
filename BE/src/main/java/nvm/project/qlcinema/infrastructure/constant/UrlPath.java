@@ -45,7 +45,7 @@ public class UrlPath {
             ;
     public static final String URL_API_ADMIN_ORDER_MANAGEMENT = URL_API_ADMIN + "/order-management";
 
-    public static final String URL_API_ADMIN_PROMOTION_MANAGEMENT = URL_API_ADMIN + "/promotion-management";
+    public static final String URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT = URL_API_ADMIN + "/promotion_event-management";
 
     /**
      * Các API của STAFF

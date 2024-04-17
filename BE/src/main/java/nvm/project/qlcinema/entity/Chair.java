@@ -42,16 +42,16 @@ public class Chair extends PrimaryEntity  {
     private int maxRow;
 
     @Column(name = "status")
-    private boolean status = true; //true là ghế dùng được, false là ghế đang hỏng
+    private boolean status; //true là ghế dùng được, false là ghế đang hỏng
 
     @ManyToOne
     @JoinColumn(name = "room_id" , referencedColumnName = "id")
     private Room roomId;
 
     @Column(name = "deleted")
-    private boolean deleted = true;
+    private boolean deleted;
 
     @Column(name = "created_at")
-    private Date createdAt = new Date();
+    private Date createdAt;
 
 }

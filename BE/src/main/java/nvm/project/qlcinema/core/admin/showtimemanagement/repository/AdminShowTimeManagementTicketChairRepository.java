@@ -16,7 +16,7 @@ public interface AdminShowTimeManagementTicketChairRepository extends TicketChai
                         tc.status AS status
                 FROM ticket_chair tc
                 WHERE tc.show_time_id = :showTimeId
-                ORDER BY tc.create_at ASC
+                ORDER BY tc.created_at ASC
                 """,nativeQuery = true)
     List<AdminShowTimeManagementGetListTicketChairResponse> getListTicketChair(String showTimeId);
 

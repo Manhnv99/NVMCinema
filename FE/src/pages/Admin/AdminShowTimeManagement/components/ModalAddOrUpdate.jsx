@@ -1,13 +1,44 @@
-import { Form, Modal, Input, Row, Col, Select, Button, Switch, message } from "antd";
+import { Form, Modal, Input, Row, Col, Select, Button, Switch, message, DatePicker, InputNumber } from "antd";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { useFetchEntity } from "../hooks/useFetchEntity";
+import { LIST_TIME_FRAME } from "../../../../app/Constant/ShowTimeConstant";
+import dayjs from "dayjs";
+import { useShowTime } from "../hooks/useShowTime";
 
-export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, render }) => {
+export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTimeId, render }) => {
 
     //use Form
     const [form] = Form.useForm();
     //custom Hooks
+    const {
+        handleFetchListArea, listArea,
+        handleFetchListBranch, listBranch,
+        handleFetchListRoom, listRoom,
+        handleFetchListMovie, listMovie
+    } = useFetchEntity();
 
+    const {
+        handlePostShowTime,
+        handlePutShowTime,
+        handleFetchGetOneShowTime
+    } = useShowTime();
+
+    //useEffect
+    useEffect(() => {
+        handleFetchListArea();
+        handleFetchListMovie();
+    }, []);
+
+    useEffect(() => {
+        if (showTimeId !== "") {
+            handleFetchGetOneShowTime(showTimeId).then(response => {
+                handleFillFieldsValue(response.data.data)
+            });
+        }
+    }, [render])
+
+    //handle
     const handleAddOrUpdate = () => {
         Swal.fire({
             title: whatAction === "post" ? "Bạn có chắc muốn thêm xuất chiếu này?" : "Bạn có chắc muốn cập nhật xuất chiếu này?",
@@ -20,12 +51,37 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
             if (result.isConfirmed) {
                 if (whatAction === "post") {
                     //post
+                    const postRequest = {
+                        ...form.getFieldsValue(),
+                        screeningDate: dayjs(form.getFieldsValue().screeningDate).format("YYYY-MM-DD")
+                    }
+                    handlePostShowTime(postRequest, handleCloseModal);
                 } else {
                     //put
+                    const putRequest = {
+                        ...form.getFieldsValue(),
+                        screeningDate: dayjs(form.getFieldsValue().screeningDate).format("YYYY-MM-DD"),
+                        id: showTimeId
+                    }
+                    handlePutShowTime(putRequest, handleCloseModal);
                 }
             }
         });
     }
+
+    const handleFillFieldsValue = (data) => {
+        handleFetchListBranch(data.areaId);
+        handleFetchListRoom(data.branchId)
+        form.setFieldsValue({
+            areaId: data.areaId,
+            branchId: data.branchId,
+            movieId: data.movieId,
+            roomId: data.roomId,
+            screeningDate: dayjs(data.screeningDate, "YYYY-MM-DD"),
+            timeStart: data.timeStart,
+            ticketPrice: data.ticketPrice
+        });
+    };
 
     const handleAddOrUpdateFailed = () => {
         message.warning("Vui lòng điền đầy đủ thông tin!");
@@ -35,6 +91,9 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
         form.resetFields();
         setOpenModal(false);
     }
+
+    const formatter = value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VNĐ';
+    const parser = value => value.replace(/VNĐ\s?|(,*)/g, '');
 
     return (
         <Modal
@@ -61,16 +120,16 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
                             <Select
                                 allowClear
                                 placeholder="--Chọn phim--"
-                            // options={listArea.map(item => ({
-                            //     label: item.name,
-                            //     value: item.id
-                            // }))}
+                                options={listMovie.map(item => ({
+                                    label: item.name,
+                                    value: item.id
+                                }))}
                             />
                         </Form.Item>
                     </Col>
                     <Col span={11}>
                         <Form.Item
-                            label="Chọn Khu Vực"
+                            label="Khu Vực"
                             name="areaId"
                             rules={[
                                 { required: true, message: "Bạn chưa chọn khu vực!" }
@@ -79,10 +138,11 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
                             <Select
                                 allowClear
                                 placeholder="--Chọn khu vực--"
-                            // options={listBranch.map(item => ({
-                            //     label: item.name,
-                            //     value: item.id
-                            // }))}
+                                options={listArea.map(item => ({
+                                    label: item.name,
+                                    value: item.id
+                                }))}
+                                onChange={(id) => handleFetchListBranch(id)}
                             />
                         </Form.Item>
                     </Col>
@@ -90,7 +150,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
                 <Row className="justify-center" gutter={16}>
                     <Col span={11}>
                         <Form.Item
-                            label="Chọn Chi Nhánh"
+                            label="Chi Nhánh"
                             name="branchId"
                             rules={[
                                 { required: true, message: "Bạn chưa chọn chi nhánh!" }
@@ -99,16 +159,17 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
                             <Select
                                 allowClear
                                 placeholder="--Chọn chi nhánh--"
-                            // options={listArea.map(item => ({
-                            //     label: item.name,
-                            //     value: item.id
-                            // }))}
+                                options={listBranch.map(item => ({
+                                    label: item.name,
+                                    value: item.id
+                                }))}
+                                onChange={(id) => handleFetchListRoom(id)}
                             />
                         </Form.Item>
                     </Col>
                     <Col span={11}>
                         <Form.Item
-                            label="Chọn Phòng Chiếu"
+                            label="Phòng Chiếu"
                             name="roomId"
                             rules={[
                                 { required: true, message: "Bạn chưa chọn phòng chiếu!" }
@@ -117,10 +178,10 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
                             <Select
                                 allowClear
                                 placeholder="--Chọn phòng chiếu--"
-                            // options={listBranch.map(item => ({
-                            //     label: item.name,
-                            //     value: item.id
-                            // }))}
+                                options={listRoom.map(item => ({
+                                    label: item.name,
+                                    value: item.id
+                                }))}
                             />
                         </Form.Item>
                     </Col>
@@ -128,20 +189,13 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
                 <Row className="justify-center" gutter={16}>
                     <Col span={11}>
                         <Form.Item
-                            label="Chọn Ngày Chiếu"
+                            label="Ngày Chiếu"
                             name="screeningDate"
                             rules={[
                                 { required: true, message: "Bạn chưa chọn ngày chiếu!" }
                             ]}
                         >
-                            <Select
-                                allowClear
-                                placeholder="--Chọn ngày chiếu--"
-                            // options={listArea.map(item => ({
-                            //     label: item.name,
-                            //     value: item.id
-                            // }))}
-                            />
+                            <DatePicker allowClear format="YYYY-MM-DD" placeholder="Chọn ngày chiếu" className="w-full" />
                         </Form.Item>
                     </Col>
                     <Col span={11}>
@@ -152,30 +206,52 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, id, rend
                                 { required: true, message: "Bạn chưa điền giá vé!" }
                             ]}
                         >
-                            <Input placeholder="Điền giá vé..." />
+                            <InputNumber formatter={formatter} parser={parser} placeholder="Điền giá vé..." className="w-full" />
                         </Form.Item>
                     </Col>
                 </Row>
                 <Row className="justify-center">
-                    <Col span={22}>
-                        <Form.Item
-                            label="Giờ Chiếu"
-                            name="timeStart"
-                            rules={[
-                                { required: true, message: "Bạn chưa chọn giờ chiếu!" }
-                            ]}
-                        >
-                            <Select
-                                mode="multiple"
-                                allowClear
-                                placeholder="--Chọn giờ chiếu--"
-                            // options={listArea.map(item => ({
-                            //     label: item.name,
-                            //     value: item.id
-                            // }))}
-                            />
-                        </Form.Item>
-                    </Col>
+                    {whatAction === "post"
+                        ?
+                        <Col span={22}>
+                            <Form.Item
+                                label="Giờ Chiếu"
+                                name="timeStart"
+                                rules={[
+                                    { required: true, message: "Bạn chưa chọn giờ chiếu!" }
+                                ]}
+                            >
+                                <Select
+                                    mode="multiple"
+                                    allowClear
+                                    placeholder="--Chọn giờ chiếu--"
+                                    options={LIST_TIME_FRAME.map(item => ({
+                                        label: item,
+                                        value: item
+                                    }))}
+                                />
+                            </Form.Item>
+                        </Col>
+                        :
+                        <Col span={22}>
+                            <Form.Item
+                                label="Giờ Chiếu"
+                                name="timeStart"
+                                rules={[
+                                    { required: true, message: "Bạn chưa chọn giờ chiếu!" }
+                                ]}
+                            >
+                                <Select
+                                    allowClear
+                                    placeholder="--Chọn giờ chiếu--"
+                                    options={LIST_TIME_FRAME.map(item => ({
+                                        label: item,
+                                        value: item
+                                    }))}
+                                />
+                            </Form.Item>
+                        </Col>
+                    }
                 </Row>
                 <div className="flex justify-end">
                     <Button htmlType="submit" type="primary">{whatAction === "post" ? "Tạo xuất chiếu" : "Cập nhật xuất chiếu"}</Button>

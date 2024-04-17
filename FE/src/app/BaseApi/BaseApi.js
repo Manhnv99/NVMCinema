@@ -42,11 +42,11 @@ export const URL_API_ADMIN_CHAIR_MANAGEMENT = URL_API_ADMIN + "/chair-management
 
 export const URL_API_ADMIN_SHOWTIME_MANAGEMENT = URL_API_ADMIN + "/showtime-management";
 
-export const URL_API_ADMIN_STATISTICS_MANAGEMENT = URL_API_ADMIN + "/statistics-management"
-    ;
+export const URL_API_ADMIN_STATISTICS_MANAGEMENT = URL_API_ADMIN + "/statistics-management";
+
 export const URL_API_ADMIN_ORDER_MANAGEMENT = URL_API_ADMIN + "/order-management";
 
-export const URL_API_ADMIN_PROMOTION_MANAGEMENT = URL_API_ADMIN + "/promotion-management";
+export const URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT = URL_API_ADMIN + "/promotion_event-management";
 
 // các API của admin-area
 

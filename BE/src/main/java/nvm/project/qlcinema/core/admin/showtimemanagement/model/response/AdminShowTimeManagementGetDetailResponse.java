@@ -33,9 +33,9 @@ public interface AdminShowTimeManagementGetDetailResponse {
     BigDecimal getTicketPrice();
 
     @Value("#{target.ticketBooked}")
-    Integer ticketBooked();
+    Integer getTicketBooked();
 
     @Value("#{target.ticketNotBooked}")
-    Integer ticketNotBooked();
+    Integer getTicketNotBooked();
 
 }

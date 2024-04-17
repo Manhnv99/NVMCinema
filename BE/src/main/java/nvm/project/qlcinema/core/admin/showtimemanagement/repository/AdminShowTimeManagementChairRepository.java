@@ -11,7 +11,7 @@ import java.util.List;
 public interface AdminShowTimeManagementChairRepository extends ChairRepository {
 
     @Query("""
-            SELECT c FROM Chair c WHERE c.roomId.id = :roomId
+            SELECT c FROM Chair c WHERE c.roomId.id = :roomId ORDER BY c.createdAt ASC
             """)
     List<Chair> getListChairByRoom(String roomId);
 

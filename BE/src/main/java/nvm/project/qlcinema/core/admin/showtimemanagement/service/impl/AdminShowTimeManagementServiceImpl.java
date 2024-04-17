@@ -19,6 +19,7 @@ import nvm.project.qlcinema.entity.Room;
 import nvm.project.qlcinema.entity.ShowTime;
 import nvm.project.qlcinema.entity.TicketChair;
 import nvm.project.qlcinema.infrastructure.exception.RestApiException;
+import nvm.project.qlcinema.utils.ConvertTime;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +46,8 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
     private final AdminShowTimeManagementTicketChairRepository adminShowTimeManagementTicketChairRepository;
 
     private final AdminShowTimeManagementChairRepository adminShowTimeManagementChairRepository;
+
+    private final ConvertTime convertTime;
 
     @Override
     public PageableObject<AdminShowTimeManagementListShowTimeResponse> getListSearchShowTime(AdminShowTimeManagementListShowTimeRequest request) {
@@ -124,6 +128,17 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
     }
 
     @Override
+    public ResponseObject getListMovie() {
+        try{
+            return new ResponseObject(adminShowTimeManagementRepository.getListMovie());
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách phim!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
     public ResponseObject postShowTime(AdminShowTimeManagementPostRequest postRequest) throws ParseException {
         List<String> errors = new ArrayList<>();
 
@@ -141,14 +156,17 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
             throw new RestApiException(errors,HttpStatus.NOT_FOUND);
         }
 
+        //checkDateValid
+        if(postRequest.getScreeningDate().isBefore(LocalDate.now())){
+            errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
+            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        }
+
         //check Duplicate
         for (String strTime : postRequest.getTimeStart()){
-            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-            Date date = formatter.parse(strTime);
-            Time time = new Time(date.getTime());
             Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
                     postRequest.getScreeningDate(),
-                    time,
+                    convertTime.convertStringToTime(strTime),
                     postRequest.getMovieId(),
                     postRequest.getRoomId()
             );
@@ -160,12 +178,9 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
         //postShowTime
         for (String strTime : postRequest.getTimeStart()){
-            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-            Date date = formatter.parse(strTime);
-            Time time = new Time(date.getTime());
             ShowTime showTimeSaved = adminShowTimeManagementRepository.save(new ShowTime(
                     postRequest.getScreeningDate(),
-                    time,
+                    convertTime.convertStringToTime(strTime),
                     postRequest.getTicketPrice(),
                     isMovieExist.get(),
                     isRoomExist.get(),
@@ -207,20 +222,25 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
             throw new RestApiException(errors,HttpStatus.NOT_FOUND);
         }
 
+        //checkDateValid
+        if(putRequest.getScreeningDate().isBefore(LocalDate.now())){
+            errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
+            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        }
 
         //putShowTime
         ShowTime putShowTime = isShowTimeExist.get();
         //Check dup
         if(!putRequest.getScreeningDate().isEqual(putShowTime.getScreeningDate()) ||
-                !putShowTime.getTimeStart().equals(putShowTime.getTimeStart()) ||
-                !putShowTime.getMovieId().getId().equalsIgnoreCase(putShowTime.getMovieId().getId()) ||
-                !putShowTime.getRoomId().getId().equalsIgnoreCase(putShowTime.getRoomId().getId())
+                !convertTime.convertStringToTime(putRequest.getTimeStart()).equals(putShowTime.getTimeStart()) ||
+                !putRequest.getMovieId().equalsIgnoreCase(putShowTime.getMovieId().getId()) ||
+                !putRequest.getRoomId().equalsIgnoreCase(putShowTime.getRoomId().getId())
         ){
             Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
-                    putShowTime.getScreeningDate(),
-                    putShowTime.getTimeStart(),
-                    putShowTime.getMovieId().getId(),
-                    putShowTime.getRoomId().getId()
+                    putRequest.getScreeningDate(),
+                    convertTime.convertStringToTime(putRequest.getTimeStart()),
+                    putRequest.getMovieId(),
+                    putRequest.getRoomId()
             );
             if(isShowTimeDuplicate.isPresent()){
                 errors.add("Đã tồn tại phim có cùng khung giờ chiếu!");

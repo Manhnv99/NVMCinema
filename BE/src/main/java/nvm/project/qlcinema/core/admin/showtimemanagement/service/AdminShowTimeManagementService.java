@@ -25,6 +25,8 @@ public interface AdminShowTimeManagementService {
 
     ResponseObject getListRoom(String branchId);
 
+    ResponseObject getListMovie();
+
     ResponseObject postShowTime(AdminShowTimeManagementPostRequest postRequest) throws ParseException;
 
     ResponseObject putShowTime(AdminShowTimeManagementPutRequest putRequest) throws ParseException;
