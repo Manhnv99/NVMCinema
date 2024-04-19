@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { ROUTE_MANAGEMENT_MOVIE } from "../../../../app/BaseUrl/BaseUrl";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useMovie = () => {
 
@@ -67,7 +68,7 @@ export const useMovie = () => {
             const response = await MovieManagementAPI.fetchListSearchMovie(name, director, genre, format, country, page);
             dispatch(setInforListMovieAction({
                 listMovie: response.data.data,
-                totalElement: response.data.data.length * response.data.totalPages
+                totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE
             }));
             dispatchStore(setLoadingFalse());
         } catch (e) {

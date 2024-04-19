@@ -111,8 +111,8 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
             errors.add("Không tìm thấy chi nhánh bạn chọn!");
             throw new RestApiException(errors,HttpStatus.CONFLICT);
         }
-        //check isRoomExist
-        Optional<Room> isRoomExist = adminRoomManagementRepository.findRoomByName(postRequest.getName());
+        //check isRoomDuplicate
+        Optional<Room> isRoomExist = adminRoomManagementRepository.isRoomDuplicate(postRequest.getName(),postRequest.getBranchId());
         if(isRoomExist.isPresent()){
             errors.add("Đã tồn tại phòng chiếu có tên này!");
             throw new RestApiException(errors,HttpStatus.CONFLICT);
@@ -149,6 +149,17 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
         if(isBranchExist.isEmpty()){
             errors.add("Không tìm thấy chi nhánh này!");
             throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        }
+
+        //check isRoomDuplicate
+        if(!putRequest.getName().equals(optionalRoom.get().getName()) ||
+            !putRequest.getBranchId().equals(optionalRoom.get().getBranchId().getId())
+        ){
+            Optional<Room> isRoomExist = adminRoomManagementRepository.isRoomDuplicate(putRequest.getName(),putRequest.getBranchId());
+            if(isRoomExist.isPresent()){
+                errors.add("Đã tồn tại phòng chiếu có tên này!");
+                throw new RestApiException(errors,HttpStatus.CONFLICT);
+            }
         }
 
         Room putRoom = optionalRoom.get();

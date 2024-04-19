@@ -32,9 +32,11 @@ export const TableComponent = () => {
             render: (imageUrl) => (
                 <Image
                     width={150}
+                    height={100}
                     src={imageUrl}
                     style={{
-                        borderRadius: "5px"
+                        borderRadius: "5px",
+                        objectFit: "cover"
                     }}
                 />
             )

@@ -146,14 +146,14 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
         Optional<Movie> isMovieExist = adminShowTimeManagementMovieRepository.findById(postRequest.getMovieId());
         if(isMovieExist.isEmpty()){
             errors.add("Không tìm thấy bộ phim bạn chọn!");
-        }
-        Optional<Room> isRoomExist = adminShowTimeManagementRoomRepository.findById(postRequest.getRoomId());
-        if(isRoomExist.isEmpty()){
-            errors.add("Không tìm thấy phòng chiếu bạn chọn!");
-        }
-        //throwError
-        if(!errors.isEmpty()){
             throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        }
+        for (String roomId : postRequest.getRoomId()){
+            Optional<Room> isRoomExist = adminShowTimeManagementRoomRepository.findById(roomId);
+            if(isRoomExist.isEmpty()){
+                errors.add("Không tìm thấy phòng chiếu bạn chọn!");
+                throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            }
         }
 
         //checkDateValid
@@ -163,37 +163,40 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
         }
 
         //check Duplicate
-        for (String strTime : postRequest.getTimeStart()){
-            Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
-                    postRequest.getScreeningDate(),
-                    convertTime.convertStringToTime(strTime),
-                    postRequest.getMovieId(),
-                    postRequest.getRoomId()
-            );
-            if(isShowTimeDuplicate.isPresent()){
-                errors.add("Đã tồn tại phim có cùng khung giờ chiếu!");
-                throw new RestApiException(errors,HttpStatus.CONFLICT);
+        for(String strRoom : postRequest.getRoomId()){
+            for (String strTime : postRequest.getTimeStart()){
+                Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
+                        postRequest.getScreeningDate(),
+                        convertTime.convertStringToTime(strTime),
+                        strRoom
+                );
+                if(isShowTimeDuplicate.isPresent()){
+                    errors.add("Đã tồn tại phim có cùng khung giờ chiếu :" + strTime);
+                    throw new RestApiException(errors,HttpStatus.CONFLICT);
+                }
             }
         }
 
         //postShowTime
-        for (String strTime : postRequest.getTimeStart()){
-            ShowTime showTimeSaved = adminShowTimeManagementRepository.save(new ShowTime(
-                    postRequest.getScreeningDate(),
-                    convertTime.convertStringToTime(strTime),
-                    postRequest.getTicketPrice(),
-                    isMovieExist.get(),
-                    isRoomExist.get(),
-                    true,
-                    new Date()
-            ));
-            for (Chair chair : adminShowTimeManagementChairRepository.getListChairByRoom(postRequest.getRoomId())){
-                adminShowTimeManagementTicketChairRepository.save(new TicketChair(
-                        chair.getName(),
-                        false,
-                        showTimeSaved,
+        for(String roomId : postRequest.getRoomId()){
+            for (String strTime : postRequest.getTimeStart()){
+                ShowTime showTimeSaved = adminShowTimeManagementRepository.save(new ShowTime(
+                        postRequest.getScreeningDate(),
+                        convertTime.convertStringToTime(strTime),
+                        postRequest.getTicketPrice(),
+                        isMovieExist.get(),
+                        adminShowTimeManagementRoomRepository.getReferenceById(roomId),
+                        true,
                         new Date()
                 ));
+                for (Chair chair : adminShowTimeManagementChairRepository.getListChairByRoom(roomId)){
+                    adminShowTimeManagementTicketChairRepository.save(new TicketChair(
+                            chair.getName(),
+                            false,
+                            showTimeSaved,
+                            new Date()
+                    ));
+                }
             }
         }
 
@@ -239,7 +242,6 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
             Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
                     putRequest.getScreeningDate(),
                     convertTime.convertStringToTime(putRequest.getTimeStart()),
-                    putRequest.getMovieId(),
                     putRequest.getRoomId()
             );
             if(isShowTimeDuplicate.isPresent()){

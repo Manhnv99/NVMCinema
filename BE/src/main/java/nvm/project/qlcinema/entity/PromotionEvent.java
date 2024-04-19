@@ -59,9 +59,6 @@ public class PromotionEvent extends PrimaryEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "deleted")
-    private boolean deleted;
-
     @Column(name = "created_at")
     private Date createdAt;
 

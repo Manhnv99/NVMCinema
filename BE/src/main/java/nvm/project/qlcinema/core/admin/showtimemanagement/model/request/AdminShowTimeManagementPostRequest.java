@@ -27,6 +27,6 @@ public class AdminShowTimeManagementPostRequest {
     private String movieId;
 
     @NotBlank(message = "Bạn chưa chọn phòng chiếu!")
-    private String roomId;
+    private List<String> roomId;
 
 }

@@ -101,6 +101,12 @@ public interface AdminRoomManagementRepository extends RoomRepository {
             """)
     Optional<Room> getNewest();
 
-    Optional<Room> findRoomByName(String name);
+    @Query("""
+            SELECT r
+            FROM Room r
+            JOIN Branch b ON r.branchId.id = b.id
+            WHERE r.name = :name AND b.id = :branchId
+            """)
+    Optional<Room> isRoomDuplicate(String name,String branchId);
 
 }

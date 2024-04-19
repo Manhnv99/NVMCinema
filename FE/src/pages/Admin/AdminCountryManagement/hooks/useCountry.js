@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { useState } from "react";
 import { CountryManagementAPI } from "../../../../apis/Admin/CountryManagement/CountryManagementAPI";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useCountry = () => {
 
@@ -85,7 +86,7 @@ export const useCountry = () => {
         try {
             const response = await CountryManagementAPI.fetchListSearch(inputSearch, page);
             setListData(response.data.data);
-            setTotalElement(response.data.totalPages * response.data.data.length);
+            setTotalElement(response.data.totalPages * DEFAUTL_PAGE_SIZE);
             dispatch(setLoadingFalse());
         } catch (e) {
             dispatch(setLoadingFalse());

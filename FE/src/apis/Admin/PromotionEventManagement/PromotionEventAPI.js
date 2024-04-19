@@ -40,11 +40,11 @@ export class PromotionEventAPI {
         });
     };
 
-    static fetchDelete = (id) => {
-        return requestAPI({
-            method: "DELETE",
-            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT + `/delete-promotion_event/${id}`,
-        });
-    };
+    // static fetchDelete = (id) => {
+    //     return requestAPI({
+    //         method: "DELETE",
+    //         url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT + `/delete-promotion_event/${id}`,
+    //     });
+    // };
 
 }

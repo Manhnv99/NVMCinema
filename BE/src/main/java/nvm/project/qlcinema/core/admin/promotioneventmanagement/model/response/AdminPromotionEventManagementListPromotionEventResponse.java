@@ -34,7 +34,7 @@ public interface AdminPromotionEventManagementListPromotionEventResponse {
     @Value("#{target.imageUrl}")
     String getImageUrl();
 
-    @Value("#{target.deleted}")
-    boolean getDeleted();
+    @Value("#{target.status}")
+    String getStatus();
 
 }

@@ -1,12 +1,13 @@
 import { Card, Button, Table, Pagination, Tooltip, Image, Tag } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLayerGroup, faPenToSquare, faEye, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faLayerGroup, faPenToSquare, faEye, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useEffect, useState } from "react";
 import { PromotionEventContext } from "../store/context/context";
-import Swal from "sweetalert2";
 import { ModalAddOrUpdate } from "./ModalAddOrUpdate";
 import { usePromotionEvent } from "../hooks/usePromotionEvent";
 import { ModalDetail } from "./ModalDetail";
+import { DANG_DIEN_RA, SAP_DIEN_RA } from "../../../../app/Constant/PromotionEventConstant";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const TableComponent = () => {
 
@@ -29,8 +30,7 @@ export const TableComponent = () => {
 
     //custom hooks
     const {
-        handleFetchListSearch,
-        handleFetchDelete
+        handleFetchListSearch
     } = usePromotionEvent();
 
     const columns = [
@@ -53,15 +53,19 @@ export const TableComponent = () => {
         { title: "Mã Khuyến Mãi", dataIndex: "promotionCode", key: "promotionCode" },
         { title: "Giá Khuyến Mãi", dataIndex: "promotionPrice", key: "promotionPrice" },
         {
-            title: "Trạng Thái", dataIndex: "deleted", key: "deleted",
-            render: (deleted) => {
-                if (deleted) {
+            title: "Trạng Thái", dataIndex: "status", key: "status",
+            render: (status) => {
+                if (status === DANG_DIEN_RA) {
                     return (
-                        <Tag color="green">Đang hoạt động</Tag>
+                        <Tag color="green">Đang Diễn Ra</Tag>
+                    )
+                } else if (status === SAP_DIEN_RA) {
+                    return (
+                        <Tag color="gold">Sắp Diễn Da</Tag>
                     )
                 } else {
                     return (
-                        <Tag color="red">Ngưng hoạt động</Tag>
+                        <Tag color="red">Đã Hết Hạn</Tag>
                     )
                 }
             }
@@ -88,25 +92,6 @@ export const TableComponent = () => {
                                 setRenderModalDetail(!renderModalDetail);
                             }}>
                                 <FontAwesomeIcon icon={faEye} />
-                            </Button>
-                        </Tooltip>
-                        <Tooltip title={record.deleted ? "Xóa sự kiện" : "Hoạt động lại"} color="red">
-                            <Button onClick={() => {
-                                Swal.fire({
-                                    title: "Bạn có chắc muốn thay đổi trạng thái của sự kiện này ?",
-                                    icon: "question",
-                                    showCloseButton: true,
-                                    showCancelButton: true,
-                                    confirmButtonColor: "#3085d6",
-                                    cancelButtonColor: "#d33",
-                                }).then(result => {
-                                    console.log(record.id);
-                                    if (result.isConfirmed) {
-                                        handleFetchDelete(record.id);
-                                    }
-                                })
-                            }} style={{ backgroundColor: "red", color: "#fff" }}>
-                                <FontAwesomeIcon icon={faTrash} />
                             </Button>
                         </Tooltip>
                     </div>
@@ -171,7 +156,7 @@ export const TableComponent = () => {
                     </Table>
                     <Pagination onChange={(page) => {
                         setCurrentPage(page)
-                    }} total={state.inforList.totalElement} />
+                    }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforList.totalElement} />
                 </Card>
             </div>
         </>

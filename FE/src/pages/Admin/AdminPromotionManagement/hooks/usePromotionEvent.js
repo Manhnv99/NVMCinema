@@ -5,6 +5,7 @@ import { PromotionEventContext } from "../store/context/context";
 import { setInforListAction } from "../store/actions/PromotionEventActions";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const usePromotionEvent = () => {
 
@@ -19,7 +20,7 @@ export const usePromotionEvent = () => {
             const response = await PromotionEventAPI.fetchListSearch(name, timeStart, timeEnd, page);
             dispatch(setInforListAction({
                 listPE: response.data.data,
-                totalElement: response.data.data.length * response.data.totalPages
+                totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE
             }));
             dispatchStore(setLoadingFalse());
         } catch (e) {
@@ -74,27 +75,11 @@ export const usePromotionEvent = () => {
         }
     };
 
-    const handleFetchDelete = async (id) => {
-        dispatchStore(setLoadingTrue());
-        try {
-            const response = await PromotionEventAPI.fetchDelete(id);
-            message.success(response.data.message);
-            handleFetchListSearch("", "", "", 1);
-            dispatchStore(setLoadingFalse());
-        } catch (e) {
-            dispatchStore(setLoadingFalse());
-            for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
-            }
-        }
-    };
-
     return {
         handleFetchListSearch,
         handleFetchDetail,
         handleFetchPost,
         handleFetchPut,
-        handleFetchDelete
     }
 
 }

@@ -5,6 +5,7 @@ import { ShowTimeManagementAPI } from "../../../../apis/Admin/ShowTimeManagement
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { setInforListSearchAction } from "../store/actions/ShowTimeActions";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useShowTime = () => {
 
@@ -19,7 +20,7 @@ export const useShowTime = () => {
             const response = await ShowTimeManagementAPI.fetchListSearch(movieName, areaId, branchId, roomId, page);
             dispatch(setInforListSearchAction({
                 listShowTime: response.data.data,
-                totalElement: response.data.data.length * response.data.totalPages
+                totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE
             }));
             dispatchStore(setLoadingFalse());
         } catch (e) {

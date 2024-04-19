@@ -2,7 +2,8 @@ import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { useState } from "react";
-import { DirectorManagementAPI } from "../../../../apis/Admin/DirectorManagement/DirectorManagementAPI";
+import { DirectorManagementAPI } from "../../../../apis/Admin/Directormanagement/DirectorManagementAPI";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useDirector = () => {
 
@@ -84,7 +85,7 @@ export const useDirector = () => {
         try {
             const response = await DirectorManagementAPI.fetchListSearch(inputSearch, page);
             setListData(response.data.data);
-            setTotalElement(response.data.totalPages * response.data.data.length);
+            setTotalElement(response.data.totalPages * DEFAUTL_PAGE_SIZE);
             dispatch(setLoadingFalse());
         } catch (e) {
             dispatch(setLoadingFalse());

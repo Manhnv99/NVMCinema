@@ -196,7 +196,7 @@ export const BranchManagement = () => {
                 <Table
                     className="mt-[10px]"
                     columns={columns}
-                    scroll={{ x: "1500px" }}
+                    scroll={{ x: "1600px" }}
                     dataSource={listData}
                     pagination={false}
                 >

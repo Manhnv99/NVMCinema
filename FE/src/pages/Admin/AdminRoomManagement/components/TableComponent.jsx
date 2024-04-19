@@ -2,13 +2,13 @@ import { Card, Button, Table, Pagination, Tooltip, Tag } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup, faPenToSquare, faEye, faTrash, faPlus, faCouch } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { RoomContext } from "../store/context/context";
 import { useRoom } from "../hooks/useRoom";
 import { ModalAddOrUpdate } from "./ModalAddOrUpdate";
 import { ModalDetail } from "./ModalDetail";
 import { ModalChair } from "./ModalChair";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const TableComponent = () => {
 
@@ -160,7 +160,7 @@ export const TableComponent = () => {
                     </Table>
                     <Pagination onChange={(page) => {
                         setCurrentPage(page)
-                    }} total={state.inforListRoom.totalElement} />
+                    }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforListRoom.totalElement} />
                 </Card>
             </div>
         </>

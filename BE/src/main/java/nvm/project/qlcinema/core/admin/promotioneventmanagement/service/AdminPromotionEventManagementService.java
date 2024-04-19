@@ -19,6 +19,4 @@ public interface AdminPromotionEventManagementService {
 
     ResponseObject putPromotionEvent(AdminPromotionEventManagementPutRequest putRequest) throws IOException;
 
-    ResponseObject deletePromotionEvent(String id);
-
 }

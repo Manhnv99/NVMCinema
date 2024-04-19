@@ -102,7 +102,6 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
         var result=cloudinaryConfig.upload(postRequest.getImage());//upload image to cloudinary
         postPromotionEvent.setImageId((String) result.get("public_id"));
         postPromotionEvent.setImageUrl((String) result.get("url"));
-        postPromotionEvent.setDeleted(true);
         postPromotionEvent.setCreatedAt(new Date());
         postPromotionEvent.setPromotionEventStatus(
                 handleGenPromotionEvent(postRequest.getTimeStart(),
@@ -161,29 +160,6 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
             adminPromotionEventManagementRepository.save(putPromotionEvent);
             return new ResponseObject("Tạo mới khuyến mãi sự kiện thành công!");
         }catch (Exception e){
-            errors.add("Đã có 1 vài sự cố sảy ra!");
-            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @Override
-    public ResponseObject deletePromotionEvent(String id) {
-        try {
-            List<String> errors = new ArrayList<>();
-            //check Exist
-            Optional<PromotionEvent> isPromotionEventExist = adminPromotionEventManagementRepository.findById(id);
-            if (isPromotionEventExist.isEmpty()){
-                errors.add("Không tìm thấy sự kiện khuyến mãi này!");
-                throw new RestApiException(errors,HttpStatus.NOT_FOUND);
-            }
-
-            PromotionEvent deletePromotionEvent = isPromotionEventExist.get();
-            deletePromotionEvent.setDeleted(!deletePromotionEvent.isDeleted());
-            adminPromotionEventManagementRepository.save(deletePromotionEvent);
-
-            return new ResponseObject("Cập nhật trạng thái khuyến mãi sự kiện thành công!");
-        }catch (Exception e){
-            List<String> errors = new ArrayList<>();
             errors.add("Đã có 1 vài sự cố sảy ra!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }

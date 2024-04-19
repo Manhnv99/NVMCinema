@@ -1,15 +1,17 @@
-
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     UploadOutlined,
     UserOutlined,
-    VideoCameraOutlined,
+    VideoCameraOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
-import { useState } from 'react';
-import { ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
+import { Layout, Menu, Button, theme, Dropdown, message } from 'antd';
+import { useEffect, useState } from 'react';
+import { ROUTE_LOGIN, ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
 import { useNavigate } from 'react-router-dom';
+import { Avatar } from 'antd';
+import Logo from "../../assets/NVM.png";
+import { ExtractInforToken } from '../../utils/Extract/ExtractInforToken';
 const { Header, Sider, Content } = Layout;
 
 export const AdminLayoutManagement = ({ children }) => {
@@ -21,6 +23,12 @@ export const AdminLayoutManagement = ({ children }) => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
+
+    const [userAuthen, setUserAuthen] = useState({});
+
+    useEffect(() => {
+        setUserAuthen(ExtractInforToken())
+    }, []);
 
 
     const childrenMovie = [
@@ -61,6 +69,19 @@ export const AdminLayoutManagement = ({ children }) => {
         }
     ];
 
+    const items = [
+        {
+            label: 'Đăng xuất',
+            key: 'dang_xuat',
+        },
+    ];
+
+    const handleItemClick = () => {
+        localStorage.removeItem("token");
+        navigate(ROUTE_LOGIN);
+        message.success("Đăng xuất tài khoản thành công!")
+    }
+
 
     const handleRedirectRoute = (route) => {
         navigate(route.key);
@@ -71,7 +92,15 @@ export const AdminLayoutManagement = ({ children }) => {
             minHeight: "100vh"
         }}>
             <Sider trigger={null} collapsible collapsed={collapsed}>
-                <div className="demo-logo-vertical" />
+                <div className='text-center'>
+                    <Avatar
+                        style={{
+                            width: "90%",
+                            height: "auto"
+                        }}
+                        src={Logo}
+                    />
+                </div>
                 <Menu
                     onClick={handleRedirectRoute}
                     theme="dark"
@@ -103,7 +132,7 @@ export const AdminLayoutManagement = ({ children }) => {
                         {
                             key: ROUTE_MANAGEMENT_SHOWTIME,
                             icon: <UploadOutlined />,
-                            label: 'Giờ Chiếu',
+                            label: 'Xuất Chiếu',
                         },
                         {
                             key: ROUTE_MANAGEMENT_STAFF,
@@ -121,9 +150,10 @@ export const AdminLayoutManagement = ({ children }) => {
             <Layout>
                 <Header
                     style={{
-                        padding: 0,
+                        padding: "0",
                         background: colorBgContainer,
                     }}
+                    className='flex items-center justify-between'
                 >
                     <Button
                         type="text"
@@ -135,6 +165,22 @@ export const AdminLayoutManagement = ({ children }) => {
                             height: 64,
                         }}
                     />
+                    <div className='pr-[20px]'>
+                        <span className="font-medium text-[16px] mr-[10px]">{userAuthen.userFullName}</span>
+                        <Dropdown
+                            className='cursor-pointer'
+                            overlay={<Menu onClick={handleItemClick} items={items} />}
+                            trigger={['click']}
+                        >
+                            <Avatar
+                                style={{
+                                    height: "45px",
+                                    width: "45px"
+                                }}
+                                src={userAuthen.userImage}
+                            />
+                        </Dropdown>
+                    </div>
                 </Header>
                 <Content
                     style={{

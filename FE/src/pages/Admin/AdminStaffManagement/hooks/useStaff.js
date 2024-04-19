@@ -7,6 +7,7 @@ import { ROUTE_MANAGEMENT_STAFF } from "../../../../app/BaseUrl/BaseUrl";
 import { setDetailStaffAction, setListStaffAction, setTotalElementAction } from "../store/actions/StaffAction";
 import { useContext } from "react";
 import { StaffContext } from "../store/context/context";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useStaff = () => {
 
@@ -59,7 +60,7 @@ export const useStaff = () => {
         try {
             const response = await StaffManagementAPI.fetchListSearchStaff(inputSearch, page);
             dispatch(setListStaffAction(response.data.data));
-            dispatch(setTotalElementAction(response.data.totalPages * response.data.data.length));
+            dispatch(setTotalElementAction(response.data.totalPages * DEFAUTL_PAGE_SIZE));
             //setLoading false
             dispatchStore(setLoadingFalse());
         } catch (e) {

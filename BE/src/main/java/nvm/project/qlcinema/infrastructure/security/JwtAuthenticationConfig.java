@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.infrastructure.constant.AuthenticationMessage;
+import nvm.project.qlcinema.infrastructure.constant.TypeUser;
+import nvm.project.qlcinema.infrastructure.security.custom.UserDetailServiceCustom;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +30,8 @@ public class JwtAuthenticationConfig extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
 
+    private final UserDetailServiceCustom userDetailServiceCustom;
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
@@ -35,9 +39,9 @@ public class JwtAuthenticationConfig extends OncePerRequestFilter {
         try {
             String token = extractToken(request.getHeader("Authorization"));
             if(token != null){
+                String typeUser = jwtProvider.extractTypeUser(token);
                 //validate Token nguyên vẹn,hết hạn
                 String tokenValid = jwtProvider.isTokenValid(token);
-
                 if(tokenValid.equals(AuthenticationMessage.TOKEN_INVALID.getMessage())){
                     throw new RuntimeException("");
                 }else if(tokenValid.equals(AuthenticationMessage.TOKEN_EXPIRATION.getMessage())){
@@ -46,8 +50,14 @@ public class JwtAuthenticationConfig extends OncePerRequestFilter {
                     //Get UserName from the token
                     String username = jwtProvider.extractUserName(token);
                     //Get UserDetail
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                    UserDetails userDetails = null;
+                    if(typeUser.equalsIgnoreCase(TypeUser.USER.getType())){
+                        userDetails = userDetailsService.loadUserByUsername(username);
+                    }else{
+                        userDetails = userDetailServiceCustom.loadUserByUsername(username);
+                    }
                     //Create UserNamePassword Object to push it into SecurityContextHolder to Author the restAPI
+                    assert userDetails != null;
                     UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(
                             userDetails.getUsername(),
                             "",

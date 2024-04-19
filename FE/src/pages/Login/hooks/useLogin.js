@@ -16,7 +16,6 @@ export const useLogin = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await LoginAPI.fetchLoginAPI(loginRequest);
-            console.log(response);
             //set Token to localStorage
             localStorage.setItem("token", response.data.token);
             //show message login success

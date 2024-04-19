@@ -15,7 +15,6 @@ export const ModalDetail = ({ openModal, setOpenModal, PEId, render }) => {
     useEffect(() => {
         if (PEId !== "") {
             handleFetchDetail(PEId).then(response => {
-                console.log(response.data);
                 setPEDetail(response.data.data);
             });
         }

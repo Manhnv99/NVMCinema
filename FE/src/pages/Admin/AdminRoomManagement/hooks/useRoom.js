@@ -5,6 +5,7 @@ import { RoomContext } from "../store/context/context";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { setInforListRoomAction } from "../store/actions/RoomActions";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useRoom = () => {
 
@@ -22,7 +23,7 @@ export const useRoom = () => {
             const response = await RoomManagementAPI.fetchListSearch(inputSearch, branchId, page);
             dispatch(setInforListRoomAction({
                 listRoom: response.data.data,
-                totalElement: response.data.data.length * response.data.totalPages
+                totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE
             }));
             dispatchStore(setLoadingFalse());
         } catch (e) {

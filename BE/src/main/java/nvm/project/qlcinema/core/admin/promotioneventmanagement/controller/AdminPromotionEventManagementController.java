@@ -49,9 +49,4 @@ public class AdminPromotionEventManagementController {
         return adminPromotionEventManagementService.putPromotionEvent(putRequest);
     }
 
-    @DeleteMapping("/delete-promotion_event/{id}")
-    public ResponseObject deletePromotionEvent(@PathVariable String id){
-        return adminPromotionEventManagementService.deletePromotionEvent(id);
-    }
-
 }

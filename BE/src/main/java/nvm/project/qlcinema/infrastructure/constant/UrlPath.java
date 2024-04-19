@@ -54,4 +54,7 @@ public class UrlPath {
     /**
      * Các API của CLIENT
      */
+
+    public static final String URL_API_CLIENT_AUTHENTICATION = URL_API_CLIENT + "/authentication";
+
 }

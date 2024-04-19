@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -15,6 +18,18 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* --primary-blue: #1876f8;
+  --primary-bgMenu: #001427;
+  --primary-text: #999;
+  --primary-body: #f4f4f4;
+  --primary-red: #fa0307;
+  --primary-orange: #da601a;
+  --primary-toastSuccess: #27a327;
+  --primary-toastWarning: #eded2a; */
+  --primary-white: #FFF;
+  --primary-nvm: #161921;
+  --primary-footer: #090b13;
+  --primary-limegreen: #90C63F;
 }
 
 
@@ -23,9 +38,11 @@
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }

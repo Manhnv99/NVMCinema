@@ -123,10 +123,9 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
             WHERE
                 (st.screeningDate = :screeningDate) AND
                 (st.timeStart = :timeStart) AND
-                (st.movieId.id = :movieId) AND
                 (st.roomId.id = :roomId) AND
                 st.screeningDate >= CURRENT_DATE
             """)
-    Optional<ShowTime> isShowTimeDuplicate(LocalDate screeningDate, Time timeStart,String movieId,String roomId);
+    Optional<ShowTime> isShowTimeDuplicate(LocalDate screeningDate, Time timeStart,String roomId);
 
 }

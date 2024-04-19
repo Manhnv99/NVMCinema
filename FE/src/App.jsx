@@ -8,6 +8,8 @@ import StaffManagement from './pages/Admin/AdminStaffManagement/StaffManagement'
 import { AdminLayoutManagement } from './layouts/Admin/AdminLayoutManagement';
 import {
   ROUTE_AUTHORIZATION,
+  ROUTE_CLIENT_ACCOUNT,
+  ROUTE_CLIENT_HOME,
   ROUTE_FORBIDDEN,
   ROUTE_LOGIN,
   ROUTE_MANAGEMENT_AREA,
@@ -52,6 +54,9 @@ import { AddOrUpdateMovieManagement } from './pages/Admin/AdminMovieManagement/l
 import { RoomProvider } from './pages/Admin/AdminRoomManagement/store/provider/RoomProvider';
 import { ShowTimeProvider } from './pages/Admin/AdminShowTimeManagement/store/provider/ShowTimeProvider';
 import { PromotionEventProvider } from './pages/Admin/AdminPromotionManagement/store/provider/PromotionEventProvider';
+import { ClientLayoutManagement } from './layouts/Client/ClientLayoutManagement';
+import { LoginClient } from './pages/Client/ClientLoginManagement/layout/LoginClient';
+import { HomeClient } from './pages/Client/ClientHomeManagement/layout/HomeClient';
 
 function App() {
 
@@ -212,6 +217,31 @@ function App() {
   }, []);
   //End All Admin Route
 
+  // START All Client Route
+  const ClientRoute = [
+    {
+      key: ROUTE_CLIENT_ACCOUNT,
+      route: ROUTE_CLIENT_ACCOUNT,
+      component: <LoginClient />,
+    },
+    {
+      key: ROUTE_CLIENT_HOME,
+      route: ROUTE_CLIENT_HOME,
+      component: <HomeClient />,
+    }
+  ];
+
+  const loadingClientRoute = useCallback(() => {
+    return ClientRoute.map(item => (
+      <Route key={item.key} path={item.route} element={
+        <ClientLayoutManagement>
+          {item.component}
+        </ClientLayoutManagement>
+      } />
+    ));
+  }, []);
+  // END All Client Route
+
   return (
     <>
       {/* loading global */}
@@ -231,6 +261,9 @@ function App() {
 
           {/*Admin Route*/}
           {loadingAdminRoute()};
+
+          {/*Client Route */}
+          {loadingClientRoute()};
         </Routes>
       </BrowserRouter>
     </>

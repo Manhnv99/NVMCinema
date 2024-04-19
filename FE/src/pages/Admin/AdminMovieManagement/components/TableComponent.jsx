@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { MovieContext } from "../store/context/context";
 import { useMovie } from "../hooks/useMovie";
 import { ModalDetailMovie } from "./ModalDetailMovie";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const TableComponent = () => {
 
@@ -141,7 +142,7 @@ export const TableComponent = () => {
                         columns={columns}
                         dataSource={state.inforListMovie.listMovie}
                         scroll={{
-                            x: "1800px"
+                            x: "2000px"
                         }}
                         pagination={false}
                     >
@@ -149,7 +150,7 @@ export const TableComponent = () => {
                     </Table>
                     <Pagination onChange={(page) => {
                         setCurrentPage(page)
-                    }} total={state.inforListMovie.totalElement} />
+                    }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforListMovie.totalElement} />
                 </Card>
             </div>
         </>

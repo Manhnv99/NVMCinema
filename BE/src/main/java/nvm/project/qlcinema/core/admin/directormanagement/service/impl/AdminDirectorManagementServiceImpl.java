@@ -11,6 +11,7 @@ import nvm.project.qlcinema.core.common.PageableObject;
 import nvm.project.qlcinema.core.common.ResponseObject;
 import nvm.project.qlcinema.entity.Director;
 import nvm.project.qlcinema.infrastructure.exception.RestApiException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

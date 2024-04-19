@@ -8,6 +8,7 @@ import { ModalAddOrUpdate } from "./ModalAddOrUpdate";
 import { ModalDetail } from "./ModalDetail";
 import dayjs from "dayjs";
 import { ModalTicketChair } from "./ModalTicketChair";
+import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 
 export const TableComponent = () => {
@@ -157,7 +158,7 @@ export const TableComponent = () => {
                         columns={columns}
                         dataSource={state.inforListShowTime.listShowTime}
                         scroll={{
-                            x: "1200px"
+                            x: "1500px"
                         }}
                         pagination={false}
                     >
@@ -165,7 +166,7 @@ export const TableComponent = () => {
                     </Table>
                     <Pagination onChange={(page) => {
                         setCurrentPage(page)
-                    }} total={state.inforListShowTime.totalElement} />
+                    }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforListShowTime.totalElement} />
                 </Card>
             </div>
         </>

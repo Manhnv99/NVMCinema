@@ -40,3 +40,11 @@ export const ROUTE_MANAGEMENT_ROOM = "/management-room";
 
 export const ROUTE_MANAGEMENT_SHOWTIME = "/management-showtime";
 //END Route Admin
+
+
+//START Route Client
+export const ROUTE_CLIENT_ACCOUNT = "/tai-khoan";
+
+export const ROUTE_CLIENT_HOME = "/trang-chu";
+
+//END Route Client

@@ -67,7 +67,7 @@ export const ModalDetailMovie = ({ openModal, setOpenModal, movieId }) => {
                                 <Button onClick={() => setWatchVideo(true)} type="dashed" className="mt-[10px]">Xem trailer</Button>
                             </Col>
                             <Col span={17} className="ml-[20px]">
-                                <p className="text-[#72be43] font-bold text-[30px]">Mai</p>
+                                <p className="text-[#72be43] font-bold text-[30px]">{detailMovie.name}</p>
                                 <p className="font-bold text-[#222] text-[18px] mt-[10px]">{detailMovie.description}</p>
                                 <div className="mt-[20px] text-[18px] font-medium">
                                     <p>

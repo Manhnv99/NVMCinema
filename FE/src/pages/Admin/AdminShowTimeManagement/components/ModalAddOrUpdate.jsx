@@ -169,26 +169,6 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                     </Col>
                     <Col span={11}>
                         <Form.Item
-                            label="Phòng Chiếu"
-                            name="roomId"
-                            rules={[
-                                { required: true, message: "Bạn chưa chọn phòng chiếu!" }
-                            ]}
-                        >
-                            <Select
-                                allowClear
-                                placeholder="--Chọn phòng chiếu--"
-                                options={listRoom.map(item => ({
-                                    label: item.name,
-                                    value: item.id
-                                }))}
-                            />
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Row className="justify-center" gutter={16}>
-                    <Col span={11}>
-                        <Form.Item
                             label="Ngày Chiếu"
                             name="screeningDate"
                             rules={[
@@ -198,6 +178,8 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                             <DatePicker allowClear format="YYYY-MM-DD" placeholder="Chọn ngày chiếu" className="w-full" />
                         </Form.Item>
                     </Col>
+                </Row>
+                <Row className="justify-center" gutter={16}>
                     <Col span={11}>
                         <Form.Item
                             label="Giá Vé"
@@ -209,6 +191,51 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                             <InputNumber formatter={formatter} parser={parser} placeholder="Điền giá vé..." className="w-full" />
                         </Form.Item>
                     </Col>
+                    <Col span={11} />
+                </Row>
+                {/*  */}
+                <Row className="justify-center">
+                    {whatAction === "post"
+                        ?
+                        <Col span={22}>
+                            <Form.Item
+                                label="Phòng Chiếu"
+                                name="roomId"
+                                rules={[
+                                    { required: true, message: "Bạn chưa chọn phòng chiếu!" }
+                                ]}
+                            >
+                                <Select
+                                    allowClear
+                                    mode="multiple"
+                                    placeholder="--Chọn phòng chiếu--"
+                                    options={listRoom.map(item => ({
+                                        label: item.name,
+                                        value: item.id
+                                    }))}
+                                />
+                            </Form.Item>
+                        </Col>
+                        :
+                        <Col span={22}>
+                            <Form.Item
+                                label="Phòng Chiếu"
+                                name="roomId"
+                                rules={[
+                                    { required: true, message: "Bạn chưa chọn phòng chiếu!" }
+                                ]}
+                            >
+                                <Select
+                                    allowClear
+                                    placeholder="--Chọn phòng chiếu--"
+                                    options={listRoom.map(item => ({
+                                        label: item.name,
+                                        value: item.id
+                                    }))}
+                                />
+                            </Form.Item>
+                        </Col>
+                    }
                 </Row>
                 <Row className="justify-center">
                     {whatAction === "post"
