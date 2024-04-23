@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.showtimemanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.showtimemanagement.model.request.AdminShowTimeManagementListShowTimeRequest;
 import nvm.project.qlcinema.core.admin.showtimemanagement.model.request.AdminShowTimeManagementPostRequest;
@@ -69,12 +70,12 @@ public class AdminShowTimeManagementController {
     }
 
     @PostMapping("/post-showtime")
-    public ResponseObject postShowTime(@RequestBody AdminShowTimeManagementPostRequest postRequest) throws ParseException {
+    public ResponseObject postShowTime(@RequestBody @Valid AdminShowTimeManagementPostRequest postRequest) throws ParseException {
         return adminShowTimeManagementService.postShowTime(postRequest);
     }
 
     @PutMapping("/put-showtime")
-    public ResponseObject putShowTime(@RequestBody AdminShowTimeManagementPutRequest putRequest) throws ParseException {
+    public ResponseObject putShowTime(@RequestBody @Valid AdminShowTimeManagementPutRequest putRequest) throws ParseException {
         return adminShowTimeManagementService.putShowTime(putRequest);
     }
 

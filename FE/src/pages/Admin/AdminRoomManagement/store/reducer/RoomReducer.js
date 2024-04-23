@@ -1,4 +1,4 @@
-import { SET_INFOR_LIST_ROOM_CONSTANT, SET_INFOR_SEARCH_ROOM_CONSTANT } from "../constant/RoomConstant"
+import { SET_CURRENT_PAGE, SET_INFOR_LIST_ROOM_CONSTANT, SET_INFOR_SEARCH_ROOM_CONSTANT } from "../constant/RoomConstant"
 
 export const INITIAL_STATE = {
     inforListRoom: {
@@ -8,7 +8,8 @@ export const INITIAL_STATE = {
     inforSearch: {
         inputSearch: "",
         branchId: ""
-    }
+    },
+    currentPageStore: 1
 }
 
 export const RoomReducer = (state = INITIAL_STATE, action) => {
@@ -23,5 +24,12 @@ export const RoomReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 inforSearch: action.payload
             }
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPageStore: action.payload
+            }
+        default:
+            return state;
     }
 }

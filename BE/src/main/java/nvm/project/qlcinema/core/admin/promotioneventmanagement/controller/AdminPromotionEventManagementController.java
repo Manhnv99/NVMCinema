@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.promotioneventmanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.promotioneventmanagement.model.request.AdminPromotionEventManagementListPromotionEventRequest;
 import nvm.project.qlcinema.core.admin.promotioneventmanagement.model.request.AdminPromotionEventManagementPostRequest;
@@ -40,12 +41,12 @@ public class AdminPromotionEventManagementController {
     }
 
     @PostMapping("/post-promotion_event")
-    public ResponseObject postPromotionEvent(@ModelAttribute AdminPromotionEventManagementPostRequest postRequest) throws IOException {
+    public ResponseObject postPromotionEvent(@ModelAttribute @Valid AdminPromotionEventManagementPostRequest postRequest) throws IOException {
         return adminPromotionEventManagementService.postPromotionEvent(postRequest);
     }
 
     @PutMapping("/put-promotion_event")
-    public ResponseObject putPromotionEvent(@ModelAttribute AdminPromotionEventManagementPutRequest putRequest) throws IOException {
+    public ResponseObject putPromotionEvent(@ModelAttribute @Valid AdminPromotionEventManagementPutRequest putRequest) throws IOException {
         return adminPromotionEventManagementService.putPromotionEvent(putRequest);
     }
 

@@ -4,7 +4,7 @@ export const INITIAL_STATE = {
     listStaff: [],
     searchValue: "",
     detailStaff: {},
-    totalElement: 0
+    totalElement: 0,
 }
 
 export const StaffReducer = (state = INITIAL_STATE, action) => {
@@ -13,22 +13,22 @@ export const StaffReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 listStaff: action.payload
-            }
+            };
         case SET_SEARCH_VALUE_CONSTANT:
             return {
                 ...state,
                 searchValue: action.payload
-            }
+            };
         case SET_DETAIL_STAFF_CONSTANT:
             return {
                 ...state,
                 detailStaff: action.payload
-            }
+            };
         case SET_TOTAL_ELEMENT_CONSTANT:
             return {
                 ...state,
                 totalElement: action.payload
-            }
+            };
         default:
             return state;
     }

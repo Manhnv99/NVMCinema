@@ -41,9 +41,10 @@ public class UrlPath {
 
     public static final String URL_API_ADMIN_SHOWTIME_MANAGEMENT = URL_API_ADMIN + "/showtime-management";
 
-    public static final String URL_API_ADMIN_STATISTICS_MANAGEMENT = URL_API_ADMIN + "/statistics-management"
-            ;
+    public static final String URL_API_ADMIN_STATISTICS_MANAGEMENT = URL_API_ADMIN + "/statistics-management";
     public static final String URL_API_ADMIN_ORDER_MANAGEMENT = URL_API_ADMIN + "/order-management";
+
+    public static final String URL_API_ADMIN_COMBO_FOOD_MANAGEMENT = URL_API_ADMIN + "/combo-food-management";
 
     public static final String URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT = URL_API_ADMIN + "/promotion_event-management";
 
@@ -61,6 +62,6 @@ public class UrlPath {
 
     public static final String URL_API_CLIENT_BOOK_TICKET = URL_API_CLIENT + "/book-ticket";
 
-    public static final String URL_API_CLIENT_BOOK_CHAIR = URL_API_ADMIN + "/book-chair";
+    public static final String URL_API_CLIENT_BOOK_CHAIR = URL_API_CLIENT + "/book-chair";
 
 }

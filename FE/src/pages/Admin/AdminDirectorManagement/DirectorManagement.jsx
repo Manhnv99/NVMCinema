@@ -24,7 +24,8 @@ export const DirectorManagement = () => {
         handleFetchPut,
         handleFetchPost,
         handleFetchListSearch, listData, totalElement,
-        handleFetchDetail, dataDetail, render
+        handleFetchDetail, dataDetail, render,
+        setCurrentPage
     } = useDirector();
     //useRef
     const timeOutId = useRef();
@@ -155,6 +156,7 @@ export const DirectorManagement = () => {
                 >
                 </Table>
                 <Pagination onChange={(page) => {
+                    setCurrentPage(page);
                     handleFetchListSearch(searchValue, page);
                 }}
                     pageSize={DEFAUTL_PAGE_SIZE}

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AdminRoomManagementPutRoomRequest extends AdminRoomManagementPostRoomRequest{
+public class AdminRoomManagementPutRoomRequest {
 
     private String id;
 

@@ -78,7 +78,7 @@ export const useShowTime = () => {
         try {
             const response = await ShowTimeManagementAPI.fetchPost(postRequest);
             message.success(response.data.message);
-            handleFetchListSearchShowTime("", "", "", "", 1);
+            handleFetchListSearchShowTime("", "", "", "", state.currentPage);
             handleCloseModal();
         } catch (e) {
             dispatchStore(setLoadingFalse());
@@ -93,7 +93,7 @@ export const useShowTime = () => {
         try {
             const response = await ShowTimeManagementAPI.fetchPut(putRequest);
             message.success(response.data.message);
-            handleFetchListSearchShowTime("", "", "", "", 1);
+            handleFetchListSearchShowTime("", "", "", "", state.currentPage);
             handleCloseModal();
         } catch (e) {
             dispatchStore(setLoadingFalse());

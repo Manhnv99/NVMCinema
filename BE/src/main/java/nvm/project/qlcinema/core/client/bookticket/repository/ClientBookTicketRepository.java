@@ -16,7 +16,8 @@ public interface ClientBookTicketRepository extends ShowTimeRepository {
                     b.id AS branchId,
                     s.time_start AS timeStart,
                     f.name AS format,
-                    m.subtitle AS subTitle
+                    m.subtitle AS subTitle,
+                    r.name AS roomName
             FROM showtime s
             JOIN movie m ON s.movie_id = m.id
             JOIN format f ON m.format_id = f.id

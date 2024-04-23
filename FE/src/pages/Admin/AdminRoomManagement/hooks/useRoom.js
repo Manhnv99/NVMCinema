@@ -104,7 +104,7 @@ export const useRoom = () => {
             const response = await RoomManagementAPI.fetchPost(postRequest);
             message.success(response.data.message);
             handleClose();
-            handleFetchListSearchRoom("", "", 1);
+            handleFetchListSearchRoom("", "", state.currentPageStore);
         } catch (e) {
             dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
@@ -119,7 +119,7 @@ export const useRoom = () => {
             const response = await RoomManagementAPI.fetchPut(putRequest);
             message.success(response.data.message);
             handleClose();
-            handleFetchListSearchRoom("", "", 1);
+            handleFetchListSearchRoom("", "", state.currentPageStore);
         } catch (e) {
             dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {

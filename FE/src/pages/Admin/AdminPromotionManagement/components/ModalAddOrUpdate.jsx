@@ -131,7 +131,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
 
     return (
         <Modal
-            title={<span className="font-bold text-[20px]">{whatAction === "post" ? "Tạo sự kiện" : "Cập nhật sự kiện"}</span>}
+            title={<span className="font-bold text-[20px]">{whatAction === "post" ? "Tạo sự kiện khuyến mãi" : "Cập nhật sự kiện khuyến mãi"}</span>}
             open={openModal}
             footer={null}
             onCancel={handleCloseModal}
@@ -290,7 +290,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                     }
                 </Row>
                 <div className="flex justify-end">
-                    <Button htmlType="submit" type="primary">{whatAction === "post" ? "Tạo xuất chiếu" : "Cập nhật xuất chiếu"}</Button>
+                    <Button htmlType="submit" type="primary">{whatAction === "post" ? "Tạo sự kiện khuyến mãi" : "Cập nhật sự kiện khuyến mãi"}</Button>
                 </div>
             </Form>
         </Modal>

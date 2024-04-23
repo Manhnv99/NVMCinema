@@ -9,15 +9,13 @@ import { ModalDetail } from "./ModalDetail";
 import dayjs from "dayjs";
 import { ModalTicketChair } from "./ModalTicketChair";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
+import { setCurrentPage } from "../store/actions/ShowTimeActions";
 
 
 export const TableComponent = () => {
-    //custom hooks
-
     //useContext
     const [state, dispatch] = useContext(ShowTimeContext);
     //use state
-    const [currentPage, setCurrentPage] = useState(1);
     const [showTimeId, setShowTimeId] = useState("");
     //open Modal
     const [whatAction, setWhatAction] = useState("post");
@@ -108,9 +106,9 @@ export const TableComponent = () => {
             state.inforSearch.areaId,
             state.inforSearch.branchId,
             state.inforSearch.roomId,
-            currentPage
+            1
         );
-    }, [state.inforSearch, currentPage]);
+    }, [state.inforSearch]);
 
     return (
         <>
@@ -165,7 +163,14 @@ export const TableComponent = () => {
 
                     </Table>
                     <Pagination onChange={(page) => {
-                        setCurrentPage(page)
+                        handleFetchListSearchShowTime(
+                            state.inforSearch.movieName,
+                            state.inforSearch.areaId,
+                            state.inforSearch.branchId,
+                            state.inforSearch.roomId,
+                            page
+                        );
+                        dispatch(setCurrentPage(page));
                     }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforListShowTime.totalElement} />
                 </Card>
             </div>

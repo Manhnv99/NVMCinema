@@ -18,7 +18,6 @@ export const useStaff = () => {
     //useNav
     const navigate = useNavigate();
 
-
     //function
     const fetchRegister = async (data) => {
         //setLoading
@@ -80,7 +79,7 @@ export const useStaff = () => {
             //show message Success
             message.success(response.data.message);
             //make component re-render
-            fetchListSearchStaff(state.searchValue, state.currenPage);
+            fetchListSearchStaff(state.searchValue, 1);
         } catch (e) {
             //setLoading false
             dispatchStore(setLoadingFalse());

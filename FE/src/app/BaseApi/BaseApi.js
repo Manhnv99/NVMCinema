@@ -46,6 +46,8 @@ export const URL_API_ADMIN_STATISTICS_MANAGEMENT = URL_API_ADMIN + "/statistics-
 
 export const URL_API_ADMIN_ORDER_MANAGEMENT = URL_API_ADMIN + "/order-management";
 
+export const URL_API_ADMIN_COMBO_FOOD_MANAGEMENT = URL_API_ADMIN + "/combo-food-management";
+
 export const URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT = URL_API_ADMIN + "/promotion_event-management";
 
 // các API của admin-area
@@ -60,3 +62,5 @@ export const URL_API_CLIENT_AUTHENTICATION = URL_API_CLIENT + "/authentication";
 export const URL_API_CLIENT_HOME_PAGE = URL_API_CLIENT + "/home-page";
 
 export const URL_API_CLIENT_BOOK_TICKET = URL_API_CLIENT + "/book-ticket";
+
+export const URL_API_CLIENT_BOOK_CHAIR = URL_API_CLIENT + "/book-chair";

@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Dropdown, message } from 'antd';
 import { useEffect, useState } from 'react';
-import { ROUTE_CLIENT_HOME, ROUTE_LOGIN, ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
+import { ROUTE_CLIENT_HOME, ROUTE_LOGIN, ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_COMBO_FOOD, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from 'antd';
 import Logo from "../../assets/NVM.png";
@@ -156,6 +156,11 @@ export const AdminLayoutManagement = ({ children }) => {
                             key: ROUTE_MANAGEMENT_PROMOTION,
                             icon: <UploadOutlined />,
                             label: 'Khuyến Mãi',
+                        },
+                        {
+                            key: ROUTE_MANAGEMENT_COMBO_FOOD,
+                            icon: <UploadOutlined />,
+                            label: 'ComboFood',
                         },
                     ]}
                 />

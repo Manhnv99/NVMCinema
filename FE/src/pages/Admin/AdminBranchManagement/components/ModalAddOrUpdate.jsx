@@ -36,7 +36,6 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                     postBranch.append("email", fieldsValue.email);
                     postBranch.append("address", fieldsValue.address);
                     postBranch.append("hostLine", fieldsValue.hostLine);
-                    console.log(fieldsValue);
                     if (fieldsValue.image === undefined) {
                         postBranch.append("image", new File([], "empty-file"));
                     } else {

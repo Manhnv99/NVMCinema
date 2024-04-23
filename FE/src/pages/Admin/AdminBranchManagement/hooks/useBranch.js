@@ -17,7 +17,8 @@ export const useBranch = () => {
     const [dataDetail, setDataList] = useState({});
     //state 
     const [render, setRender] = useState(false);
-
+    //page
+    const [currentPage, setCurrentPage] = useState(1);
 
 
     //fetchPost
@@ -28,7 +29,7 @@ export const useBranch = () => {
             const response = await BranchManagementAPI.fetchPostBranch(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -48,7 +49,7 @@ export const useBranch = () => {
             const response = await BranchManagementAPI.fetchPutBranch(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -154,7 +155,8 @@ export const useBranch = () => {
         handleFetchListSearch, listData, totalElement,
         handleFetchDetail, dataDetail, render,
         handleFetchGetOne,
-        handleFetchListArea, listArea
+        handleFetchListArea, listArea,
+        setCurrentPage
     }
 
 }

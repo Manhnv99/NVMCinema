@@ -1,7 +1,7 @@
 import { Input, Table, Pagination, Button, Tag, Tooltip, Card, Row, Col, Form, Select, Image } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faLayerGroup, faPenToSquare, faEye, faTrash, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { DEFAUTL_PAGE_SIZE } from "../../../app/Constant/PaginationConstant";
 import { ModalDetail } from "./components/ModalDetail";
 import Swal from "sweetalert2";
@@ -26,7 +26,8 @@ export const BranchManagement = () => {
         handleFetchListSearch, listData, totalElement,
         handleFetchDetail, dataDetail, render,
         handleFetchGetOne,
-        handleFetchListArea, listArea
+        handleFetchListArea, listArea,
+        setCurrentPage
     } = useBranch();
 
     //columns table
@@ -202,6 +203,7 @@ export const BranchManagement = () => {
                 >
                 </Table>
                 <Pagination onChange={(page) => {
+                    setCurrentPage(page);
                     handleFetchListSearch(form.getFieldsValue(), page);
                 }}
                     pageSize={DEFAUTL_PAGE_SIZE}

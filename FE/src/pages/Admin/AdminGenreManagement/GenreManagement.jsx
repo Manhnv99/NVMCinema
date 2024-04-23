@@ -24,7 +24,8 @@ export const GenreManagement = () => {
         handleFetchPut,
         handleFetchPost,
         handleFetchListSearch, listData, totalElement,
-        handleFetchDetail, dataDetail, render
+        handleFetchDetail, dataDetail, render,
+        setCurrentPage
     } = useGenre();
     //useRef
     const timeOutId = useRef();
@@ -149,6 +150,7 @@ export const GenreManagement = () => {
                 >
                 </Table>
                 <Pagination onChange={(page) => {
+                    setCurrentPage(page);
                     handleFetchListSearch(searchValue, page);
                 }}
                     pageSize={DEFAUTL_PAGE_SIZE}

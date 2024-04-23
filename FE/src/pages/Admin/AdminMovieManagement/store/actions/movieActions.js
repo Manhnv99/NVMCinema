@@ -6,11 +6,11 @@ export const setInforListMovieAction = (payload) => {
         type: SET_INFOR_LIST_MOVIE_CONSTANT,
         payload: payload
     }
-}
+};
 
 export const setInforSearchAction = (payload) => {
     return {
         type: SET_INFOR_SEARCH_CONSTANT,
         payload: payload
     }
-}
+};

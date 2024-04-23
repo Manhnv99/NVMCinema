@@ -16,7 +16,8 @@ export const useFormat = () => {
     const [dataDetail, setDataList] = useState({});
     //state 
     const [render, setRender] = useState(false);
-
+    //page
+    const [currentPage, setCurrentPage] = useState(1);
 
 
     //fetchPost
@@ -27,7 +28,7 @@ export const useFormat = () => {
             const response = await FormatManagementAPI.fetchPostFormat(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -47,7 +48,7 @@ export const useFormat = () => {
             const response = await FormatManagementAPI.fetchPutFormat(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -120,7 +121,8 @@ export const useFormat = () => {
         handleFetchDelete,
         handleFetchPut,
         handleFetchListSearch, listData, totalElement,
-        handleFetchDetail, dataDetail, render
+        handleFetchDetail, dataDetail, render,
+        setCurrentPage
     }
 
 }

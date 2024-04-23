@@ -9,12 +9,14 @@ import { AdminLayoutManagement } from './layouts/Admin/AdminLayoutManagement';
 import {
   ROUTE_AUTHORIZATION,
   ROUTE_CLIENT_ACCOUNT,
+  ROUTE_CLIENT_BOOK_CHAIR,
   ROUTE_CLIENT_BOOK_TICKET,
   ROUTE_CLIENT_HOME,
   ROUTE_FORBIDDEN,
   ROUTE_LOGIN,
   ROUTE_MANAGEMENT_AREA,
   ROUTE_MANAGEMENT_BRANCH,
+  ROUTE_MANAGEMENT_COMBO_FOOD,
   ROUTE_MANAGEMENT_COUNTRY,
   ROUTE_MANAGEMENT_DIRECTOR,
   ROUTE_MANAGEMENT_FORMAT,
@@ -59,6 +61,8 @@ import { ClientLayoutManagement } from './layouts/Client/ClientLayoutManagement'
 import { LoginClient } from './pages/Client/ClientLoginManagement/layout/LoginClient';
 import { HomeClient } from './pages/Client/ClientHomeManagement/layout/HomeClient';
 import { BookTicket } from './pages/Client/ClientBookTicketManagement/layout/BookTicket';
+import { BookChair } from './pages/Client/ClientBookChairManagement/layout/BookChair';
+import { ComboFoodManagement } from './pages/Admin/AdminComboFoodManagement/ComboFoodManagement';
 
 function App() {
 
@@ -151,6 +155,11 @@ function App() {
       component: <AreaManagement />,
     },
     {
+      key: ROUTE_MANAGEMENT_COMBO_FOOD,
+      route: ROUTE_MANAGEMENT_COMBO_FOOD,
+      component: <ComboFoodManagement />,
+    },
+    {
       key: ROUTE_MANAGEMENT_BRANCH,
       route: ROUTE_MANAGEMENT_BRANCH,
       component: <BranchManagement />,
@@ -235,7 +244,12 @@ function App() {
       key: ROUTE_CLIENT_BOOK_TICKET,
       route: ROUTE_CLIENT_BOOK_TICKET,
       component: <BookTicket />,
-    }
+    },
+    {
+      key: ROUTE_CLIENT_BOOK_CHAIR,
+      route: ROUTE_CLIENT_BOOK_CHAIR,
+      component: <BookChair />,
+    },
   ];
 
   const loadingClientRoute = useCallback(() => {

@@ -18,8 +18,6 @@ export const TableComponent = () => {
     const { handleFetchListSearchMovie, handleFetchDeleteMovie } = useMovie();
     //useContext
     const [state, dispatch] = useContext(MovieContext);
-    //use state
-    const [currentPage, setCurrentPage] = useState(1);
     const [movieId, setMovieId] = useState("");
     //open Modal
     const [openModaDetail, setOpenModalDetail] = useState(false);
@@ -114,9 +112,9 @@ export const TableComponent = () => {
             inforSearch.genre,
             inforSearch.format,
             inforSearch.country,
-            currentPage
+            1
         );
-    }, [state.inforSearch, currentPage]);
+    }, [state.inforSearch]);
 
     return (
         <>
@@ -149,7 +147,14 @@ export const TableComponent = () => {
 
                     </Table>
                     <Pagination onChange={(page) => {
-                        setCurrentPage(page)
+                        handleFetchListSearchMovie(
+                            state.inforSearch.name,
+                            state.inforSearch.director,
+                            state.inforSearch.genre,
+                            state.inforSearch.format,
+                            state.inforSearch.country,
+                            page
+                        );
                     }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforListMovie.totalElement} />
                 </Card>
             </div>

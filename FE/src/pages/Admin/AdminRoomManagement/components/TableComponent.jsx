@@ -9,6 +9,7 @@ import { ModalAddOrUpdate } from "./ModalAddOrUpdate";
 import { ModalDetail } from "./ModalDetail";
 import { ModalChair } from "./ModalChair";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
+import { setCurrentPageStore } from "../store/actions/RoomActions";
 
 export const TableComponent = () => {
 
@@ -16,8 +17,6 @@ export const TableComponent = () => {
     const [state, dispatch] = useContext(RoomContext);
     //custom Hook
     const { handleFetchListSearchRoom, handleFetchDeleteBranch } = useRoom();
-    //page
-    const [currentPage, setCurrentPage] = useState(1);
     //openModal
     const [openModalAddOrUpdate, setOpenModalAddOrUpdate] = useState(false);
     const [renderModalAddOrUpdate, setRenderModalAddOrUpdate] = useState(false);
@@ -109,9 +108,9 @@ export const TableComponent = () => {
         handleFetchListSearchRoom(
             state.inforSearch.inputSearch,
             state.inforSearch.branchId,
-            currentPage
+            1
         );
-    }, [state.inforSearch, currentPage]);
+    }, [state.inforSearch, 1]);
 
     return (
         <>
@@ -159,7 +158,12 @@ export const TableComponent = () => {
 
                     </Table>
                     <Pagination onChange={(page) => {
-                        setCurrentPage(page)
+                        handleFetchListSearchRoom(
+                            state.inforSearch.inputSearch,
+                            state.inforSearch.branchId,
+                            page
+                        );
+                        dispatch(setCurrentPageStore(page));
                     }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforListRoom.totalElement} />
                 </Card>
             </div>

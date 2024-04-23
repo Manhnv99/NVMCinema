@@ -24,7 +24,8 @@ export const AreaManagement = () => {
         handleFetchPut,
         handleFetchPost,
         handleFetchListSearch, listData, totalElement,
-        handleFetchDetail, dataDetail, render
+        handleFetchDetail, dataDetail, render,
+        setCurrentPage
     } = useArea();
     //useRef
     const timeOutId = useRef();
@@ -146,6 +147,7 @@ export const AreaManagement = () => {
                 >
                 </Table>
                 <Pagination onChange={(page) => {
+                    setCurrentPage(page);
                     handleFetchListSearch(searchValue, page);
                 }}
                     pageSize={DEFAUTL_PAGE_SIZE}

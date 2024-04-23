@@ -8,6 +8,7 @@ import { usePromotionEvent } from "../hooks/usePromotionEvent";
 import { ModalDetail } from "./ModalDetail";
 import { DANG_DIEN_RA, SAP_DIEN_RA } from "../../../../app/Constant/PromotionEventConstant";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
+import { setCurrentPageStore } from "../store/actions/PromotionEventActions";
 
 export const TableComponent = () => {
 
@@ -15,8 +16,6 @@ export const TableComponent = () => {
 
     //useContext
     const [state, dispatch] = useContext(PromotionEventContext);
-    //use state
-    const [currentPage, setCurrentPage] = useState(1);
     //start Open Modal
     const [PEId, setPEId] = useState("");
     const [whatAction, setWhatAction] = useState("post");
@@ -105,9 +104,9 @@ export const TableComponent = () => {
             state.inforSearch.name,
             state.inforSearch.timeStart,
             state.inforSearch.timeEnd,
-            currentPage
+            1
         );
-    }, [state.inforSearch, currentPage]);
+    }, [state.inforSearch]);
 
     return (
         <>
@@ -155,7 +154,13 @@ export const TableComponent = () => {
 
                     </Table>
                     <Pagination onChange={(page) => {
-                        setCurrentPage(page)
+                        handleFetchListSearch(
+                            state.inforSearch.name,
+                            state.inforSearch.timeStart,
+                            state.inforSearch.timeEnd,
+                            page
+                        );
+                        dispatch(setCurrentPageStore(page));
                     }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforList.totalElement} />
                 </Card>
             </div>

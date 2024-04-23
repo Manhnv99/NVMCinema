@@ -86,9 +86,9 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
         }
 
         //post
-        Area postArea = AreaOptional.get();
-        postArea.setName(putRequest.getName());
-        adminAreaManagementRepository.save(postArea);
+        Area putArea = AreaOptional.get();
+        putArea.setName(putRequest.getName());
+        adminAreaManagementRepository.save(putArea);
 
         return new ResponseObject("Cập nhật thành công khu vực!");
     }

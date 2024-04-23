@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.areamanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementListAreaRequest;
 import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPostRequest;
@@ -38,12 +39,12 @@ public class AdminAreaManagementController {
     }
 
     @PostMapping("/post-area")
-    public ResponseObject postArea(@RequestBody AdminAreaManagementPostRequest postRequest){
+    public ResponseObject postArea(@RequestBody @Valid AdminAreaManagementPostRequest postRequest){
         return adminAreaManagementService.postArea(postRequest);
     }
 
     @PutMapping("/put-area")
-    public ResponseObject putArea(@RequestBody AdminAreaManagementPutRequest putRequest){
+    public ResponseObject putArea(@RequestBody @Valid AdminAreaManagementPutRequest putRequest){
         return adminAreaManagementService.putArea(putRequest);
     }
 

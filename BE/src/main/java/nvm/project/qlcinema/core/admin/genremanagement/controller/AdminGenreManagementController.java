@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.genremanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementListGenreRequest;
 import nvm.project.qlcinema.core.admin.genremanagement.model.request.AdminGenreManagementPostRequest;
@@ -38,12 +39,12 @@ public class AdminGenreManagementController {
     }
 
     @PostMapping("/post-genre")
-    public ResponseObject postGenre(@RequestBody AdminGenreManagementPostRequest postRequest){
+    public ResponseObject postGenre(@RequestBody @Valid AdminGenreManagementPostRequest postRequest){
         return adminGenreManagementService.postGenre(postRequest);
     }
 
     @PutMapping("/put-genre")
-    public ResponseObject putGenre(@RequestBody AdminGenreManagementPutRequest putRequest){
+    public ResponseObject putGenre(@RequestBody @Valid AdminGenreManagementPutRequest putRequest){
         return adminGenreManagementService.putGenre(putRequest);
     }
 

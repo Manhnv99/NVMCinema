@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.directormanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementListDirectorRequest;
 import nvm.project.qlcinema.core.admin.directormanagement.model.request.AdminDirectorManagementPostRequest;
@@ -38,12 +39,12 @@ public class AdminDirectorManagementController {
     }
 
     @PostMapping("/post-director")
-    public ResponseObject postDirector(@RequestBody AdminDirectorManagementPostRequest request){
+    public ResponseObject postDirector(@RequestBody @Valid AdminDirectorManagementPostRequest request){
         return adminDirectorManagementService.postDirector(request);
     }
 
     @PutMapping("/put-director")
-    public ResponseObject putDirector(@RequestBody AdminDirectorManagementPutRequest request){
+    public ResponseObject putDirector(@RequestBody @Valid AdminDirectorManagementPutRequest request){
         return adminDirectorManagementService.putDirector(request);
     }
 

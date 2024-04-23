@@ -34,6 +34,8 @@ export const ROUTE_MANAGEMENT_COUNTRY = "/management-country";
 
 export const ROUTE_MANAGEMENT_AREA = "/management-area";
 
+export const ROUTE_MANAGEMENT_COMBO_FOOD = "/management-combo-food";
+
 export const ROUTE_MANAGEMENT_BRANCH = "/management-branch";
 
 export const ROUTE_MANAGEMENT_ROOM = "/management-room";
@@ -48,5 +50,7 @@ export const ROUTE_CLIENT_ACCOUNT = "/tai-khoan";
 export const ROUTE_CLIENT_HOME = "/trang-chu";
 
 export const ROUTE_CLIENT_BOOK_TICKET = "/dat-ve/:movieId";
+
+export const ROUTE_CLIENT_BOOK_CHAIR = "/dat-cho-ngoi/:showTimeId";
 
 //END Route Client

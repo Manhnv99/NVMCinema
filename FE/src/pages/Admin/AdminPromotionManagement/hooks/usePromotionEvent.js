@@ -50,7 +50,7 @@ export const usePromotionEvent = () => {
         try {
             const response = await PromotionEventAPI.fetchPost(postRequest);
             message.success(response.data.message);
-            handleFetchListSearch("", "", "", 1);
+            handleFetchListSearch("", "", "", state.currentPageStore);
             handleClose();
         } catch (e) {
             dispatchStore(setLoadingFalse());
@@ -65,7 +65,7 @@ export const usePromotionEvent = () => {
         try {
             const response = await PromotionEventAPI.fetchPut(putRequest);
             message.success(response.data.message);
-            handleFetchListSearch("", "", "", 1);
+            handleFetchListSearch("", "", "", state.currentPageStore);
             handleClose();
         } catch (e) {
             dispatchStore(setLoadingFalse());

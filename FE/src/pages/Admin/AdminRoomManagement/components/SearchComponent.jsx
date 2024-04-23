@@ -2,7 +2,7 @@ import { Card, Row, Col, Form, Input, Select, Button } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { FilterOutlined } from "@ant-design/icons";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { RoomContext } from "../store/context/context";
 import { setInforSearchRoomAction } from "../store/actions/RoomActions";
 import { useRoom } from "../hooks/useRoom";
@@ -53,7 +53,7 @@ export const SearchComponent = () => {
                             label="Tìm kiếm"
                             name="inputSearch"
                         >
-                            <Input />
+                            <Input placeholder="Tìm kiếm theo mã, tên" />
                         </Form.Item>
                     </Col>
                     <Col span={6}>

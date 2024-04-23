@@ -16,8 +16,8 @@ export const useArea = () => {
     const [dataDetail, setDataList] = useState({});
     //state 
     const [render, setRender] = useState(false);
-
-
+    //page
+    const [currentPage, setCurrentPage] = useState(1);
 
     //fetchPost
     const handleFetchPost = async (data, handleClose) => {
@@ -47,7 +47,7 @@ export const useArea = () => {
             const response = await AreaManagementAPI.fetchPutArea(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -60,15 +60,15 @@ export const useArea = () => {
     };
 
     //fetchDelete
-    const handleFetchDelete = async (directorId) => {
+    const handleFetchDelete = async (areaId) => {
         //set Loading True
         dispatch(setLoadingTrue());
         try {
-            const response = await AreaManagementAPI.fetchDeleteArea(directorId);
+            const response = await AreaManagementAPI.fetchDeleteArea(areaId);
             //show Success Message
             message.success(response.data.message);
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
             }
             dispatch(setLoadingFalse());
         } catch (e) {
@@ -97,10 +97,10 @@ export const useArea = () => {
     }
 
     //handleGetDetail
-    const handleFetchDetail = async (directorId) => {
+    const handleFetchDetail = async (areaId) => {
         dispatch(setLoadingTrue());
         try {
-            const response = await AreaManagementAPI.fetchDetailArea(directorId);
+            const response = await AreaManagementAPI.fetchDetailArea(areaId);
             if (response.data.success) {
                 setRender(!render);
                 setDataList(response.data.data);
@@ -120,7 +120,8 @@ export const useArea = () => {
         handleFetchDelete,
         handleFetchPut,
         handleFetchListSearch, listData, totalElement,
-        handleFetchDetail, dataDetail, render
+        handleFetchDetail, dataDetail, render,
+        setCurrentPage
     }
 
 }

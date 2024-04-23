@@ -21,4 +21,7 @@ public interface ClientBookTicketListShowtimeResponse {
     @Value("#{target.subTitle}")
     String getSubTitle();
 
+    @Value("#{target.roomName}")
+    String getRoomName();
+
 }

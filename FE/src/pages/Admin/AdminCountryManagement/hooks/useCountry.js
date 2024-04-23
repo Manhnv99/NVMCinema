@@ -16,6 +16,8 @@ export const useCountry = () => {
     const [dataDetail, setDataList] = useState({});
     //state 
     const [render, setRender] = useState(false);
+    //page
+    const [currentPage, setCurrentPage] = useState(1);
 
 
 
@@ -27,7 +29,7 @@ export const useCountry = () => {
             const response = await CountryManagementAPI.fetchPostCountry(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -47,7 +49,7 @@ export const useCountry = () => {
             const response = await CountryManagementAPI.fetchPutCountry(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -120,7 +122,8 @@ export const useCountry = () => {
         handleFetchDelete,
         handleFetchPut,
         handleFetchListSearch, listData, totalElement,
-        handleFetchDetail, dataDetail, render
+        handleFetchDetail, dataDetail, render,
+        setCurrentPage
     }
 
 }

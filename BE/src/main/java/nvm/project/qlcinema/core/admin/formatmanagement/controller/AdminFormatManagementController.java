@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.formatmanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementListFormatRequest;
 import nvm.project.qlcinema.core.admin.formatmanagement.model.request.AdminFormatManagementPostRequest;
@@ -38,12 +39,12 @@ public class AdminFormatManagementController {
     }
 
     @PostMapping("/post-format")
-    public ResponseObject postFormat(@RequestBody AdminFormatManagementPostRequest postRequest){
+    public ResponseObject postFormat(@RequestBody @Valid AdminFormatManagementPostRequest postRequest){
         return adminFormatManagementService.postFormat(postRequest);
     }
 
     @PutMapping("/put-format")
-    public ResponseObject putFormat(@RequestBody AdminFormatManagementPutRequest putRequest){
+    public ResponseObject putFormat(@RequestBody @Valid AdminFormatManagementPutRequest putRequest){
         return adminFormatManagementService.putFormat(putRequest);
     }
 

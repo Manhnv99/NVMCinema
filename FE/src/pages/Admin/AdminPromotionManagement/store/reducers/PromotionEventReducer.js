@@ -1,4 +1,4 @@
-import { SET_INFOR_LIST_CONSTANT, SET_INFOR_SEARCH_CONSTANT } from "../constant/PromotionEventConstant";
+import { SET_CURRENT_PAGE, SET_INFOR_LIST_CONSTANT, SET_INFOR_SEARCH_CONSTANT } from "../constant/PromotionEventConstant";
 
 export const INITIAL_STATE = {
     inforList: {
@@ -9,7 +9,8 @@ export const INITIAL_STATE = {
         name: "",
         timeStart: "",
         timeEnd: ""
-    }
+    },
+    currentPageStore: 1
 };
 
 export const PromotionEventReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +24,11 @@ export const PromotionEventReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 inforSearch: action.payload
+            }
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPageStore: action.payload
             }
         default:
             return state

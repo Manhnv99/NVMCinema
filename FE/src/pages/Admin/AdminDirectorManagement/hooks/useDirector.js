@@ -2,7 +2,7 @@ import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { useState } from "react";
-import { DirectorManagementAPI } from "../../../../apis/Admin/Directormanagement/DirectorManagementAPI";
+import { DirectorManagementAPI } from "../../../../apis/Admin/DirectorManagement/DirectorManagementAPI";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useDirector = () => {
@@ -16,6 +16,8 @@ export const useDirector = () => {
     const [dataDetail, setDataList] = useState({});
     //state 
     const [render, setRender] = useState(false);
+    //page
+    const [currentPage, setCurrentPage] = useState(1);
 
 
     //fetchPost
@@ -26,7 +28,7 @@ export const useDirector = () => {
             const response = await DirectorManagementAPI.fetchPostDirector(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -46,7 +48,7 @@ export const useDirector = () => {
             const response = await DirectorManagementAPI.fetchPutDirector(data);
             //show Success Message
             if (response.data.success) {
-                handleFetchListSearch("", 1);
+                handleFetchListSearch("", currentPage);
                 message.success(response.data.message);
                 handleClose();
             }
@@ -119,7 +121,8 @@ export const useDirector = () => {
         handleFetchDelete,
         handleFetchPut,
         handleFetchListSearch, listData, totalElement,
-        handleFetchDetail, dataDetail, render
+        handleFetchDetail, dataDetail, render,
+        setCurrentPage
     }
 
 }

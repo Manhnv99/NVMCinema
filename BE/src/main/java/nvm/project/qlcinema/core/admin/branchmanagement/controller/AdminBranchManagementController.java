@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.branchmanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.branchmanagement.model.request.AdminBranchManagementListBranchRequest;
 import nvm.project.qlcinema.core.admin.branchmanagement.model.request.AdminBranchManagementPostRequest;
@@ -50,12 +51,12 @@ public class AdminBranchManagementController {
     }
 
     @PostMapping("/post-branch")
-    public ResponseObject postBranch(@ModelAttribute AdminBranchManagementPostRequest postRequest) throws IOException {
+    public ResponseObject postBranch(@ModelAttribute @Valid AdminBranchManagementPostRequest postRequest) throws IOException {
         return adminBranchManagementService.postBranch(postRequest);
     }
 
     @PutMapping("/put-branch")
-    public ResponseObject putBranch(@ModelAttribute AdminBranchManagementPutRequest putRequest) throws IOException {
+    public ResponseObject putBranch(@ModelAttribute @Valid AdminBranchManagementPutRequest putRequest) throws IOException {
         return adminBranchManagementService.putBranch(putRequest);
     }
 

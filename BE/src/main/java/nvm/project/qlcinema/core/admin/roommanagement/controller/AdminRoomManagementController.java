@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.roommanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.roommanagement.model.request.AdminRoomManagementListRoomRequest;
 import nvm.project.qlcinema.core.admin.roommanagement.model.request.AdminRoomManagementPostRoomRequest;
@@ -58,12 +59,12 @@ public class AdminRoomManagementController {
     }
 
     @PostMapping("/post-room")
-    public ResponseObject postRoom(@RequestBody AdminRoomManagementPostRoomRequest postRequest){
+    public ResponseObject postRoom(@RequestBody @Valid AdminRoomManagementPostRoomRequest postRequest){
         return adminRoomManagementService.postRoom(postRequest);
     }
 
     @PutMapping("/put-room")
-    public ResponseObject putRoom(@RequestBody AdminRoomManagementPutRoomRequest putRequest){
+    public ResponseObject putRoom(@RequestBody @Valid AdminRoomManagementPutRoomRequest putRequest){
         return adminRoomManagementService.putRoom(putRequest);
     }
 

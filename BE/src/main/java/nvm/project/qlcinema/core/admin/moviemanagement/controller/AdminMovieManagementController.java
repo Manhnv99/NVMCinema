@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.moviemanagement.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.moviemanagement.model.request.AdminMovieManagementListMovieRequest;
 import nvm.project.qlcinema.core.admin.moviemanagement.model.request.AdminMovieManagementPostRequest;
@@ -45,12 +46,12 @@ public class AdminMovieManagementController {
     }
 
     @PostMapping("/post-movie")
-    public ResponseObject postMovie(@ModelAttribute AdminMovieManagementPostRequest postRequest) throws IOException {
+    public ResponseObject postMovie(@ModelAttribute @Valid AdminMovieManagementPostRequest postRequest) throws IOException {
         return adminMovieManagementService.postMovie(postRequest);
     }
 
     @PutMapping("/put-movie")
-    public ResponseObject putMovie(@ModelAttribute AdminMovieManagementPutRequest putRequest) throws IOException {
+    public ResponseObject putMovie(@ModelAttribute @Valid AdminMovieManagementPutRequest putRequest) throws IOException {
         return adminMovieManagementService.putMovie(putRequest);
     }
 
