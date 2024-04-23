@@ -1,6 +1,6 @@
 
 //Login
-export const ROUTE_LOGIN = "/dang-nhap";
+export const ROUTE_LOGIN = "/admin-login";
 
 //Error
 export const ROUTE_AUTHORIZATION = "/error-authorization";
@@ -46,5 +46,7 @@ export const ROUTE_MANAGEMENT_SHOWTIME = "/management-showtime";
 export const ROUTE_CLIENT_ACCOUNT = "/tai-khoan";
 
 export const ROUTE_CLIENT_HOME = "/trang-chu";
+
+export const ROUTE_CLIENT_BOOK_TICKET = "/dat-ve/:movieId";
 
 //END Route Client

@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
     loading: false,
-    statusLogin: 0
+    statusLogin: 0,
+    areaChange: false,
+    listAreaGlobal: []
 }
 
 const LoadingSlice = createSlice({

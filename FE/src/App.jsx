@@ -9,6 +9,7 @@ import { AdminLayoutManagement } from './layouts/Admin/AdminLayoutManagement';
 import {
   ROUTE_AUTHORIZATION,
   ROUTE_CLIENT_ACCOUNT,
+  ROUTE_CLIENT_BOOK_TICKET,
   ROUTE_CLIENT_HOME,
   ROUTE_FORBIDDEN,
   ROUTE_LOGIN,
@@ -57,6 +58,7 @@ import { PromotionEventProvider } from './pages/Admin/AdminPromotionManagement/s
 import { ClientLayoutManagement } from './layouts/Client/ClientLayoutManagement';
 import { LoginClient } from './pages/Client/ClientLoginManagement/layout/LoginClient';
 import { HomeClient } from './pages/Client/ClientHomeManagement/layout/HomeClient';
+import { BookTicket } from './pages/Client/ClientBookTicketManagement/layout/BookTicket';
 
 function App() {
 
@@ -228,6 +230,11 @@ function App() {
       key: ROUTE_CLIENT_HOME,
       route: ROUTE_CLIENT_HOME,
       component: <HomeClient />,
+    },
+    {
+      key: ROUTE_CLIENT_BOOK_TICKET,
+      route: ROUTE_CLIENT_BOOK_TICKET,
+      component: <BookTicket />,
     }
   ];
 

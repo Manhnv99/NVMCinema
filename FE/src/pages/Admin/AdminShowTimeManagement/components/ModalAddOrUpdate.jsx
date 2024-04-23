@@ -142,7 +142,11 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                                     label: item.name,
                                     value: item.id
                                 }))}
-                                onChange={(id) => handleFetchListBranch(id)}
+                                onChange={(id) => {
+                                    form.setFieldValue("branchId", null);
+                                    form.setFieldValue("roomId", null);
+                                    handleFetchListBranch(id);
+                                }}
                             />
                         </Form.Item>
                     </Col>
@@ -163,7 +167,10 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                                     label: item.name,
                                     value: item.id
                                 }))}
-                                onChange={(id) => handleFetchListRoom(id)}
+                                onChange={(id) => {
+                                    form.setFieldValue("roomId", null);
+                                    handleFetchListRoom(id);
+                                }}
                             />
                         </Form.Item>
                     </Col>

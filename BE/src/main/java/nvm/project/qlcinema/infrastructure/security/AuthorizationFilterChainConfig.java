@@ -27,8 +27,9 @@ public class AuthorizationFilterChainConfig {
         httpSecurity.authorizeHttpRequests(authorization ->
                 authorization
                         .requestMatchers(UrlPath.URL_API_AUTHENTICATION + "/**").permitAll()
+                        .requestMatchers(UrlPath.URL_API_CLIENT_HOME_PAGE + "/list-area" + "/**").permitAll()
                         .requestMatchers(UrlPath.URL_API_CLIENT_AUTHENTICATION + "/**").permitAll()
-                        .requestMatchers("/test" + "/**").hasAnyAuthority(Role.ROLE_CLIENT.name())
+                        .requestMatchers(UrlPath.URL_API_CLIENT + "/**").hasAnyAuthority(Role.ROLE_CLIENT.name())
                         .requestMatchers(UrlPath.URL_API_ADMIN + "/**").hasAnyAuthority(Role.ROLE_ADMIN.name())
                         .requestMatchers(UrlPath.URL_API_ADMIN_AREA + "/**").hasAnyAuthority(Role.ROLE_ADMIN.name(), Role.ROLE_ADMIN_AREA.name())
                         .requestMatchers(UrlPath.URL_API_STAFF + "/**").hasAnyAuthority(Role.ROLE_ADMIN.name(), Role.ROLE_STAFF.name())

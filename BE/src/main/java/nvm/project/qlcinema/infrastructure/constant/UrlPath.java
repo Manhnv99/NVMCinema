@@ -57,4 +57,10 @@ public class UrlPath {
 
     public static final String URL_API_CLIENT_AUTHENTICATION = URL_API_CLIENT + "/authentication";
 
+    public static final String URL_API_CLIENT_HOME_PAGE = URL_API_CLIENT + "/home-page";
+
+    public static final String URL_API_CLIENT_BOOK_TICKET = URL_API_CLIENT + "/book-ticket";
+
+    public static final String URL_API_CLIENT_BOOK_CHAIR = URL_API_ADMIN + "/book-chair";
+
 }

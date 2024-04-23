@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE_CLIENT_HOME } from "../../../../app/BaseUrl/BaseUrl";
 import { useDispatch } from "react-redux";
 import { setStatusLogin } from "../../../../app/Redux/Slice/LoadingSlice";
+import { ModalChooseArea } from "../components/ModalChooseArea";
+import { isAreaExistInLocalStore } from "../../../../utils/CheckInforLocalStore/CheckInforLocalStore";
 
 
 export const LoginClient = () => {
@@ -18,6 +20,8 @@ export const LoginClient = () => {
     const [previewImage, setPreviewImage] = useState('');
     //state
     const [whatAction, setWhatAction] = useState(true);
+    //openModal
+    const [openModalChooseArea, setOpenModalChooseArea] = useState(false);
     //custom hooks
     const {
         handleFetchLogin,
@@ -64,14 +68,25 @@ export const LoginClient = () => {
         setWhatAction(!whatAction);
     }
 
+
+    useEffect(() => {
+        if (!isAreaExistInLocalStore()) {
+            setOpenModalChooseArea(true);
+        }
+    }, []);
+
     //handlelogin
     const handleLogin = () => {
-        handleFetchLogin(loginRequest).then(response => {
-            localStorage.setItem("token", response.data.token);
-            message.success(response.data.message);
-            dispatch(setStatusLogin());
-            navigate(ROUTE_CLIENT_HOME);
-        });
+        if (isAreaExistInLocalStore()) {
+            handleFetchLogin(loginRequest).then(response => {
+                localStorage.setItem("token", response.data.token);
+                message.success(response.data.message);
+                dispatch(setStatusLogin());
+                navigate(ROUTE_CLIENT_HOME);
+            });
+        } else {
+            setOpenModalChooseArea(true);
+        }
     };
 
     //handleRegister
@@ -138,6 +153,7 @@ export const LoginClient = () => {
 
     return (
         <>
+            {<ModalChooseArea openModal={openModalChooseArea} setOpenModal={setOpenModalChooseArea} />}
             <div className="bg-[#1a1d29] text-[#222] flex justify-center">
                 <div className="w-[800px] my-[50px]">
                     <div className="grid grid-cols-2">

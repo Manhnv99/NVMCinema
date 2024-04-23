@@ -1,5 +1,10 @@
 import { Form, Input, Button, message } from "antd"
 import { useLogin } from "./hooks/useLogin";
+import { useEffect } from "react";
+import { ExtractInforToken } from "../../utils/Extract/ExtractInforToken";
+import { TYPE_USER_CLIENT, TYPE_USER_USER } from "../../app/Constant/TypeUser";
+import { ROUTE_CLIENT_HOME, ROUTE_MANAGEMENT_WELCOME } from "../../app/BaseUrl/BaseUrl";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
@@ -7,7 +12,10 @@ export const Login = () => {
     const [form] = Form.useForm();
     //custom Hooks
     const { handleRequestLoginAPI } = useLogin();
+    //useNav
+    const navigate = useNavigate();
 
+    //handle
     const handleLogin = () => {
         handleRequestLoginAPI(form.getFieldsValue());
     }
@@ -15,6 +23,19 @@ export const Login = () => {
     const handleLoginFailed = () => {
         message.error("Vui lòng nhập đủ tài khoản mật khẩu!");
     }
+
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            const inforToken = ExtractInforToken();
+            if (inforToken && inforToken.typeUser) {
+                if (inforToken.typeUser === TYPE_USER_CLIENT) {
+                    navigate(ROUTE_CLIENT_HOME);
+                } else if (inforToken.typeUser === TYPE_USER_USER) {
+                    navigate(ROUTE_MANAGEMENT_WELCOME);
+                }
+            }
+        }
+    }, []);
 
     return (
         <div className="flex justify-center items-center h-screen">

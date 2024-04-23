@@ -56,3 +56,7 @@ export const URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT = URL_API_ADMIN + "/promot
 
 // các API của client
 export const URL_API_CLIENT_AUTHENTICATION = URL_API_CLIENT + "/authentication";
+
+export const URL_API_CLIENT_HOME_PAGE = URL_API_CLIENT + "/home-page";
+
+export const URL_API_CLIENT_BOOK_TICKET = URL_API_CLIENT + "/book-ticket";

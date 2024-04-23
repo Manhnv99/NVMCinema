@@ -7,11 +7,12 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Dropdown, message } from 'antd';
 import { useEffect, useState } from 'react';
-import { ROUTE_LOGIN, ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
+import { ROUTE_CLIENT_HOME, ROUTE_LOGIN, ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from 'antd';
 import Logo from "../../assets/NVM.png";
 import { ExtractInforToken } from '../../utils/Extract/ExtractInforToken';
+import { TYPE_USER_CLIENT } from '../../app/Constant/TypeUser';
 const { Header, Sider, Content } = Layout;
 
 export const AdminLayoutManagement = ({ children }) => {
@@ -27,7 +28,19 @@ export const AdminLayoutManagement = ({ children }) => {
     const [userAuthen, setUserAuthen] = useState({});
 
     useEffect(() => {
-        setUserAuthen(ExtractInforToken())
+        if (localStorage.getItem("token")) {
+            const inforToken = ExtractInforToken();
+            setUserAuthen(inforToken);
+            if (inforToken && inforToken.typeUser) {
+                if (inforToken.typeUser === TYPE_USER_CLIENT) {
+                    navigate(ROUTE_CLIENT_HOME);
+                }
+            } else {
+                navigate(ROUTE_LOGIN);
+            }
+        } else {
+            navigate(ROUTE_LOGIN);
+        }
     }, []);
 
 
