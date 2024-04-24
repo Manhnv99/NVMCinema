@@ -28,4 +28,9 @@ public class ClientBookChairController {
         return clientBookChairService.getListTicketChair(showTimeId);
     }
 
+    @GetMapping("/list-combo-food")
+    public ResponseObject getListComboFood(){
+        return clientBookChairService.getListComboFood();
+    }
+
 }

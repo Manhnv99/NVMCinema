@@ -8,4 +8,6 @@ public interface ClientBookChairService {
 
     ResponseObject getListTicketChair(String showTimeId);
 
+    ResponseObject getListComboFood();
+
 }

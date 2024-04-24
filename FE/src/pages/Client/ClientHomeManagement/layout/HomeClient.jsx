@@ -24,7 +24,7 @@ export const HomeClient = () => {
     const settingMovie = {
         dots: true,
         infinite: true,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
@@ -164,7 +164,9 @@ export const HomeClient = () => {
                                         <span className="text-[#FFF]">{item.genre}</span>
                                     </p>
                                     <div className="mt-[15px]">
-                                        <button className="w-[70%] h-[45px] rounded-md bg-[var(--primary-limegreen)] text-[#FFF]
+                                        <button onClick={() => {
+                                            handleBuyTicket(item.ageRestriction, item.id);
+                                        }} className="w-[70%] h-[45px] rounded-md bg-[var(--primary-limegreen)] text-[#FFF]
                                                 hover:bg-[#a1db4b] duration-300 ease-in-out">
                                             <FontAwesomeIcon icon={faTicket} className="mr-[10px] text-[20px]" />
                                             <span className="font-semibold text-[17px]">Mua Vé Ngay</span>

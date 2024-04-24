@@ -1,6 +1,7 @@
 package nvm.project.qlcinema.core.client.bookchair.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import nvm.project.qlcinema.core.client.bookchair.repository.ClientBookChairComboFoodRepository;
 import nvm.project.qlcinema.core.client.bookchair.repository.ClientBookChairRepository;
 import nvm.project.qlcinema.core.client.bookchair.service.ClientBookChairService;
 import nvm.project.qlcinema.core.common.ResponseObject;
@@ -16,6 +17,8 @@ import java.util.List;
 public class ClientBookChairServiceImpl implements ClientBookChairService {
 
     private final ClientBookChairRepository clientBookChairRepository;
+
+    private final ClientBookChairComboFoodRepository clientBookChairComboFoodRepository;
 
     @Override
     public ResponseObject getDetailShowTime(String showTimeId) {
@@ -38,4 +41,16 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @Override
+    public ResponseObject getListComboFood() {
+        try{
+            return new ResponseObject(clientBookChairComboFoodRepository.getListComboFood());
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được ComboFood!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

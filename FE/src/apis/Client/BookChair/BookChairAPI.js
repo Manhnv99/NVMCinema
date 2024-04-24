@@ -18,4 +18,13 @@ export class BookChairAPI {
         });
     };
 
+    static fetchListComboFood = () => {
+        return requestAPIClient({
+            method: "GET",
+            url: URL_API_CLIENT_BOOK_CHAIR + `/list-combo-food`
+        });
+    };
+
+
+
 }
