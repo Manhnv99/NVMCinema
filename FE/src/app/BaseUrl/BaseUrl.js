@@ -53,4 +53,6 @@ export const ROUTE_CLIENT_BOOK_TICKET = "/dat-ve/:movieId";
 
 export const ROUTE_CLIENT_BOOK_CHAIR = "/dat-cho-ngoi/:showTimeId";
 
+export const ROUTE_CLIENT_INFORMATION = "/thong-tin-tai-khoan";
+
 //END Route Client

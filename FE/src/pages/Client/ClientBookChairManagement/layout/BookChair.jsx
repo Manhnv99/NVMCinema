@@ -1,5 +1,5 @@
-import { faArrowLeft, faCouch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faCouch } from "@fortawesome/free-solid-svg-icons";
 import { Image, Tag } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import seatScreenImage from "../../../../assets/seatScreen.png";
@@ -15,6 +15,8 @@ import {
 import VNPAY_LOGO from "../../../../assets/vnpay.png";
 import { IB_VNPAY } from "../../../../app/Constant/InternetBanking";
 import { messageWarResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
+import { ExtractInforToken } from "../../../../utils/Extract/ExtractInforToken";
+import { ConvertCurrencyVND } from "../../../../utils/ConvertCurrency/ConvertCurrency";
 
 export const BookChair = () => {
 
@@ -30,6 +32,7 @@ export const BookChair = () => {
         handleFetchDetailShowTime, detailShowTime,
         listComboFood,
         handleFetchPromotionEvent, promotionPrice,
+        handleFetchOnlineBanking
     } = useBookChair();
     //showTimeId
     const { showTimeId } = useParams();
@@ -108,8 +111,24 @@ export const BookChair = () => {
             if (whichIB.length === 0) {
                 messageWarResponse("Bạn Chưa Chọn Loại Ngân Hàng Để Thanh Toán!");
             } else {
-                alert("thanh toan")
-            }
+                const paymentRequest = {
+                    listTicketChairId: listTicketChair.map(item => {
+                        return item.ticketChairId;
+                    }),
+                    totalPrice: listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0) +
+                        listFood.reduce((avg, item) => avg + (item.comboFoodPrice * item.quantity), 0)
+                        + promotionPrice,
+                    promotionEventId: valuePromotionCode,
+                    listComboFoodRequest: listFood.map(item => {
+                        return {
+                            comboFoodId: item.comboFoodId,
+                            quantity: item.quantity
+                        }
+                    }),
+                    clientId: ExtractInforToken().id
+                };
+                handleFetchOnlineBanking(paymentRequest);
+            };
         } else {
             dispatch(setBookTicketProgress(bookTicketProgress + 1));
         }
@@ -204,7 +223,7 @@ export const BookChair = () => {
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <span className="font-semibold text-[18px]">{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VND</span>
+                                                            <span className="font-semibold text-[18px]">{ConvertCurrencyVND(item.price)}</span>
                                                         </div>
                                                     </div>
                                                 )
@@ -278,7 +297,7 @@ export const BookChair = () => {
                                                         <span>{listTicketChair.map(item => item.ticketChairName).join(", ")}</span>
                                                     </div>
                                                     <div>
-                                                        <span>{listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VND</span>
+                                                        <span>{ConvertCurrencyVND(listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0))}</span>
                                                     </div>
                                                 </div>
 
@@ -292,7 +311,7 @@ export const BookChair = () => {
                                                                         <p>{foodExist.quantity} x {foodExist.comboFoodName}</p>
                                                                     </div>
                                                                     <div>
-                                                                        <span>{(foodExist.comboFoodPrice * foodExist.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VND</span>
+                                                                        <span>{ConvertCurrencyVND(foodExist.comboFoodPrice * foodExist.quantity)}</span>
                                                                     </div>
                                                                 </div>
                                                             )
@@ -312,17 +331,12 @@ export const BookChair = () => {
                                                 <p className="font-bold text-[#FFF] text-[22px]">
                                                     {listFood.length > 0
                                                         ?
-                                                        (
-                                                            listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0) +
+                                                        ConvertCurrencyVND(listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0) +
                                                             listFood.reduce((avg, item) => avg + (item.comboFoodPrice * item.quantity), 0)
-                                                            + promotionPrice
-                                                        ).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                                            + promotionPrice)
                                                         :
-                                                        (
-                                                            listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0)
-                                                        ).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                                        ConvertCurrencyVND(listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0))
                                                     }
-                                                    VND
                                                 </p>
                                             </div>
                                             <button onClick={handleSolveProgress} className="font-bold text-[18px] mt-[20px] mb-[10px] bg-[var(--primary-limegreen)] w-full h-[45px] rounded-md uppercase outline-none">
@@ -347,8 +361,10 @@ export const BookChair = () => {
                                         <span className="border border-[red] py-[5px] px-[20px] rounded-md">Bạn chưa chọn ghế nào. Vui lòng chọn ghế.</span>
                                     }
                                     <p onClick={() => {
-                                        if (bookTicketProgress === 3) {
-                                            setListTicketChair([]);
+                                        if (bookTicketProgress > 2) {
+                                            if (bookTicketProgress === 3) {
+                                                setListTicketChair([]);
+                                            }
                                             dispatch(setBookTicketProgress(bookTicketProgress - 1));
                                         } else {
                                             navigate(window.history.go(-1));

@@ -4,7 +4,7 @@ import {
     DownOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
-import { ROUTE_CLIENT_ACCOUNT, ROUTE_CLIENT_HOME } from "../../app/BaseUrl/BaseUrl";
+import { ROUTE_CLIENT_ACCOUNT, ROUTE_CLIENT_HOME, ROUTE_CLIENT_INFORMATION } from "../../app/BaseUrl/BaseUrl";
 import { ExtractInforToken } from "../../utils/Extract/ExtractInforToken";
 import { TYPE_USER_CLIENT, TYPE_USER_USER } from "../../app/Constant/TypeUser";
 import { Avatar, Dropdown, Menu, message } from "antd";
@@ -58,15 +58,23 @@ export const ClientHeaderLayout = () => {
 
     const items = [
         {
+            label: 'Thông tin tài khoản',
+            key: ROUTE_CLIENT_INFORMATION,
+        },
+        {
             label: 'Đăng xuất',
-            key: 'dang_xuat',
+            key: ROUTE_CLIENT_ACCOUNT,
         },
     ];
 
-    const handleItemClick = () => {
-        localStorage.removeItem("token");
-        navigate(ROUTE_CLIENT_ACCOUNT);
-        message.success("Đăng xuất tài khoản thành công!")
+    const handleItemClick = (e) => {
+        if (e.key === ROUTE_CLIENT_INFORMATION) {
+            navigate(ROUTE_CLIENT_INFORMATION)
+        } else {
+            localStorage.removeItem("token");
+            navigate(ROUTE_CLIENT_ACCOUNT);
+            message.success("Đăng xuất tài khoản thành công!")
+        }
     }
 
     return (
@@ -81,7 +89,9 @@ export const ClientHeaderLayout = () => {
                                     navigate(ROUTE_CLIENT_HOME); //chuyển đến trang chủ
                                 }} src={LogoNVM} className="h-full rounded-[50%] cursor-pointer" />
                                 <div className="flex ml-[30px]">
-                                    <p className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Lịch chiếu</p>
+                                    <p onClick={() => {
+                                        navigate(ROUTE_CLIENT_HOME);
+                                    }} className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Lịch chiếu</p>
                                     <p className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Hệ thống rạp</p>
                                     <p className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mb-0">Khuyến mãi/Sự kiện</p>
                                 </div>

@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -15,15 +16,18 @@ import nvm.project.qlcinema.entity.base.PrimaryEntity;
 @Getter
 @Setter
 @Entity
-@Table(name = "order_detail")
-public class OrderDetail extends PrimaryEntity {
+@Table(name = "order_detail_combofood")
+public class OrderDetailFood extends PrimaryEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id",referencedColumnName = "id")
     private Order orderId;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_chair_id",referencedColumnName = "id")
-    private TicketChair ticketChairId;
+    @JoinColumn(name = "combo_food_id",referencedColumnName = "id")
+    private ComboFood comboFoodId;
+
+    @Column(name = "quantity")
+    private int quantity;
 
 }

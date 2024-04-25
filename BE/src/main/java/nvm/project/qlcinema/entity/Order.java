@@ -14,6 +14,7 @@ import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 import nvm.project.qlcinema.infrastructure.constant.FormalityOrder;
 import nvm.project.qlcinema.infrastructure.constant.OrderStatus;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "orders")
+@DynamicUpdate
 public class Order extends PrimaryEntity {
 
     @Column(name = "code")
@@ -50,10 +52,6 @@ public class Order extends PrimaryEntity {
     @ManyToOne
     @JoinColumn(name = "promotion_event_id",referencedColumnName = "id")
     private PromotionEvent promotionEventId;
-
-    @ManyToOne
-    @JoinColumn(name = "combo_food_id",referencedColumnName = "id")
-    private ComboFood comboFoodId;
 
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id")

@@ -12,6 +12,7 @@ import {
   ROUTE_CLIENT_BOOK_CHAIR,
   ROUTE_CLIENT_BOOK_TICKET,
   ROUTE_CLIENT_HOME,
+  ROUTE_CLIENT_INFORMATION,
   ROUTE_FORBIDDEN,
   ROUTE_LOGIN,
   ROUTE_MANAGEMENT_AREA,
@@ -63,6 +64,7 @@ import { HomeClient } from './pages/Client/ClientHomeManagement/layout/HomeClien
 import { BookTicket } from './pages/Client/ClientBookTicketManagement/layout/BookTicket';
 import { BookChair } from './pages/Client/ClientBookChairManagement/layout/BookChair';
 import { ComboFoodManagement } from './pages/Admin/AdminComboFoodManagement/ComboFoodManagement';
+import { InformationClient } from './pages/Client/ClientInformationManagement/layout/InformationClient';
 
 function App() {
 
@@ -249,6 +251,11 @@ function App() {
       key: ROUTE_CLIENT_BOOK_CHAIR,
       route: ROUTE_CLIENT_BOOK_CHAIR,
       component: <BookChair />,
+    },
+    {
+      key: ROUTE_CLIENT_INFORMATION,
+      route: ROUTE_CLIENT_INFORMATION,
+      component: <InformationClient />,
     },
   ];
 

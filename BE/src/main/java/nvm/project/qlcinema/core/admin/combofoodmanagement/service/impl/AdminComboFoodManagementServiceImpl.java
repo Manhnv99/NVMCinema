@@ -99,10 +99,10 @@ public class AdminComboFoodManagementServiceImpl implements AdminComboFoodManage
             }
         }
 
-        //post
+        //put
         ComboFood putComboFood = ComboFoodOptional.get();
         putComboFood.setName(putRequest.getName());
-        putComboFood.setPrice(putComboFood.getPrice());
+        putComboFood.setPrice(putRequest.getPrice());
         if(!putRequest.getImage().isEmpty()){
             cloudinaryConfig.delete(putComboFood.getImageId());
             var result=cloudinaryConfig.upload(putRequest.getImage());//upload image to cloudinary

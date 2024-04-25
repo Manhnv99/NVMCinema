@@ -11,3 +11,9 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
 jwt:
   secretKey: "d3775c0fefb657b49d334eacae493726e131ea10e36b9f8800185b05d210ddd4"
+vnpay:
+  payUrl: "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"
+  returnUrl: "/vnpay-payment"
+  tmnCode: "1SRN2PE4"
+  hashSecret: "SYZCKYESYYVJDQUOYHNSAXUTQLEEBAXE"
+  apiUrl: "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction"

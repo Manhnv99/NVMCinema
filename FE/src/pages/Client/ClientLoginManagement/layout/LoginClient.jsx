@@ -149,7 +149,7 @@ export const LoginClient = () => {
             ...loginRequest,
             [field]: e.target.value
         });
-    }
+    };
 
     return (
         <>
@@ -277,7 +277,6 @@ export const LoginClient = () => {
                                         }} value={registerRequest.addressDetail} type="text" className="my-[10px] border border-[#e2e8f0]
                                     outline-none py-[10px] px-[10px] text-[15px] rounded-md w-full" placeholder="Nhập địa chỉ...." />
                                     </div>
-                                    {/*  */}
                                     {/*  */}
                                     <div>
                                         <span className="font-medium text-[#222c37]">Chọn Ảnh</span>

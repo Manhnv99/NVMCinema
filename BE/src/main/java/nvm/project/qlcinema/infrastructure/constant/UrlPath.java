@@ -64,4 +64,6 @@ public class UrlPath {
 
     public static final String URL_API_CLIENT_BOOK_CHAIR = URL_API_CLIENT + "/book-chair";
 
+    public static final String URL_API_CLIENT_INFORMATION_CLIENT = URL_API_CLIENT + "/information-client";
+
 }

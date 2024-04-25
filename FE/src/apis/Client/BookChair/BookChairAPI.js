@@ -35,4 +35,12 @@ export class BookChairAPI {
         });
     };
 
-}
+    static fetchOnlineBanking = (paymentRequest) => {
+        return requestAPIClient({
+            method: "POST",
+            url: URL_API_CLIENT_BOOK_CHAIR + "/start-online-banking",
+            data: paymentRequest
+        });
+    };
+
+};

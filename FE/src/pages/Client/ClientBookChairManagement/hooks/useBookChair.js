@@ -70,6 +70,17 @@ export const useBookChair = () => {
         }
     };
 
+    const handleFetchOnlineBanking = async (paymentRequest) => {
+        try {
+            const response = await BookChairAPI.fetchOnlineBanking(paymentRequest);
+            window.location.href = response.data;
+        } catch (e) {
+            for (let errMessage in e.response.data) {
+                messageErrResponse(e.response.data[errMessage]);
+            }
+        }
+    }
+
     useEffect(() => {
         handleFetchListComboFood();
     }, []);
@@ -79,6 +90,7 @@ export const useBookChair = () => {
         handleFetchDetailShowTime, detailShowTime,
         listComboFood,
         handleFetchPromotionEvent, promotionPrice,
+        handleFetchOnlineBanking
     }
 
 }

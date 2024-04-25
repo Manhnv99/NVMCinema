@@ -64,3 +64,5 @@ export const URL_API_CLIENT_HOME_PAGE = URL_API_CLIENT + "/home-page";
 export const URL_API_CLIENT_BOOK_TICKET = URL_API_CLIENT + "/book-ticket";
 
 export const URL_API_CLIENT_BOOK_CHAIR = URL_API_CLIENT + "/book-chair";
+
+export const URL_API_CLIENT_INFORMATION_CLIENT = URL_API_CLIENT + "/information-client";
