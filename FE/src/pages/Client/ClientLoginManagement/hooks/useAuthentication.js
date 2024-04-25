@@ -1,8 +1,8 @@
-import { message } from "antd";
 import { AuthenticationAPI } from "../../../../apis/Client/Authentication/AuthenticationAPI";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { useEffect, useState } from "react";
+import { messageErrResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 
 
 export const useAuthentication = () => {
@@ -21,7 +21,7 @@ export const useAuthentication = () => {
         } catch (e) {
             dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     };
@@ -35,7 +35,7 @@ export const useAuthentication = () => {
         } catch (e) {
             dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     };
@@ -45,7 +45,7 @@ export const useAuthentication = () => {
             const response = await AuthenticationAPI.fetchProvince();
             setProvinces(response.data.results);
         } catch (e) {
-            message.error("Không lấy được danh sách tỉnh thành phố!");
+            messageErrResponse("Không lấy được danh sách tỉnh thành phố!");
         }
     };
 

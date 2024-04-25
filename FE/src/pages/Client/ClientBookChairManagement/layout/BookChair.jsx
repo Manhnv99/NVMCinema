@@ -12,6 +12,9 @@ import {
     MinusCircleOutlined,
     PlusCircleOutlined
 } from '@ant-design/icons';
+import VNPAY_LOGO from "../../../../assets/vnpay.png";
+import { IB_VNPAY } from "../../../../app/Constant/InternetBanking";
+import { messageWarResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 
 export const BookChair = () => {
 
@@ -25,13 +28,18 @@ export const BookChair = () => {
     const {
         handleFetchListTicketChair, listChair,
         handleFetchDetailShowTime, detailShowTime,
-        listComboFood
+        listComboFood,
+        handleFetchPromotionEvent, promotionPrice,
     } = useBookChair();
     //showTimeId
     const { showTimeId } = useParams();
     //list TicketChair and Food
     const [listTicketChair, setListTicketChair] = useState([]);
     const [listFood, setListFood] = useState([]);
+    //value Input
+    const [valuePromotionCode, setValuePromotionCode] = useState("");
+    //which Enternet Banking
+    const [whichIB, setWhichIB] = useState("");
 
     useEffect(() => {
         dispatch(setBookTicketProgress(2));
@@ -95,6 +103,18 @@ export const BookChair = () => {
         }
     };
 
+    const handleSolveProgress = () => {
+        if (bookTicketProgress === 4) { //nếu nó đang là ba thì bấm vào nó sẽ là 4 thì sẽ thực hiện logic ở đây
+            if (whichIB.length === 0) {
+                messageWarResponse("Bạn Chưa Chọn Loại Ngân Hàng Để Thanh Toán!");
+            } else {
+                alert("thanh toan")
+            }
+        } else {
+            dispatch(setBookTicketProgress(bookTicketProgress + 1));
+        }
+    }
+
     return (
         <>
             <div className="mt-[80px] bg-[#1a1d29]">
@@ -102,7 +122,7 @@ export const BookChair = () => {
                     <p className="text-center  font-bold text-[22px] md:text-[26px] py-[30px]">Bước {bookTicketProgress}: Chọn ghế ngồi</p>
                     <div className="grid grid-cols-12 gap-4 mt-[20px]">
                         <div className="col-span-12 xl:col-span-8">
-                            {bookTicketProgress === 2
+                            {bookTicketProgress === 2 //Trạng thái bằng 2 thì sẽ là chọn ghế
                                 ?
                                 <div className="text-center">
                                     <div className="mb-[20px]">
@@ -144,53 +164,81 @@ export const BookChair = () => {
                                     })}
                                 </div>
                                 :
-                                <div className="border border-[#454D6A] rounded-md">
-                                    <div className="p-[15px]">
-                                        {listComboFood.map((item, index) => {
-                                            return (
-                                                <div key={index} className="flex justify-between items-center py-[20px]">
-                                                    <div className="flex items-center">
-                                                        <Image style={{
-                                                            width: "150px",
-                                                            height: "100px",
-                                                            objectFit: "cover",
-                                                            borderRadius: "5px"
-                                                        }} src={item.imageUrl} />
-                                                        <div className="ml-[10px]">
-                                                            <p className="font-semibold">{item.name}</p>
-                                                            <div className="mt-[30px]">
-                                                                <MinusCircleOutlined onClick={() => {
-                                                                    handleMinusComboFood(item.id);
-                                                                }} className="rounded-[50%] text-[#FFF] bg-[#ccc] text-[20px] cursor-pointer" />
-                                                                <span className="mx-[10px]">
-                                                                    {listFood.length > 0
-                                                                        ?
-                                                                        listFood.reduce((total, food) => {
-                                                                            if (food.comboFoodId === item.id) {
-                                                                                return total + food.quantity;
-                                                                            }
-                                                                            return total;
-                                                                        }, 0)
-                                                                        :
-                                                                        "0"
-                                                                    }
-                                                                </span>
-                                                                <PlusCircleOutlined onClick={() => {
-                                                                    handlePlusComboFood(item.id, item.name, item.price);
-                                                                }} className="rounded-[50%] text-[#FFF] text-[20px] bg-[var(--primary-limegreen)] cursor-pointer" />
+                                bookTicketProgress === 3 //Trạng thái bằng 3 thì sẽ là chọn đồ ăn
+                                    ?
+                                    <div className="border border-[#454D6A] rounded-md">
+                                        <div className="p-[15px]">
+                                            {listComboFood.map((item, index) => {
+                                                return (
+                                                    <div key={index} className="flex justify-between items-center py-[20px]">
+                                                        <div className="flex items-center">
+                                                            <Image style={{
+                                                                width: "150px",
+                                                                height: "100px",
+                                                                objectFit: "cover",
+                                                                borderRadius: "5px"
+                                                            }} src={item.imageUrl} />
+                                                            <div className="ml-[10px]">
+                                                                <p className="font-semibold">{item.name}</p>
+                                                                <div className="mt-[30px]">
+                                                                    <MinusCircleOutlined onClick={() => {
+                                                                        handleMinusComboFood(item.id);
+                                                                    }} className="rounded-[50%] text-[#FFF] bg-[#ccc] text-[20px] cursor-pointer" />
+                                                                    <span className="mx-[10px]">
+                                                                        {listFood.length > 0
+                                                                            ?
+                                                                            listFood.reduce((total, food) => {
+                                                                                if (food.comboFoodId === item.id) {
+                                                                                    return total + food.quantity;
+                                                                                }
+                                                                                return total;
+                                                                            }, 0)
+                                                                            :
+                                                                            "0"
+                                                                        }
+                                                                    </span>
+                                                                    <PlusCircleOutlined onClick={() => {
+                                                                        handlePlusComboFood(item.id, item.name, item.price);
+                                                                    }} className="rounded-[50%] text-[#FFF] text-[20px] bg-[var(--primary-limegreen)] cursor-pointer" />
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <div>
+                                                            <span className="font-semibold text-[18px]">{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VND</span>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <span className="font-semibold text-[18px]">{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VND</span>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })}
+                                                )
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
+                                    : //Trạng thái bằng 4 thì sẽ là nhập mã giảm giá và thanh toán
+                                    <>
+                                        <div className="border border-[#454D6A] rounded-md">
+                                            <div className="p-[20px]">
+                                                <span className="font-bold text-[18px]">Mã giảm giá</span>
+                                            </div>
+                                            <div className="p-[20px] border-t border-dashed border-[#999]">
+                                                <input value={valuePromotionCode} onChange={(e) => setValuePromotionCode(e.target.value)} className="w-[85%] pl-[5px] py-[8px] outline-none border border-[#454D6A] rounded-md text-[16px] text-[#999] placeholder-gray-[#ccc]" placeholder="Nhập mã giảm giá tại đây..." />
+                                                <button onClick={() => {
+                                                    handleFetchPromotionEvent(valuePromotionCode);
+                                                }} className="w-[15%] uppercase bg-[var(--primary-limegreen)] outline-none text-[16px] py-[8px]
+                                                border border-[var(--primary-limegreen)] rounded-md font-bold">Áp dụng</button>
+                                            </div>
+                                        </div>
+                                        <div className="border border-[#454D6A] rounded-md mt-[35px]">
+                                            <div className="p-[20px]">
+                                                <span className="font-bold text-[18px]">Hình thức thanh toán</span>
+                                            </div>
+                                            <div className="p-[20px] border-t border-dashed border-[#999] flex items-center">
+                                                <input onChange={(e) => setWhichIB(e.target.value)} value={IB_VNPAY} className="w-[25px] h-[25px]" type="radio" name="whichIB" />
+                                                <img src={VNPAY_LOGO} className="w-[45px] h-[45px] rounded-md mx-[10px]" />
+                                                <span className="font-semibold text-[18px]">Thanh toán qua VNPAY (Visa, Master , Amex , JCB ,...)</span>
+                                            </div>
+                                        </div>
+                                    </>
                             }
                         </div>
+                        {/* Infor Detail Order */}
                         <div className="col-span-12 xl:col-span-4">
                             <div className="border border-[#454D6A] rounded-md">
                                 <div className="border-b border-[#454D6A]">
@@ -267,6 +315,7 @@ export const BookChair = () => {
                                                         (
                                                             listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0) +
                                                             listFood.reduce((avg, item) => avg + (item.comboFoodPrice * item.quantity), 0)
+                                                            + promotionPrice
                                                         ).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                                                         :
                                                         (
@@ -276,9 +325,7 @@ export const BookChair = () => {
                                                     VND
                                                 </p>
                                             </div>
-                                            <button onClick={() => {
-                                                dispatch(setBookTicketProgress(bookTicketProgress + 1));
-                                            }} className="font-bold text-[18px] mt-[20px] mb-[10px] bg-[var(--primary-limegreen)] w-full h-[45px] rounded-md uppercase outline-none">
+                                            <button onClick={handleSolveProgress} className="font-bold text-[18px] mt-[20px] mb-[10px] bg-[var(--primary-limegreen)] w-full h-[45px] rounded-md uppercase outline-none">
                                                 {bookTicketProgress === 2
                                                     ?
                                                     <span>
@@ -290,7 +337,9 @@ export const BookChair = () => {
                                                             Chọn Đồ Ăn ({bookTicketProgress}/4)
                                                         </span>
                                                         :
-                                                        ""
+                                                        <span>
+                                                            Thanh toán ({bookTicketProgress}/4)
+                                                        </span>
                                                 }
                                             </button>
                                         </>

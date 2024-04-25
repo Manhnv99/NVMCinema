@@ -10,4 +10,6 @@ public interface ClientBookChairService {
 
     ResponseObject getListComboFood();
 
+    ResponseObject getPromotionEvent(String code);
+
 }

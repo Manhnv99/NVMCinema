@@ -25,6 +25,14 @@ export class BookChairAPI {
         });
     };
 
-
+    static fetchPromotionEvent = (code) => {
+        return requestAPIClient({
+            method: "GET",
+            url: URL_API_CLIENT_BOOK_CHAIR + `/get-pme-price`,
+            params: {
+                code: code
+            }
+        });
+    };
 
 }

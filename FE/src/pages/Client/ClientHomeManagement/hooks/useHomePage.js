@@ -1,8 +1,8 @@
-import { message } from "antd"
 import { HomePageAPI } from "../../../../apis/Client/HomePage/HomePageAPI";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
+import { messageErrResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 
 export const useHomePage = () => {
 
@@ -29,7 +29,7 @@ export const useHomePage = () => {
         } catch (e) {
             dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     };
@@ -43,7 +43,7 @@ export const useHomePage = () => {
         } catch (e) {
             dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     };
@@ -57,7 +57,7 @@ export const useHomePage = () => {
         } catch (e) {
             dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     };
@@ -71,7 +71,7 @@ export const useHomePage = () => {
         } catch (e) {
             dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     }

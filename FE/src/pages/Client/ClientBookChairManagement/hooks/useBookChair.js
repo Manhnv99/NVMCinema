@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { BookChairAPI } from "../../../../apis/Client/BookChair/BookChairAPI";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
+import { messageErrResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 
 
 export const useBookChair = () => {
@@ -13,6 +14,7 @@ export const useBookChair = () => {
     const [listChair, setListChair] = useState([]);
     const [detailShowTime, setDetailShowTime] = useState({});
     const [listComboFood, setListComboFood] = useState([]);
+    const [promotionPrice, setPromotionPrice] = useState(0);
 
     const handleFetchListTicketChair = (showTimeId) => {
         dispatch(setLoadingTrue());
@@ -24,7 +26,7 @@ export const useBookChair = () => {
             } catch (e) {
                 dispatch(setLoadingFalse());
                 for (let errMessage in e.response.data) {
-                    message.error(e.response.data[errMessage]);
+                    messageErrResponse(e.response.data[errMessage]);
                 }
             }
         }, [1000]);
@@ -40,7 +42,7 @@ export const useBookChair = () => {
             } catch (e) {
                 dispatch(setLoadingFalse());
                 for (let errMessage in e.response.data) {
-                    message.error(e.response.data[errMessage]);
+                    messageErrResponse(e.response.data[errMessage]);
                 }
             }
         }, [1000]);
@@ -52,7 +54,18 @@ export const useBookChair = () => {
             setListComboFood(response.data.data);
         } catch (e) {
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
+            }
+        }
+    };
+
+    const handleFetchPromotionEvent = async (code) => {
+        try {
+            const response = await BookChairAPI.fetchPromotionEvent(code);
+            setPromotionPrice(response.data.data.promotionPrice);
+        } catch (e) {
+            for (let errMessage in e.response.data) {
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     };
@@ -64,7 +77,8 @@ export const useBookChair = () => {
     return {
         handleFetchListTicketChair, listChair,
         handleFetchDetailShowTime, detailShowTime,
-        listComboFood
+        listComboFood,
+        handleFetchPromotionEvent, promotionPrice,
     }
 
 }

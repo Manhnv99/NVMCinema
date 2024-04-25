@@ -1,5 +1,5 @@
 import { BookTicketAPI } from "../../../../apis/Client/BookTicket/BookTicketAPI";
-import { message } from "antd";
+import { messageErrResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 
 export const useBookTicket = () => {
 
@@ -9,7 +9,7 @@ export const useBookTicket = () => {
             return response.data.data;
         } catch (e) {
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     };
@@ -20,7 +20,7 @@ export const useBookTicket = () => {
             return response.data.data;
         } catch (e) {
             for (let errMessage in e.response.data) {
-                message.error(e.response.data[errMessage]);
+                messageErrResponse(e.response.data[errMessage]);
             }
         }
     };

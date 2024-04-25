@@ -48,10 +48,6 @@ public class Order extends PrimaryEntity {
     private FormalityOrder formality;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_chair_id",referencedColumnName = "id")
-    private TicketChair ticketChairId;
-
-    @ManyToOne
     @JoinColumn(name = "promotion_event_id",referencedColumnName = "id")
     private PromotionEvent promotionEventId;
 

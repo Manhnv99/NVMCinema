@@ -73,7 +73,7 @@ export const ClientHeaderLayout = () => {
         <>
             {window.location.pathname !== ROUTE_CLIENT_ACCOUNT
                 ?
-                <div className="bg-[#0d0f13] text-[var(--primary-white)] h-[80px] border-b border-[#999] fixed top-0 left-0 right-0 z-[10000000]">
+                <div className="bg-[#0d0f13] text-[var(--primary-white)] h-[80px] border-b border-[#999] fixed top-0 left-0 right-0 z-[1000]">
                     <div className="container max-w-[90%] mx-auto h-full">
                         <div className="flex justify-between h-full py-[10px]">
                             <div className="flex items-center w-[50%] h-full">
