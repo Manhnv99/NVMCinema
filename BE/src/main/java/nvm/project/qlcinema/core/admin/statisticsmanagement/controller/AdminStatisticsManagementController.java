@@ -1,6 +1,7 @@
 package nvm.project.qlcinema.core.admin.statisticsmanagement.controller;
 
 import lombok.RequiredArgsConstructor;
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetTopMovieAndTicketRequest;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.service.AdminStatisticsManagementService;
 import nvm.project.qlcinema.core.common.ResponseObject;
 import nvm.project.qlcinema.infrastructure.constant.UrlPath;
@@ -45,6 +46,15 @@ public class AdminStatisticsManagementController {
         return adminStatisticsManagementService.getMonth(year,areaId);
     }
 
-
+    @GetMapping("/statistics-top-movie-and-ticket")
+    public ResponseObject getTopMovieAndTicket(final AdminStatisticsManagementGetTopMovieAndTicketRequest request){
+        System.out.println(request.getAreaId());
+        System.out.println(request.getTop());
+        System.out.println(request.getYear());
+        System.out.println(request.getMonth());
+        System.out.println(request.getDateStart());
+        System.out.println(request.getDateEnd());
+        return adminStatisticsManagementService.getTopMovieAndTicket(request);
+    }
 
 }

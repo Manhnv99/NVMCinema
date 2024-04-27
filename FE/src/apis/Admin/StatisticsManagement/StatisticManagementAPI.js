@@ -46,4 +46,19 @@ export class StatisticManagementAPI {
         });
     };
 
+    static fetchStatisticTopMovieAndTicket = (areaId, top, year, month, dateStart, dateEnd) => {
+        return requestAPI({
+            method: "GET",
+            url: URL_API_ADMIN_STATISTICS_MANAGEMENT + `/statistics-top-movie-and-ticket`,
+            params: {
+                areaId: areaId,
+                top: top,
+                year: year,
+                month: month,
+                dateStart: dateStart,
+                dateEnd: dateEnd
+            }
+        });
+    };
+
 }

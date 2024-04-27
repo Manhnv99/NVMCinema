@@ -51,7 +51,13 @@ public interface ClientInformationClientRepository extends ClientRepository {
                 LEFT JOIN promotion_event pme ON pme.id = o.promotion_event_id
                 WHERE o.client_id = :clientId
                 AND (:dateFind IS NULL OR o.order_date >= :dateFind)
-                GROUP BY code , movie , movieImage , branch , showtime , totalPrice , promotion;
+                GROUP BY    o.code ,
+                         	m.name ,
+                         	m.banner_url ,
+                         	CONCAT(b.name, " - ", b.address) ,
+                         	CONCAT(st.screening_date, " ", st.time_start) ,
+                         	o.total_price ,
+                         	pme.promotion_price;
                 """,nativeQuery = true)
     Page<ClientInformationClientTransactionHistoryResponse> getInformationClientTransactionHistory(Pageable pageable, String clientId, LocalDate dateFind);
 

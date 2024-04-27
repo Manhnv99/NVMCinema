@@ -1,6 +1,7 @@
 package nvm.project.qlcinema.core.admin.statisticsmanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetTopMovieAndTicketRequest;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.repository.AdminStatisticsManagementRepository;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.service.AdminStatisticsManagementService;
 import nvm.project.qlcinema.core.common.ResponseObject;
@@ -68,6 +69,17 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được tháng!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getTopMovieAndTicket(AdminStatisticsManagementGetTopMovieAndTicketRequest request) {
+        try{
+            return new ResponseObject(adminStatisticsManagementRepository.getTopMovieAndTicket(request));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được top bộ phim bán chạy nhất!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }

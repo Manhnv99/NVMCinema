@@ -1,16 +1,17 @@
 import { DatePicker, Select } from 'antd';
-import 'chart.js/auto';
 import { Bar } from "react-chartjs-2";
+import "chart.js/auto";
 import { FilterOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { STATISTICS_FILTER_BY, STATISTICS_MONTH_OF_YEAR, STATISTICS_TOP_FILTER } from '../../../../app/Constant/StatisticsConstant';
 import { useStatisticsTopMovieAndTicket } from '../hooks/useStatisticsTopMovieAndTicket';
+import { ConvertCurrencyVND } from '../../../../utils/ConvertCurrency/ConvertCurrency';
 
 export const StatisticsTopMovieAndTicket = () => {
 
     //custom hooks
     const {
-        yearFilter, monthFilter,
+        yearFilter, monthFilter, topMovieAndTicket,
         handleFetchStatisticGetMonth
     } = useStatisticsTopMovieAndTicket();
     //value onChange
@@ -18,15 +19,16 @@ export const StatisticsTopMovieAndTicket = () => {
     //year month choose to filter
     const [yearChooseFilter, setYearChooseFilter] = useState(new Date().getFullYear()); //make it select this year for the first time
     const [monthChooseFilter, setMonthChooseFilter] = useState(0);
-    
+
 
     //datasets for Bar
     const datasets = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], //Tên phim
+        labels: topMovieAndTicket.map(item => item.movieName), //Tên phim
         datasets: [
             {
                 label: "Số vé",
-                data: [12, 19, 3, 5, 2, 3],
+                data: topMovieAndTicket.map(item => item.ticketSold),
+                yAxisID: 'ticketSold',
                 backgroundColor: [
                     'rgba(83,155,232,0.5)',
                 ],
@@ -37,7 +39,8 @@ export const StatisticsTopMovieAndTicket = () => {
             },
             {
                 label: 'Doanh thu',
-                data: [12, 19, 3, 5, 2, 3, 30],
+                data: topMovieAndTicket.map(item => item.totalRevenue),
+                yAxisID: 'totalRevenue',
                 backgroundColor: [
                     'rgba(242, 160, 68, 0.5)',
                 ],
@@ -136,7 +139,35 @@ export const StatisticsTopMovieAndTicket = () => {
                     </div>
                 </div>
             </div>
-            <Bar data={datasets} />
+            <Bar
+                data={datasets}
+                options={{
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: "top",
+                        }
+                    },
+                    scales: {
+                        ticketSold: {
+                            type: "linear",
+                            position: "left"
+                        },
+                        totalRevenue: {
+                            type: "linear",
+                            position: "right",
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                callback: (value, index, values) => {
+                                    return ConvertCurrencyVND(value)
+                                }
+                            }
+                        }
+                    }
+                }}
+            />
         </div>
     );
 }

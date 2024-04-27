@@ -1,7 +1,9 @@
 package nvm.project.qlcinema.core.admin.statisticsmanagement.repository;
 
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetTopMovieAndTicketRequest;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.model.response.AdminStatisticsManagementGetMonthResponse;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.model.response.AdminStatisticsManagementGetRevenueResponse;
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.response.AdminStatisticsManagementGetTopMovieAndTicketResponse;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.model.response.AdminStatisticsManagementGetYearResponse;
 import nvm.project.qlcinema.repository.OrderRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -88,5 +90,52 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 AND o.order_status = "CHUA_DUYET"
                 """,nativeQuery = true)
     List<AdminStatisticsManagementGetMonthResponse> getMonth(int year, String areaId);
+
+    @Query(value = """
+                SELECT
+                    COUNT(odt.id) AS ticketSold,
+                    CASE
+                        WHEN SUM(o.total_price) IS NULL THEN 0
+                        ELSE SUM(o.total_price)
+                    END AS totalRevenue,
+                    m.name as movieName
+                FROM
+                    order_detail_ticketchair odt
+                JOIN ticket_chair tc ON
+                    tc.id = odt.ticket_chair_id
+                JOIN orders o ON
+                    o.id = odt.order_id
+                JOIN showtime st ON
+                    st.id = tc.show_time_id
+                JOIN room r ON
+                    r.id = st.room_id
+                JOIN branch b ON
+                    b.id = r.branch_id
+                JOIN area a ON
+                    a.id = b.area_id
+                JOIN movie m ON
+                    m.id = st.movie_id
+                WHERE
+                    a.id = :#{#request.areaId} AND
+                    (
+                        ( :#{#request.year} IS NULL ) OR
+                        ( YEAR(o.order_date) = :#{#request.year} AND
+                            (
+                                ( :#{#request.month} IS NULL ) OR
+                                ( MONTH(o.order_date) = :#{#request.month} )
+                            )
+                        )
+                    ) AND
+                    (
+                        ( :#{#request.dateStart} IS NULL AND :#{#request.dateEnd} IS NULL ) OR
+                        ( o.order_date BETWEEN :#{#request.dateStart} AND :#{#request.dateEnd} )
+                    )
+                GROUP BY
+                    movieName
+                ORDER BY
+                    ticketSold DESC
+                LIMIT :#{#request.top}
+                """,nativeQuery = true)
+    List<AdminStatisticsManagementGetTopMovieAndTicketResponse> getTopMovieAndTicket(AdminStatisticsManagementGetTopMovieAndTicketRequest request);
 
 }

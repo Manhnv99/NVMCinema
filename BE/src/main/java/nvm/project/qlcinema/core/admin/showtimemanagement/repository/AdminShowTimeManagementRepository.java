@@ -114,7 +114,7 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
                 SELECT  m.id AS id,
                         m.name AS name
                 FROM movie m
-                WHERE m.deleted = true
+                WHERE m.deleted = true AND m.release_date <= CURRENT_DATE()
                 """,nativeQuery = true)
     List<AdminShowTimeManagementGetListMovieResponse> getListMovie();
 

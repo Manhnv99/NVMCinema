@@ -2,7 +2,7 @@ import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { useState } from "react";
-import { DirectorManagementAPI } from "../../../../apis/Admin/DirectorManagement/DirectorManagementAPI";
+import { DirectorManagementAPI } from "../../../../apis/Admin/Directormanagement/DirectorManagementAPI";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useDirector = () => {
@@ -18,7 +18,6 @@ export const useDirector = () => {
     const [render, setRender] = useState(false);
     //page
     const [currentPage, setCurrentPage] = useState(1);
-
 
     //fetchPost
     const handleFetchPost = async (data, handleClose) => {

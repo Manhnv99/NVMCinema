@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.statisticsmanagement.service;
 
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetTopMovieAndTicketRequest;
 import nvm.project.qlcinema.core.common.ResponseObject;
 
 public interface AdminStatisticsManagementService {
@@ -13,5 +14,7 @@ public interface AdminStatisticsManagementService {
     ResponseObject getYear(String areaId);
 
     ResponseObject getMonth(int year, String areaId);
+
+    ResponseObject getTopMovieAndTicket(AdminStatisticsManagementGetTopMovieAndTicketRequest request);
 
 }
