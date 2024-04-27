@@ -31,7 +31,7 @@ export const BookChair = () => {
         handleFetchListTicketChair, listChair,
         handleFetchDetailShowTime, detailShowTime,
         listComboFood,
-        handleFetchPromotionEvent, promotionPrice,
+        handleFetchPromotionEvent, promotionApplied,
         handleFetchOnlineBanking
     } = useBookChair();
     //showTimeId
@@ -117,8 +117,8 @@ export const BookChair = () => {
                     }),
                     totalPrice: listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0) +
                         listFood.reduce((avg, item) => avg + (item.comboFoodPrice * item.quantity), 0)
-                        + promotionPrice,
-                    promotionEventId: valuePromotionCode,
+                        - promotionApplied.price,
+                    promotionEventCode: promotionApplied.code,
                     listComboFoodRequest: listFood.map(item => {
                         return {
                             comboFoodId: item.comboFoodId,
@@ -318,8 +318,19 @@ export const BookChair = () => {
                                                         }
                                                     }
                                                 })}
+                                                {promotionApplied.code !== "" && promotionApplied.price !== 0 &&
+                                                    <div className="py-[10px] flex justify-between border-t border-dashed border-[#999]">
+                                                        <div>
+                                                            <p>Code: {promotionApplied.code}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span>{ConvertCurrencyVND(promotionApplied.price)}</span>
+                                                        </div>
+                                                    </div>
+                                                }
                                             </>
                                         }
+
                                     </div>
                                 </div>
                                 <div className="my-[20px] text-center px-[15px]">
@@ -333,7 +344,7 @@ export const BookChair = () => {
                                                         ?
                                                         ConvertCurrencyVND(listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0) +
                                                             listFood.reduce((avg, item) => avg + (item.comboFoodPrice * item.quantity), 0)
-                                                            + promotionPrice)
+                                                            - promotionApplied.price)
                                                         :
                                                         ConvertCurrencyVND(listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0))
                                                     }

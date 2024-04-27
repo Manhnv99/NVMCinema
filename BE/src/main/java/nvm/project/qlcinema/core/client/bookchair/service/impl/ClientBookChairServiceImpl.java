@@ -78,7 +78,7 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
 
     private static int totalPriceFinal = 0;
 
-    private static String promotionEventIdFinal = null; // lấy mã giảm giá nếu sử dụng
+    private static String promotionEventCodeFinal = null; // lấy mã giảm giá nếu sử dụng
 
     private static final List<ClientBookChairComboFoodRequest> listComboFoodRequestFinal = new ArrayList<>(); // lấy combofoodId và số lượng của mỗi combo đó.
 
@@ -262,10 +262,10 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
             //tạo Order
             Order postOrder = new Order();
             postOrder.setCode(generateUniqueString.generateOrderCode());
-            postOrder.setTotalPrice(new BigDecimal(totalPriceFinal / 100));
+            postOrder.setTotalPrice(new BigDecimal(totalPriceFinal));
             postOrder.setOrderDate(LocalDate.now());
             postOrder.setFormality(FormalityOrder.ONLINE);
-            Optional<PromotionEvent> isPromotionExist = clientBookChairPromotionEventRepository.findById(promotionEventIdFinal);
+            Optional<PromotionEvent> isPromotionExist = clientBookChairPromotionEventRepository.getPromotionEventByCode(promotionEventCodeFinal);
             isPromotionExist.ifPresent(postOrder::setPromotionEventId);
             postOrder.setClientId(clientBookChairClientRepository.getReferenceById(clientIdFinal));
             postOrder.setCreatedAt(new Date());
@@ -282,11 +282,19 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
             }
 
             //post orderDetailFood
-            for(ClientBookChairComboFoodRequest comboFoodRequest : listComboFoodRequestFinal){
+            if(!listComboFoodRequestFinal.isEmpty()){
+                for(ClientBookChairComboFoodRequest comboFoodRequest : listComboFoodRequestFinal){
+                    clientBookChairOrderDetailFoodRepository.save(new OrderDetailFood(
+                            orderSaved,
+                            clientBookChairComboFoodRepository.getReferenceById(comboFoodRequest.getComboFoodId()),
+                            comboFoodRequest.getQuantity()
+                    ));
+                }
+            }else{
                 clientBookChairOrderDetailFoodRepository.save(new OrderDetailFood(
                         orderSaved,
-                        clientBookChairComboFoodRepository.getReferenceById(comboFoodRequest.getComboFoodId()),
-                        comboFoodRequest.getQuantity()
+                        null,
+                        0
                 ));
             }
 
@@ -299,12 +307,20 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
     }
 
     private void handleSetPaymentRequestFinal(ClientBookChairPaymentRequest paymentRequest){
+        this.handleResetPaymentRequestFinal();
         listTicketChairIdFinal.addAll(paymentRequest.getListTicketChairId());
-        System.out.println(paymentRequest.getTotalPrice());
         totalPriceFinal = paymentRequest.getTotalPrice();
-        promotionEventIdFinal = paymentRequest.getPromotionEventId();
+        promotionEventCodeFinal = paymentRequest.getPromotionEventCode();
         listComboFoodRequestFinal.addAll(paymentRequest.getListComboFoodRequest());
         clientIdFinal = paymentRequest.getClientId();
+    }
+
+    private void handleResetPaymentRequestFinal(){
+        listTicketChairIdFinal.clear();
+        listComboFoodRequestFinal.clear();
+        totalPriceFinal = 0;
+        promotionEventCodeFinal = null;
+        clientIdFinal = "";
     }
 
 }

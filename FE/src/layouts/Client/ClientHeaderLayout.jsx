@@ -7,10 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE_CLIENT_ACCOUNT, ROUTE_CLIENT_HOME, ROUTE_CLIENT_INFORMATION } from "../../app/BaseUrl/BaseUrl";
 import { ExtractInforToken } from "../../utils/Extract/ExtractInforToken";
 import { TYPE_USER_CLIENT, TYPE_USER_USER } from "../../app/Constant/TypeUser";
-import { Avatar, Dropdown, Menu, message } from "antd";
+import { Avatar, Dropdown, Menu, Select, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { HomePageAPI } from "../../apis/Client/HomePage/HomePageAPI";
-import { setAreaChange, setListAreaGlobal, setTextAreaGlobal } from "../../app/Redux/Slice/AreaSlice";
+import { setAreaChange, setListAreaGlobal } from "../../app/Redux/Slice/AreaSlice";
+import { Option } from "antd/es/mentions";
 
 export const ClientHeaderLayout = () => {
 
@@ -21,13 +22,13 @@ export const ClientHeaderLayout = () => {
     //selector login status
     const loginStatus = useSelector(state => state.loading.statusLogin);
     const listAreaGlobal = useSelector(state => state.area.listAreaGlobal);
-    const textAreaGlobal = useSelector(state => state.area.textAreaGlobal);
+    const areaChange = useSelector(state => state.area.areaChange);
     //state
     const [userAuthen, setUserAuthen] = useState({});
+    const [currentArea, setCurrentArea] = useState("");
 
-    const handleChooseArea = (e, id) => {
-        dispatch(setTextAreaGlobal(e.target.innerText));
-        localStorage.setItem("area", id);
+    const handleChooseArea = (value) => {
+        localStorage.setItem("area", value);
         dispatch(setAreaChange());
     };
 
@@ -49,6 +50,11 @@ export const ClientHeaderLayout = () => {
             navigate(ROUTE_CLIENT_ACCOUNT);
         }
     }, [loginStatus]);
+
+    //Two-way-binding
+    useEffect(() => {
+        setCurrentArea(localStorage.getItem("area"));
+    }, [areaChange]);
 
     useEffect(() => {
         HomePageAPI.fetchListArea().then(response => {
@@ -98,32 +104,21 @@ export const ClientHeaderLayout = () => {
                             </div>
                             <div className="w-[50%] flex items-center justify-end">
                                 <p className="font-bold mr-[20px] cursor-pointer mb-0">Quy định</p>
-                                <div className="group relative">
-                                    <button className="font-semibold bg-transparent border border-[#999] outline-none
-                                    py-[10px] px-[20px] rounded-md"
-                                    >
-                                        {textAreaGlobal} <DownOutlined className="text-[12px] ml-[5px]" />
-                                    </button>
-                                    <div className='hidden absolute group-hover:block bg-[#1f222a] py-[15px]
-                                        rounded-md border border-[#999] w-[200px] right-0 top-[45px]'
-                                    >
-                                        {listAreaGlobal.map(item => {
-                                            return (
-                                                <>
-                                                    <p style={{
-                                                        backgroundColor: textAreaGlobal === item.name ? "var(--primary-limegreen)" : "",
-                                                        color: textAreaGlobal === item.name ? "#FFF" : ""
-                                                    }} onClick={(e) => {
-                                                        handleChooseArea(e, item.id)
-                                                    }} className="option_area py-[5px] px-[20px] hover:text-[var(--primary-limegreen)]
-                                        transition duration-500 cursor-pointer">
-                                                        {item.name}
-                                                    </p>
-                                                </>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
+                                <Select
+                                    className="w-[130px] h-[40px]"
+                                    style={{
+                                        backgroundColor: "#000 !important"
+                                    }}
+                                    placeholder="Khu vực"
+                                    value={currentArea}
+                                    options={listAreaGlobal.map(item => {
+                                        return {
+                                            value: item.id,
+                                            label: item.name
+                                        }
+                                    })}
+                                    onChange={handleChooseArea}
+                                />
                                 <div className='ml-[10px]'>
                                     <span className="font-medium text-[16px] mr-[10px]">{userAuthen.fullName}</span>
                                     <Dropdown
@@ -156,32 +151,19 @@ export const ClientHeaderLayout = () => {
                             </div>
                             <div className="w-[50%] flex items-center justify-end">
                                 <p className="font-bold mr-[20px] cursor-pointer">Quy định</p>
-                                <div className="group relative">
-                                    <button className="font-semibold bg-transparent border border-[#999] outline-none
-                                            py-[10px] px-[20px] rounded-md"
-                                    >
-                                        {textAreaGlobal} <DownOutlined className="text-[12px] ml-[5px]" />
-                                    </button>
-                                    <div className='hidden absolute group-hover:block bg-[#1f222a] py-[15px]
-                                                rounded-md border border-[#999] w-[200px] right-0 top-[45px]'
-                                    >
-                                        {listAreaGlobal.map(item => {
-                                            return (
-                                                <>
-                                                    <p style={{
-                                                        backgroundColor: textAreaGlobal === item.name ? "var(--primary-limegreen)" : "",
-                                                        color: textAreaGlobal === item.name ? "#FFF" : ""
-                                                    }} onClick={(e) => {
-                                                        handleChooseArea(e, item.id)
-                                                    }} className="option_area py-[5px] px-[20px] hover:text-[var(--primary-limegreen)]
-                                        transition duration-500 cursor-pointer">
-                                                        {item.name}
-                                                    </p>
-                                                </>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
+                                <Select
+                                    className="text-[20px] w-[130px] h-[40px]"
+                                    placeholder="Khu vực"
+                                    value={currentArea}
+                                    options={listAreaGlobal.map(item => {
+                                        return {
+                                            value: item.id,
+                                            label: item.name
+                                        }
+                                    })}
+                                    onChange={handleChooseArea}
+                                >
+                                </Select>
                             </div>
                         </div>
                     </div>

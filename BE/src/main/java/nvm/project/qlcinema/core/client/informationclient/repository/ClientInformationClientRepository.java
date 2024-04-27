@@ -47,7 +47,7 @@ public interface ClientInformationClientRepository extends ClientRepository {
                 JOIN room r ON r.id = st.room_id
                 JOIN branch b ON b.id = r.branch_id
                 JOIN order_detail_combofood odc ON odc.order_id = o.id
-                JOIN combo_food cf ON cf.id = odc.combo_food_id
+                LEFT JOIN combo_food cf ON cf.id = odc.combo_food_id
                 LEFT JOIN promotion_event pme ON pme.id = o.promotion_event_id
                 WHERE o.client_id = :clientId
                 AND (:dateFind IS NULL OR o.order_date >= :dateFind)

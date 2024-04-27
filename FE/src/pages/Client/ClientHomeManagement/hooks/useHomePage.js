@@ -20,10 +20,10 @@ export const useHomePage = () => {
     const dispatch = useDispatch();
 
     //handle
-    const handleFetchListMovieCurrentShowing = async (areaId) => {
+    const handleFetchListMovieCurrentShowing = async () => {
         dispatch(setLoadingTrue());
         try {
-            const response = await HomePageAPI.fetchListMovieCurrentShowing(areaId);
+            const response = await HomePageAPI.fetchListMovieCurrentShowing();
             setListMovieCurrentShowing(response.data.data);
             dispatch(setLoadingFalse());
         } catch (e) {
@@ -34,10 +34,10 @@ export const useHomePage = () => {
         }
     };
 
-    const handleFetchListMoviePreTicket = async (areaId) => {
+    const handleFetchListMoviePreTicket = async () => {
         dispatch(setLoadingTrue());
         try {
-            const response = await HomePageAPI.fetchListMoviePreTicket(areaId);
+            const response = await HomePageAPI.fetchListMoviePreTicket();
             setListMoviePreTicket(response.data.data);
             dispatch(setLoadingFalse());
         } catch (e) {
@@ -48,10 +48,10 @@ export const useHomePage = () => {
         }
     };
 
-    const handleFetchListMovieUpComming = async (areaId) => {
+    const handleFetchListMovieUpComming = async () => {
         dispatch(setLoadingTrue());
         try {
-            const response = await HomePageAPI.fetchListMovieUpComming(areaId);
+            const response = await HomePageAPI.fetchListMovieUpComming();
             setListMovieUpComming(response.data.data);
             dispatch(setLoadingFalse());
         } catch (e) {
@@ -77,10 +77,9 @@ export const useHomePage = () => {
     }
 
     useEffect(() => {
-        const areaId = localStorage.getItem("area");
-        handleFetchListMovieCurrentShowing(areaId);
-        handleFetchListMoviePreTicket(areaId);
-        handleFetchListMovieUpComming(areaId);
+        handleFetchListMovieCurrentShowing();
+        handleFetchListMoviePreTicket();
+        handleFetchListMovieUpComming();
     }, [areaChange]);
 
     return {

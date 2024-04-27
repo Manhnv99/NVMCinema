@@ -1,6 +1,6 @@
 import { Modal } from "antd"
 import { useDispatch, useSelector } from "react-redux";
-import { setTextAreaGlobal } from "../../../../app/Redux/Slice/AreaSlice";
+import { setAreaChange } from "../../../../app/Redux/Slice/AreaSlice";
 
 
 export const ModalChooseArea = ({ openModal, setOpenModal }) => {
@@ -9,11 +9,11 @@ export const ModalChooseArea = ({ openModal, setOpenModal }) => {
     const dispatch = useDispatch();
 
 
-    const handleChooseArea = (id, name) => {
+    const handleChooseArea = (id) => {
         localStorage.setItem("area", id);
-        dispatch(setTextAreaGlobal(name));
+        dispatch(setAreaChange());
         setOpenModal(false);
-    }
+    };
 
     return (
         <>
@@ -28,7 +28,7 @@ export const ModalChooseArea = ({ openModal, setOpenModal }) => {
                     {listAreaGlobal.map(item => {
                         return (
                             <div onClick={() => {
-                                handleChooseArea(item.id, item.name);
+                                handleChooseArea(item.id);
                             }} key={"LIST_AREA"} className="hover:bg-[var(--primary-limegreen)] hover:text-[#FFF] hover:border-[#FFF]
                                 duration-[0.2s] border border-[#999] py-[8px] px-[15px] rounded-md cursor-pointer mr-[10px]">{item.name}</div>
                         )

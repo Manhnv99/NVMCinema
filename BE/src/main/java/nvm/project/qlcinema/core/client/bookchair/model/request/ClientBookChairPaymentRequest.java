@@ -12,7 +12,7 @@ public class ClientBookChairPaymentRequest {
 
     private int totalPrice;
 
-    private String promotionEventId; // lấy mã giảm giá nếu sử dụng
+    private String promotionEventCode; // lấy mã giảm giá nếu sử dụng
 
     private List<ClientBookChairComboFoodRequest> listComboFoodRequest; // lấy combofoodId và số lượng của mỗi combo đó.
 

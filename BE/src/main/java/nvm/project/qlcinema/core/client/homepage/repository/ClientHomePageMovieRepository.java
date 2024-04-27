@@ -15,64 +15,49 @@ import java.util.List;
 public interface ClientHomePageMovieRepository extends MovieRepository {
 
     @Query(value = """
-                SELECT  DISTINCT
-                        m.id AS id,
+                SELECT  m.id AS id,
                         m.banner_url AS imageUrl,
                         m.name AS movie,
                         m.age_restriction AS ageRestriction,
                         m.subtitle AS subTitle,
                         f.name AS format,
                         g.name AS genre
-                FROM showtime st
-                JOIN movie m ON st.movie_id = m.id
+                FROM movie m
                 JOIN format f ON m.format_id = f.id
                 JOIN genre g ON m.genre_id = g.id
-                JOIN room r ON st.room_id = r.id
-                JOIN branch b ON r.branch_id = b.id
-                JOIN area a ON b.area_id = a.id
-                WHERE st.screening_date = current_date() AND a.id = :areaId
+                WHERE m.release_date <= current_date()
                 """,nativeQuery = true)
-    List<ClientHomePageListMovieCurrentShowingResponse> getListMovieCurrentShowing(String areaId);
+    List<ClientHomePageListMovieCurrentShowingResponse> getListMovieCurrentShowing();
 
     @Query(value = """
-                SELECT  DISTINCT
-                        m.id AS id,
+                SELECT  m.id AS id,
                         m.banner_url AS imageUrl,
                         m.name AS movie,
                         m.age_restriction AS ageRestriction,
                         m.subtitle AS subTitle,
                         f.name AS format,
                         g.name AS genre
-                FROM showtime st
-                JOIN movie m ON st.movie_id = m.id
+                FROM movie m
                 JOIN format f ON m.format_id = f.id
                 JOIN genre g ON m.genre_id = g.id
-                JOIN room r ON st.room_id = r.id
-                JOIN branch b ON r.branch_id = b.id
-                JOIN area a ON b.area_id = a.id
-                WHERE st.screening_date > current_date() AND a.id = :areaId
+                WHERE m.release_date > current_date()
                 """,nativeQuery = true)
-    List<ClientHomePageListMoviePreTicketResponse> getListMoviePreTicket(String areaId);
+    List<ClientHomePageListMoviePreTicketResponse> getListMoviePreTicket();
 
     @Query(value = """
-                SELECT  DISTINCT
-                        m.id AS id,
+                SELECT  m.id AS id,
                         m.banner_url AS imageUrl,
                         m.name AS movie,
                         m.age_restriction AS ageRestriction,
                         m.subtitle AS subTitle,
                         f.name AS format,
                         g.name AS genre
-                FROM showtime st
-                JOIN movie m ON st.movie_id = m.id
+                FROM movie m
                 JOIN format f ON m.format_id = f.id
                 JOIN genre g ON m.genre_id = g.id
-                JOIN room r ON st.room_id = r.id
-                JOIN branch b ON r.branch_id = b.id
-                JOIN area a ON b.area_id = a.id
-                WHERE st.screening_date > current_date() AND a.id = :areaId
+                WHERE m.release_date > current_date()
                 """,nativeQuery = true)
-    List<ClientHomePageListMovieUpComingResponse> getListMovieUpComing(String areaId);
+    List<ClientHomePageListMovieUpComingResponse> getListMovieUpComing();
 
     @Query(value = """
             SELECT  a.id AS id,

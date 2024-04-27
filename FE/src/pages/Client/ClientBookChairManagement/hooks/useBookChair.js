@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { BookChairAPI } from "../../../../apis/Client/BookChair/BookChairAPI";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
-import { messageErrResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
+import { messageErrResponse, messageSuccessResponse, messageWarResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 
 
 export const useBookChair = () => {
@@ -14,7 +14,10 @@ export const useBookChair = () => {
     const [listChair, setListChair] = useState([]);
     const [detailShowTime, setDetailShowTime] = useState({});
     const [listComboFood, setListComboFood] = useState([]);
-    const [promotionPrice, setPromotionPrice] = useState(0);
+    const [promotionApplied, setPromotionApplied] = useState({
+        code: "",
+        price: 0
+    });
 
     const handleFetchListTicketChair = (showTimeId) => {
         dispatch(setLoadingTrue());
@@ -59,14 +62,31 @@ export const useBookChair = () => {
         }
     };
 
-    const handleFetchPromotionEvent = async (code) => {
-        try {
-            const response = await BookChairAPI.fetchPromotionEvent(code);
-            setPromotionPrice(response.data.data.promotionPrice);
-        } catch (e) {
-            for (let errMessage in e.response.data) {
-                messageErrResponse(e.response.data[errMessage]);
-            }
+    const handleFetchPromotionEvent = (code) => {
+        if (promotionApplied.code !== "" && promotionApplied.code === code) {
+            messageWarResponse("Bạn giảm giá này đang được áp dụng vào hóa đơn của bạn!");
+        } else {
+            dispatch(setLoadingTrue());
+            setTimeout(async () => {
+                try {
+                    const response = await BookChairAPI.fetchPromotionEvent(code);
+                    messageSuccessResponse("Áp dụng mã giảm giá thành công!");
+                    setPromotionApplied({
+                        code: code,
+                        price: response.data.data.promotionPrice
+                    });
+                    dispatch(setLoadingFalse());
+                } catch (e) {
+                    setPromotionApplied({
+                        code: "",
+                        price: 0
+                    });
+                    dispatch(setLoadingFalse());
+                    for (let errMessage in e.response.data) {
+                        messageErrResponse(e.response.data[errMessage]);
+                    }
+                }
+            }, [1000]);
         }
     };
 
@@ -89,7 +109,7 @@ export const useBookChair = () => {
         handleFetchListTicketChair, listChair,
         handleFetchDetailShowTime, detailShowTime,
         listComboFood,
-        handleFetchPromotionEvent, promotionPrice,
+        handleFetchPromotionEvent, promotionApplied,
         handleFetchOnlineBanking
     }
 

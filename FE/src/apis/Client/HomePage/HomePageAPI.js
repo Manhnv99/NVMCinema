@@ -3,24 +3,24 @@ import { requestAPIClient } from "../../axiosCustomize"
 
 export class HomePageAPI {
 
-    static fetchListMovieCurrentShowing = (areaId) => {
+    static fetchListMovieCurrentShowing = () => {
         return requestAPIClient({
             method: "GET",
-            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-current-showing/${areaId}`
+            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-current-showing`
         });
     };
 
-    static fetchListMoviePreTicket = (areaId) => {
+    static fetchListMoviePreTicket = () => {
         return requestAPIClient({
             method: "GET",
-            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-pre-ticket/${areaId}`
+            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-pre-ticket`
         });
     };
 
-    static fetchListMovieUpComming = (areaId) => {
+    static fetchListMovieUpComming = () => {
         return requestAPIClient({
             method: "GET",
-            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-upcoming/${areaId}`
+            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-upcoming`
         });
     };
 

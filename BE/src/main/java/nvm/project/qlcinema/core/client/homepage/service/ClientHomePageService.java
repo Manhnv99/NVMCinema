@@ -4,11 +4,11 @@ import nvm.project.qlcinema.core.common.ResponseObject;
 
 public interface ClientHomePageService {
 
-    ResponseObject getListMovieCurrentShowing(String areaId);
+    ResponseObject getListMovieCurrentShowing();
 
-    ResponseObject getListMoviePreTicket(String areaId);
+    ResponseObject getListMoviePreTicket();
 
-    ResponseObject getListMovieUpComing(String areaId);
+    ResponseObject getListMovieUpComing();
 
     ResponseObject getListArea();
 

@@ -67,7 +67,10 @@ export const InformationClient = () => {
             )
         },
         { title: "Vị trí ghế", dataIndex: "chair", key: "chair", width: "5%", },
-        { title: "Đồ ăn", dataIndex: "food", key: "food", width: "10%", },
+        {
+            title: "Đồ ăn", dataIndex: "food", key: "food", width: "10%",
+            render: (food) => food ? food : "Không"
+        },
         {
             title: "Ưu đãi", dataIndex: "promotion", key: "promotion", width: "5%",
             render: (promotion) => {

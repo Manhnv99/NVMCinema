@@ -18,19 +18,19 @@ public class ClientHomePageController {
 
     private final ClientHomePageService clientHomePageService;
 
-    @GetMapping("/list-movie-current-showing/{areaId}")
-    public ResponseObject getListMovieCurrentShowing(@PathVariable String areaId){
-        return clientHomePageService.getListMovieCurrentShowing(areaId);
+    @GetMapping("/list-movie-current-showing")
+    public ResponseObject getListMovieCurrentShowing(){
+        return clientHomePageService.getListMovieCurrentShowing();
     }
 
-    @GetMapping("/list-movie-pre-ticket/{areaId}")
-    public ResponseObject getListMoviePreTicket(@PathVariable String areaId){
-        return clientHomePageService.getListMoviePreTicket(areaId);
+    @GetMapping("/list-movie-pre-ticket")
+    public ResponseObject getListMoviePreTicket(){
+        return clientHomePageService.getListMoviePreTicket();
     }
 
-    @GetMapping("/list-movie-upcoming/{areaId}")
-    public ResponseObject getListMovieUpComing(@PathVariable String areaId){
-        return clientHomePageService.getListMovieUpComing(areaId);
+    @GetMapping("/list-movie-upcoming")
+    public ResponseObject getListMovieUpComing(){
+        return clientHomePageService.getListMovieUpComing();
     }
 
     @GetMapping("/list-area")

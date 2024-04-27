@@ -18,9 +18,9 @@ public class ClientHomePageServiceImpl implements ClientHomePageService {
     private final ClientHomePageMovieRepository clientHomePageMovieRepository;
 
     @Override
-    public ResponseObject getListMovieCurrentShowing(String areaId) {
+    public ResponseObject getListMovieCurrentShowing() {
         try {
-            return new ResponseObject(clientHomePageMovieRepository.getListMovieCurrentShowing(areaId));
+            return new ResponseObject(clientHomePageMovieRepository.getListMovieCurrentShowing());
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách bộ phim đang chiếu!");
@@ -29,9 +29,9 @@ public class ClientHomePageServiceImpl implements ClientHomePageService {
     }
 
     @Override
-    public ResponseObject getListMoviePreTicket(String areaId) {
+    public ResponseObject getListMoviePreTicket() {
         try {
-            return new ResponseObject(clientHomePageMovieRepository.getListMoviePreTicket(areaId));
+            return new ResponseObject(clientHomePageMovieRepository.getListMoviePreTicket());
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách bộ phim bán trước!");
@@ -40,9 +40,9 @@ public class ClientHomePageServiceImpl implements ClientHomePageService {
     }
 
     @Override
-    public ResponseObject getListMovieUpComing(String areaId) {
+    public ResponseObject getListMovieUpComing() {
         try {
-            return new ResponseObject(clientHomePageMovieRepository.getListMovieUpComing(areaId));
+            return new ResponseObject(clientHomePageMovieRepository.getListMovieUpComing());
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách bộ phim sắp chiếu!");

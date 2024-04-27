@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
     areaChange: false,
-    listAreaGlobal: [],
-    textAreaGlobal: "Khu vực"
+    listAreaGlobal: []
 }
 
 const AreaSlice = createSlice({
@@ -15,13 +14,10 @@ const AreaSlice = createSlice({
         },
         setListAreaGlobal: (state, action) => {
             state.listAreaGlobal = action.payload
-        },
-        setTextAreaGlobal: (state, action) => {
-            state.textAreaGlobal = action.payload
         }
     },
 });
 
-export const { setAreaChange, setListAreaGlobal, setTextAreaGlobal } = AreaSlice.actions;
+export const { setAreaChange, setListAreaGlobal } = AreaSlice.actions;
 
 export default AreaSlice.reducer;
