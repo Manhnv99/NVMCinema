@@ -36,7 +36,7 @@ export const InformationClient = () => {
     });
     //date Transaction
     const [dateTransaction, setDateTransaction] = useState("");
-    const [currentPage, setCurrenPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     //openModal
     const [openModalPayment, setOpenModalPayment] = useState(false);
     const [paramsPayment, setParamsPayment] = useState({
@@ -125,7 +125,7 @@ export const InformationClient = () => {
     useEffect(() => {
         const userToken = ExtractInforToken();
         handleFetchTransactionHistory(userToken.id, dateTransaction, currentPage);
-    }, [dateTransaction]);
+    }, [dateTransaction, currentPage]);
 
     const isObjectEmpty = (obj, fieldsToCheck) => {
         for (let key of fieldsToCheck) {
@@ -330,10 +330,12 @@ export const InformationClient = () => {
                             scroll={{
                                 x: "2200px"
                             }}
+                            pagination={false}
+
                         >
                         </Table>
                         <Pagination onChange={(page) => {
-                            setCurrenPage(page);
+                            setCurrentPage(page);
                         }} size={DEFAUTL_PAGE_SIZE} total={totalPages} />
                     </Card>
                 </div>

@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup, faPenToSquare, faEye, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { ROUTE_MANAGEMENT_MOVIE_ADD } from "../../../../app/BaseUrl/BaseUrl";
 import { useContext, useEffect, useState } from "react";
 import { MovieContext } from "../store/context/context";
 import { useMovie } from "../hooks/useMovie";
 import { ModalDetailMovie } from "./ModalDetailMovie";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
+import { ROUTE_ADMIN_MANAGEMENT_MOVIE_ADD } from "../../../../app/BaseUrl/BaseUrl";
 
 export const TableComponent = () => {
 
@@ -129,7 +129,7 @@ export const TableComponent = () => {
                     }
                     extra={
                         <Button type="primary" className="h-[40px] text-[15px]" onClick={() => {
-                            navigate(ROUTE_MANAGEMENT_MOVIE_ADD)
+                            navigate(ROUTE_ADMIN_MANAGEMENT_MOVIE_ADD)
                         }}>
                             <FontAwesomeIcon icon={faPlus} className="mr-[5px]" />
                             Thêm bộ phim

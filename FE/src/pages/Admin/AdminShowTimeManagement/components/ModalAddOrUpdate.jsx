@@ -36,7 +36,12 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                 handleFillFieldsValue(response.data.data)
             });
         }
-    }, [render])
+    }, [render]);
+
+    //For disable the past for Component DatePicker
+    const isPast = (date) => {
+        return dayjs(date).format("YYYY-MM-DD") < dayjs(new Date()).format("YYYY-MM-DD");
+    };
 
     //handle
     const handleAddOrUpdate = () => {
@@ -53,7 +58,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                     //post
                     const postRequest = {
                         ...form.getFieldsValue(),
-                        screeningDate: dayjs(form.getFieldsValue().screeningDate).format("YYYY-MM-DD")
+                        screeningDate: form.getFieldsValue().screeningDate.map(item => dayjs(item).format("YYYY-MM-DD"))
                     }
                     handlePostShowTime(postRequest, handleCloseModal);
                 } else {
@@ -176,19 +181,6 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                     </Col>
                     <Col span={11}>
                         <Form.Item
-                            label="Ngày Chiếu"
-                            name="screeningDate"
-                            rules={[
-                                { required: true, message: "Bạn chưa chọn ngày chiếu!" }
-                            ]}
-                        >
-                            <DatePicker allowClear format="YYYY-MM-DD" placeholder="Chọn ngày chiếu" className="w-full" />
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Row className="justify-center" gutter={16}>
-                    <Col span={11}>
-                        <Form.Item
                             label="Giá Vé"
                             name="ticketPrice"
                             rules={[
@@ -198,7 +190,24 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                             <InputNumber formatter={formatter} parser={parser} placeholder="Điền giá vé..." className="w-full" />
                         </Form.Item>
                     </Col>
-                    <Col span={11} />
+                </Row>
+                <Row className="justify-center" gutter={16}>
+                    <Col span={22}>
+                        <Form.Item
+                            label="Ngày Chiếu"
+                            name="screeningDate"
+                            rules={[
+                                { required: true, message: "Bạn chưa chọn ngày chiếu!" }
+                            ]}
+                        >
+                            {whatAction === "post"
+                                ?
+                                <DatePicker multiple disabledDate={isPast} maxTagCount={"responsive"} allowClear format="YYYY-MM-DD" placeholder="Chọn ngày chiếuaaa" className="w-full" />
+                                :
+                                <DatePicker allowClear disabledDate={isPast} format="YYYY-MM-DD" placeholder="Chọn ngày chiếu" className="w-full" />
+                            }
+                        </Form.Item>
+                    </Col>
                 </Row>
                 {/*  */}
                 <Row className="justify-center">

@@ -33,6 +33,7 @@ public interface AdminAreaManagementRepository extends AreaRepository {
                     ( :#{#request.inputSearch} IS NULL OR a.code LIKE :#{ "%" + #request.inputSearch + "%" } ) OR
                     ( :#{#request.inputSearch} IS NULL OR a.name LIKE :#{ "%" + #request.inputSearch + "%" } )
                 )
+                ORDER BY a.created_at DESC
                 """,nativeQuery = true)
     Page<AdminAreaManagementListAreaResponse> getListArea(Pageable pageable, AdminAreaManagementListAreaRequest request);
 

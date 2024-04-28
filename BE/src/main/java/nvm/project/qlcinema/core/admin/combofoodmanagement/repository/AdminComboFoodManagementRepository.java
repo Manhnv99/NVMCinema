@@ -34,6 +34,7 @@ public interface AdminComboFoodManagementRepository extends ComboFoodRepository 
                     ( :#{#request.inputSearch} IS NULL OR cf.code LIKE :#{ "%" + #request.inputSearch + "%" } ) OR
                     ( :#{#request.inputSearch} IS NULL OR cf.name LIKE :#{ "%" + #request.inputSearch + "%" } )
                 )
+                ORDER BY cf.created_at DESC
                 """,nativeQuery = true)
     Page<AdminComboFoodManagementListComboFoodResponse> getListComboFood(Pageable pageable, AdminComboFoodManagementListComboFoodRequest request);
 

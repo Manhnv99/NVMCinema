@@ -85,6 +85,10 @@ public class User extends PrimaryEntity implements UserDetails {
     @JoinColumn(name = "area_id",referencedColumnName = "id")
     private Area areaId;
 
+    @ManyToOne
+    @JoinColumn(name = "branch_id",referencedColumnName = "id")
+    private Branch branchId;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

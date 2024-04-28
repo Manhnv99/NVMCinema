@@ -3,8 +3,8 @@ import { useLogin } from "./hooks/useLogin";
 import { useEffect } from "react";
 import { ExtractInforToken } from "../../utils/Extract/ExtractInforToken";
 import { TYPE_USER_CLIENT, TYPE_USER_USER } from "../../app/Constant/TypeUser";
-import { ROUTE_CLIENT_HOME, ROUTE_MANAGEMENT_WELCOME } from "../../app/BaseUrl/BaseUrl";
 import { useNavigate } from "react-router-dom";
+import { ROUTE_ADMIN_MANAGEMENT_WELCOME, ROUTE_CLIENT_HOME } from "../../app/BaseUrl/BaseUrl";
 
 export const Login = () => {
 
@@ -31,7 +31,7 @@ export const Login = () => {
                 if (inforToken.typeUser === TYPE_USER_CLIENT) {
                     navigate(ROUTE_CLIENT_HOME);
                 } else if (inforToken.typeUser === TYPE_USER_USER) {
-                    navigate(ROUTE_MANAGEMENT_WELCOME);
+                    navigate(ROUTE_ADMIN_MANAGEMENT_WELCOME);
                 }
             }
         }

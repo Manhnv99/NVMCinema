@@ -1,18 +1,17 @@
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Dropdown, message } from 'antd';
 import { useEffect, useState } from 'react';
-import { ROUTE_CLIENT_HOME, ROUTE_LOGIN, ROUTE_MANAGEMENT_AREA, ROUTE_MANAGEMENT_BRANCH, ROUTE_MANAGEMENT_COMBO_FOOD, ROUTE_MANAGEMENT_COUNTRY, ROUTE_MANAGEMENT_DIRECTOR, ROUTE_MANAGEMENT_FORMAT, ROUTE_MANAGEMENT_GENRE, ROUTE_MANAGEMENT_MOVIE, ROUTE_MANAGEMENT_ORDER, ROUTE_MANAGEMENT_PROMOTION, ROUTE_MANAGEMENT_ROOM, ROUTE_MANAGEMENT_SHOWTIME, ROUTE_MANAGEMENT_STAFF, ROUTE_MANAGEMENT_STATISTICS } from '../../app/BaseUrl/BaseUrl';
+import { ROUTE_ADMIN_MANAGEMENT_AREA, ROUTE_ADMIN_MANAGEMENT_BRANCH, ROUTE_ADMIN_MANAGEMENT_COMBO_FOOD, ROUTE_ADMIN_MANAGEMENT_COUNTRY, ROUTE_ADMIN_MANAGEMENT_DIRECTOR, ROUTE_ADMIN_MANAGEMENT_FORMAT, ROUTE_ADMIN_MANAGEMENT_GENRE, ROUTE_ADMIN_MANAGEMENT_MOVIE, ROUTE_ADMIN_MANAGEMENT_ORDER, ROUTE_ADMIN_MANAGEMENT_PROMOTION, ROUTE_ADMIN_MANAGEMENT_ROOM, ROUTE_ADMIN_MANAGEMENT_SHOWTIME, ROUTE_ADMIN_MANAGEMENT_STAFF, ROUTE_ADMIN_MANAGEMENT_STATISTICS, ROUTE_CLIENT_HOME, ROUTE_LOGIN} from '../../app/BaseUrl/BaseUrl';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from 'antd';
 import Logo from "../../assets/NVM.png";
 import { ExtractInforToken } from '../../utils/Extract/ExtractInforToken';
 import { TYPE_USER_CLIENT } from '../../app/Constant/TypeUser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBurger, faChartArea, faChartSimple, faFilm, faMoneyBills, faTags, faUsers, faVideo } from '@fortawesome/free-solid-svg-icons';
 const { Header, Sider, Content } = Layout;
 
 export const AdminLayoutManagement = ({ children }) => {
@@ -46,38 +45,38 @@ export const AdminLayoutManagement = ({ children }) => {
 
     const childrenMovie = [
         {
-            key: ROUTE_MANAGEMENT_MOVIE,
+            key: ROUTE_ADMIN_MANAGEMENT_MOVIE,
             label: "Phim",
         },
         {
-            key: ROUTE_MANAGEMENT_DIRECTOR,
+            key: ROUTE_ADMIN_MANAGEMENT_DIRECTOR,
             label: "Đạo Diễn",
         },
         {
-            key: ROUTE_MANAGEMENT_FORMAT,
+            key: ROUTE_ADMIN_MANAGEMENT_FORMAT,
             label: "Phân Giải",
         },
         {
-            key: ROUTE_MANAGEMENT_COUNTRY,
+            key: ROUTE_ADMIN_MANAGEMENT_COUNTRY,
             label: "Quốc Gia",
         },
         {
-            key: ROUTE_MANAGEMENT_GENRE,
+            key: ROUTE_ADMIN_MANAGEMENT_GENRE,
             label: "Thể Loại",
         },
     ];
 
     const childrenArea = [
         {
-            key: ROUTE_MANAGEMENT_AREA,
+            key: ROUTE_ADMIN_MANAGEMENT_AREA,
             label: "Khu Vực",
         },
         {
-            key: ROUTE_MANAGEMENT_BRANCH,
+            key: ROUTE_ADMIN_MANAGEMENT_BRANCH,
             label: "Chi Nhánh",
         },
         {
-            key: ROUTE_MANAGEMENT_ROOM,
+            key: ROUTE_ADMIN_MANAGEMENT_ROOM,
             label: "Phòng Chiếu",
         }
     ];
@@ -121,45 +120,45 @@ export const AdminLayoutManagement = ({ children }) => {
                     defaultSelectedKeys={['1']}
                     items={[
                         {
-                            key: ROUTE_MANAGEMENT_STATISTICS,
-                            icon: <UserOutlined />,
+                            key: ROUTE_ADMIN_MANAGEMENT_STATISTICS,
+                            icon: <FontAwesomeIcon icon={faChartSimple} />,
                             label: 'Thống kê',
                         },
                         {
-                            key: ROUTE_MANAGEMENT_ORDER,
-                            icon: <VideoCameraOutlined />,
+                            key: ROUTE_ADMIN_MANAGEMENT_ORDER,
+                            icon: <FontAwesomeIcon icon={faMoneyBills} />,
                             label: 'Hóa Đơn',
                         },
                         {
                             key: 'parentArea',
-                            icon: <UploadOutlined />,
+                            icon: <FontAwesomeIcon icon={faChartArea} />,
                             label: 'Quản Lý Khu Vực',
                             children: childrenArea
                         },
                         {
                             key: 'parentMovie',
-                            icon: <UploadOutlined />,
+                            icon: <FontAwesomeIcon icon={faFilm} />,
                             label: 'Quản Lý Phim',
                             children: childrenMovie
                         },
                         {
-                            key: ROUTE_MANAGEMENT_SHOWTIME,
-                            icon: <UploadOutlined />,
+                            key: ROUTE_ADMIN_MANAGEMENT_SHOWTIME,
+                            icon: <FontAwesomeIcon icon={faVideo} />,
                             label: 'Xuất Chiếu',
                         },
                         {
-                            key: ROUTE_MANAGEMENT_STAFF,
-                            icon: <UploadOutlined />,
+                            key: ROUTE_ADMIN_MANAGEMENT_STAFF,
+                            icon: <FontAwesomeIcon icon={faUsers} />,
                             label: 'Nhân Viên',
                         },
                         {
-                            key: ROUTE_MANAGEMENT_PROMOTION,
-                            icon: <UploadOutlined />,
+                            key: ROUTE_ADMIN_MANAGEMENT_PROMOTION,
+                            icon: <FontAwesomeIcon icon={faTags} />,
                             label: 'Khuyến Mãi',
                         },
                         {
-                            key: ROUTE_MANAGEMENT_COMBO_FOOD,
-                            icon: <UploadOutlined />,
+                            key: ROUTE_ADMIN_MANAGEMENT_COMBO_FOOD,
+                            icon: <FontAwesomeIcon icon={faBurger} />,
                             label: 'ComboFood',
                         },
                     ]}

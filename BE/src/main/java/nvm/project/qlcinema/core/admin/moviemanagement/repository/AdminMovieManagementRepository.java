@@ -47,6 +47,7 @@ public interface AdminMovieManagementRepository extends MovieRepository {
                     ( :#{#request.format} IS NULL OR f.name LIKE :#{ "%" + #request.format + "%"} ) AND
                     ( :#{#request.country} IS NULL OR c.name LIKE :#{ "%" + #request.country + "%"} )
                 )
+                ORDER BY m.created_at DESC
                 """,nativeQuery = true)
     Page<AdminMovieManagementListMovieResponse> getSearchListMovie(Pageable pageable, AdminMovieManagementListMovieRequest request);
 

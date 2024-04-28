@@ -16,7 +16,7 @@ public class UrlPath {
     public static final String URL_API_CLIENT = "/api/client";
 
     /**
-     * Các API của ADMIN
+     * START Các API của ADMIN
     */
 
     public static final String URL_API_ADMIN_STAFF_MANAGEMENT = URL_API_ADMIN + "/staff-management";
@@ -37,11 +37,10 @@ public class UrlPath {
 
     public static final String URL_API_ADMIN_ROOM_MANAGEMENT = URL_API_ADMIN + "/room-management";
 
-    public static final String URL_API_ADMIN_CHAIR_MANAGEMENT = URL_API_ADMIN + "/chair-management";
-
     public static final String URL_API_ADMIN_SHOWTIME_MANAGEMENT = URL_API_ADMIN + "/showtime-management";
 
     public static final String URL_API_ADMIN_STATISTICS_MANAGEMENT = URL_API_ADMIN + "/statistics-management";
+
     public static final String URL_API_ADMIN_ORDER_MANAGEMENT = URL_API_ADMIN + "/order-management";
 
     public static final String URL_API_ADMIN_COMBO_FOOD_MANAGEMENT = URL_API_ADMIN + "/combo-food-management";
@@ -49,8 +48,22 @@ public class UrlPath {
     public static final String URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT = URL_API_ADMIN + "/promotion_event-management";
 
     /**
+     * Các API của API ADMIN_AREA
+     */
+
+    public static final String URL_API_ADMIN_AREA_SHOWTIME_MANAGEMENT = URL_API_ADMIN_AREA + "/showtime-management";
+
+    public static final String URL_API_ADMIN_AREA_STATISTICS_MANAGEMENT = URL_API_ADMIN_AREA + "/statistics-management";
+
+    public static final String URL_API_ADMIN_AREA_STAFF_MANAGEMENT = URL_API_ADMIN_AREA + "/staff-management";
+
+    /**
      * Các API của STAFF
      */
+
+    public static final String URL_API_STAFF_ORDER_MANAGEMENT = URL_API_STAFF + "/order-management";
+
+    public static final String URL_API_STAFF_SALE_COUNTER_MANAGEMENT = URL_API_STAFF + "/sale-counter-management";
 
     /**
      * Các API của CLIENT

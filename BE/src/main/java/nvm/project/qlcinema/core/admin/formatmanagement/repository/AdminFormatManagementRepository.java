@@ -33,6 +33,7 @@ public interface AdminFormatManagementRepository extends FormatRepository {
                     ( :#{#request.inputSearch} IS NULL OR m.code LIKE :#{ "%" + #request.inputSearch +"%"} ) OR
                     ( :#{#request.inputSearch} IS NULL OR m.name LIKE :#{ "%" + #request.inputSearch +"%"} )
                 )
+                ORDER BY m.created_at DESC
                 """,nativeQuery = true)
     Page<AdminFormatManagementListFormatResponse> getListFormat(Pageable pageable, AdminFormatManagementListFormatRequest request);
 

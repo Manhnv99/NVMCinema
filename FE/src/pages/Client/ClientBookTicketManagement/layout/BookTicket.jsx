@@ -51,7 +51,7 @@ export const BookTicket = () => {
         }, [1000]);
     };
 
-    //For disable the past in Component Carlendar
+    //For disable the past for Component Carlendar
     const isPast = (date) => {
         return dayjs(date).format("YYYY-MM-DD") < dayjs(new Date()).format("YYYY-MM-DD");
     };

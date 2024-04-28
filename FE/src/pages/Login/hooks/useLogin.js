@@ -1,7 +1,7 @@
 import { LoginAPI } from "../../../apis/Login/LoginAPI";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { ROUTE_MANAGEMENT_WELCOME } from "../../../app/BaseUrl/BaseUrl";
+import { ROUTE_ADMIN_MANAGEMENT_WELCOME } from "../../../app/BaseUrl/BaseUrl";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../app/Redux/Slice/LoadingSlice";
 
@@ -21,7 +21,7 @@ export const useLogin = () => {
             //show message login success
             message.success(response.data.message);
             //redirect to admin page
-            navigate(ROUTE_MANAGEMENT_WELCOME);
+            navigate(ROUTE_ADMIN_MANAGEMENT_WELCOME);
             dispatch(setLoadingFalse());
         } catch (e) {
             dispatch(setLoadingFalse());

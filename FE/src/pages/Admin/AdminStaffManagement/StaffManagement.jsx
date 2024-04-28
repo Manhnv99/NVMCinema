@@ -1,7 +1,7 @@
 import { SearchComponent } from "./components/SearchComponent";
 import { TableComponent } from "./components/TableComponent";
 
-const StaffManagement = () => {
+export const StaffManagement = () => {
 
 
     return (
@@ -10,6 +10,4 @@ const StaffManagement = () => {
             <TableComponent />
         </>
     )
-}
-
-export default StaffManagement;
+};

@@ -51,10 +51,16 @@ export const URL_API_ADMIN_COMBO_FOOD_MANAGEMENT = URL_API_ADMIN + "/combo-food-
 export const URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT = URL_API_ADMIN + "/promotion_event-management";
 
 // các API của admin-area
+export const URL_API_ADMIN_AREA_STATISTICS_MANAGEMENT = URL_API_ADMIN_AREA + "/statistics-management";
 
+export const URL_API_ADMIN_AREA_SHOWTIME_MANAGEMENT = URL_API_ADMIN_AREA + "/showtime-management";
+
+export const URL_API_ADMIN_AREA_STAFF_MANAGEMENT = URL_API_ADMIN_AREA + "/staff-management"
 
 // các API của staff
+export const URL_API_STAFF_ORDER_MANAGEMENT = URL_API_STAFF + "/order-management";
 
+export const URL_API_STAFF_SALE_COUNTER_MANAGEMENT = URL_API_STAFF + "/sale-counter-management";
 
 // các API của client
 export const URL_API_CLIENT_AUTHENTICATION = URL_API_CLIENT + "/authentication";

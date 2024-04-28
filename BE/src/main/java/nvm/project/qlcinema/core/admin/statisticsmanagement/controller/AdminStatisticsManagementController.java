@@ -1,6 +1,8 @@
 package nvm.project.qlcinema.core.admin.statisticsmanagement.controller;
 
 import lombok.RequiredArgsConstructor;
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetLineTicketAndRevenueRequest;
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetTopGenreAndTicketRequest;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetTopMovieAndTicketRequest;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.service.AdminStatisticsManagementService;
 import nvm.project.qlcinema.core.common.ResponseObject;
@@ -46,15 +48,29 @@ public class AdminStatisticsManagementController {
         return adminStatisticsManagementService.getMonth(year,areaId);
     }
 
+    @GetMapping("/statistics-get-area")
+    public ResponseObject getAllArea(){
+        return adminStatisticsManagementService.getAllArea();
+    }
+
+    @GetMapping("/statistics-line-ticket-revenue")
+    public ResponseObject getLineTicketAndRevenue(final AdminStatisticsManagementGetLineTicketAndRevenueRequest request){
+        return adminStatisticsManagementService.getLineTicketAndRevenue(request);
+    }
+
     @GetMapping("/statistics-top-movie-and-ticket")
     public ResponseObject getTopMovieAndTicket(final AdminStatisticsManagementGetTopMovieAndTicketRequest request){
-        System.out.println(request.getAreaId());
-        System.out.println(request.getTop());
-        System.out.println(request.getYear());
-        System.out.println(request.getMonth());
-        System.out.println(request.getDateStart());
-        System.out.println(request.getDateEnd());
         return adminStatisticsManagementService.getTopMovieAndTicket(request);
+    }
+
+    @GetMapping("/statistics-top-genre-and-ticket")
+    public ResponseObject getTopGenreAndTicket(final AdminStatisticsManagementGetTopGenreAndTicketRequest request){
+        return adminStatisticsManagementService.getTopGenreAndTicket(request);
+    }
+
+    @GetMapping("/statistics-top-combo-food")
+    public ResponseObject getTopComboFood(@RequestParam(name = "areaId") String areaId){
+        return adminStatisticsManagementService.getTopComboFood(areaId);
     }
 
 }

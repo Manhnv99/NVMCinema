@@ -20,6 +20,7 @@ import nvm.project.qlcinema.entity.ShowTime;
 import nvm.project.qlcinema.entity.TicketChair;
 import nvm.project.qlcinema.infrastructure.exception.RestApiException;
 import nvm.project.qlcinema.utils.ConvertTime;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -157,45 +158,52 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
         }
 
         //checkDateValid
-        if(postRequest.getScreeningDate().isBefore(LocalDate.now())){
-            errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        for(LocalDate date : postRequest.getScreeningDate()){
+            System.out.println(date);
+            if(date.isBefore(LocalDate.now())){
+                errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
+                throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            }
         }
 
         //check Duplicate
-        for(String strRoom : postRequest.getRoomId()){
-            for (String strTime : postRequest.getTimeStart()){
-                Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
-                        postRequest.getScreeningDate(),
-                        convertTime.convertStringToTime(strTime),
-                        strRoom
-                );
-                if(isShowTimeDuplicate.isPresent()){
-                    errors.add("Đã tồn tại phim có cùng khung giờ chiếu :" + strTime);
-                    throw new RestApiException(errors,HttpStatus.CONFLICT);
+        for(LocalDate date : postRequest.getScreeningDate()){
+            for(String strRoom : postRequest.getRoomId()){
+                for (String strTime : postRequest.getTimeStart()){
+                    Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
+                            date,
+                            convertTime.convertStringToTime(strTime),
+                            strRoom
+                    );
+                    if(isShowTimeDuplicate.isPresent()){
+                        errors.add("Đã tồn tại phim có cùng khung giờ chiếu: " + strTime + " - Tại phòng chiếu: " + adminShowTimeManagementRoomRepository.getReferenceById(strRoom).getName() + " - Vào ngày: " + date);
+                        throw new RestApiException(errors,HttpStatus.CONFLICT);
+                    }
                 }
             }
         }
 
-        //postShowTime
-        for(String roomId : postRequest.getRoomId()){
-            for (String strTime : postRequest.getTimeStart()){
-                ShowTime showTimeSaved = adminShowTimeManagementRepository.save(new ShowTime(
-                        postRequest.getScreeningDate(),
-                        convertTime.convertStringToTime(strTime),
-                        postRequest.getTicketPrice(),
-                        isMovieExist.get(),
-                        adminShowTimeManagementRoomRepository.getReferenceById(roomId),
-                        true,
-                        new Date()
-                ));
-                for (Chair chair : adminShowTimeManagementChairRepository.getListChairByRoom(roomId)){
-                    adminShowTimeManagementTicketChairRepository.save(new TicketChair(
-                            chair.getName(),
-                            false,
-                            showTimeSaved,
+//        //postShowTime
+        for(LocalDate date : postRequest.getScreeningDate()){
+            for(String roomId : postRequest.getRoomId()){
+                for (String strTime : postRequest.getTimeStart()){
+                    ShowTime showTimeSaved = adminShowTimeManagementRepository.save(new ShowTime(
+                            date,
+                            convertTime.convertStringToTime(strTime),
+                            postRequest.getTicketPrice(),
+                            isMovieExist.get(),
+                            adminShowTimeManagementRoomRepository.getReferenceById(roomId),
+                            true,
                             new Date()
                     ));
+                    for (Chair chair : adminShowTimeManagementChairRepository.getListChairByRoom(roomId)){
+                        adminShowTimeManagementTicketChairRepository.save(new TicketChair(
+                                chair.getName(),
+                                false,
+                                showTimeSaved,
+                                new Date()
+                        ));
+                    }
                 }
             }
         }

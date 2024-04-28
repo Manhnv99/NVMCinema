@@ -3,7 +3,7 @@ import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { useNavigate } from "react-router-dom";
-import { ROUTE_MANAGEMENT_STAFF } from "../../../../app/BaseUrl/BaseUrl";
+import { ROUTE_ADMIN_MANAGEMENT_STAFF } from "../../../../app/BaseUrl/BaseUrl";
 import { setDetailStaffAction, setListStaffAction, setTotalElementAction } from "../store/actions/StaffAction";
 import { useContext } from "react";
 import { StaffContext } from "../store/context/context";
@@ -19,13 +19,13 @@ export const useStaff = () => {
     const navigate = useNavigate();
 
     //function
-    const fetchRegister = async (data) => {
+    const fetchPostStaff = async (data) => {
         //setLoading
         dispatchStore(setLoadingTrue());
         try {
-            const response = await StaffManagementAPI.fetchRegister(data);
+            const response = await StaffManagementAPI.fetchPostStaff(data);
             message.success(response.data.message);
-            navigate(ROUTE_MANAGEMENT_STAFF);
+            navigate(ROUTE_ADMIN_MANAGEMENT_STAFF);
             dispatchStore(setLoadingFalse());
         } catch (e) {
             dispatchStore(setLoadingFalse());
@@ -35,14 +35,14 @@ export const useStaff = () => {
         }
     };
 
-    const fetchPutRegister = async (data) => {
+    const fetchPutStaff = async (data) => {
         //setLoading true
         dispatchStore(setLoadingTrue());
         try {
-            const response = await StaffManagementAPI.fetchPutRegister(data);
+            const response = await StaffManagementAPI.fetchPutStaff(data);
             message.success(response.data.message);
             //redirect To staff management
-            navigate(ROUTE_MANAGEMENT_STAFF);
+            navigate(ROUTE_ADMIN_MANAGEMENT_STAFF);
             //setLoading false
             dispatchStore(setLoadingFalse());
         } catch (e) {
@@ -110,8 +110,8 @@ export const useStaff = () => {
     }
 
     return {
-        fetchRegister,
-        fetchPutRegister,
+        fetchPostStaff,
+        fetchPutStaff,
         fetchListSearchStaff,
         fetchDeleteStaff,
         fetchDetailStaff

@@ -1,15 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faFilm, faImages } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, message, Input, Row, Col, Radio, Button, Select, DatePicker, Upload, Image } from "antd";
-import { ROUTE_MANAGEMENT_MOVIE } from '../../../../app/BaseUrl/BaseUrl';
 import { useEffect, useState } from 'react';
 import { PHU_DE, THUYET_MINH } from '../../../../app/Constant/SubTitle';
 import { useFetchEntity } from '../hooks/useFetchEntity';
 import dayjs from 'dayjs';
 import { useMovie } from '../hooks/useMovie';
+import { ROUTE_ADMIN_MANAGEMENT_MOVIE } from '../../../../app/BaseUrl/BaseUrl';
 
 export const AddOrUpdateMovieManagement = () => {
 
@@ -148,7 +147,7 @@ export const AddOrUpdateMovieManagement = () => {
     return (
         <>
             <span onClick={() => {
-                navigate(ROUTE_MANAGEMENT_MOVIE)
+                navigate(ROUTE_ADMIN_MANAGEMENT_MOVIE)
             }} className='cursor-pointer flex items-center font-sans font-bold text-[20px]'>
                 <FontAwesomeIcon icon={faBackward} className='text-[30px] mr-[10px]' />
                 Quay lại

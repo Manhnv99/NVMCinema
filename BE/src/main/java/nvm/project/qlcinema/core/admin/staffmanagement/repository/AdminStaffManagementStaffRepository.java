@@ -4,11 +4,14 @@ import nvm.project.qlcinema.core.admin.staffmanagement.model.request.AdminStaffM
 import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementGetDetailStaffResponse;
 import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementGetOneStaffResponse;
 import nvm.project.qlcinema.core.admin.staffmanagement.model.response.AdminStaffManagementListStaffResponse;
+import nvm.project.qlcinema.entity.User;
 import nvm.project.qlcinema.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface AdminStaffManagementStaffRepository extends UserRepository {
@@ -30,6 +33,7 @@ public interface AdminStaffManagementStaffRepository extends UserRepository {
                 FROM `users` u
                 JOIN area a on u.area_id = a.id
                 WHERE
+                    (u.role = "ROLE_ADMIN" OR u.role = "ROLE_ADMIN_AREA") AND
                 (
                     ( :#{#request.inputSearch} IS NULL OR u.code LIKE :#{"%" + #request.inputSearch + "%"} ) OR
                     (:#{#request.inputSearch} IS NULL OR u.name LIKE :#{"%" + #request.inputSearch + "%"} ) OR
@@ -38,6 +42,7 @@ public interface AdminStaffManagementStaffRepository extends UserRepository {
                     (:#{#request.inputSearch} IS NULL OR u.phone_number LIKE :#{"%" + #request.inputSearch + "%"} ) OR
                     (:#{#request.inputSearch} IS NULL OR a.name LIKE :#{"%" + #request.inputSearch + "%"} )
                 )
+                ORDER BY u.created_at DESC
                 """,nativeQuery = true)
     Page<AdminStaffManagementListStaffResponse> getListStaff(Pageable pageable, AdminStaffManagementListStaffRequest request);
 
@@ -79,5 +84,11 @@ public interface AdminStaffManagementStaffRepository extends UserRepository {
                 WHERE u.id = :userId
                 """,nativeQuery = true)
     AdminStaffManagementGetDetailStaffResponse getDetailStaff(String userId);
+
+    Optional<User> findUserByEmail(String email);
+
+    Optional<User> findUserByCccd(String cccd);
+
+    Optional<User> findUserByPhoneNumber(String phone);
 
 }

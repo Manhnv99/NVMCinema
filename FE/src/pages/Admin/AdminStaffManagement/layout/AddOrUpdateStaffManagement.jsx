@@ -1,17 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from "react-router-dom";
-import { ROUTE_MANAGEMENT_STAFF } from '../../../../app/BaseUrl/BaseUrl';
 import { Form, message, Input, Row, Col, Radio, Button, Select, DatePicker, Upload, Image } from "antd";
 import { useArea } from '../hooks/useArea';
 import dayjs from 'dayjs';
-import { ROLE_ADMIN, ROLE_ADMIN_AREA, ROLE_STAFF } from '../../../../app/Constant/RoleConstant';
+import { ROLE_ADMIN, ROLE_ADMIN_AREA } from '../../../../app/Constant/RoleConstant';
 import { useStaff } from '../hooks/useStaff';
 import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { StaffManagementAPI } from '../../../../apis/Admin/StaffManagement/StaffManagementAPI';
 import { setLoadingFalse, setLoadingTrue } from '../../../../app/Redux/Slice/LoadingSlice';
 import Swal from "sweetalert2";
+import { ROUTE_ADMIN_MANAGEMENT_STAFF } from '../../../../app/BaseUrl/BaseUrl';
 
 export const AddOrUpdateStaffManagement = () => {
 
@@ -22,8 +22,13 @@ export const AddOrUpdateStaffManagement = () => {
     //useDispatch
     const dispatch = useDispatch();
     //custom Hooks
-    const { listArea } = useArea();
-    const { fetchRegister, fetchPutRegister } = useStaff();
+    const {
+        listArea
+    } = useArea();
+    const {
+        fetchPostStaff,
+        fetchPutStaff
+    } = useStaff();
     //upload Image
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
@@ -71,7 +76,7 @@ export const AddOrUpdateStaffManagement = () => {
                     } else {
                         formData.append("image", fieldsValue.image.file.originFileObj);
                     }
-                    fetchRegister(formData);
+                    fetchPostStaff(formData);
                 } else {
                     //put Staff
                     const fieldsValue = {
@@ -95,7 +100,7 @@ export const AddOrUpdateStaffManagement = () => {
                     } else {
                         formData.append("image", fieldsValue.image.file.originFileObj);
                     }
-                    fetchPutRegister(formData);
+                    fetchPutStaff(formData);
                 }
             }
         });
@@ -156,7 +161,7 @@ export const AddOrUpdateStaffManagement = () => {
     return (
         <>
             <span onClick={() => {
-                navigate(ROUTE_MANAGEMENT_STAFF)
+                navigate(ROUTE_ADMIN_MANAGEMENT_STAFF)
             }} className='cursor-pointer flex items-center font-sans font-bold text-[20px]'>
                 <FontAwesomeIcon icon={faBackward} className='text-[30px] mr-[10px]' />
                 Quay lại
@@ -182,7 +187,7 @@ export const AddOrUpdateStaffManagement = () => {
                                     { required: true, message: "Mã nhân viên không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Điền mã nhân viên' />
                             </Form.Item>
                         </Col>
                         <Col span={11}>
@@ -193,7 +198,7 @@ export const AddOrUpdateStaffManagement = () => {
                                     { required: true, message: "Tên nhân viên không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Điền tên nhân viên' />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -207,7 +212,7 @@ export const AddOrUpdateStaffManagement = () => {
                                     { required: true, message: "Căn cước nhân viên không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Điền căn cước công dân' />
                             </Form.Item>
                         </Col>
                         <Col span={11}>
@@ -219,7 +224,7 @@ export const AddOrUpdateStaffManagement = () => {
                                     { type: "email", message: "Vui lòng nhập email hợp lệ!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Điền email nhân viên' />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -244,7 +249,7 @@ export const AddOrUpdateStaffManagement = () => {
                                     { required: true, message: "Số điện thoại không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Nhập số điện thoại' />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -258,7 +263,7 @@ export const AddOrUpdateStaffManagement = () => {
                                     { required: true, message: "Địa chỉ không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Nhập địa chỉ' />
                             </Form.Item>
                         </Col>
                         <Col span={11}>
@@ -310,7 +315,6 @@ export const AddOrUpdateStaffManagement = () => {
                                 <Radio.Group>
                                     <Radio value={ROLE_ADMIN}>Admin</Radio>
                                     <Radio value={ROLE_ADMIN_AREA}>Admin Area</Radio>
-                                    <Radio value={ROLE_STAFF}>Staff</Radio>
                                 </Radio.Group>
                             </Form.Item>
                         </Col>
@@ -326,7 +330,7 @@ export const AddOrUpdateStaffManagement = () => {
                                         { required: true, message: "Mật khẩu không được để trống!" }
                                     ]}
                                 >
-                                    <Input.Password allowClear />
+                                    <Input.Password allowClear placeholder='Nhập mật khẩu' />
                                 </Form.Item>
                             </Col>
                         }

@@ -33,6 +33,7 @@ public interface AdminGenreManagementRepository extends GenreRepository {
                     ( :#{#request.inputSearch} IS NULL OR g.code LIKE :#{ "%" + #request.inputSearch +"%"} ) OR
                     ( :#{#request.inputSearch} IS NULL OR g.name LIKE :#{ "%" + #request.inputSearch +"%"} )
                 )
+                ORDER BY g.created_at DESC
                 """,nativeQuery = true)
     Page<AdminGenreManagementListGenreResponse> getListGenre(Pageable pageable, AdminGenreManagementListGenreRequest request);
 

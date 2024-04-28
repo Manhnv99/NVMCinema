@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLoadingTrue, setLoadingFalse } from "../../../app/Redux/Slice/LoadingSlice";
-import { ROUTE_MANAGEMENT_WELCOME } from "../../../app/BaseUrl/BaseUrl";
+import { ROUTE_ADMIN_MANAGEMENT_WELCOME } from "../../../app/BaseUrl/BaseUrl";
 
 export const ForbiddenPage = () => {
 
@@ -11,7 +11,7 @@ export const ForbiddenPage = () => {
     const handleRedirectToAdminPage = () => {
         dispatch(setLoadingTrue());
         setTimeout(() => {
-            navigate(ROUTE_MANAGEMENT_WELCOME);
+            navigate(ROUTE_ADMIN_MANAGEMENT_WELCOME);
             dispatch(setLoadingFalse());
         }, [200]);
     }

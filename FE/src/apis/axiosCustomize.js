@@ -31,7 +31,7 @@ requestAPI.interceptors.response.use(
             window.location.href = ROUTE_AUTHORIZATION;
         } else if (error.response && error.response.status === 403) {
             //redirect To Page 403
-            window.location.href = ROUTE_FORBIDDEN;
+            // window.location.href = ROUTE_FORBIDDEN;
         }
 
         throw error;

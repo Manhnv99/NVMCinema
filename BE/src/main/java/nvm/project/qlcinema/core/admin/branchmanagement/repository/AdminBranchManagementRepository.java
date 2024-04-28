@@ -48,6 +48,7 @@ public interface AdminBranchManagementRepository extends BranchRepository {
                 )
                 AND
                 ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%"+ #request.areaId +"%" } )
+                ORDER BY b.created_at DESC
                 """,nativeQuery = true)
     Page<AdminBranchManagementListBranchResponse> getListBranch(Pageable pageable, AdminBranchManagementListBranchRequest request);
 

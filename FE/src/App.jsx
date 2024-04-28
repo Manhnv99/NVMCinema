@@ -2,11 +2,30 @@ import { ToastContainer } from 'react-toastify';
 import './App.css';
 import { useCallback } from 'react';
 import { useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import MovieManagement from './pages/Admin/AdminMovieManagement/MovieManagement';
-import StaffManagement from './pages/Admin/AdminStaffManagement/StaffManagement';
-import { AdminLayoutManagement } from './layouts/Admin/AdminLayoutManagement';
 import {
+  ROUTE_ADMIN_AREA_MANAGEMENT_SHOWTIME,
+  ROUTE_ADMIN_AREA_MANAGEMENT_STAFF,
+  ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_ADD,
+  ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_UPDATE,
+  ROUTE_ADMIN_AREA_MANAGEMENT_STATISTICS,
+  ROUTE_ADMIN_MANAGEMENT_AREA,
+  ROUTE_ADMIN_MANAGEMENT_BRANCH,
+  ROUTE_ADMIN_MANAGEMENT_COMBO_FOOD,
+  ROUTE_ADMIN_MANAGEMENT_COUNTRY,
+  ROUTE_ADMIN_MANAGEMENT_DIRECTOR,
+  ROUTE_ADMIN_MANAGEMENT_FORMAT,
+  ROUTE_ADMIN_MANAGEMENT_GENRE,
+  ROUTE_ADMIN_MANAGEMENT_MOVIE,
+  ROUTE_ADMIN_MANAGEMENT_MOVIE_ADD,
+  ROUTE_ADMIN_MANAGEMENT_MOVIE_UPDATE,
+  ROUTE_ADMIN_MANAGEMENT_PROMOTION,
+  ROUTE_ADMIN_MANAGEMENT_ROOM,
+  ROUTE_ADMIN_MANAGEMENT_SHOWTIME,
+  ROUTE_ADMIN_MANAGEMENT_STAFF,
+  ROUTE_ADMIN_MANAGEMENT_STAFF_ADD,
+  ROUTE_ADMIN_MANAGEMENT_STAFF_UPDATE,
+  ROUTE_ADMIN_MANAGEMENT_STATISTICS,
+  ROUTE_ADMIN_MANAGEMENT_WELCOME,
   ROUTE_AUTHORIZATION,
   ROUTE_CLIENT_ACCOUNT,
   ROUTE_CLIENT_BOOK_CHAIR,
@@ -14,49 +33,39 @@ import {
   ROUTE_CLIENT_HOME,
   ROUTE_CLIENT_INFORMATION,
   ROUTE_FORBIDDEN,
-  ROUTE_LOGIN,
-  ROUTE_MANAGEMENT_AREA,
-  ROUTE_MANAGEMENT_BRANCH,
-  ROUTE_MANAGEMENT_COMBO_FOOD,
-  ROUTE_MANAGEMENT_COUNTRY,
-  ROUTE_MANAGEMENT_DIRECTOR,
-  ROUTE_MANAGEMENT_FORMAT,
-  ROUTE_MANAGEMENT_GENRE,
-  ROUTE_MANAGEMENT_MOVIE,
-  ROUTE_MANAGEMENT_MOVIE_ADD,
-  ROUTE_MANAGEMENT_MOVIE_UPDATE,
-  ROUTE_MANAGEMENT_ORDER,
-  ROUTE_MANAGEMENT_PROMOTION,
-  ROUTE_MANAGEMENT_ROOM,
-  ROUTE_MANAGEMENT_SHOWTIME,
-  ROUTE_MANAGEMENT_STAFF,
-  ROUTE_MANAGEMENT_STAFF_ADD,
-  ROUTE_MANAGEMENT_STAFF_UPDATE,
-  ROUTE_MANAGEMENT_STATISTICS,
-  ROUTE_MANAGEMENT_WELCOME
+  ROUTE_LOGIN
 } from './app/BaseUrl/BaseUrl';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import MovieManagement from './pages/Admin/AdminMovieManagement/MovieManagement';
+import { StaffManagement as AdminStaffManagement } from './pages/Admin/AdminStaffManagement/StaffManagement';
+import { StaffManagement as AdminAreaStaffManagement } from './pages/AdminArea/AdminAreaStaffManagement/StaffManagement';
+import { AdminLayoutManagement } from './layouts/Admin/AdminLayoutManagement';
 import { AreaManagement } from './pages/Admin/AdminAreaManagement/AreaManagement';
 import { BranchManagement } from './pages/Admin/AdminBranchManagement/BranchManagement';
 import { CountryManagement } from './pages/Admin/AdminCountryManagement/CountryManagement';
 import { DirectorManagement } from './pages/Admin/AdminDirectorManagement/DirectorManagement';
 import { FormatManagement } from './pages/Admin/AdminFormatManagement/FormatManagement';
 import { GenreManagement } from './pages/Admin/AdminGenreManagement/GenreManagement';
-import { OrderManagement } from './pages/Admin/AdminOrderManagement/OrderManagement';
 import { PromotionManagement } from './pages/Admin/AdminPromotionManagement/PromotionManagement';
 import { RoomManagement } from './pages/Admin/AdminRoomManagement/RoomManagement';
-import StatisticsManagement from './pages/Admin/AdminStatisticsManagement/StatisticsManagement';
-import { ShowTimeManagement } from './pages/Admin/AdminShowTimeManagement/ShowTimeManagement';
+import { StatisticsManagement as AdminStatisticsManagement } from './pages/Admin/AdminStatisticsManagement/StatisticsManagement';
+import { StatisticsManagement as AdminAreaStatisticsManagement } from './pages/AdminArea/AdminAreaStatisticsManagement/StatisticsManagement';
+import { ShowTimeManagement as AdminShowTimeManagement } from './pages/Admin/AdminShowTimeManagement/ShowTimeManagement';
+import { ShowTimeManagement as AdminAreaShowTimeManagement } from './pages/AdminArea/AdminAreaShowTimeManagement/ShowTimeManagement';
 import { AdminWelcomeManagement } from './pages/Admin/AdminWelcomeManagement/AdminWelcomeManagement';
 import { Login } from './pages/Login/Login';
 import { AuthorizationPage } from './pages/Error/Authorization/AuthorizationPage';
 import { ForbiddenPage } from './pages/Error/Forbidden/ForbiddenPage';
 import { GlobalLoading } from './app/Loading/GlobalLoading';
-import { StaffProvider } from './pages/Admin/AdminStaffManagement/store/provider/StaffProvider';
-import { AddOrUpdateStaffManagement } from './pages/Admin/AdminStaffManagement/layout/AddOrUpdateStaffManagement';
+import { StaffProvider as AdminStaffProvider } from './pages/Admin/AdminStaffManagement/store/provider/StaffProvider';
+import { StaffProvider as AdminAreaStaffProvider } from './pages/AdminArea/AdminAreaStaffManagement/store/provider/StaffProvider';
+import { AddOrUpdateStaffManagement as AdminAddOrUpdateStaffManagement } from './pages/Admin/AdminStaffManagement/layout/AddOrUpdateStaffManagement';
+import { AddOrUpdateStaffManagement as AdminAreaAddOrUpdateStaffManagement } from './pages/AdminArea/AdminAreaStaffManagement/layout/AddOrUpdateStaffManagement';
 import { MovieProvider } from './pages/Admin/AdminMovieManagement/store/provider/MovieProvider';
 import { AddOrUpdateMovieManagement } from './pages/Admin/AdminMovieManagement/layout/AddOrUpdateMovieManagement';
 import { RoomProvider } from './pages/Admin/AdminRoomManagement/store/provider/RoomProvider';
-import { ShowTimeProvider } from './pages/Admin/AdminShowTimeManagement/store/provider/ShowTimeProvider';
+import { ShowTimeProvider as AdminShowTimeProvider } from './pages/Admin/AdminShowTimeManagement/store/provider/ShowTimeProvider';
+import { ShowTimeProvider as AdminAreaShowTimeProvider } from './pages/AdminArea/AdminAreaShowTimeManagement/store/provider/ShowTimeProvider';
 import { PromotionEventProvider } from './pages/Admin/AdminPromotionManagement/store/provider/PromotionEventProvider';
 import { ClientLayoutManagement } from './layouts/Client/ClientLayoutManagement';
 import { LoginClient } from './pages/Client/ClientLoginManagement/layout/LoginClient';
@@ -65,6 +74,7 @@ import { BookTicket } from './pages/Client/ClientBookTicketManagement/layout/Boo
 import { BookChair } from './pages/Client/ClientBookChairManagement/layout/BookChair';
 import { ComboFoodManagement } from './pages/Admin/AdminComboFoodManagement/ComboFoodManagement';
 import { InformationClient } from './pages/Client/ClientInformationManagement/layout/InformationClient';
+import { AdminAreaLayoutManagement } from './layouts/AdminArea/AdminAreaLayoutManagement';
 
 function App() {
 
@@ -92,130 +102,124 @@ function App() {
   }, []);
   //End Error Route
 
-  //Start All Admin Route
+  //START All Admin Route
   const AdminRoute = [
     {
-      key: ROUTE_MANAGEMENT_WELCOME,
-      route: ROUTE_MANAGEMENT_WELCOME,
+      key: ROUTE_ADMIN_MANAGEMENT_WELCOME,
+      route: ROUTE_ADMIN_MANAGEMENT_WELCOME,
       component: <AdminWelcomeManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_MOVIE,
-      route: ROUTE_MANAGEMENT_MOVIE,
+      key: ROUTE_ADMIN_MANAGEMENT_MOVIE,
+      route: ROUTE_ADMIN_MANAGEMENT_MOVIE,
       component:
         <MovieProvider>
           <MovieManagement />
         </MovieProvider>,
     },
     {
-      key: ROUTE_MANAGEMENT_MOVIE_ADD,
-      route: ROUTE_MANAGEMENT_MOVIE_ADD,
+      key: ROUTE_ADMIN_MANAGEMENT_MOVIE_ADD,
+      route: ROUTE_ADMIN_MANAGEMENT_MOVIE_ADD,
       component:
         <MovieProvider>
           <AddOrUpdateMovieManagement />
         </MovieProvider>,
     },
     {
-      key: ROUTE_MANAGEMENT_MOVIE_UPDATE,
-      route: ROUTE_MANAGEMENT_MOVIE_UPDATE,
+      key: ROUTE_ADMIN_MANAGEMENT_MOVIE_UPDATE,
+      route: ROUTE_ADMIN_MANAGEMENT_MOVIE_UPDATE,
       component:
         <MovieProvider>
           <AddOrUpdateMovieManagement />
         </MovieProvider>,
     },
     {
-      key: ROUTE_MANAGEMENT_GENRE,
-      route: ROUTE_MANAGEMENT_GENRE,
+      key: ROUTE_ADMIN_MANAGEMENT_GENRE,
+      route: ROUTE_ADMIN_MANAGEMENT_GENRE,
       component: <GenreManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_SHOWTIME,
-      route: ROUTE_MANAGEMENT_SHOWTIME,
+      key: ROUTE_ADMIN_MANAGEMENT_SHOWTIME,
+      route: ROUTE_ADMIN_MANAGEMENT_SHOWTIME,
       component:
-        <ShowTimeProvider>
-          <ShowTimeManagement />
-        </ShowTimeProvider>,
+        <AdminShowTimeProvider>
+          <AdminShowTimeManagement />
+        </AdminShowTimeProvider>,
     },
     {
-      key: ROUTE_MANAGEMENT_FORMAT,
-      route: ROUTE_MANAGEMENT_FORMAT,
+      key: ROUTE_ADMIN_MANAGEMENT_FORMAT,
+      route: ROUTE_ADMIN_MANAGEMENT_FORMAT,
       component: <FormatManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_DIRECTOR,
-      route: ROUTE_MANAGEMENT_DIRECTOR,
+      key: ROUTE_ADMIN_MANAGEMENT_DIRECTOR,
+      route: ROUTE_ADMIN_MANAGEMENT_DIRECTOR,
       component: <DirectorManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_COUNTRY,
-      route: ROUTE_MANAGEMENT_COUNTRY,
+      key: ROUTE_ADMIN_MANAGEMENT_COUNTRY,
+      route: ROUTE_ADMIN_MANAGEMENT_COUNTRY,
       component: <CountryManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_AREA,
-      route: ROUTE_MANAGEMENT_AREA,
+      key: ROUTE_ADMIN_MANAGEMENT_AREA,
+      route: ROUTE_ADMIN_MANAGEMENT_AREA,
       component: <AreaManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_COMBO_FOOD,
-      route: ROUTE_MANAGEMENT_COMBO_FOOD,
+      key: ROUTE_ADMIN_MANAGEMENT_COMBO_FOOD,
+      route: ROUTE_ADMIN_MANAGEMENT_COMBO_FOOD,
       component: <ComboFoodManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_BRANCH,
-      route: ROUTE_MANAGEMENT_BRANCH,
+      key: ROUTE_ADMIN_MANAGEMENT_BRANCH,
+      route: ROUTE_ADMIN_MANAGEMENT_BRANCH,
       component: <BranchManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_ROOM,
-      route: ROUTE_MANAGEMENT_ROOM,
+      key: ROUTE_ADMIN_MANAGEMENT_ROOM,
+      route: ROUTE_ADMIN_MANAGEMENT_ROOM,
       component:
         <RoomProvider>
           <RoomManagement />
         </RoomProvider>,
     },
     {
-      key: ROUTE_MANAGEMENT_STATISTICS,
-      route: ROUTE_MANAGEMENT_STATISTICS,
-      component: <StatisticsManagement />,
+      key: ROUTE_ADMIN_MANAGEMENT_STATISTICS,
+      route: ROUTE_ADMIN_MANAGEMENT_STATISTICS,
+      component: <AdminStatisticsManagement />,
     },
     {
-      key: ROUTE_MANAGEMENT_PROMOTION,
-      route: ROUTE_MANAGEMENT_PROMOTION,
+      key: ROUTE_ADMIN_MANAGEMENT_PROMOTION,
+      route: ROUTE_ADMIN_MANAGEMENT_PROMOTION,
       component:
         <PromotionEventProvider>
           <PromotionManagement />
         </PromotionEventProvider>,
     },
     {
-      key: ROUTE_MANAGEMENT_ORDER,
-      route: ROUTE_MANAGEMENT_ORDER,
-      component: <OrderManagement />,
-    },
-    // Staff Route
-    {
-      key: ROUTE_MANAGEMENT_STAFF,
-      route: ROUTE_MANAGEMENT_STAFF,
+      key: ROUTE_ADMIN_MANAGEMENT_STAFF,
+      route: ROUTE_ADMIN_MANAGEMENT_STAFF,
       component:
-        <StaffProvider>
-          <StaffManagement />
-        </StaffProvider>
+        <AdminStaffProvider>
+          <AdminStaffManagement />
+        </AdminStaffProvider>
     },
     {
-      key: ROUTE_MANAGEMENT_STAFF_ADD,
-      route: ROUTE_MANAGEMENT_STAFF_ADD,
+      key: ROUTE_ADMIN_MANAGEMENT_STAFF_ADD,
+      route: ROUTE_ADMIN_MANAGEMENT_STAFF_ADD,
       component:
-        <StaffProvider>
-          <AddOrUpdateStaffManagement />
-        </StaffProvider>
+        <AdminStaffProvider>
+          <AdminAddOrUpdateStaffManagement />
+        </AdminStaffProvider>
     },
     {
-      key: ROUTE_MANAGEMENT_STAFF_UPDATE,
-      route: ROUTE_MANAGEMENT_STAFF_UPDATE,
+      key: ROUTE_ADMIN_MANAGEMENT_STAFF_UPDATE,
+      route: ROUTE_ADMIN_MANAGEMENT_STAFF_UPDATE,
       component:
-        <StaffProvider>
-          <AddOrUpdateStaffManagement />
-        </StaffProvider>
+        <AdminStaffProvider>
+          <AdminAddOrUpdateStaffManagement />
+        </AdminStaffProvider>
     },
   ];
 
@@ -228,7 +232,58 @@ function App() {
       } />
     ));
   }, []);
-  //End All Admin Route
+  //END All Admin Route
+
+  //START All AdminArea Route
+  const AdminAreaRoute = [
+    {
+      key: ROUTE_ADMIN_AREA_MANAGEMENT_STATISTICS,
+      route: ROUTE_ADMIN_AREA_MANAGEMENT_STATISTICS,
+      component: <AdminAreaStatisticsManagement />,
+    },
+    {
+      key: ROUTE_ADMIN_AREA_MANAGEMENT_SHOWTIME,
+      route: ROUTE_ADMIN_AREA_MANAGEMENT_SHOWTIME,
+      component:
+        <AdminAreaShowTimeProvider>
+          <AdminAreaShowTimeManagement />
+        </AdminAreaShowTimeProvider>,
+    },
+    {
+      key: ROUTE_ADMIN_AREA_MANAGEMENT_STAFF,
+      route: ROUTE_ADMIN_AREA_MANAGEMENT_STAFF,
+      component:
+        <AdminAreaStaffProvider>
+          <AdminAreaStaffManagement />
+        </AdminAreaStaffProvider>
+    },
+    {
+      key: ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_ADD,
+      route: ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_ADD,
+      component:
+        <AdminAreaStaffProvider>
+          <AdminAreaAddOrUpdateStaffManagement />
+        </AdminAreaStaffProvider>
+    },
+    {
+      key: ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_UPDATE,
+      route: ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_UPDATE,
+      component:
+        <AdminAreaStaffProvider>
+          <AdminAreaAddOrUpdateStaffManagement />
+        </AdminAreaStaffProvider>
+    },
+  ];
+  const loadingAdminAreaRoute = useCallback(() => {
+    return AdminAreaRoute.map(item => (
+      <Route key={item.key} path={item.route} element={
+        <AdminAreaLayoutManagement>
+          {item.component}
+        </AdminAreaLayoutManagement>
+      } />
+    ));
+  }, []);
+  //END All AdminArea Route
 
   // START All Client Route
   const ClientRoute = [
@@ -289,6 +344,9 @@ function App() {
 
           {/*Admin Route*/}
           {loadingAdminRoute()};
+
+          {/*Admin Area Route*/}
+          {loadingAdminAreaRoute()}
 
           {/*Client Route */}
           {loadingClientRoute()};

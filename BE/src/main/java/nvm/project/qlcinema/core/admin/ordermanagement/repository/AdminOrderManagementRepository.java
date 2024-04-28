@@ -44,6 +44,7 @@ public interface AdminOrderManagementRepository extends OrderRepository {
                     ( :#{#request.date} IS NULL OR o.order_date = :#{#request.date} ) AND
                     ( :#{#request.timeStart} IS NULL OR st.time_start = :#{#request.timeStart} )
                 )
+                ORDER BY o.created_at DESC
                 GROUP BY orderCode , clientCode , clientName , movie , movieImage , branch , showtime , totalPrice , promotion;
                 """,nativeQuery = true)
     Page<AdminOrderManagementListOrderResponse> getListSearchOrder(Pageable pageable, AdminOrderManagementListOrderRequest request);

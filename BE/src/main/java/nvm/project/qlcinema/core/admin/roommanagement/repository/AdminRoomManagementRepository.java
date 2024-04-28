@@ -38,6 +38,7 @@ public interface AdminRoomManagementRepository extends RoomRepository {
                 )
                 AND
                     ( :#{#request.branchId} IS NULL OR b.id LIKE :#{ "%" + #request.branchId +"%" } )
+                ORDER BY r.created_at DESC
                 """,nativeQuery = true)
     Page<AdminRoomManagementListRoomResponse> getListSearchRoom(Pageable pageable, AdminRoomManagementListRoomRequest request);
 

@@ -33,6 +33,7 @@ public interface AdminCountryManagementRepository extends CountryRepository {
                     ( :#{#request.inputSearch} IS NULL OR c.code LIKE :#{ "%" + #request.inputSearch +"%"} ) OR
                     ( :#{#request.inputSearch} IS NULL OR c.name LIKE :#{ "%" + #request.inputSearch +"%"} )
                 )
+                ORDER BY c.created_at DESC
                 """,nativeQuery = true)
     Page<AdminCountryManagementListCountryResponse> getListCountry(Pageable pageable, AdminCountryManagementListCountryRequest request);
 

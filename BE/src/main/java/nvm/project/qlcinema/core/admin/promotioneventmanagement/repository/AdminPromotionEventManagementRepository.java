@@ -34,6 +34,7 @@ public interface AdminPromotionEventManagementRepository extends PromotionEventR
                     ( :#{#request.name} IS NULL OR pe.name LIKE :#{ "%" + #request.name +"%" } ) AND
                     ( :#{#request.timeStart} OR :#{#request.timeEnd} ) IS NULL OR ( :#{#request.timeStart} <= pe.date_start AND :#{#request.timeEnd} >= pe.date_start )
                 )
+                ORDER BY pe.created_at DESC
                 """,nativeQuery = true)
     Page<AdminPromotionEventManagementListPromotionEventResponse> getListSearchPromotionEvent(
             Pageable pageable,

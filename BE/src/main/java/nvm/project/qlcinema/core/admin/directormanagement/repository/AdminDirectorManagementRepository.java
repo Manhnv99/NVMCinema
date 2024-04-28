@@ -49,6 +49,7 @@ public interface AdminDirectorManagementRepository extends DirectorRepository {
                     ( :#{#request.inputSearch} IS NULL OR d.name LIKE :#{"%" + #request.inputSearch + "%"} ) OR
                     ( :#{#request.inputSearch} IS NULL OR d.age LIKE :#{"%" + #request.inputSearch + "%"} ) 
                 )
+                ORDER BY d.created_at DESC
                 """
             ,nativeQuery = true)
     Page<AdminDirectorManagementListDirectorResponse> getListDirector(Pageable pageable, AdminDirectorManagementListDirectorRequest request);

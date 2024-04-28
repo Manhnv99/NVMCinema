@@ -1,4 +1,4 @@
-import { URL_API_ADMIN_STAFF_MANAGEMENT, URL_PUT_REGISTER_API, URL_REGISTER_API } from "../../../app/BaseApi/BaseApi";
+import { URL_API_ADMIN_STAFF_MANAGEMENT } from "../../../app/BaseApi/BaseApi";
 import { requestAPI } from "../../axiosCustomize"
 
 export class StaffManagementAPI {
@@ -10,18 +10,18 @@ export class StaffManagementAPI {
         });
     };
 
-    static fetchRegister = (data) => {
+    static fetchPostStaff = (data) => {
         return requestAPI({
             method: "POST",
-            url: URL_REGISTER_API,
+            url: URL_API_ADMIN_STAFF_MANAGEMENT + "/post-staff",
             data: data
         });
     };
 
-    static fetchPutRegister = (data) => {
+    static fetchPutStaff = (data) => {
         return requestAPI({
             method: "PUT",
-            url: URL_PUT_REGISTER_API,
+            url: URL_API_ADMIN_STAFF_MANAGEMENT + "/put-staff",
             data: data
         });
     };

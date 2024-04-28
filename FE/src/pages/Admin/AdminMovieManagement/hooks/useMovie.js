@@ -6,7 +6,7 @@ import { setInforListMovieAction } from "../store/actions/movieActions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
-import { ROUTE_MANAGEMENT_MOVIE } from "../../../../app/BaseUrl/BaseUrl";
+import { ROUTE_ADMIN_MANAGEMENT_MOVIE } from "../../../../app/BaseUrl/BaseUrl";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 
 export const useMovie = () => {
@@ -23,7 +23,7 @@ export const useMovie = () => {
         try {
             const response = await MovieManagementAPI.fetchPostMovie(postMovie);
             message.success(response.data.message);
-            navigate(ROUTE_MANAGEMENT_MOVIE);
+            navigate(ROUTE_ADMIN_MANAGEMENT_MOVIE);
             handleFetchListSearchMovie("", "", "", "", "", 1);
         } catch (e) {
             dispatchStore(setLoadingFalse());
@@ -38,7 +38,7 @@ export const useMovie = () => {
         try {
             const response = await MovieManagementAPI.fetchPutMovie(putMovie);
             message.success(response.data.message);
-            navigate(ROUTE_MANAGEMENT_MOVIE);
+            navigate(ROUTE_ADMIN_MANAGEMENT_MOVIE);
             handleFetchListSearchMovie("", "", "", "", "", 1);
         } catch (e) {
             dispatchStore(setLoadingFalse());

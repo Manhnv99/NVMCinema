@@ -165,27 +165,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             errors.add("Không tìm thấy nhân viên này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }else{
-            if(!putUserOptional.get().getEmail().equalsIgnoreCase(putRegisterRequest.getEmail()) ||
-                    !putUserOptional.get().getCccd().equalsIgnoreCase(putRegisterRequest.getCccd()) ||
-                    !putUserOptional.get().getPhoneNumber().equalsIgnoreCase(putRegisterRequest.getPhoneNumber()) ||
-                    !putUserOptional.get().getEmail().equalsIgnoreCase(putRegisterRequest.getEmail())
-            ){
+            if(!putUserOptional.get().getEmail().equalsIgnoreCase(putRegisterRequest.getEmail())){
                 Optional<User> isEmailExist = authenticationUserRepository.findUserByEmail(putRegisterRequest.getEmail());
                 if(isEmailExist.isPresent()){
                     errors.add("Email này đã tồn tại!");
                 }
+            }
+            if(!putUserOptional.get().getCccd().equalsIgnoreCase(putRegisterRequest.getCccd())){
                 Optional<User> isCccdExist = authenticationUserRepository.findUserByCccd(putRegisterRequest.getCccd());
                 if(isCccdExist.isPresent()){
                     errors.add("Căn cước công dân này đã tồn tại!");
                 }
+            }
+            if(!putUserOptional.get().getPhoneNumber().equalsIgnoreCase(putRegisterRequest.getPhoneNumber())){
                 Optional<User> isPhoneNumberExist = authenticationUserRepository.findUserByPhoneNumber(putRegisterRequest.getPhoneNumber());
                 if(isPhoneNumberExist.isPresent()){
                     errors.add("Số điện thoại này đã tồn tại!");
                 }
-                //throw Errors
-                if(!errors.isEmpty()){
-                    throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-                }
+            }
+            //throw Errors
+            if(!errors.isEmpty()){
+                throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
             }
         }
 
@@ -220,6 +220,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             putUser.setImageId((String) result.get("public_id"));
             putUser.setImageUrl((String) result.get("url"));
         }
+        //Admin thì sẽ k cần khu vu
         putUser.setAreaId(isAreaExist.get());
         authenticationUserRepository.save(putUser);
 

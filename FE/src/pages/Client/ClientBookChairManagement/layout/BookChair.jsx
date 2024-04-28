@@ -128,7 +128,7 @@ export const BookChair = () => {
                     clientId: ExtractInforToken().id
                 };
                 handleFetchOnlineBanking(paymentRequest);
-            };
+            }
         } else {
             dispatch(setBookTicketProgress(bookTicketProgress + 1));
         }

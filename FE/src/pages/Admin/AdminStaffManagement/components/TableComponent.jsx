@@ -3,12 +3,12 @@ import Swal from "sweetalert2";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faLayerGroup, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
-import { ROUTE_MANAGEMENT_STAFF_ADD } from "../../../../app/BaseUrl/BaseUrl";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useStaff } from "../hooks/useStaff";
 import { StaffContext } from "../store/context/context";
 import { ModalStaffDetail } from "./ModalStaffDetail";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
+import { ROUTE_ADMIN_MANAGEMENT_STAFF_ADD } from "../../../../app/BaseUrl/BaseUrl";
 
 export const TableComponent = () => {
 
@@ -65,7 +65,7 @@ export const TableComponent = () => {
                     <div className="cursor-pointer text-[16px]">
                         <Tooltip title="Cập nhật" color="#030405">
                             <Button onClick={() => {
-                                navigate("/management-staff/update/" + record.id);
+                                navigate("/admin/management-staff/update/" + record.id);
                             }} style={{ backgroundColor: "#030405", color: "#fff" }}>
                                 <FontAwesomeIcon icon={faPenToSquare} />
                             </Button>
@@ -134,7 +134,7 @@ export const TableComponent = () => {
                         Danh sách nhân viên
                     </p>
                     <Button onClick={() => {
-                        navigate(ROUTE_MANAGEMENT_STAFF_ADD)
+                        navigate(ROUTE_ADMIN_MANAGEMENT_STAFF_ADD)
                     }} type="primary" className="h-[40px]">Thêm Nhân Viên</Button>
                 </div>
                 <Table

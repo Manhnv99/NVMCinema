@@ -15,7 +15,7 @@ import java.util.List;
 public class AdminShowTimeManagementPostRequest {
 
     @NotNull(message = "Ngày chiếu không được để trống!")
-    private LocalDate screeningDate;
+    private List<LocalDate> screeningDate;
 
     @NotEmpty(message = "Thời gian chiếu không được để trống")
     private List<String> timeStart;

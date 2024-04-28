@@ -1,7 +1,10 @@
 package nvm.project.qlcinema.core.admin.statisticsmanagement.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetLineTicketAndRevenueRequest;
+import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetTopGenreAndTicketRequest;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.model.request.AdminStatisticsManagementGetTopMovieAndTicketRequest;
+import nvm.project.qlcinema.core.admin.statisticsmanagement.repository.AdminStatisticsManagementAreaRepository;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.repository.AdminStatisticsManagementRepository;
 import nvm.project.qlcinema.core.admin.statisticsmanagement.service.AdminStatisticsManagementService;
 import nvm.project.qlcinema.core.common.ResponseObject;
@@ -17,6 +20,8 @@ import java.util.List;
 public class AdminStatisticsManagementServiceImpl implements AdminStatisticsManagementService {
 
     private final AdminStatisticsManagementRepository adminStatisticsManagementRepository;
+
+    private final AdminStatisticsManagementAreaRepository adminStatisticsManagementAreaRepository;
 
     @Override
     public ResponseObject getRevenueForYear(String areaId) {
@@ -74,12 +79,56 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
     }
 
     @Override
+    public ResponseObject getAllArea() {
+        try{
+            return new ResponseObject(adminStatisticsManagementAreaRepository.getAllArea());
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách khu vực!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getLineTicketAndRevenue(AdminStatisticsManagementGetLineTicketAndRevenueRequest request) {
+        try{
+            return new ResponseObject(adminStatisticsManagementRepository.getLineTicketAndRevenue(request));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được tổng số vé và doanh thu!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
     public ResponseObject getTopMovieAndTicket(AdminStatisticsManagementGetTopMovieAndTicketRequest request) {
         try{
             return new ResponseObject(adminStatisticsManagementRepository.getTopMovieAndTicket(request));
         }catch (Exception e){
             List<String> errors = new ArrayList<>();
-            errors.add("Không lấy được top bộ phim bán chạy nhất!");
+            errors.add("Không lấy được top bộ phim xem nhiều nhất!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getTopGenreAndTicket(AdminStatisticsManagementGetTopGenreAndTicketRequest request) {
+        try{
+            return new ResponseObject(adminStatisticsManagementRepository.getTopGenreAndTicket(request));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được top thể loại được xem nhiều nhất!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getTopComboFood(String areaId) {
+        try{
+            return new ResponseObject(adminStatisticsManagementRepository.getTopComboFood(areaId));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được top combo food bán chạy nhất!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }

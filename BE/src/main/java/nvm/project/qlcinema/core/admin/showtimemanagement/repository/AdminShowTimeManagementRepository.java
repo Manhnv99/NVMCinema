@@ -45,6 +45,7 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
                     ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId +"%" } ) AND
                     ( :#{#request.roomId} IS NULL OR r.id LIKE :#{ "%" + #request.roomId +"%" } )
                 )
+                ORDER BY st.created_at DESC
                 """,nativeQuery = true)
 //                AND st.screening_date >= CURRENT_DATE
     Page<AdminShowTimeManagementListShowTimeResponse> getListSearchShowTime(Pageable pageable, AdminShowTimeManagementListShowTimeRequest request);
