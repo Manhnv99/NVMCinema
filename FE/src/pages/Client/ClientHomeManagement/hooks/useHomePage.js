@@ -25,12 +25,12 @@ export const useHomePage = () => {
         try {
             const response = await HomePageAPI.fetchListMovieCurrentShowing();
             setListMovieCurrentShowing(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -39,12 +39,12 @@ export const useHomePage = () => {
         try {
             const response = await HomePageAPI.fetchListMoviePreTicket();
             setListMoviePreTicket(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -53,12 +53,12 @@ export const useHomePage = () => {
         try {
             const response = await HomePageAPI.fetchListMovieUpComming();
             setListMovieUpComming(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -67,12 +67,12 @@ export const useHomePage = () => {
         try {
             const response = await HomePageAPI.fetchDetailMovie(movieId);
             setDetailMovie(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     }
 

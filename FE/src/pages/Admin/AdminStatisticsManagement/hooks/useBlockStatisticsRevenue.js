@@ -28,12 +28,12 @@ export const useBlockStatisticsRevenue = () => {
         try {
             const response = await StatisticManagementAPI.fetchStatisticRevenueForYear(areaId);
             setRevenueForYear(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -42,12 +42,12 @@ export const useBlockStatisticsRevenue = () => {
         try {
             const response = await StatisticManagementAPI.fetchStatisticRevenueForMonth(areaId);
             setRevenueForMonth(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -56,12 +56,12 @@ export const useBlockStatisticsRevenue = () => {
         try {
             const response = await StatisticManagementAPI.fetchStatisticRevenueForToday(areaId);
             setRevenueForToday(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 

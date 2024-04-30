@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import LogoNVM from "../../assets/NVM.png";
-import {
-    DownOutlined
-} from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { ROUTE_CLIENT_ACCOUNT, ROUTE_CLIENT_HOME, ROUTE_CLIENT_INFORMATION } from "../../app/BaseUrl/BaseUrl";
 import { ExtractInforToken } from "../../utils/Extract/ExtractInforToken";
@@ -11,7 +8,6 @@ import { Avatar, Dropdown, Menu, Select, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { HomePageAPI } from "../../apis/Client/HomePage/HomePageAPI";
 import { setAreaChange, setListAreaGlobal } from "../../app/Redux/Slice/AreaSlice";
-import { Option } from "antd/es/mentions";
 
 export const ClientHeaderLayout = () => {
 

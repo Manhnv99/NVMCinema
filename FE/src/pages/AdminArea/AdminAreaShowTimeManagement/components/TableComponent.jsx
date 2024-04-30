@@ -10,11 +10,13 @@ import dayjs from "dayjs";
 import { ModalTicketChair } from "./ModalTicketChair";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 import { setCurrentPage } from "../store/actions/ShowTimeActions";
+import { ExtractInforToken } from "../../../../utils/Extract/ExtractInforToken";
 
 
 export const TableComponent = () => {
     //useContext
     const [state, dispatch] = useContext(ShowTimeContext);
+    const areaId = ExtractInforToken().areaId;
     //use state
     const [showTimeId, setShowTimeId] = useState("");
     //open Modal
@@ -103,7 +105,7 @@ export const TableComponent = () => {
     useEffect(() => {
         handleFetchListSearchShowTime(
             state.inforSearch.movieName,
-            state.areaId,
+            areaId,
             state.inforSearch.branchId,
             state.inforSearch.roomId,
             1
@@ -165,7 +167,7 @@ export const TableComponent = () => {
                     <Pagination onChange={(page) => {
                         handleFetchListSearchShowTime(
                             state.inforSearch.movieName,
-                            state.areaId,
+                            areaId,
                             state.inforSearch.branchId,
                             state.inforSearch.roomId,
                             page

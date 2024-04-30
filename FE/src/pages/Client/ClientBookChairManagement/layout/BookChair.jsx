@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faCouch } from "@fortawesome/free-solid-svg-icons";
-import { Image, Tag } from "antd";
+import { Image, Modal, Tag, Tooltip } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import seatScreenImage from "../../../../assets/seatScreen.png";
 import { useEffect, useState } from "react";
@@ -13,10 +13,11 @@ import {
     PlusCircleOutlined
 } from '@ant-design/icons';
 import VNPAY_LOGO from "../../../../assets/vnpay.png";
-import { IB_VNPAY } from "../../../../app/Constant/InternetBanking";
 import { messageWarResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 import { ExtractInforToken } from "../../../../utils/Extract/ExtractInforToken";
 import { ConvertCurrencyVND } from "../../../../utils/ConvertCurrency/ConvertCurrency";
+import { ROUTE_CLIENT_HOME } from "../../../../app/BaseUrl/BaseUrl";
+import { PAYMENT_BY_IB_VNPAY } from "../../../../app/Constant/InternetBanking";
 
 export const BookChair = () => {
 
@@ -43,7 +44,13 @@ export const BookChair = () => {
     const [valuePromotionCode, setValuePromotionCode] = useState("");
     //which Enternet Banking
     const [whichIB, setWhichIB] = useState("");
+    //countdown
+    const [countDown, setCountDown] = useState({
+        minute: 6,
+        second: 30
+    });
 
+    //fetch List ticketChair and Information Detail for this showTime 
     useEffect(() => {
         dispatch(setBookTicketProgress(2));
         handleFetchListTicketChair(showTimeId);
@@ -53,6 +60,37 @@ export const BookChair = () => {
             dispatch(setBookTicketProgress(1));
         }
     }, []);
+
+    //use for Countdown
+    useEffect(() => {
+        const timerId = setInterval(() => {
+            if (countDown.second > 0) {
+                setCountDown(preState => ({
+                    ...preState,
+                    second: preState.second - 1
+                }));
+            } else {
+                if (countDown.minute > 0) {
+                    setCountDown(preState => ({
+                        ...preState,
+                        minute: preState.minute - 1,
+                        second: 59
+                    }));
+                } else {
+                    Modal.confirm({
+                        title: "Đã hết thời gian mua vé!",
+                        okText: "Quay Lại",
+                        cancelButtonProps: {
+                            style: { display: 'none' },
+                        },
+                        onOk: () => navigate(ROUTE_CLIENT_HOME)
+                    });
+                    clearInterval(timerId);
+                }
+            }
+        }, [1000]);
+        return () => clearInterval(timerId);
+    }, [countDown]);
 
     //handle Function
     const handleChooseTicketChair = (e, ticketChairId, ticketChairName, ticketPrice) => {
@@ -169,7 +207,13 @@ export const BookChair = () => {
                                                     {item.status
                                                         ?
                                                         <>
-                                                            <FontAwesomeIcon icon={faCouch} className="text-[35px] mx-[13px] my-[10px] text-[red]" />
+                                                            <Tooltip
+                                                                title={"Đã bán"}
+                                                                color="red"
+                                                                key={"chairSold"}
+                                                            >
+                                                                <FontAwesomeIcon icon={faCouch} className="text-[35px] mx-[13px] my-[10px] text-[red]" />
+                                                            </Tooltip>
                                                         </>
                                                         :
                                                         <FontAwesomeIcon onClick={(e) => {
@@ -249,7 +293,7 @@ export const BookChair = () => {
                                                 <span className="font-bold text-[18px]">Hình thức thanh toán</span>
                                             </div>
                                             <div className="p-[20px] border-t border-dashed border-[#999] flex items-center">
-                                                <input onChange={(e) => setWhichIB(e.target.value)} value={IB_VNPAY} className="w-[25px] h-[25px]" type="radio" name="whichIB" />
+                                                <input onChange={(e) => setWhichIB(e.target.value)} value={PAYMENT_BY_IB_VNPAY} className="w-[25px] h-[25px]" type="radio" name="whichIB" />
                                                 <img src={VNPAY_LOGO} className="w-[45px] h-[45px] rounded-md mx-[10px]" />
                                                 <span className="font-semibold text-[18px]">Thanh toán qua VNPAY (Visa, Master , Amex , JCB ,...)</span>
                                             </div>
@@ -385,7 +429,7 @@ export const BookChair = () => {
                                         Trở lại
                                     </p>
                                     <p className="font-semibold">Còn lại:
-                                        <span className="text-[red]"> 6 phút, 13 giây</span>
+                                        <span className="text-[red]"> {countDown.minute} phút, {countDown.second < 10 ? "0" : ""}{countDown.second} giây</span>
                                     </p>
                                 </div>
                             </div>

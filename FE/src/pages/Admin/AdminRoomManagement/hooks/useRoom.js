@@ -25,12 +25,12 @@ export const useRoom = () => {
                 listRoom: response.data.data,
                 totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE
             }));
-            dispatchStore(setLoadingFalse());
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -38,13 +38,13 @@ export const useRoom = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await RoomManagementAPI.fetchGetOne(id);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 
@@ -52,13 +52,13 @@ export const useRoom = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await RoomManagementAPI.fetchListChair(roomId);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 
@@ -66,13 +66,13 @@ export const useRoom = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await RoomManagementAPI.fetchGetDetail(id);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 
@@ -106,10 +106,11 @@ export const useRoom = () => {
             handleClose();
             handleFetchListSearchRoom("", "", state.currentPageStore);
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 
@@ -121,10 +122,11 @@ export const useRoom = () => {
             handleClose();
             handleFetchListSearchRoom("", "", state.currentPageStore);
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 
@@ -135,10 +137,11 @@ export const useRoom = () => {
             message.success(response.data.message);
             handleFetchListSearchRoom("", "", 1);
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 

@@ -1,5 +1,7 @@
 
-export const IB_VNPAY = "IB_VNPAY";
+export const PAYMENT_BY_IB_VNPAY = "PAYMENT_BY_IB_VNPAY";
+
+export const PAYMENT_BY_CASH = "PAYMENT_BY_CASH"
 
 
 //VNPay Status Payment Code

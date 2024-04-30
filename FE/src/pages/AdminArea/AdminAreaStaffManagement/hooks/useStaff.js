@@ -26,12 +26,12 @@ export const useStaff = () => {
             const response = await StaffManagementAPI.fetchPostStaff(data);
             message.success(response.data.message);
             navigate(ROUTE_ADMIN_AREA_MANAGEMENT_STAFF);
-            dispatchStore(setLoadingFalse());
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -43,13 +43,12 @@ export const useStaff = () => {
             message.success(response.data.message);
             //redirect To staff management
             navigate(ROUTE_ADMIN_AREA_MANAGEMENT_STAFF);
-            //setLoading false
-            dispatchStore(setLoadingFalse());
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -60,14 +59,12 @@ export const useStaff = () => {
             const response = await StaffManagementAPI.fetchListSearchStaff(inputSearch, areaId, page);
             dispatch(setListStaffAction(response.data.data));
             dispatch(setTotalElementAction(response.data.totalPages * DEFAUTL_PAGE_SIZE));
-            //setLoading false
-            dispatchStore(setLoadingFalse());
         } catch (e) {
-            //setLoading false
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -81,11 +78,11 @@ export const useStaff = () => {
             //make component re-render
             fetchListSearchStaff(state.searchValue, 1);
         } catch (e) {
-            //setLoading false
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 
@@ -97,15 +94,13 @@ export const useStaff = () => {
             const response = await StaffManagementAPI.fetchDetailStaff(userId);
             //set DetailStaff Action
             dispatch(setDetailStaffAction(response.data.data));
-            //setLoading false
-            dispatchStore(setLoadingFalse());
         } catch (e) {
-            //setLoading false
-            dispatchStore(setLoadingFalse());
             //for show error message
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 

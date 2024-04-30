@@ -22,12 +22,12 @@ export const useShowTime = () => {
                 listShowTime: response.data.data,
                 totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE
             }));
-            dispatchStore(setLoadingFalse());
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -35,13 +35,13 @@ export const useShowTime = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await ShowTimeManagementAPI.fetchGetOne(id);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -49,13 +49,13 @@ export const useShowTime = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await ShowTimeManagementAPI.fetchGetDetail(id);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -63,13 +63,13 @@ export const useShowTime = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await ShowTimeManagementAPI.fetchListTicketChair(showTimeId);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 
@@ -81,10 +81,11 @@ export const useShowTime = () => {
             handleFetchListSearchShowTime("", "", "", "", state.currentPage);
             handleCloseModal();
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -96,10 +97,11 @@ export const useShowTime = () => {
             handleFetchListSearchShowTime("", "", "", "", state.currentPage);
             handleCloseModal();
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 

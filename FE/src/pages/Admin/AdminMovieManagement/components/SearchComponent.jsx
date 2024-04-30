@@ -49,7 +49,7 @@ export const SearchComponent = () => {
                             label="Tên phim"
                             name="name"
                         >
-                            <Input />
+                            <Input placeholder="Nhập tên phim" />
                         </Form.Item>
                     </Col>
                     <Col span={11}>

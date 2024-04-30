@@ -4,14 +4,17 @@ import { useEffect } from "react";
 import { ExtractInforToken } from "../../utils/Extract/ExtractInforToken";
 import { TYPE_USER_CLIENT, TYPE_USER_USER } from "../../app/Constant/TypeUser";
 import { useNavigate } from "react-router-dom";
-import { ROUTE_ADMIN_MANAGEMENT_WELCOME, ROUTE_CLIENT_HOME } from "../../app/BaseUrl/BaseUrl";
+import { ROUTE_ADMIN_AREA_MANAGEMENT_WELCOME, ROUTE_ADMIN_MANAGEMENT_WELCOME, ROUTE_CLIENT_HOME, ROUTE_STAFF_MANAGEMENT_WELCOME } from "../../app/BaseUrl/BaseUrl";
+import { ROLE_ADMIN, ROLE_ADMIN_AREA } from "../../app/Constant/RoleConstant";
 
 export const Login = () => {
 
     //use Form
     const [form] = Form.useForm();
     //custom Hooks
-    const { handleRequestLoginAPI } = useLogin();
+    const {
+        handleRequestLoginAPI
+    } = useLogin();
     //useNav
     const navigate = useNavigate();
 
@@ -27,11 +30,18 @@ export const Login = () => {
     useEffect(() => {
         if (localStorage.getItem("token")) {
             const inforToken = ExtractInforToken();
+            const roleToken = inforToken.roles[0].authority;
             if (inforToken && inforToken.typeUser) {
                 if (inforToken.typeUser === TYPE_USER_CLIENT) {
                     navigate(ROUTE_CLIENT_HOME);
                 } else if (inforToken.typeUser === TYPE_USER_USER) {
-                    navigate(ROUTE_ADMIN_MANAGEMENT_WELCOME);
+                    if (roleToken === ROLE_ADMIN) {
+                        navigate(ROUTE_ADMIN_MANAGEMENT_WELCOME);
+                    } else if (roleToken === ROLE_ADMIN_AREA) {
+                        navigate(ROUTE_ADMIN_AREA_MANAGEMENT_WELCOME);
+                    } else {
+                        navigate(ROUTE_STAFF_MANAGEMENT_WELCOME);
+                    }
                 }
             }
         }

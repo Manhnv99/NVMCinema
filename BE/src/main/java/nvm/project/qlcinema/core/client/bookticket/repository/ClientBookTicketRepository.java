@@ -28,11 +28,11 @@ public interface ClientBookTicketRepository extends ShowTimeRepository {
             s.screening_date = :#{#request.date} AND
             a.id = :#{#request.areaId} AND
             m.id = :#{#request.movieId} AND
+            (
+            (s.screening_date = CURRENT_DATE() AND s.time_start > CURRENT_TIME()) OR
+            (s.screening_date != CURRENT_DATE())
+            ) AND
             FIND_IN_SET( b.id , :#{#request.branchId} )
             """,nativeQuery = true)
     List<ClientBookTicketListShowtimeResponse> getListShowTime(ClientBookTicketListShowTimeRequest request);
-//    AND (
-//                        (s.screening_date = CURRENT_DATE() AND s.time_start > CURRENT_TIME())
-//    OR (s.screening_date != CURRENT_DATE())
-//            )
 }

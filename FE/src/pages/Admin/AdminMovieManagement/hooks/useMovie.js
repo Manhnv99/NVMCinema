@@ -26,10 +26,11 @@ export const useMovie = () => {
             navigate(ROUTE_ADMIN_MANAGEMENT_MOVIE);
             handleFetchListSearchMovie("", "", "", "", "", 1);
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -41,10 +42,11 @@ export const useMovie = () => {
             navigate(ROUTE_ADMIN_MANAGEMENT_MOVIE);
             handleFetchListSearchMovie("", "", "", "", "", 1);
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -55,10 +57,11 @@ export const useMovie = () => {
             message.success(response.data.message);
             handleFetchListSearchMovie("", "", "", "", "", 1);
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -70,12 +73,12 @@ export const useMovie = () => {
                 listMovie: response.data.data,
                 totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE
             }));
-            dispatchStore(setLoadingFalse());
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -83,13 +86,13 @@ export const useMovie = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await MovieManagementAPI.fetchGetOneMovie(id);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -97,13 +100,13 @@ export const useMovie = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await MovieManagementAPI.fetchDetailMovie(id);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     }
 

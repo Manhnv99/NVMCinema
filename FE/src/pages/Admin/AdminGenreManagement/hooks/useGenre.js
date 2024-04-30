@@ -33,10 +33,11 @@ export const useGenre = () => {
                 handleClose();
             }
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -53,10 +54,11 @@ export const useGenre = () => {
                 handleClose();
             }
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -71,12 +73,12 @@ export const useGenre = () => {
             if (response.data.success) {
                 handleFetchListSearch("", 1);
             }
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -89,12 +91,12 @@ export const useGenre = () => {
             console.log(response.data);
             setListData(response.data.data);
             setTotalElement(response.data.totalPages * DEFAUTL_PAGE_SIZE);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     }
 
@@ -106,13 +108,13 @@ export const useGenre = () => {
             if (response.data.success) {
                 setRender(!render);
                 setDataList(response.data.data);
-                dispatch(setLoadingFalse());
             }
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 

@@ -44,8 +44,6 @@ export const URL_API_ADMIN_SHOWTIME_MANAGEMENT = URL_API_ADMIN + "/showtime-mana
 
 export const URL_API_ADMIN_STATISTICS_MANAGEMENT = URL_API_ADMIN + "/statistics-management";
 
-export const URL_API_ADMIN_ORDER_MANAGEMENT = URL_API_ADMIN + "/order-management";
-
 export const URL_API_ADMIN_COMBO_FOOD_MANAGEMENT = URL_API_ADMIN + "/combo-food-management";
 
 export const URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT = URL_API_ADMIN + "/promotion_event-management";

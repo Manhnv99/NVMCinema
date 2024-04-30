@@ -45,6 +45,8 @@ export const ROUTE_ADMIN_MANAGEMENT_SHOWTIME = "/admin/management-showtime";
 
 
 //START Route AdminArea
+export const ROUTE_ADMIN_AREA_MANAGEMENT_WELCOME = "/admin-area";
+
 export const ROUTE_ADMIN_AREA_MANAGEMENT_STATISTICS = "/admin-area/management-statistics";
 
 export const ROUTE_ADMIN_AREA_MANAGEMENT_SHOWTIME = "/admin-area/management-showtime";
@@ -55,9 +57,15 @@ export const ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_UPDATE = "/admin-area/management-
 //END Route AdminArea
 
 //START Route Staff
+export const ROUTE_STAFF_MANAGEMENT_WELCOME = "/staff";
+
 export const ROUTE_STAFF_MANAGEMENT_ORDER = "/staff/management-order";
 
 export const ROUTE_STAFF_MANAGEMENT_SALE_COUNTER = "/staff/management-sale-counter";
+
+export const ROUTE_STAFF_MANAGEMENT_SALE_COUNTER_BOOK_SHOWTIME = "/staff/management-sale-counter/dat-ve/:movieId";
+
+export const ROUTE_STAFF_MANAGEMENT_SALE_COUNTER_BOOK_CHAIR = "/staff/management-sale-counter/dat-cho-ngoi/:showTimeId";
 //END Route Staff
 
 //START Route Client

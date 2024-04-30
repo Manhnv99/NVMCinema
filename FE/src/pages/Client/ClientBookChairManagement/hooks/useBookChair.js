@@ -1,4 +1,3 @@
-import { message } from "antd";
 import { useEffect, useState } from "react"
 import { BookChairAPI } from "../../../../apis/Client/BookChair/BookChairAPI";
 import { useDispatch } from "react-redux";
@@ -25,12 +24,12 @@ export const useBookChair = () => {
             try {
                 const response = await BookChairAPI.fetchListTicketChair(showTimeId);
                 setListChair(response.data.data);
-                dispatch(setLoadingFalse());
             } catch (e) {
-                dispatch(setLoadingFalse());
                 for (let errMessage in e.response.data) {
                     messageErrResponse(e.response.data[errMessage]);
                 }
+            } finally {
+                dispatch(setLoadingFalse());
             }
         }, [1000]);
     };
@@ -41,12 +40,12 @@ export const useBookChair = () => {
             try {
                 const response = await BookChairAPI.fetchDetailShowTime(showTimeId);
                 setDetailShowTime(response.data.data);
-                dispatch(setLoadingFalse());
             } catch (e) {
-                dispatch(setLoadingFalse());
                 for (let errMessage in e.response.data) {
                     messageErrResponse(e.response.data[errMessage]);
                 }
+            } finally {
+                dispatch(setLoadingFalse());
             }
         }, [1000]);
     };
@@ -75,16 +74,16 @@ export const useBookChair = () => {
                         code: code,
                         price: response.data.data.promotionPrice
                     });
-                    dispatch(setLoadingFalse());
                 } catch (e) {
                     setPromotionApplied({
                         code: "",
                         price: 0
                     });
-                    dispatch(setLoadingFalse());
                     for (let errMessage in e.response.data) {
                         messageErrResponse(e.response.data[errMessage]);
                     }
+                } finally {
+                    dispatch(setLoadingFalse());
                 }
             }, [1000]);
         }
@@ -99,7 +98,7 @@ export const useBookChair = () => {
                 messageErrResponse(e.response.data[errMessage]);
             }
         }
-    }
+    };
 
     useEffect(() => {
         handleFetchListComboFood();

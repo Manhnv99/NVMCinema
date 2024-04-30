@@ -16,13 +16,13 @@ export const useAuthentication = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await AuthenticationAPI.fetchRegister(registerRequest);
-            dispatch(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -30,13 +30,13 @@ export const useAuthentication = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await AuthenticationAPI.fetchLogin(loginRequest);
-            dispatch(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 

@@ -57,7 +57,6 @@ public class ClientBookChairController {
 
     @GetMapping("/vnpay-payment")
     public void GetMapping(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        System.out.println(request.getQueryString());
         this.clientBookChairService.onlineBankingReturn(request,response);
     }
 

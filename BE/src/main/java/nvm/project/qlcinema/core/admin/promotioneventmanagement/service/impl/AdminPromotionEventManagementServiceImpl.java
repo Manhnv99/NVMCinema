@@ -211,7 +211,7 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
         }
     }
 
-    @Scheduled(cron = "0 21 12 * * ?",zone = "Asia/Ho_Chi_Minh")
+    @Scheduled(cron = "0 0 0 * * *",zone = "Asia/Ho_Chi_Minh") //chạy vào mỗi 12h tối -> 0h
     private void updatePEStatusScheduled(){
         this.handleUpdatePromotionEventStatus();
     }

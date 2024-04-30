@@ -32,10 +32,11 @@ export const useArea = () => {
                 handleClose();
             }
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -52,10 +53,11 @@ export const useArea = () => {
                 handleClose();
             }
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -70,12 +72,12 @@ export const useArea = () => {
             if (response.data.success) {
                 handleFetchListSearch("", currentPage);
             }
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -87,12 +89,12 @@ export const useArea = () => {
             const response = await AreaManagementAPI.fetchListSearch(inputSearch, page);
             setListData(response.data.data);
             setTotalElement(response.data.totalPages * DEFAUTL_PAGE_SIZE);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     }
 
@@ -104,13 +106,13 @@ export const useArea = () => {
             if (response.data.success) {
                 setRender(!render);
                 setDataList(response.data.data);
-                dispatch(setLoadingFalse());
             }
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 

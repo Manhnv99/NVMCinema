@@ -22,12 +22,12 @@ export const usePromotionEvent = () => {
                 listPE: response.data.data,
                 totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE
             }));
-            dispatchStore(setLoadingFalse());
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -35,13 +35,13 @@ export const usePromotionEvent = () => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await PromotionEventAPI.fetchDetail(id);
-            dispatchStore(setLoadingFalse());
             return response;
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -53,10 +53,11 @@ export const usePromotionEvent = () => {
             handleFetchListSearch("", "", "", state.currentPageStore);
             handleClose();
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 
@@ -68,10 +69,11 @@ export const usePromotionEvent = () => {
             handleFetchListSearch("", "", "", state.currentPageStore);
             handleClose();
         } catch (e) {
-            dispatchStore(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
+        } finally {
+            dispatchStore(setLoadingFalse());
         }
     };
 

@@ -17,12 +17,12 @@ export const useStatistics = () => {
         try {
             const response = await StatisticManagementAPI.fetchListArea();
             setListArea(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 

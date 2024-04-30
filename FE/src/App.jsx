@@ -8,6 +8,7 @@ import {
   ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_ADD,
   ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_UPDATE,
   ROUTE_ADMIN_AREA_MANAGEMENT_STATISTICS,
+  ROUTE_ADMIN_AREA_MANAGEMENT_WELCOME,
   ROUTE_ADMIN_MANAGEMENT_AREA,
   ROUTE_ADMIN_MANAGEMENT_BRANCH,
   ROUTE_ADMIN_MANAGEMENT_COMBO_FOOD,
@@ -33,9 +34,14 @@ import {
   ROUTE_CLIENT_HOME,
   ROUTE_CLIENT_INFORMATION,
   ROUTE_FORBIDDEN,
-  ROUTE_LOGIN
+  ROUTE_LOGIN,
+  ROUTE_STAFF_MANAGEMENT_ORDER,
+  ROUTE_STAFF_MANAGEMENT_SALE_COUNTER,
+  ROUTE_STAFF_MANAGEMENT_SALE_COUNTER_BOOK_CHAIR,
+  ROUTE_STAFF_MANAGEMENT_SALE_COUNTER_BOOK_SHOWTIME,
+  ROUTE_STAFF_MANAGEMENT_WELCOME
 } from './app/BaseUrl/BaseUrl';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import MovieManagement from './pages/Admin/AdminMovieManagement/MovieManagement';
 import { StaffManagement as AdminStaffManagement } from './pages/Admin/AdminStaffManagement/StaffManagement';
 import { StaffManagement as AdminAreaStaffManagement } from './pages/AdminArea/AdminAreaStaffManagement/StaffManagement';
@@ -75,6 +81,15 @@ import { BookChair } from './pages/Client/ClientBookChairManagement/layout/BookC
 import { ComboFoodManagement } from './pages/Admin/AdminComboFoodManagement/ComboFoodManagement';
 import { InformationClient } from './pages/Client/ClientInformationManagement/layout/InformationClient';
 import { AdminAreaLayoutManagement } from './layouts/AdminArea/AdminAreaLayoutManagement';
+import { AdminAreaWelcomeManagement } from './pages/AdminArea/AdminAreaWelcomeManagement/AdminAreaWelcomeManagement';
+import { OrderManagement } from './pages/Staff/StaffOrderManagement/layout/OrderManagement';
+import { SaleCounterManagement } from './pages/Staff/StaffSaleCounterManagement/layout/SaleCounterManagement';
+import { StaffLayoutManagement } from './layouts/Staff/StaffLayoutManagement';
+import { StaffWelcomeManagement } from './pages/Staff/StaffWelcomeManagement/StaffWelcomeManagement';
+import { OrderProvider } from './pages/Staff/StaffOrderManagement/store/provider/OrderProvider';
+import { SaleCounterProvider } from './pages/Staff/StaffSaleCounterManagement/store/provider/SaleCounterProvider';
+import { SaleCounterBookShowTime } from './pages/Staff/StaffSaleCounterManagement/layout/SaleCounterBookShowTime';
+import { SaleCounterBookChair } from './pages/Staff/StaffSaleCounterManagement/layout/SaleCounterBookChair';
 
 function App() {
 
@@ -237,6 +252,11 @@ function App() {
   //START All AdminArea Route
   const AdminAreaRoute = [
     {
+      key: ROUTE_ADMIN_AREA_MANAGEMENT_WELCOME,
+      route: ROUTE_ADMIN_AREA_MANAGEMENT_WELCOME,
+      component: <AdminAreaWelcomeManagement />,
+    },
+    {
       key: ROUTE_ADMIN_AREA_MANAGEMENT_STATISTICS,
       route: ROUTE_ADMIN_AREA_MANAGEMENT_STATISTICS,
       component: <AdminAreaStatisticsManagement />,
@@ -284,6 +304,53 @@ function App() {
     ));
   }, []);
   //END All AdminArea Route
+
+  //START All Staff Route
+  const StaffRoute = [
+    {
+      key: ROUTE_STAFF_MANAGEMENT_WELCOME,
+      route: ROUTE_STAFF_MANAGEMENT_WELCOME,
+      component: <StaffWelcomeManagement />,
+    },
+    {
+      key: ROUTE_STAFF_MANAGEMENT_ORDER,
+      route: ROUTE_STAFF_MANAGEMENT_ORDER,
+      component: <OrderProvider>
+        <OrderManagement />
+      </OrderProvider>,
+    },
+    {
+      key: ROUTE_STAFF_MANAGEMENT_SALE_COUNTER,
+      route: ROUTE_STAFF_MANAGEMENT_SALE_COUNTER,
+      component: <SaleCounterProvider>
+        <SaleCounterManagement />
+      </SaleCounterProvider>,
+    },
+    {
+      key: ROUTE_STAFF_MANAGEMENT_SALE_COUNTER_BOOK_SHOWTIME,
+      route: ROUTE_STAFF_MANAGEMENT_SALE_COUNTER_BOOK_SHOWTIME,
+      component: <SaleCounterProvider>
+        <SaleCounterBookShowTime />
+      </SaleCounterProvider>,
+    },
+    {
+      key: ROUTE_STAFF_MANAGEMENT_SALE_COUNTER_BOOK_CHAIR,
+      route: ROUTE_STAFF_MANAGEMENT_SALE_COUNTER_BOOK_CHAIR,
+      component: <SaleCounterProvider>
+        <SaleCounterBookChair />
+      </SaleCounterProvider>,
+    },
+  ];
+  const loadingStaffRoute = useCallback(() => {
+    return StaffRoute.map(item => (
+      <Route key={item.key} path={item.route} element={
+        <StaffLayoutManagement>
+          {item.component}
+        </StaffLayoutManagement>
+      } />
+    ))
+  }, []);
+  //END All Staff Route
 
   // START All Client Route
   const ClientRoute = [
@@ -336,6 +403,10 @@ function App() {
       {/*Route App*/}
       <BrowserRouter>
         <Routes>
+          {/*HomePage auto Redirect*/}
+          <Route path='/' element={<Navigate to={ROUTE_CLIENT_HOME} />}>
+            {/* <Redirect to={ROUTE_CLIENT_HOME} /> */}
+          </Route>
           {/*Login Route*/}
           <Route path={ROUTE_LOGIN} element={<Login />} />;
 
@@ -347,6 +418,9 @@ function App() {
 
           {/*Admin Area Route*/}
           {loadingAdminAreaRoute()}
+
+          {/*Staff Route*/}
+          {loadingStaffRoute()}
 
           {/*Client Route */}
           {loadingClientRoute()};

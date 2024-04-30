@@ -30,7 +30,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 JOIN branch b ON b.id = r.branch_id
                 JOIN area a ON a.id = b.area_id
                 WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
-                AND o.order_status = "CHUA_DUYET"
+                AND o.order_status = "DA_DUYET"
                 AND YEAR(o.order_date) = YEAR(NOW())
                 """,nativeQuery = true)
     AdminStatisticsManagementGetBlockTicketAndRevenueResponse getRevenueForYear(String areaId);
@@ -46,7 +46,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 JOIN branch b ON b.id = r.branch_id
                 JOIN area a ON a.id = b.area_id
                 WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
-                AND o.order_status = "CHUA_DUYET"
+                AND o.order_status = "DA_DUYET"
                 AND MONTH(o.order_date) = MONTH(NOW())
                 """,nativeQuery = true)
     AdminStatisticsManagementGetBlockTicketAndRevenueResponse getRevenueForMonth(String areaId);
@@ -62,7 +62,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 JOIN branch b ON b.id = r.branch_id
                 JOIN area a ON a.id = b.area_id
                 WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
-                AND o.order_status = "CHUA_DUYET"
+                AND o.order_status = "DA_DUYET"
                 AND o.order_date = CURRENT_DATE()
                 """,nativeQuery = true)
     AdminStatisticsManagementGetBlockTicketAndRevenueResponse getRevenueForToday(String areaId);
@@ -120,7 +120,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 area a ON a.id = b.area_id
             WHERE
                 ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId + "%"} ) AND
-                o.order_status = 'CHUA_DUYET' AND
+                o.order_status = 'DA_DUYET' AND
                 (
                     (:#{#request.typeFilter} = 'YEAR' AND YEAR(o.order_date) = :#{#request.year})
                     OR (:#{#request.typeFilter} = 'MONTH' AND MONTH(o.order_date) = :#{#request.month})
@@ -160,6 +160,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 JOIN movie m ON
                     m.id = st.movie_id
                 WHERE
+                    o.order_status = 'DA_DUYET' AND
                     ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId + "%"} )
                 GROUP BY
                     movieName
@@ -196,6 +197,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 JOIN genre g ON
                     g.id = m.genre_id
                 WHERE
+                    o.order_status = 'DA_DUYET' AND
                     ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId + "%"} )
                 GROUP BY
                     genreName
@@ -235,6 +237,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
             JOIN genre g ON
                 g.id = m.genre_id
             WHERE
+                o.order_status = 'DA_DUYET' AND
                 ( :areaId IS NULL OR a.id LIKE CONCAT("%", :areaId ,"%") )
             GROUP BY
                 comboName

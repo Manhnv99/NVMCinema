@@ -20,24 +20,11 @@ import java.util.Random;
 @Component
 public class VNPayConfig {
 
-//    @Value("${vnpay.payUrl}")
-//    public static String vnp_PayUrl;
-//
-//    @Value("${vnpay.returnUrl}")
-//    public static  String vnp_Returnurl;
-//
-//    @Value("${vnpay.tmnCode}")
-//    public static String vnp_TmnCode;
-//
-//    @Value("${vnpay.hashSecret}")
-//    public static String vnp_HashSecret;
-//
-//    @Value("${vnpay.apiUrl}")
-//    public static String vnp_apiUrl;
-
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
 
-    public static String vnp_Returnurl = UrlPath.URL_API_CLIENT_BOOK_CHAIR + "/vnpay-payment";
+    public static String online_vnp_ReturnUrl = UrlPath.URL_API_CLIENT_BOOK_CHAIR + "/vnpay-payment";
+
+    public static String offline_vnp_ReturnUrl = UrlPath.URL_API_STAFF_SALE_COUNTER_MANAGEMENT + "/vnpay-payment";
 
     public static String vnp_TmnCode = "1SRN2PE4";
 

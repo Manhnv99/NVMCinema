@@ -167,7 +167,7 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
         String locate = "vn";
         vnp_Params.put("vnp_Locale", locate);
 
-        urlReturn += VNPayConfig.vnp_Returnurl;
+        urlReturn += VNPayConfig.online_vnp_ReturnUrl;
         vnp_Params.put("vnp_ReturnUrl", urlReturn);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
@@ -241,7 +241,7 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
         String signValue = VNPayConfig.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
             if (VNPayTransactionStatus.SUCCESS.getStatus().equals(request.getParameter("vnp_TransactionStatus"))) {
-                this.createOrder();
+//                this.createOrder();
                 response.sendRedirect(UrlDomain.URL_FE_DOMAIN + "/thong-tin-tai-khoan?" + request.getQueryString());
             } else {
                 response.sendRedirect(UrlDomain.URL_FE_DOMAIN + "/thong-tin-tai-khoan?" + request.getQueryString());

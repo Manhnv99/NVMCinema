@@ -151,6 +151,15 @@ public class AdminAreaShowTimeManagementServiceImpl implements AdminAreaShowTime
             if(date.isBefore(LocalDate.now())){
                 errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
                 throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            }else if (date.isEqual(LocalDate.now())){
+                //checkTimeValid
+                for(String time : postRequest.getTimeStart()){
+                    Time timeConverted = convertTime.convertStringToTime(time);
+                    if(timeConverted.before(new Time(System.currentTimeMillis()))){
+                        errors.add("Ngày: "+ date +" Thời gian chiếu không được sau thời điểm hiện tại!");
+                        throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+                    }
+                }
             }
         }
 

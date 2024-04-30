@@ -159,10 +159,18 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
         //checkDateValid
         for(LocalDate date : postRequest.getScreeningDate()){
-            System.out.println(date);
             if(date.isBefore(LocalDate.now())){
                 errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
                 throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            }else if (date.isEqual(LocalDate.now())){
+                //checkTimeValid
+                for(String time : postRequest.getTimeStart()){
+                    Time timeConverted = convertTime.convertStringToTime(time);
+                    if(timeConverted.before(new Time(System.currentTimeMillis()))){
+                        errors.add("Ngày: "+ date +" Thời gian chiếu không được sau thời điểm hiện tại!");
+                        throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+                    }
+                }
             }
         }
 
@@ -177,10 +185,13 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
                     );
                     if(isShowTimeDuplicate.isPresent()){
                         errors.add("Đã tồn tại phim có cùng khung giờ chiếu: " + strTime + " - Tại phòng chiếu: " + adminShowTimeManagementRoomRepository.getReferenceById(strRoom).getName() + " - Vào ngày: " + date);
-                        throw new RestApiException(errors,HttpStatus.CONFLICT);
                     }
                 }
             }
+        }
+        //throwError
+        if(!errors.isEmpty()){
+            throw new RestApiException(errors,HttpStatus.CONFLICT);
         }
 
 //        //postShowTime

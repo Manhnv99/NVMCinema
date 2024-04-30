@@ -73,6 +73,9 @@ public class JwtProvider {
         extraUser.put("userFullName",user.getName());
         extraUser.put("userId",user.getId());
         extraUser.put("typeUser", TypeUser.USER.getType());
+        if(user.getBranchId() != null){
+            extraUser.put("branchId",user.getBranchId().getId());
+        }
         //Write setClaims on the top to prevent overwrite the behind
         return Jwts.builder()
                 .setClaims(extraUser)

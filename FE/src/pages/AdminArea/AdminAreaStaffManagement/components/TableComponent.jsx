@@ -9,6 +9,7 @@ import { StaffContext } from "../store/context/context";
 import { ModalStaffDetail } from "./ModalStaffDetail";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 import { ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_ADD } from "../../../../app/BaseUrl/BaseUrl";
+import { ExtractInforToken } from "../../../../utils/Extract/ExtractInforToken";
 
 export const TableComponent = () => {
 
@@ -16,6 +17,7 @@ export const TableComponent = () => {
     const navigate = useNavigate();
     //useContext
     const [state, dispatch] = useContext(StaffContext);
+    const areaId = ExtractInforToken().areaId;
     //custom Hook
     const { fetchListSearchStaff, fetchDeleteStaff, fetchDetailStaff } = useStaff();
     //openModal
@@ -105,7 +107,7 @@ export const TableComponent = () => {
 
     //useEffect run at first re-render
     useEffect(() => {
-        fetchListSearchStaff(state.searchValue, state.areaId, 1);
+        fetchListSearchStaff(state.searchValue, areaId, 1);
     }, []);
 
     //useEffect for searching
@@ -115,7 +117,7 @@ export const TableComponent = () => {
             clearTimeout(refTimeOutId.current);
             //create a timeOutId
             let timeOutId = setTimeout(() => {
-                fetchListSearchStaff(state.searchValue, state.areaId, 1);
+                fetchListSearchStaff(state.searchValue, areaId, 1);
             }, [500]);
             //save timeOutId
             refTimeOutId.current = timeOutId;

@@ -29,13 +29,13 @@ export const useInformation = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await InformationClientAPI.fetchDetailClient(id);
-            dispatch(setLoadingFalse());
             return response.data.data;
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 
@@ -46,12 +46,12 @@ export const useInformation = () => {
                 const response = await InformationClientAPI.fetchPutClient(putClientRequest);
                 messageSuccessResponse(response.data.message);
                 setPutSuccess(true);
-                dispatch(setLoadingFalse());
             } catch (e) {
-                dispatch(setLoadingFalse());
                 for (let errMessage in e.response.data) {
                     messageErrResponse(e.response.data[errMessage]);
                 }
+            } finally {
+                dispatch(setLoadingFalse());
             }
         }, [1000]);
     };
@@ -63,12 +63,12 @@ export const useInformation = () => {
             console.log(response);
             setListTransactionHistory(response.data.data);
             setTotalPages(response.data.totalPages * DEFAUTL_PAGE_SIZE);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     }
 

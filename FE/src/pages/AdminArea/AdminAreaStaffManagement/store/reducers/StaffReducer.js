@@ -1,12 +1,10 @@
-import { ExtractInforToken } from "../../../../../utils/Extract/ExtractInforToken";
 import { SET_DETAIL_STAFF_CONSTANT, SET_LIST_STAFF_CONSTANT, SET_SEARCH_VALUE_CONSTANT, SET_TOTAL_ELEMENT_CONSTANT } from "../constant/StaffConstant";
 
 export const INITIAL_STATE = {
     listStaff: [],
     searchValue: "",
     detailStaff: {},
-    totalElement: 0,
-    areaId: ExtractInforToken().areaId
+    totalElement: 0
 }
 
 export const StaffReducer = (state = INITIAL_STATE, action) => {

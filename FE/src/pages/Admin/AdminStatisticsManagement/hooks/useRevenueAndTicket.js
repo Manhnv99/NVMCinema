@@ -41,14 +41,13 @@ export const useRevenueAndTicket = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await StatisticManagementAPI.fetchStatisticsLineTicketAndRevenue(areaId, year, month, dateStart, dateEnd, typeFilter);
-            console.log(response.data.data);
             setListLineTicketAndRevenue(response.data.data);
-            dispatch(setLoadingFalse());
         } catch (e) {
-            dispatch(setLoadingFalse());
             for (let errMessage in e.response.data) {
                 messageErrResponse(e.response.data[errMessage]);
             }
+        } finally {
+            dispatch(setLoadingFalse());
         }
     };
 

@@ -3,7 +3,6 @@ import { faBackward, faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, message, Input, Row, Col, Radio, Button, Select, DatePicker, Upload, Image } from "antd";
 import dayjs from 'dayjs';
-import { ROLE_ADMIN, ROLE_ADMIN_AREA, ROLE_STAFF } from '../../../../app/Constant/RoleConstant';
 import { useStaff } from '../hooks/useStaff';
 import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
