@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { setLoadingTrue, setLoadingFalse } from "../../../app/Redux/Slice/LoadingSlice";
 import { ROUTE_LOGIN } from "../../../app/BaseUrl/BaseUrl";
 
-export const AuthorizationPage = () => {
+export const AdminAuthorizationPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

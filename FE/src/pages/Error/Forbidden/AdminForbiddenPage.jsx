@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { setLoadingTrue, setLoadingFalse } from "../../../app/Redux/Slice/LoadingSlice";
 import { ROUTE_ADMIN_MANAGEMENT_WELCOME } from "../../../app/BaseUrl/BaseUrl";
 
-export const ForbiddenPage = () => {
+export const AdminForbiddenPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import Banner1 from "../../../../assets/banner1.jpg";
 import Banner2 from "../../../../assets/banner2.jpg";
-import { Carousel, Modal, Tag } from "antd";
+import { Carousel, Modal, Tag, Tooltip } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { faExclamation, faTicket } from "@fortawesome/free-solid-svg-icons";
@@ -100,9 +100,11 @@ export const HomeClient = () => {
                                         </Tag>
                                     </div>
                                     <div className="uppercase font-bold text-[#FFF] text-[18px]">
-                                        <span className="hover:text-[var(--primary-limegreen)] cursor-pointer
-                                                duration-[0.3s]">
-                                            {item.movie}
+                                        <span className="block hover:text-[var(--primary-limegreen)] cursor-pointer
+                                                duration-[0.3s] truncate w-full">
+                                            <Tooltip title={item.movie} color="black">
+                                                {item.movie}
+                                            </Tooltip>
                                         </span>
                                     </div>
                                     <p className="text-[15px] font-semibold mt-[5px]">
@@ -154,9 +156,11 @@ export const HomeClient = () => {
                                         </Tag>
                                     </div>
                                     <div className="uppercase font-bold text-[#FFF] text-[18px]">
-                                        <span className="hover:text-[var(--primary-limegreen)] cursor-pointer
-                                                duration-[0.3s]">
-                                            {item.movie}
+                                        <span className="block hover:text-[var(--primary-limegreen)] cursor-pointer
+                                                duration-[0.3s] truncate w-full">
+                                            <Tooltip title={item.movie} color="black">
+                                                {item.movie}
+                                            </Tooltip>
                                         </span>
                                     </div>
                                     <p className="text-[15px] font-semibold mt-[5px]">
@@ -209,9 +213,11 @@ export const HomeClient = () => {
                                         </Tag>
                                     </div>
                                     <div className="uppercase font-bold text-[#FFF] text-[18px]">
-                                        <span className="hover:text-[var(--primary-limegreen)] cursor-pointer
-                                                duration-[0.3s]">
-                                            {item.movie}
+                                        <span className="block hover:text-[var(--primary-limegreen)] cursor-pointer
+                                                duration-[0.3s] truncate w-full">
+                                            <Tooltip title={item.movie} color="black">
+                                                {item.movie}
+                                            </Tooltip>
                                         </span>
                                     </div>
                                     <p className="text-[15px] font-semibold mt-[5px]">

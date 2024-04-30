@@ -65,7 +65,7 @@ export const TableComponent = () => {
                     <div className="cursor-pointer text-[16px]">
                         <Tooltip title="Cập nhật" color="#030405">
                             <Button style={{ backgroundColor: "#030405", color: "#fff" }} onClick={() => {
-                                navigate(`/management-movie/update/${record.id}`)
+                                navigate(`/admin/management-movie/update/${record.id}`)
                             }}>
                                 <FontAwesomeIcon icon={faPenToSquare} />
                             </Button>

@@ -3,6 +3,8 @@ import './App.css';
 import { useCallback } from 'react';
 import { useSelector } from "react-redux";
 import {
+  ADMIN_ROUTE_AUTHORIZATION,
+  ADMIN_ROUTE_FORBIDDEN,
   ROUTE_ADMIN_AREA_MANAGEMENT_SHOWTIME,
   ROUTE_ADMIN_AREA_MANAGEMENT_STAFF,
   ROUTE_ADMIN_AREA_MANAGEMENT_STAFF_ADD,
@@ -27,13 +29,11 @@ import {
   ROUTE_ADMIN_MANAGEMENT_STAFF_UPDATE,
   ROUTE_ADMIN_MANAGEMENT_STATISTICS,
   ROUTE_ADMIN_MANAGEMENT_WELCOME,
-  ROUTE_AUTHORIZATION,
   ROUTE_CLIENT_ACCOUNT,
   ROUTE_CLIENT_BOOK_CHAIR,
   ROUTE_CLIENT_BOOK_TICKET,
   ROUTE_CLIENT_HOME,
   ROUTE_CLIENT_INFORMATION,
-  ROUTE_FORBIDDEN,
   ROUTE_LOGIN,
   ROUTE_STAFF_MANAGEMENT_ORDER,
   ROUTE_STAFF_MANAGEMENT_SALE_COUNTER,
@@ -60,8 +60,8 @@ import { ShowTimeManagement as AdminShowTimeManagement } from './pages/Admin/Adm
 import { ShowTimeManagement as AdminAreaShowTimeManagement } from './pages/AdminArea/AdminAreaShowTimeManagement/ShowTimeManagement';
 import { AdminWelcomeManagement } from './pages/Admin/AdminWelcomeManagement/AdminWelcomeManagement';
 import { Login } from './pages/Login/Login';
-import { AuthorizationPage } from './pages/Error/Authorization/AuthorizationPage';
-import { ForbiddenPage } from './pages/Error/Forbidden/ForbiddenPage';
+import { AdminAuthorizationPage } from './pages/Error/Authorization/AdminAuthorizationPage';
+import { AdminForbiddenPage } from './pages/Error/Forbidden/AdminForbiddenPage';
 import { GlobalLoading } from './app/Loading/GlobalLoading';
 import { StaffProvider as AdminStaffProvider } from './pages/Admin/AdminStaffManagement/store/provider/StaffProvider';
 import { StaffProvider as AdminAreaStaffProvider } from './pages/AdminArea/AdminAreaStaffManagement/store/provider/StaffProvider';
@@ -99,14 +99,14 @@ function App() {
   //Start Error Route
   const ErrorRoute = [
     {
-      key: ROUTE_AUTHORIZATION,
-      route: ROUTE_AUTHORIZATION,
-      component: <AuthorizationPage />
+      key: ADMIN_ROUTE_AUTHORIZATION,
+      route: ADMIN_ROUTE_AUTHORIZATION,
+      component: <AdminAuthorizationPage />
     },
     {
-      key: ROUTE_FORBIDDEN,
-      route: ROUTE_FORBIDDEN,
-      component: <ForbiddenPage />
+      key: ADMIN_ROUTE_FORBIDDEN,
+      route: ADMIN_ROUTE_FORBIDDEN,
+      component: <AdminForbiddenPage />
     },
   ];
 

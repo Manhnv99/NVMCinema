@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseURL } from "../app/BaseApi/BaseApi";
-import { ROUTE_AUTHORIZATION, ROUTE_FORBIDDEN } from "../app/BaseUrl/BaseUrl";
+import { ADMIN_ROUTE_AUTHORIZATION, ADMIN_ROUTE_FORBIDDEN, ROUTE_CLIENT_ACCOUNT } from "../app/BaseUrl/BaseUrl";
 
 
 export const requestAPI = axios.create({
@@ -28,12 +28,11 @@ requestAPI.interceptors.response.use(
             //redirect To Login
             //remove item from localStorage
             localStorage.removeItem("token");
-            window.location.href = ROUTE_AUTHORIZATION;
+            window.location.href = ADMIN_ROUTE_AUTHORIZATION;
         } else if (error.response && error.response.status === 403) {
             //redirect To Page 403
-            window.location.href = ROUTE_FORBIDDEN;
+            window.location.href = ADMIN_ROUTE_FORBIDDEN;
         }
-
         throw error;
     }
 );
@@ -55,10 +54,10 @@ requestAPIClient.interceptors.response.use(
             //redirect To Login
             //remove item from localStorage
             localStorage.removeItem("token");
-            window.location.href = ROUTE_AUTHORIZATION;
+            window.location.href = ROUTE_CLIENT_ACCOUNT;
         } else if (error.response && error.response.status === 403) {
             //redirect To Page 403
-            window.location.href = ROUTE_FORBIDDEN;
+            window.location.href = ROUTE_CLIENT_ACCOUNT;
         }
 
         throw error;

@@ -3,9 +3,9 @@
 export const ROUTE_LOGIN = "/admin-login";
 
 //Error
-export const ROUTE_AUTHORIZATION = "/error-authorization";
+export const ADMIN_ROUTE_AUTHORIZATION = "/error-authorization";
 
-export const ROUTE_FORBIDDEN = "/error-forbidden";
+export const ADMIN_ROUTE_FORBIDDEN = "/error-forbidden";
 
 //START Route Admin
 export const ROUTE_ADMIN_MANAGEMENT_WELCOME = "/admin";
