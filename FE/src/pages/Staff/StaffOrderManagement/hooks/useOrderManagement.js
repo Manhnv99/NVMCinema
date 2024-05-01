@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { OrderManagementAPI } from "../../../../apis/Staff/OrderManagement/OrderManagementAPI";
 import { OrderContext } from "../store/context/context";
-import { setInforListOrderAction } from "../store/actions/OrderActions";
+import { setDetailOrderAction, setInforListOrderAction } from "../store/actions/OrderActions";
 import { messageErrResponse, messageSuccessResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 import { useDispatch } from "react-redux";
@@ -49,9 +49,24 @@ export const useOrderManagement = () => {
         }
     };
 
+    const handleFetchDetailOrder = async (orderId) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await OrderManagementAPI.fetchDetailOrder(orderId);
+            dispatch(setDetailOrderAction(response.data.data));
+        } catch (e) {
+            for (let errMessage in e.response.data) {
+                messageErrResponse(e.response.data[errMessage]);
+            }
+        } finally {
+            dispatchStore(setLoadingFalse());
+        }
+    };
+
     return {
         handleFetchListSearchOrder,
-        handleFetchApprovedOrCancelOrRestore, isApprovedOrCancelOrRestoreSuccess
+        handleFetchApprovedOrCancelOrRestore, isApprovedOrCancelOrRestoreSuccess,
+        handleFetchDetailOrder
     }
 
 };

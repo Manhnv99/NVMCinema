@@ -3,11 +3,23 @@ import { faCircleCheck, faTriangleExclamation } from "@fortawesome/free-solid-sv
 import { Modal } from "antd"
 import { PAYMENT_SUCCESS } from "../../../../app/Constant/InternetBanking";
 import { ConvertCurrencyVND } from "../../../../utils/ConvertCurrency/ConvertCurrency";
+import { BillPrintComponent } from "./BillPrintComponent";
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 export const ModalPayment = ({ openModal, setOpenModal, paramsPayment }) => {
 
+    //use Ref
+    const componentRef = useRef(null);
+
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
+
     return (
         <>
+            {<BillPrintComponent ref={componentRef} />}
             <Modal
                 title="Thông tin thanh toán"
                 okText="Đóng"
@@ -16,7 +28,10 @@ export const ModalPayment = ({ openModal, setOpenModal, paramsPayment }) => {
                         display: "none"
                     }
                 }}
-                onOk={() => setOpenModal(false)}
+                onOk={() => {
+                    handlePrint();
+                    setOpenModal(false);
+                }}
                 open={openModal}
             >
                 {paramsPayment.orderStatus === PAYMENT_SUCCESS

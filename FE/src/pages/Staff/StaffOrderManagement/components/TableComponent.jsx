@@ -1,9 +1,9 @@
-import { faBan, faCheck, faEye, faLayerGroup, faPenToSquare, faRepeat, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faBan, faCheck, faLayerGroup, faRepeat } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Button, Card, Image, Pagination, Radio, Table, Tag, Tooltip } from "antd"
 import Swal from "sweetalert2";
 import { CHUA_DUYET_CONSTANT, DA_DUYET_CONSTANT, DA_HUY_CONSTANT } from "../../../../app/Constant/OrderStatusConstant";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { OrderContext } from "../store/context/context";
 import { setOrderStatusAction } from "../store/actions/OrderActions";
 import { useOrderManagement } from "../hooks/useOrderManagement";
@@ -11,11 +11,14 @@ import { ExtractInforToken } from "../../../../utils/Extract/ExtractInforToken";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 import dayjs from "dayjs";
 import { ConvertCurrencyVND } from "../../../../utils/ConvertCurrency/ConvertCurrency";
-import { render } from "react-dom";
-
+import { useReactToPrint } from 'react-to-print';
+import { BillPrintComponent } from "./BillPrintComponent";
 
 export const TableComponent = () => {
 
+    //use Ref
+    const componentRef = useRef(null);
+    const orderId = useRef("");
     //constant
     const CANCEL_ORDER = "CANCEL_ORDER";
     const APPROVED_ORDER = "APPROVED_ORDER";
@@ -25,7 +28,8 @@ export const TableComponent = () => {
     //custom hooks
     const {
         handleFetchListSearchOrder,
-        handleFetchApprovedOrCancelOrRestore, isApprovedOrCancelOrRestoreSuccess
+        handleFetchApprovedOrCancelOrRestore, isApprovedOrCancelOrRestoreSuccess,
+        handleFetchDetailOrder
     } = useOrderManagement();
     //page
     const [currentPage, setCurrentPage] = useState(1);
@@ -91,7 +95,11 @@ export const TableComponent = () => {
                                     cancelButtonColor: "#d33",
                                 }).then(result => {
                                     if (result.isConfirmed) {
-                                        handleFetchApprovedOrCancelOrRestore(userToken.userId, record.orderId, APPROVED_ORDER);
+                                        orderId.current = record.orderId;
+                                        handleFetchDetailOrder(record.orderId);
+                                        setTimeout(() => {
+                                            handlePrint(record.orderId);
+                                        }, [1000]);
                                     }
                                 })
                             }} style={{ backgroundColor: "green", color: "#fff" }}>
@@ -268,8 +276,14 @@ export const TableComponent = () => {
         );
     }, [state.inforSearch, currentPage, state.orderStatus, isApprovedOrCancelOrRestoreSuccess]);
 
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        onBeforePrint: () => handleFetchApprovedOrCancelOrRestore(userToken.userId, orderId.current, APPROVED_ORDER)
+    });
+
     return (
         <>
+            {<BillPrintComponent ref={componentRef} />}
             <div className="mt-[50px] shadow-xl">
                 <Card
                     title={

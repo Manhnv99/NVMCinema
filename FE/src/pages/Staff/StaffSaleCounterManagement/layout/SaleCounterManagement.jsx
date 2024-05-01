@@ -5,6 +5,7 @@ import { SearchComponent } from "../components/SearchComponent"
 import { TableComponent } from "../components/TableComponent"
 import { useEffect, useState } from "react"
 import { ModalPayment } from "../components/ModalPayment"
+import { useSaleCounter } from "../hooks/useSaleCounter"
 
 
 export const SaleCounterManagement = () => {
@@ -16,12 +17,17 @@ export const SaleCounterManagement = () => {
         orderCode: "",
         totalPrice: 0
     });
+    //customHook
+    const {
+        handleFetchDetailOrder
+    } = useSaleCounter();
 
     //get params from url
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const paramValue = params.get('codeStatus');
         if (paramValue) {
+            handleFetchDetailOrder(params.get('orderCode'));
             setParamsPayment({
                 orderStatus: paramValue,
                 orderCode: params.get('orderCode'),
@@ -29,6 +35,7 @@ export const SaleCounterManagement = () => {
             });
             setOpenModalPayment(true);
         }
+
     }, []);
 
     return (

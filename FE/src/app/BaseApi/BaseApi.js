@@ -70,3 +70,7 @@ export const URL_API_CLIENT_BOOK_TICKET = URL_API_CLIENT + "/book-ticket";
 export const URL_API_CLIENT_BOOK_CHAIR = URL_API_CLIENT + "/book-chair";
 
 export const URL_API_CLIENT_INFORMATION_CLIENT = URL_API_CLIENT + "/information-client";
+
+export const URL_API_CLIENT_CINEMA_SYSTEM = URL_API_CLIENT + "/cinema-system";
+
+export const URL_API_CLIENT_PROMOTION_EVENT = URL_API_CLIENT + "/promotion-event";

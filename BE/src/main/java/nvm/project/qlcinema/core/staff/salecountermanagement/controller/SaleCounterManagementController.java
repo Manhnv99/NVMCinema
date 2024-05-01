@@ -99,4 +99,9 @@ public class SaleCounterManagementController {
         saleCounterManagementService.onlineBankingReturn(request,response);
     }
 
+    @GetMapping("/get-detail-order/{orderCode}")
+    public ResponseObject getDetailOrder(@PathVariable String orderCode){
+        return saleCounterManagementService.getDetailOrder(orderCode);
+    }
+
 }

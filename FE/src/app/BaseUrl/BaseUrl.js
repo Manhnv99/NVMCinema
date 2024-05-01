@@ -79,4 +79,7 @@ export const ROUTE_CLIENT_BOOK_CHAIR = "/dat-cho-ngoi/:showTimeId";
 
 export const ROUTE_CLIENT_INFORMATION = "/thong-tin-tai-khoan";
 
+export const ROUTE_CLIENT_BRANCH_SYSTEM = "/rap-chieu";
+
+export const ROUTE_CLIENT_PROMOTION_EVENT = "/khuyen-mai-su-kien";
 //END Route Client

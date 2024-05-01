@@ -5,7 +5,7 @@ import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/Loa
 import { SaleCounterManagementAPI } from "../../../../apis/Staff/SaleCounterManagement/SaleCounterManagementAPI";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 import { messageErrResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
-import { setInforListMovieAction } from "../store/actions/SaleCounterAction";
+import { setDetailOrderAction, setInforListMovieAction } from "../store/actions/SaleCounterAction";
 
 
 export const useSaleCounter = () => {
@@ -32,8 +32,23 @@ export const useSaleCounter = () => {
         }
     };
 
+    const handleFetchDetailOrder = async (orderId) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await SaleCounterManagementAPI.fetchDetailOrder(orderId);
+            dispatch(setDetailOrderAction(response.data.data));
+        } catch (e) {
+            for (let errMessage in e.response.data) {
+                messageErrResponse(e.response.data[errMessage]);
+            }
+        } finally {
+            dispatchStore(setLoadingFalse());
+        }
+    };
+
     return {
-        handleFetchListSearchMovie
+        handleFetchListSearchMovie,
+        handleFetchDetailOrder
     };
 
 };

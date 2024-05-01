@@ -49,7 +49,10 @@ export const TableComponent = () => {
         { title: "Tên Sự Kiện", dataIndex: "name", key: "name" },
         { title: "Thời Gian Bắt Đầu", dataIndex: "dateStart", key: "dateStart" },
         { title: "Thời Gian Kết Thúc", dataIndex: "dateEnd", key: "dateEnd" },
-        { title: "Mã Khuyến Mãi", dataIndex: "promotionCode", key: "promotionCode" },
+        {
+            title: "Mã Khuyến Mãi", dataIndex: "promotionCode", key: "promotionCode",
+            render: (promotionCode) => <Tag color="green" children={promotionCode} />
+        },
         { title: "Giá Khuyến Mãi", dataIndex: "promotionPrice", key: "promotionPrice" },
         {
             title: "Trạng Thái", dataIndex: "status", key: "status",

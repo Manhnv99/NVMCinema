@@ -41,4 +41,6 @@ public interface SaleCounterManagementService {
 
     void onlineBankingReturn(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+    ResponseObject getDetailOrder(String orderCode);
+
 }

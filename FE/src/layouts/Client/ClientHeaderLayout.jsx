@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LogoNVM from "../../assets/NVM.png";
 import { useNavigate } from "react-router-dom";
-import { ROUTE_CLIENT_ACCOUNT, ROUTE_CLIENT_HOME, ROUTE_CLIENT_INFORMATION } from "../../app/BaseUrl/BaseUrl";
+import { ROUTE_CLIENT_ACCOUNT, ROUTE_CLIENT_BRANCH_SYSTEM, ROUTE_CLIENT_HOME, ROUTE_CLIENT_INFORMATION, ROUTE_CLIENT_PROMOTION_EVENT } from "../../app/BaseUrl/BaseUrl";
 import { ExtractInforToken } from "../../utils/Extract/ExtractInforToken";
 import { TYPE_USER_CLIENT, TYPE_USER_USER } from "../../app/Constant/TypeUser";
 import { Avatar, Dropdown, Menu, Select, message } from "antd";
@@ -94,8 +94,8 @@ export const ClientHeaderLayout = () => {
                                     <p onClick={() => {
                                         navigate(ROUTE_CLIENT_HOME);
                                     }} className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Lịch chiếu</p>
-                                    <p className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Hệ thống rạp</p>
-                                    <p className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mb-0">Khuyến mãi/Sự kiện</p>
+                                    <p onClick={() => navigate(ROUTE_CLIENT_BRANCH_SYSTEM)} className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Hệ thống rạp</p>
+                                    <p onClick={() => navigate(ROUTE_CLIENT_PROMOTION_EVENT)} className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mb-0">Khuyến mãi/Sự kiện</p>
                                 </div>
                             </div>
                             <div className="w-[50%] flex items-center justify-end">

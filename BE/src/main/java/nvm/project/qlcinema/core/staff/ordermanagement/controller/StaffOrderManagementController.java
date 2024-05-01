@@ -10,6 +10,7 @@ import nvm.project.qlcinema.core.staff.ordermanagement.service.StaffOrderManagem
 import nvm.project.qlcinema.infrastructure.constant.UrlPath;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,11 @@ public class StaffOrderManagementController {
     @PutMapping("/approved-or-cancel")
     public ResponseObject handleApprovedOrCancel(final StaffOrderManagementApprovedOrCancelRequest approvedOrCancelRequest){
         return staffOrderManagementService.handleApprovedOrCancel(approvedOrCancelRequest);
+    }
+
+    @GetMapping("/get-detail-order/{orderId}")
+    public ResponseObject getDetailOrder(@PathVariable String orderId){
+        return staffOrderManagementService.getDetailOrder(orderId);
     }
 
 }

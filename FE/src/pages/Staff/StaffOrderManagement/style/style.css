@@ -1,0 +1,7 @@
+@media print {
+
+    #billId,
+    #billId * {
+        display: block !important;
+    }
+}

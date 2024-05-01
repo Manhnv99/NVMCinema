@@ -1,5 +1,6 @@
 import {
     SET_BOOK_TICKET_PROGRESS_CONSTANT,
+    SET_DETAIL_ORDER_CONSTANT,
     SET_INFOR_LIST_MOVIE_CONSTANT,
     SET_INFOR_SEARCH_CONSTANT
 } from "../constant/SaleCounterConstant";
@@ -16,7 +17,8 @@ export const INITIAL_STATE = {
         format: "",
         country: ""
     },
-    bookTicketProgress: 1
+    bookTicketProgress: 1,
+    detailOrder: {}
 };
 
 export const SaleCounterReducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +38,11 @@ export const SaleCounterReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 bookTicketProgress: action.payload
             };
+        case SET_DETAIL_ORDER_CONSTANT:
+            return {
+                ...state,
+                detailOrder: action.payload
+            }
         default:
             return state
     }

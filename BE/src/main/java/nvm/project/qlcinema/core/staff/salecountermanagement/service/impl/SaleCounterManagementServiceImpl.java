@@ -420,6 +420,17 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
         }
     }
 
+    @Override
+    public ResponseObject getDetailOrder(String orderCode) {
+        try {
+            return new ResponseObject(saleCounterManagementBookChairOrderRepository.getDetailOrder(orderCode));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được hóa đơn này!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     private String createOrder(){
         try{
             //xử lý cập nhật trạng thái ghế

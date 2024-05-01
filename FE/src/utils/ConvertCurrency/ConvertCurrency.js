@@ -1,4 +1,8 @@
 
 export const ConvertCurrencyVND = (money) => {
-    return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "VNĐ";
+    if (money === undefined) {
+        return "0 VNĐ"
+    } else {
+        return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "VNĐ";
+    }
 };

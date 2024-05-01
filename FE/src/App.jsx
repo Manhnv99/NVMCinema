@@ -32,8 +32,10 @@ import {
   ROUTE_CLIENT_ACCOUNT,
   ROUTE_CLIENT_BOOK_CHAIR,
   ROUTE_CLIENT_BOOK_TICKET,
+  ROUTE_CLIENT_BRANCH_SYSTEM,
   ROUTE_CLIENT_HOME,
   ROUTE_CLIENT_INFORMATION,
+  ROUTE_CLIENT_PROMOTION_EVENT,
   ROUTE_LOGIN,
   ROUTE_STAFF_MANAGEMENT_ORDER,
   ROUTE_STAFF_MANAGEMENT_SALE_COUNTER,
@@ -90,6 +92,9 @@ import { OrderProvider } from './pages/Staff/StaffOrderManagement/store/provider
 import { SaleCounterProvider } from './pages/Staff/StaffSaleCounterManagement/store/provider/SaleCounterProvider';
 import { SaleCounterBookShowTime } from './pages/Staff/StaffSaleCounterManagement/layout/SaleCounterBookShowTime';
 import { SaleCounterBookChair } from './pages/Staff/StaffSaleCounterManagement/layout/SaleCounterBookChair';
+import { NotExist } from './pages/Error/NotExist/NotExist';
+import { CinemaSystem } from './pages/Client/ClientCinemaSystemManagement/layout/CinemaSystem';
+import { PromotionEvent } from './pages/Client/ClientPromotionEventManagement/layout/PromotionEvent';
 
 function App() {
 
@@ -107,6 +112,13 @@ function App() {
       key: ADMIN_ROUTE_FORBIDDEN,
       route: ADMIN_ROUTE_FORBIDDEN,
       component: <AdminForbiddenPage />
+    },
+    {
+      key: "NOTEXIST",
+      route: "*",
+      component: <ClientLayoutManagement>
+        <NotExist />
+      </ClientLayoutManagement>
     },
   ];
 
@@ -339,7 +351,7 @@ function App() {
       component: <SaleCounterProvider>
         <SaleCounterBookChair />
       </SaleCounterProvider>,
-    },
+    }
   ];
   const loadingStaffRoute = useCallback(() => {
     return StaffRoute.map(item => (
@@ -378,6 +390,15 @@ function App() {
       key: ROUTE_CLIENT_INFORMATION,
       route: ROUTE_CLIENT_INFORMATION,
       component: <InformationClient />,
+    }, {
+      key: ROUTE_CLIENT_BRANCH_SYSTEM,
+      route: ROUTE_CLIENT_BRANCH_SYSTEM,
+      component: <CinemaSystem />,
+    },
+    {
+      key: ROUTE_CLIENT_PROMOTION_EVENT,
+      route: ROUTE_CLIENT_PROMOTION_EVENT,
+      component: <PromotionEvent />,
     },
   ];
 

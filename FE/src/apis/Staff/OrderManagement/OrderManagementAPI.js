@@ -31,4 +31,11 @@ export class OrderManagementAPI {
         });
     };
 
+    static fetchDetailOrder = (orderId) => {
+        return requestAPI({
+            method: "GET",
+            url: URL_API_STAFF_ORDER_MANAGEMENT + `/get-detail-order/${orderId}`
+        });
+    };
+
 }

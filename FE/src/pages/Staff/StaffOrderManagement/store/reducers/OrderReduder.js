@@ -1,5 +1,6 @@
 import { CHUA_DUYET_CONSTANT } from "../../../../../app/Constant/OrderStatusConstant";
 import {
+    SET_DETAIL_ORDER_CONSTANT,
     SET_INFOR_LIST_ORDER_CONSTANT,
     SET_INFOR_SEARCH_CONSTANT,
     SET_ORDER_STATUS_CONSTANT
@@ -15,7 +16,8 @@ export const INITIAL_STATE = {
         date: null,
         timeStart: null
     },
-    orderStatus: CHUA_DUYET_CONSTANT
+    orderStatus: CHUA_DUYET_CONSTANT,
+    detailOrder: {}
 }
 
 export const OrderReducer = (state = INITIAL_STATE, action) => {
@@ -34,6 +36,11 @@ export const OrderReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 orderStatus: action.payload
+            };
+        case SET_DETAIL_ORDER_CONSTANT:
+            return {
+                ...state,
+                detailOrder: action.payload
             };
         default:
             return state;

@@ -241,7 +241,7 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
         String signValue = VNPayConfig.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
             if (VNPayTransactionStatus.SUCCESS.getStatus().equals(request.getParameter("vnp_TransactionStatus"))) {
-//                this.createOrder();
+                this.createOrder();
                 response.sendRedirect(UrlDomain.URL_FE_DOMAIN + "/thong-tin-tai-khoan?" + request.getQueryString());
             } else {
                 response.sendRedirect(UrlDomain.URL_FE_DOMAIN + "/thong-tin-tai-khoan?" + request.getQueryString());

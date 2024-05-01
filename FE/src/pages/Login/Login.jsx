@@ -30,11 +30,11 @@ export const Login = () => {
     useEffect(() => {
         if (localStorage.getItem("token")) {
             const inforToken = ExtractInforToken();
-            const roleToken = inforToken.roles[0].authority;
             if (inforToken && inforToken.typeUser) {
                 if (inforToken.typeUser === TYPE_USER_CLIENT) {
                     navigate(ROUTE_CLIENT_HOME);
                 } else if (inforToken.typeUser === TYPE_USER_USER) {
+                    const roleToken = inforToken.roles[0].authority;
                     if (roleToken === ROLE_ADMIN) {
                         navigate(ROUTE_ADMIN_MANAGEMENT_WELCOME);
                     } else if (roleToken === ROLE_ADMIN_AREA) {

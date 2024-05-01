@@ -12,4 +12,6 @@ public interface StaffOrderManagementService {
 
     ResponseObject handleApprovedOrCancel(StaffOrderManagementApprovedOrCancelRequest approvedOrCancelRequest); //true is Approved,false is Cancel
 
+    ResponseObject getDetailOrder(String orderId);
+
 }

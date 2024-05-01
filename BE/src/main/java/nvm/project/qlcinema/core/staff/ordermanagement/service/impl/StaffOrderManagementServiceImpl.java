@@ -94,4 +94,15 @@ public class StaffOrderManagementServiceImpl implements StaffOrderManagementServ
         return new ResponseObject(messageResponse);
     }
 
+    @Override
+    public ResponseObject getDetailOrder(String orderId) {
+        try {
+            return new ResponseObject(staffOrderManagementRepository.getDetailOrder(orderId));
+        }catch (Exception e){
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được hóa đơn này!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

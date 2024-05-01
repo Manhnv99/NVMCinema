@@ -1,5 +1,6 @@
 import {
     SET_BOOK_TICKET_PROGRESS_CONSTANT,
+    SET_DETAIL_ORDER_CONSTANT,
     SET_INFOR_LIST_MOVIE_CONSTANT,
     SET_INFOR_SEARCH_CONSTANT,
 } from "../constant/SaleCounterConstant"
@@ -22,6 +23,13 @@ export const setInforSearchAction = (payload) => {
 export const setBookTicketProgressAction = (payload) => {
     return {
         type: SET_BOOK_TICKET_PROGRESS_CONSTANT,
+        payload: payload
+    };
+};
+
+export const setDetailOrderAction = (payload) => {
+    return {
+        type: SET_DETAIL_ORDER_CONSTANT,
         payload: payload
     };
 };

@@ -104,6 +104,13 @@ export class SaleCounterManagementAPI {
             url: URL_API_STAFF_SALE_COUNTER_MANAGEMENT + "/cash-payment",
             data: paymentRequest
         });
-    }
+    };
+
+    static fetchDetailOrder = (orderId) => {
+        return requestAPI({
+            method: "GET",
+            url: URL_API_STAFF_SALE_COUNTER_MANAGEMENT + `/get-detail-order/${orderId}`
+        });
+    };
 
 }
