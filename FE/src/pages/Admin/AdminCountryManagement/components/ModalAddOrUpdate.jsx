@@ -16,7 +16,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
     //handleAddOrUpdate
     const handleAddOrUpdate = () => {
         Swal.fire({
-            title: whatAction === "post" ? "Bạn có chắc muốn thêm đất nước này?" : "Bạn có chắc muốn cập nhật đất nước này này?",
+            title: whatAction === "post" ? "Bạn có chắc muốn thêm quốc gia này?" : "Bạn có chắc muốn cập nhật quốc gia này?",
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -54,7 +54,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
     return (
         <>
             <Modal
-                title={<Typography.Title level={3}>{whatAction === "post" ? "Thêm Đất Nước" : "Cập Nhật Đất Nước"}</Typography.Title>}
+                title={<Typography.Title level={3}>{whatAction === "post" ? "Thêm Quốc Gia" : "Cập Nhật Quốc Gia"}</Typography.Title>}
                 open={openModal}
                 style={{ marginTop: '-50px' }} // Tùy chỉnh khoảng cách từ top
                 onCancel={handleCloseModal}
@@ -66,17 +66,17 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                 >
                     <div className="mb-[20px]">
                         <Form.Item
-                            label="Tên Đất Nước"
+                            label="Tên Quốc Gia"
                             name="name"
                             rules={[
-                                { required: true, message: "Tên đất nước không được để trống!" }
+                                { required: true, message: "Tên quốc gia không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder='Nhập tên quốc gia...' />
                         </Form.Item>
                     </div>
                     <div className="flex justify-end">
-                        <Button type="primary" htmlType="submit">{whatAction === "post" ? "Thêm đất nước" : "Cập nhật đất nước"}</Button>
+                        <Button type="primary" htmlType="submit">{whatAction === "post" ? "Thêm quốc gia" : "Cập nhật quốc gia"}</Button>
                     </div>
                 </Form>
             </Modal>

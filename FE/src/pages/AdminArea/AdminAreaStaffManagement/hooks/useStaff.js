@@ -31,7 +31,7 @@ export const useStaff = () => {
                 message.error(e.response.data[errMessage]);
             }
         } finally {
-            dispatch(setLoadingFalse());
+            dispatchStore(setLoadingFalse());
         }
     };
 

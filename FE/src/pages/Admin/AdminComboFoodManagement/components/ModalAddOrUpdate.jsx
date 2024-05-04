@@ -23,7 +23,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
     //handleAddOrUpdate
     const handleAddOrUpdate = () => {
         Swal.fire({
-            title: whatAction === "post" ? "Bạn có chắc muốn thêm combo này?" : "Bạn có chắc muốn cập nhật combo này này?",
+            title: whatAction === "post" ? "Bạn có chắc muốn thêm combo này?" : "Bạn có chắc muốn cập nhật combo này?",
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -92,7 +92,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
             reader.onerror = (error) => reject(error);
         });
 
-        const formatter = value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VNĐ';
+    const formatter = value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VNĐ';
     const parser = value => value.replace(/VNĐ\s?|(,*)/g, '');
 
     return (
@@ -116,7 +116,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Tên combo không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder='Nhập tên combo...' />
                         </Form.Item>
                     </div>
                     <div className="mb-[20px]">

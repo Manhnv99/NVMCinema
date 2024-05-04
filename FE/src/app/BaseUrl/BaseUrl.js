@@ -20,8 +20,6 @@ export const ROUTE_ADMIN_MANAGEMENT_STAFF = "/admin/management-staff";
 export const ROUTE_ADMIN_MANAGEMENT_STAFF_ADD = "/admin/management-staff/add";
 export const ROUTE_ADMIN_MANAGEMENT_STAFF_UPDATE = "/admin/management-staff/update/:id";
 
-export const ROUTE_ADMIN_MANAGEMENT_ORDER = "/admin/management-order";
-
 export const ROUTE_ADMIN_MANAGEMENT_PROMOTION = "/admin/management-promotion";
 
 export const ROUTE_ADMIN_MANAGEMENT_GENRE = "/admin/management-genre";

@@ -75,7 +75,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Tên đạo diễn không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder='Nhập tên đạo diễn...' />
                         </Form.Item>
                     </div>
                     {/*  */}
@@ -102,7 +102,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Tuổi đạo diễn không được để trống!" }
                             ]}
                         >
-                            <Input type="number" />
+                            <Input type="number" allowClear placeholder='Nhập tuổi đạo diễn...' />
                         </Form.Item>
                     </div>
                     {/*  */}
@@ -114,7 +114,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Mô tả đạo diễn không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder='Nhập mô tả đạo diễn...' />
                         </Form.Item>
                     </div>
                     <div className="flex justify-end">

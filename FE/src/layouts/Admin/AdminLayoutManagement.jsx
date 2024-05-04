@@ -4,14 +4,29 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Dropdown, message } from 'antd';
 import { useEffect, useState } from 'react';
-import { ROUTE_ADMIN_MANAGEMENT_AREA, ROUTE_ADMIN_MANAGEMENT_BRANCH, ROUTE_ADMIN_MANAGEMENT_COMBO_FOOD, ROUTE_ADMIN_MANAGEMENT_COUNTRY, ROUTE_ADMIN_MANAGEMENT_DIRECTOR, ROUTE_ADMIN_MANAGEMENT_FORMAT, ROUTE_ADMIN_MANAGEMENT_GENRE, ROUTE_ADMIN_MANAGEMENT_MOVIE, ROUTE_ADMIN_MANAGEMENT_ORDER, ROUTE_ADMIN_MANAGEMENT_PROMOTION, ROUTE_ADMIN_MANAGEMENT_ROOM, ROUTE_ADMIN_MANAGEMENT_SHOWTIME, ROUTE_ADMIN_MANAGEMENT_STAFF, ROUTE_ADMIN_MANAGEMENT_STATISTICS, ROUTE_CLIENT_HOME, ROUTE_LOGIN} from '../../app/BaseUrl/BaseUrl';
+import {
+    ROUTE_ADMIN_MANAGEMENT_AREA,
+    ROUTE_ADMIN_MANAGEMENT_BRANCH,
+    ROUTE_ADMIN_MANAGEMENT_COMBO_FOOD,
+    ROUTE_ADMIN_MANAGEMENT_COUNTRY,
+    ROUTE_ADMIN_MANAGEMENT_DIRECTOR,
+    ROUTE_ADMIN_MANAGEMENT_FORMAT,
+    ROUTE_ADMIN_MANAGEMENT_GENRE,
+    ROUTE_ADMIN_MANAGEMENT_MOVIE,
+    ROUTE_ADMIN_MANAGEMENT_PROMOTION,
+    ROUTE_ADMIN_MANAGEMENT_ROOM,
+    ROUTE_ADMIN_MANAGEMENT_SHOWTIME,
+    ROUTE_ADMIN_MANAGEMENT_STAFF,
+    ROUTE_ADMIN_MANAGEMENT_STATISTICS,
+    ROUTE_CLIENT_HOME, ROUTE_LOGIN
+} from '../../app/BaseUrl/BaseUrl';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from 'antd';
 import Logo from "../../assets/NVM.png";
 import { ExtractInforToken } from '../../utils/Extract/ExtractInforToken';
 import { TYPE_USER_CLIENT } from '../../app/Constant/TypeUser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBurger, faChartArea, faChartSimple, faFilm, faMoneyBills, faTags, faUsers, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faBurger, faChartArea, faChartSimple, faFilm, faTags, faUsers, faVideo } from '@fortawesome/free-solid-svg-icons';
 const { Header, Sider, Content } = Layout;
 
 export const AdminLayoutManagement = ({ children }) => {
@@ -123,11 +138,6 @@ export const AdminLayoutManagement = ({ children }) => {
                             key: ROUTE_ADMIN_MANAGEMENT_STATISTICS,
                             icon: <FontAwesomeIcon icon={faChartSimple} />,
                             label: 'Thống kê',
-                        },
-                        {
-                            key: ROUTE_ADMIN_MANAGEMENT_ORDER,
-                            icon: <FontAwesomeIcon icon={faMoneyBills} />,
-                            label: 'Hóa Đơn',
                         },
                         {
                             key: 'parentArea',

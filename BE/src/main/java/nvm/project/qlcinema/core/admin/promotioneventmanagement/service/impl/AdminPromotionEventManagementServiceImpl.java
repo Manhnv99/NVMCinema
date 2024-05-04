@@ -82,7 +82,7 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
         //check Date Valid
         this.handleCheckDateValid(postRequest.getTimeStart(),postRequest.getTimeEnd());
         //check Dup
-        this.handleCheckDuplicate(postRequest.getName());
+        this.handleCheckDuplicate(postRequest.getName(),postRequest.getPromotionCode());
 
         //post
         PromotionEvent postPromotionEvent = new PromotionEvent();
@@ -128,7 +128,20 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
             throw new RestApiException(errors,HttpStatus.NOT_FOUND);
         }else{
             if(!putRequest.getName().equals(isPromotionEventExist.get().getName())){
-                this.handleCheckDuplicate(putRequest.getName());
+                Optional<PromotionEvent> isNameDuplicate = adminPromotionEventManagementRepository.findPromotionEventByName(putRequest.getName());
+                if(isNameDuplicate.isPresent()){
+                    errors.add("Đã tồn tại sự kiện với tên này!");
+                }
+            }
+            if(!putRequest.getPromotionCode().equals(isPromotionEventExist.get().getPromotionCode())){
+                Optional<PromotionEvent> isPromotionCodeDuplicate = adminPromotionEventManagementRepository.findPromotionEventByPECode(putRequest.getPromotionCode());
+                if(isPromotionCodeDuplicate.isPresent()){
+                    errors.add("Đã tồn tại mã giảm giá này!");
+                }
+            }
+            //throw Errors
+            if(!errors.isEmpty()){
+                throw new RestApiException(errors,HttpStatus.CONFLICT);
             }
         }
         //post
@@ -178,11 +191,18 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
         }
     }
 
-    private void handleCheckDuplicate(String name){
+    private void handleCheckDuplicate(String name,String peCode){
         List<String> errors = new ArrayList<>();
-        Optional<PromotionEvent> isPEDuplicate = adminPromotionEventManagementRepository.findPromotionEventByName(name);
-        if(isPEDuplicate.isPresent()){
-            errors.add("Đã tồn tại sự kiện với tên này");
+        Optional<PromotionEvent> isNameDuplicate = adminPromotionEventManagementRepository.findPromotionEventByName(name);
+        if(isNameDuplicate.isPresent()){
+            errors.add("Đã tồn tại sự kiện với tên này!");
+        }
+        Optional<PromotionEvent> isPromotionCodeDuplicate = adminPromotionEventManagementRepository.findPromotionEventByPECode(peCode);
+        if(isPromotionCodeDuplicate.isPresent()){
+            errors.add("Đã tồn tại mã giảm giá này!");
+        }
+        //throw Errors
+        if(!errors.isEmpty()){
             throw new RestApiException(errors,HttpStatus.CONFLICT);
         }
     }

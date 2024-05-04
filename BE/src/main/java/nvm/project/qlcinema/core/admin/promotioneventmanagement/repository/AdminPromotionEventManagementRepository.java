@@ -60,6 +60,13 @@ public interface AdminPromotionEventManagementRepository extends PromotionEventR
     Optional<PromotionEvent> findPromotionEventByName(String name);
 
     @Query("""
+            SELECT pe
+            FROM PromotionEvent pe
+            WHERE pe.promotionCode = :code
+            """)
+    Optional<PromotionEvent> findPromotionEventByPECode(String code);
+
+    @Query("""
             SELECT pe FROM PromotionEvent pe ORDER BY pe.createdAt DESC LIMIT 1
             """)
     Optional<PromotionEvent> getNewest();

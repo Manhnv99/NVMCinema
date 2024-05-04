@@ -27,8 +27,8 @@ export const StatisticsRevenueAndTicket = ({ areaId }) => {
     const [filterByValue, setFilterByValue] = useState(YEAR_CONSTANT);
     const [yearValue, setYearValue] = useState(new Date().getFullYear());
     const [monthValue, setMonthValue] = useState("");
-    const [dateStartValue, setDateStartValue] = useState("");
-    const [dateEndValue, setDateEndValue] = useState("");
+    const [dateStartValue, setDateStartValue] = useState(null);
+    const [dateEndValue, setDateEndValue] = useState(null);
     const [actionFilter, setActionFilter] = useState(false);
 
     //data for LineChart
@@ -56,8 +56,9 @@ export const StatisticsRevenueAndTicket = ({ areaId }) => {
 
     //useEffect to Filter
     useEffect(() => {
-        handleFetchStatisticsLineTicketAndRevenue(areaId, yearValue, monthValue, dayjs(dateStartValue).format("YYYY-MM-DD"),
-            dayjs(dateEndValue).format("YYYY-MM-DD"), filterByValue); //Fetch this year
+        // console.log(dateStartValue === "" ? "" : dayjs(dateStartValue).format("YYYY-MM-DD"));
+        handleFetchStatisticsLineTicketAndRevenue(areaId, yearValue, monthValue, dateStartValue === null ? null : dayjs(dateStartValue).format("YYYY-MM-DD"),
+            dateEndValue === null ? null : dayjs(dateEndValue).format("YYYY-MM-DD"), filterByValue); //Fetch this year
     }, [actionFilter]);
 
     //useEffect to load year

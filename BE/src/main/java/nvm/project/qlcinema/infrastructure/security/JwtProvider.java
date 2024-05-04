@@ -81,8 +81,7 @@ public class JwtProvider {
                 .setClaims(extraUser)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + (365L * 24 * 60 * 60 * 1000)))
-//                .setExpiration(new Date(System.currentTimeMillis() + (3600L * 1000)))
+                .setExpiration(new Date(System.currentTimeMillis() + (24 * 60 * 60 * 1000)))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()),SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -100,8 +99,7 @@ public class JwtProvider {
                 .setClaims(extraUser)
                 .setSubject(client.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + (365L * 24 * 60 * 60 * 1000)))
-//                .setExpiration(new Date(System.currentTimeMillis() + (3600L * 1000)))
+                .setExpiration(new Date(System.currentTimeMillis() + (60 * 60 * 1000)))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()),SignatureAlgorithm.HS256)
                 .compact();
     }

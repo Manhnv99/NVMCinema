@@ -16,7 +16,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
     //handleAddOrUpdate
     const handleAddOrUpdate = () => {
         Swal.fire({
-            title: whatAction === "post" ? "Bạn có chắc muốn thêm phân giải này?" : "Bạn có chắc muốn cập nhật phân giải này này?",
+            title: whatAction === "post" ? "Bạn có chắc muốn thêm phân giải này?" : "Bạn có chắc muốn cập nhật phân giải này?",
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -72,7 +72,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Tên phân giải không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder='Nhập tên phân giải...' />
                         </Form.Item>
                     </div>
                     <div className="flex justify-end">

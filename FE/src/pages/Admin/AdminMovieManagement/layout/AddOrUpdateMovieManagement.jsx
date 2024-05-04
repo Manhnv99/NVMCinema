@@ -183,7 +183,7 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Mã phim không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Nhập mã phim...' />
                             </Form.Item>
                         </Col>
                         <Col span={11}>
@@ -194,7 +194,7 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Tên phim không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Nhập tên phim...' />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -307,7 +307,7 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Thời lượng phim không được để trống!" },
                                 ]}
                             >
-                                <Input allowClear type='number' />
+                                <Input allowClear type='number' placeholder='Nhập thời lượng phim...' />
                             </Form.Item>
                         </Col>
                         <Col span={11}>
@@ -318,7 +318,7 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Tuổi khuyến cáo không được để trống!" },
                                 ]}
                             >
-                                <Input allowClear type='number' />
+                                <Input allowClear type='number' placeholder='Nhập tuổi khuyến cáo phim...' />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -335,7 +335,7 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Diễn viên nổi bật không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Nhập diễn viên nổi bật...' />
                             </Form.Item>
                         </Col>
                         <Col span={11}>
@@ -346,7 +346,7 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Đường dẫn video không được để trống!" }
                                 ]}
                             >
-                                <Input allowClear />
+                                <Input allowClear placeholder='Nhập đường dẫn video...' />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -374,7 +374,7 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Mô tả phim không được để trống!" }
                                 ]}
                             >
-                                <Input.TextArea rows={5} allowClear />
+                                <Input.TextArea rows={5} allowClear placeholder='Nhập mô tả phim...' />
                             </Form.Item>
                         </Col>
                     </Row>

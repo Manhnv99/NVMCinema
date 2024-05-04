@@ -120,7 +120,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Tên chi nhánh không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder="Nhập tên chi nhánh..." />
                         </Form.Item>
                     </div>
                     <div className="mb-[20px]">
@@ -132,7 +132,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { type: "email", message: "Email không đúng định dạng!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder="Nhập email chi nhánh..." />
                         </Form.Item>
                     </div>
                     <div className="mb-[20px]">
@@ -143,7 +143,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Địa chỉ chi nhánh không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder="Nhập địa chi nhánh..." />
                         </Form.Item>
                     </div>
                     <div className="mb-[20px]">
@@ -154,7 +154,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Hostline chi nhánh không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder="Nhập hostline chi nhánh..." />
                         </Form.Item>
                     </div>
                     <div className="mb-[20px]">

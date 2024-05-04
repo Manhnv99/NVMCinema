@@ -1,0 +1,44 @@
+services:
+  be-spring-boot:
+    image: be
+    container_name: be-spring-boot
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    networks:
+      - nvm_cinema_network
+    environment:
+      MYSQL_HOST: db-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: manh99123
+      MYSQL_DB: nvmcinema
+    depends_on:
+      - db-mysql
+  fe-reactjs:
+    image: fe
+    container_name: fe-reactjs
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    networks:
+      - nvm_cinema_network
+    depends_on:
+      - be-spring-boot
+  db-mysql:
+    image: mysql:8.0
+    container_name: db-mysql
+    restart: on-failure
+    volumes:
+      - nvm_cinema_volumns:/var/lib/mysql
+      - /initDB.sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: manh99123
+      MYSQL_DATABASE: nvmcinema
+    ports:
+      - "3307:3306"
+    networks:
+      - nvm_cinema_network
+networks:
+  nvm_cinema_network:
+volumes:
+  nvm_cinema_volumns:

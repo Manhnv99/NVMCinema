@@ -16,7 +16,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
     //handleAddOrUpdate
     const handleAddOrUpdate = () => {
         Swal.fire({
-            title: whatAction === "post" ? "Bạn có chắc muốn thêm thể loại này?" : "Bạn có chắc muốn cập nhật thể loại này này?",
+            title: whatAction === "post" ? "Bạn có chắc muốn thêm thể loại này?" : "Bạn có chắc muốn cập nhật thể loại này?",
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -72,7 +72,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Tên thể loại không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input allowClear placeholder='Nhập tên thể loại...' />
                         </Form.Item>
                     </div>
                     <div className="flex justify-end">

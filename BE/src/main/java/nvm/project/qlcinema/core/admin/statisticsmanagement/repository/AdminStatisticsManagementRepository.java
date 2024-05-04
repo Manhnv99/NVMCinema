@@ -14,6 +14,7 @@ import nvm.project.qlcinema.repository.OrderRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -127,7 +128,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                     OR (o.order_date BETWEEN :#{#request.dateStart} AND :#{#request.dateEnd})
                 )
             GROUP BY
-                date
+                o.order_date
             ORDER BY
                 totalRevenue DESC;
             """,nativeQuery = true)

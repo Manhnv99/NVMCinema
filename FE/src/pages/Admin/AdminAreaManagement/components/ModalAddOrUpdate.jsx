@@ -72,7 +72,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, dataDetail, render, 
                                 { required: true, message: "Tên khu vực không được để trống!" }
                             ]}
                         >
-                            <Input />
+                            <Input placeholder="Nhập tên khu vực..." />
                         </Form.Item>
                     </div>
                     <div className="flex justify-end">
