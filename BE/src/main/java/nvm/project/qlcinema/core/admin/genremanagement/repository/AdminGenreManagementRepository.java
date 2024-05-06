@@ -23,28 +23,28 @@ public interface AdminGenreManagementRepository extends GenreRepository {
     Optional<Genre> findByName(String name);
 
     @Query(value = """
-                SELECT  g.id AS id,
-                        g.code AS code,
-                        g.name AS name,
-                        g.deleted AS deleted
-                FROM genre g
-                WHERE
-                (
-                    ( :#{#request.inputSearch} IS NULL OR g.code LIKE :#{ "%" + #request.inputSearch +"%"} ) OR
-                    ( :#{#request.inputSearch} IS NULL OR g.name LIKE :#{ "%" + #request.inputSearch +"%"} )
-                )
-                ORDER BY g.created_at DESC
-                """,nativeQuery = true)
+            SELECT  g.id AS id,
+                    g.code AS code,
+                    g.name AS name,
+                    g.deleted AS deleted
+            FROM genre g
+            WHERE
+            (
+                ( :#{#request.inputSearch} IS NULL OR g.code LIKE :#{ "%" + #request.inputSearch +"%"} ) OR
+                ( :#{#request.inputSearch} IS NULL OR g.name LIKE :#{ "%" + #request.inputSearch +"%"} )
+            )
+            ORDER BY g.created_at DESC
+            """, nativeQuery = true)
     Page<AdminGenreManagementListGenreResponse> getListGenre(Pageable pageable, AdminGenreManagementListGenreRequest request);
 
     @Query(value = """
-                SELECT  g.id AS id,
-                        g.code AS code,
-                        g.name AS name,
-                        g.deleted AS deleted
-                FROM genre g
-                WHERE g.id = :genreId
-                """,nativeQuery = true)
+            SELECT  g.id AS id,
+                    g.code AS code,
+                    g.name AS name,
+                    g.deleted AS deleted
+            FROM genre g
+            WHERE g.id = :genreId
+            """, nativeQuery = true)
     AdminGenreManagementListGenreResponse getDetailGenre(String genreId);
 
 }

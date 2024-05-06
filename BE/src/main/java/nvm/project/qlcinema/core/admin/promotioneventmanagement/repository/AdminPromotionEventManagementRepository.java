@@ -18,43 +18,43 @@ import java.util.Optional;
 public interface AdminPromotionEventManagementRepository extends PromotionEventRepository {
 
     @Query(value = """
-                SELECT  pe.id AS Id,
-                        pe.code AS code,
-                        pe.name AS name,
-                        pe.date_start AS dateStart,
-                        pe.date_end AS dateEnd,
-                        pe.promotion_code AS promotionCode,
-                        pe.promotion_price AS promotionPrice,
-                        pe.description AS description,
-                        pe.image_url AS imageUrl,
-                        pe.status AS status
-                FROM promotion_event pe
-                WHERE
-                (
-                    ( :#{#request.name} IS NULL OR pe.name LIKE :#{ "%" + #request.name +"%" } ) AND
-                    ( :#{#request.timeStart} OR :#{#request.timeEnd} ) IS NULL OR ( :#{#request.timeStart} <= pe.date_start AND :#{#request.timeEnd} >= pe.date_start )
-                )
-                ORDER BY pe.created_at DESC
-                """,nativeQuery = true)
+            SELECT  pe.id AS Id,
+                    pe.code AS code,
+                    pe.name AS name,
+                    pe.date_start AS dateStart,
+                    pe.date_end AS dateEnd,
+                    pe.promotion_code AS promotionCode,
+                    pe.promotion_price AS promotionPrice,
+                    pe.description AS description,
+                    pe.image_url AS imageUrl,
+                    pe.status AS status
+            FROM promotion_event pe
+            WHERE
+            (
+                ( :#{#request.name} IS NULL OR pe.name LIKE :#{ "%" + #request.name +"%" } ) AND
+                ( :#{#request.timeStart} OR :#{#request.timeEnd} ) IS NULL OR ( :#{#request.timeStart} <= pe.date_start AND :#{#request.timeEnd} >= pe.date_start )
+            )
+            ORDER BY pe.created_at DESC
+            """, nativeQuery = true)
     Page<AdminPromotionEventManagementListPromotionEventResponse> getListSearchPromotionEvent(
             Pageable pageable,
             AdminPromotionEventManagementListPromotionEventRequest request
     );
 
     @Query(value = """
-                SELECT  pe.id AS Id,
-                        pe.code AS code,
-                        pe.name AS name,
-                        pe.date_start AS dateStart,
-                        pe.date_end AS dateEnd,
-                        pe.promotion_code AS promotionCode,
-                        pe.promotion_price AS promotionPrice,
-                        pe.description AS description,
-                        pe.image_url AS imageUrl,
-                        pe.status AS status
-                FROM promotion_event pe
-                WHERE pe.id = :id
-                """,nativeQuery = true)
+            SELECT  pe.id AS Id,
+                    pe.code AS code,
+                    pe.name AS name,
+                    pe.date_start AS dateStart,
+                    pe.date_end AS dateEnd,
+                    pe.promotion_code AS promotionCode,
+                    pe.promotion_price AS promotionPrice,
+                    pe.description AS description,
+                    pe.image_url AS imageUrl,
+                    pe.status AS status
+            FROM promotion_event pe
+            WHERE pe.id = :id
+            """, nativeQuery = true)
     AdminPromotionEventManagementListPromotionEventResponse getDetailPromotionEvent(String id);
 
     Optional<PromotionEvent> findPromotionEventByName(String name);
@@ -76,6 +76,6 @@ public interface AdminPromotionEventManagementRepository extends PromotionEventR
     @Query("""
             UPDATE PromotionEvent pe SET pe.promotionEventStatus = :promotionEventStatus WHERE pe.id = :id
             """)
-    void updatePEStatus(PromotionEventStatus promotionEventStatus,String id);
+    void updatePEStatus(PromotionEventStatus promotionEventStatus, String id);
 
 }

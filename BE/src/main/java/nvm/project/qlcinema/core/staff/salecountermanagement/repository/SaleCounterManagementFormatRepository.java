@@ -11,11 +11,11 @@ import java.util.List;
 public interface SaleCounterManagementFormatRepository extends FormatRepository {
 
     @Query(value = """
-                SELECT  f.id AS id,
-                        f.name AS name
-                FROM format f
-                WHERE f.deleted = true
-                """,nativeQuery = true)
+            SELECT  f.id AS id,
+                    f.name AS name
+            FROM format f
+            WHERE f.deleted = true
+            """, nativeQuery = true)
     List<SaleCounterManagementListFormatResponse> getListFormat();
 
 }

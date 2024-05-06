@@ -24,17 +24,17 @@ public class StaffOrderManagementController {
     private final StaffOrderManagementService staffOrderManagementService;
 
     @GetMapping("/get-search-order")
-    public PageableObject<StaffOrderManagementListOrderResponse> getListSearchOrder(final StaffOrderManagementListOrderRequest request){
+    public PageableObject<StaffOrderManagementListOrderResponse> getListSearchOrder(final StaffOrderManagementListOrderRequest request) {
         return staffOrderManagementService.getListSearchOrder(request);
     }
 
     @PutMapping("/approved-or-cancel")
-    public ResponseObject handleApprovedOrCancel(final StaffOrderManagementApprovedOrCancelRequest approvedOrCancelRequest){
+    public ResponseObject handleApprovedOrCancel(final StaffOrderManagementApprovedOrCancelRequest approvedOrCancelRequest) {
         return staffOrderManagementService.handleApprovedOrCancel(approvedOrCancelRequest);
     }
 
     @GetMapping("/get-detail-order/{orderId}")
-    public ResponseObject getDetailOrder(@PathVariable String orderId){
+    public ResponseObject getDetailOrder(@PathVariable String orderId) {
         return staffOrderManagementService.getDetailOrder(orderId);
     }
 

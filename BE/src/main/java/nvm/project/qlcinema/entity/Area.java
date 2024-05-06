@@ -16,7 +16,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Area sẽ đại diễn cho các Khu vực trên toàn quốc!
+ * Object Area sẽ đại diễn cho các Khu vực trên toàn quốc!
  */
 
 @AllArgsConstructor

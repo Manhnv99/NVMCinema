@@ -17,7 +17,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Director là sẽ đại diện cho phim đấy là do ai dạo diễn
+ * Object Director là sẽ đại diện cho phim đấy là do ai dạo diễn
  */
 
 @AllArgsConstructor

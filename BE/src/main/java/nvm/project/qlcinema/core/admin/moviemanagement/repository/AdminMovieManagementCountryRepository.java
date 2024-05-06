@@ -13,11 +13,11 @@ import java.util.List;
 public interface AdminMovieManagementCountryRepository extends CountryRepository {
 
     @Query(value = """
-                SELECT  c.id AS id,
-                        c.name AS name
-                FROM country c
-                WHERE c.deleted = true
-                """,nativeQuery = true)
+            SELECT  c.id AS id,
+                    c.name AS name
+            FROM country c
+            WHERE c.deleted = true
+            """, nativeQuery = true)
     List<AdminMovieManagementListCountryResponse> getListCountry();
 
 }

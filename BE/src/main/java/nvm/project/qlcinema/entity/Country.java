@@ -17,7 +17,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Country là sẽ đại diện cho phim đấy là thuộc nước nào sản xuất
+ * Object Country là sẽ đại diện cho phim đấy là thuộc nước nào sản xuất
  */
 
 @AllArgsConstructor

@@ -23,6 +23,6 @@ public interface ClientAuthenticationRepository extends ClientRepository {
     @Query("""
             SELECT c FROM Client c WHERE c.email = :email AND c.password = :password
             """)
-    Optional<Client> loginAuthentication(String email,String password);
+    Optional<Client> loginAuthentication(String email, String password);
 
 }

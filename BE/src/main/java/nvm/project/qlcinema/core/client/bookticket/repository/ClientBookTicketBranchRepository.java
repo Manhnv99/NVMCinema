@@ -11,12 +11,12 @@ import java.util.List;
 public interface ClientBookTicketBranchRepository extends BranchRepository {
 
     @Query(value = """
-                SELECT  b.id AS id,
-                        b.name AS name,
-                        b.address AS address
-                FROM branch b
-                WHERE b.area_id = :areaId
-                """,nativeQuery = true)
+            SELECT  b.id AS id,
+                    b.name AS name,
+                    b.address AS address
+            FROM branch b
+            WHERE b.area_id = :areaId
+            """, nativeQuery = true)
     List<ClientBookTicketListBranchResponse> getListBranch(String areaId);
 
 }

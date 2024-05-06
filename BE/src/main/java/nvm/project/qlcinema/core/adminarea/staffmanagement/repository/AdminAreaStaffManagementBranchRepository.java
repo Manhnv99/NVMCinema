@@ -11,12 +11,12 @@ import java.util.List;
 public interface AdminAreaStaffManagementBranchRepository extends BranchRepository {
 
     @Query(value = """
-                SELECT  b.id AS id,
-                        b.name AS name
-                FROM branch b
-                JOIN area a ON a.id = b.area_id
-                WHERE a.id = :areaId
-                """,nativeQuery = true)
+            SELECT  b.id AS id,
+                    b.name AS name
+            FROM branch b
+            JOIN area a ON a.id = b.area_id
+            WHERE a.id = :areaId
+            """, nativeQuery = true)
     List<AdminAreaStaffManagementBranchResponse> getListBranch(String areaId);
 
 }

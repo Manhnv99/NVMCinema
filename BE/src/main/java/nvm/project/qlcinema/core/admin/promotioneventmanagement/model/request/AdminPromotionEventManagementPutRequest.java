@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminPromotionEventManagementPutRequest extends AdminPromotionEventManagementPostRequest{
+public class AdminPromotionEventManagementPutRequest extends AdminPromotionEventManagementPostRequest {
 
     private String id;
 

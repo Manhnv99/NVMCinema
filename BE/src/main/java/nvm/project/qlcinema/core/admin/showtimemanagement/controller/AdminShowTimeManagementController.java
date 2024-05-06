@@ -30,42 +30,42 @@ public class AdminShowTimeManagementController {
     private final AdminShowTimeManagementService adminShowTimeManagementService;
 
     @GetMapping("/get-search-showtime")
-    public PageableObject<AdminShowTimeManagementListShowTimeResponse> getListSearchShowTime(final AdminShowTimeManagementListShowTimeRequest request){
+    public PageableObject<AdminShowTimeManagementListShowTimeResponse> getListSearchShowTime(final AdminShowTimeManagementListShowTimeRequest request) {
         return adminShowTimeManagementService.getListSearchShowTime(request);
     }
 
     @GetMapping("/get-one-showtime/{id}")
-    public ResponseObject getOneShowTime(@PathVariable String id){
+    public ResponseObject getOneShowTime(@PathVariable String id) {
         return adminShowTimeManagementService.getOneShowTime(id);
     }
 
     @GetMapping("/get-detail-showtime/{id}")
-    public ResponseObject getDetailShowTime(@PathVariable String id){
+    public ResponseObject getDetailShowTime(@PathVariable String id) {
         return adminShowTimeManagementService.getDetailShowTime(id);
     }
 
     @GetMapping("/get-list-ticket-chair/{showTimeId}")
-    public ResponseObject getListTicketChair(@PathVariable String showTimeId){
+    public ResponseObject getListTicketChair(@PathVariable String showTimeId) {
         return adminShowTimeManagementService.getListTicketChair(showTimeId);
     }
 
     @GetMapping("/get-list-area")
-    public ResponseObject getListTicketChair(){
+    public ResponseObject getListTicketChair() {
         return adminShowTimeManagementService.getListArea();
     }
 
     @GetMapping("/get-list-branch/{areaId}")
-    public ResponseObject getListBranch(@PathVariable String areaId){
+    public ResponseObject getListBranch(@PathVariable String areaId) {
         return adminShowTimeManagementService.getListBranch(areaId);
     }
 
     @GetMapping("/get-list-room/{branchId}")
-    public ResponseObject getListRoom(@PathVariable String branchId){
+    public ResponseObject getListRoom(@PathVariable String branchId) {
         return adminShowTimeManagementService.getListRoom(branchId);
     }
 
     @GetMapping("/get-list-movie")
-    public ResponseObject getListMovie(){
+    public ResponseObject getListMovie() {
         return adminShowTimeManagementService.getListMovie();
     }
 

@@ -29,27 +29,27 @@ public class ClientBookChairController {
     private final ClientBookChairService clientBookChairService;
 
     @GetMapping("/detail-showtime/{showTimeId}")
-    public ResponseObject getDetailShowTime(@PathVariable String showTimeId){
+    public ResponseObject getDetailShowTime(@PathVariable String showTimeId) {
         return clientBookChairService.getDetailShowTime(showTimeId);
     }
 
     @GetMapping("/list-ticket-chair/{showTimeId}")
-    public ResponseObject getListTicketChair(@PathVariable String showTimeId){
+    public ResponseObject getListTicketChair(@PathVariable String showTimeId) {
         return clientBookChairService.getListTicketChair(showTimeId);
     }
 
     @GetMapping("/list-combo-food")
-    public ResponseObject getListComboFood(){
+    public ResponseObject getListComboFood() {
         return clientBookChairService.getListComboFood();
     }
 
     @GetMapping("/get-pme-price")
-    public ResponseObject getPromotionEvent(@RequestParam(name = "code",required = false) String code){
+    public ResponseObject getPromotionEvent(@RequestParam(name = "code", required = false) String code) {
         return clientBookChairService.getPromotionEvent(code);
     }
 
     @PostMapping("/start-online-banking")
-    public String startOnlineBanking(@RequestBody ClientBookChairPaymentRequest paymentRequest, HttpServletRequest request){
+    public String startOnlineBanking(@RequestBody ClientBookChairPaymentRequest paymentRequest, HttpServletRequest request) {
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         String vnpayUrl = clientBookChairService.startOnlineBanking(paymentRequest, baseUrl);
         return vnpayUrl;
@@ -57,7 +57,7 @@ public class ClientBookChairController {
 
     @GetMapping("/vnpay-payment")
     public void GetMapping(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.clientBookChairService.onlineBankingReturn(request,response);
+        this.clientBookChairService.onlineBankingReturn(request, response);
     }
 
 }

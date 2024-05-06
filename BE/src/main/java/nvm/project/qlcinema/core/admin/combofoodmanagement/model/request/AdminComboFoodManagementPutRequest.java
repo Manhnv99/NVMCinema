@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminComboFoodManagementPutRequest extends AdminComboFoodManagementPostRequest{
+public class AdminComboFoodManagementPutRequest extends AdminComboFoodManagementPostRequest {
 
     private String id;
 

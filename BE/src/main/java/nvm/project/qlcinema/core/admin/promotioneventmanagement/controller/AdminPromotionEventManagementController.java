@@ -31,12 +31,12 @@ public class AdminPromotionEventManagementController {
     private final AdminPromotionEventManagementService adminPromotionEventManagementService;
 
     @GetMapping("/get-list-search-promotion_event")
-    public PageableObject<AdminPromotionEventManagementListPromotionEventResponse> getListSearchPromotionEvent(final AdminPromotionEventManagementListPromotionEventRequest request){
+    public PageableObject<AdminPromotionEventManagementListPromotionEventResponse> getListSearchPromotionEvent(final AdminPromotionEventManagementListPromotionEventRequest request) {
         return adminPromotionEventManagementService.getListSearchPromotionEvent(request);
     }
 
     @GetMapping("/get-detail-promotion_event/{id}")
-    public ResponseObject getDetailPromotionEvent(@PathVariable String id){
+    public ResponseObject getDetailPromotionEvent(@PathVariable String id) {
         return adminPromotionEventManagementService.getDetailPromotionEvent(id);
     }
 

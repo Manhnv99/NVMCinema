@@ -29,27 +29,27 @@ public class AdminCountryManagementController {
     private final AdminCountryManagementService adminCountryManagementService;
 
     @GetMapping("/get-search-country")
-    public PageableObject<AdminCountryManagementListCountryResponse> getListCountry(final AdminCountryManagementListCountryRequest request){
+    public PageableObject<AdminCountryManagementListCountryResponse> getListCountry(final AdminCountryManagementListCountryRequest request) {
         return adminCountryManagementService.getListCountry(request);
     }
 
     @GetMapping("/get-detail-country/{countryId}")
-    public ResponseObject getDetailCountry(@PathVariable String countryId){
+    public ResponseObject getDetailCountry(@PathVariable String countryId) {
         return adminCountryManagementService.getDetailCountry(countryId);
     }
 
     @PostMapping("/post-country")
-    public ResponseObject postCountry(@RequestBody @Valid AdminCountryManagementPostRequest postRequest){
+    public ResponseObject postCountry(@RequestBody @Valid AdminCountryManagementPostRequest postRequest) {
         return adminCountryManagementService.postCountry(postRequest);
     }
 
     @PutMapping("/put-country")
-    public ResponseObject putCountry(@RequestBody @Valid AdminCountryManagementPutRequest putRequest){
+    public ResponseObject putCountry(@RequestBody @Valid AdminCountryManagementPutRequest putRequest) {
         return adminCountryManagementService.putCountry(putRequest);
     }
 
     @DeleteMapping("/delete-country/{countryId}")
-    public ResponseObject deleteCountry(@PathVariable String countryId){
+    public ResponseObject deleteCountry(@PathVariable String countryId) {
         return adminCountryManagementService.deleteCountry(countryId);
     }
 

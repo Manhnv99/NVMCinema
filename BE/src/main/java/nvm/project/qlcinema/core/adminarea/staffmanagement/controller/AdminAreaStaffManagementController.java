@@ -32,27 +32,27 @@ public class AdminAreaStaffManagementController {
     private final AdminAreaStaffManagementService adminAreaStaffManagementService;
 
     @GetMapping("/get-all-branch/{areaId}")
-    public ResponseObject getListBranch(@PathVariable String areaId){
+    public ResponseObject getListBranch(@PathVariable String areaId) {
         return adminAreaStaffManagementService.getListBranch(areaId);
     }
 
     @GetMapping("/get-search-staff")
-    public PageableObject<AdminAreaStaffManagementListStaffResponse> getListStaff(AdminAreaStaffManagementListStaffRequest adminAreaStaffManagementListStaffRequest){
+    public PageableObject<AdminAreaStaffManagementListStaffResponse> getListStaff(AdminAreaStaffManagementListStaffRequest adminAreaStaffManagementListStaffRequest) {
         return adminAreaStaffManagementService.getListStaff(adminAreaStaffManagementListStaffRequest);
     }
 
     @GetMapping("/get-one-staff")
-    public ResponseObject getOneStaff(@RequestParam(name = "userId") String userId){
+    public ResponseObject getOneStaff(@RequestParam(name = "userId") String userId) {
         return adminAreaStaffManagementService.getOneStaff(userId);
     }
 
     @GetMapping("/get-detail-staff")
-    public ResponseObject getDetailStaff(@RequestParam(name = "userId") String userId){
+    public ResponseObject getDetailStaff(@RequestParam(name = "userId") String userId) {
         return adminAreaStaffManagementService.getDetailStaff(userId);
     }
 
     @DeleteMapping("/delete-staff/{userId}")
-    public ResponseObject deleteStaff(@PathVariable String userId){
+    public ResponseObject deleteStaff(@PathVariable String userId) {
         return adminAreaStaffManagementService.deleteStaff(userId);
     }
 

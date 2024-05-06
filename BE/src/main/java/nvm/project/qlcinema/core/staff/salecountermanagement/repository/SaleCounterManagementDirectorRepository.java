@@ -11,11 +11,11 @@ import java.util.List;
 public interface SaleCounterManagementDirectorRepository extends DirectorRepository {
 
     @Query(value = """
-                SELECT  d.id AS id,
-                        d.name AS name
-                FROM director d
-                WHERE d.deleted = true
-                """,nativeQuery = true)
+            SELECT  d.id AS id,
+                    d.name AS name
+            FROM director d
+            WHERE d.deleted = true
+            """, nativeQuery = true)
     List<SaleCounterManagementListDirectorResponse> getListDirector();
 
 }

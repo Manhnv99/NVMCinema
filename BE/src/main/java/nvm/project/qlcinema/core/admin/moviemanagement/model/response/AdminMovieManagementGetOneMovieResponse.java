@@ -10,45 +10,45 @@ public interface AdminMovieManagementGetOneMovieResponse {
     String getId();
 
     @Value("#{target.code}")
-     String getCode();
+    String getCode();
 
     @Value("#{target.name}")
-     String getName();
+    String getName();
 
     @Value("#{target.duration}")
-     int getDuration();
+    int getDuration();
 
     @Value("#{target.ageRestriction}")
-     int getAgeRestriction();
+    int getAgeRestriction();
 
     @Value("#{target.releaseDate}")
-     LocalDate getReleaseDate();
+    LocalDate getReleaseDate();
 
     @Value("#{target.videoPath}")
-     String getVideoPath();
+    String getVideoPath();
 
     @Value("#{target.bannerUrl}")
-     String getBannerUrl();
+    String getBannerUrl();
 
     @Value("#{target.actor}")
-     String getActor();
+    String getActor();
 
     @Value("#{target.description}")
-     String getDescription();
+    String getDescription();
 
     @Value("#{target.subTitle}")
-     String getSubTitle();
+    String getSubTitle();
 
     @Value("#{target.directorId}")
-     String getDirectorId();
+    String getDirectorId();
 
     @Value("#{target.genreId}")
-     String getGenreId();
+    String getGenreId();
 
     @Value("#{target.countryId}")
-     String getCountryId();
+    String getCountryId();
 
     @Value("#{target.formatId}")
-     String getFormatId();
-    
+    String getFormatId();
+
 }

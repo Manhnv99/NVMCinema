@@ -21,8 +21,8 @@ import java.util.Date;
  */
 
 /**
- *  Object ShowTime sẽ là để admin tạo các giờ chiếu
- *  Và sẽ dựa theo admin là ở cơ sở nào sẽ xem được room của cơ sở đó
+ * Object ShowTime sẽ là để admin tạo các giờ chiếu
+ * Và sẽ dựa theo admin là ở cơ sở nào sẽ xem được room của cơ sở đó
  */
 
 @AllArgsConstructor
@@ -43,11 +43,11 @@ public class ShowTime extends PrimaryEntity {
     private BigDecimal ticketPrice;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id",referencedColumnName = "id")
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movieId;
 
     @ManyToOne
-    @JoinColumn(name = "room_id",referencedColumnName = "id")
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room roomId;
 
     @Column(name = "deleted")

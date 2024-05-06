@@ -21,7 +21,7 @@ public class ClientCinemaSystemServiceImpl implements ClientCinemaSystemService 
     public ResponseObject getListBranch() {
         try {
             return new ResponseObject(clientCinemaSystemRepository.getListCinemaSystem());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách chi nhánh!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -32,7 +32,7 @@ public class ClientCinemaSystemServiceImpl implements ClientCinemaSystemService 
     public ResponseObject getDetailBranch(String branchId) {
         try {
             return new ResponseObject(clientCinemaSystemRepository.getDetailCinema(branchId));
-        }catch (Exception e) {
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được chi nhánh này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

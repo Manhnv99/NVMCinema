@@ -80,6 +80,7 @@ export const LoginClient = () => {
         if (isAreaExistInLocalStore()) {
             handleFetchLogin(loginRequest).then(response => {
                 localStorage.setItem("token", response.data.token);
+                localStorage.setItem("refreshToken", response.data.refreshToken);
                 message.success(response.data.message);
                 dispatch(setStatusLogin());
                 navigate(ROUTE_CLIENT_HOME);

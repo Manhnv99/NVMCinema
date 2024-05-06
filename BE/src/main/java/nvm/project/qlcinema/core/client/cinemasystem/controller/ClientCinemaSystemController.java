@@ -19,12 +19,12 @@ public class ClientCinemaSystemController {
     private final ClientCinemaSystemService clientCinemaSystemService;
 
     @GetMapping("/get-list-branch")
-    public ResponseObject getListBranch(){
+    public ResponseObject getListBranch() {
         return clientCinemaSystemService.getListBranch();
     }
 
     @GetMapping("/get-detail-branch/{branchId}")
-    public ResponseObject getDetailBranch(@PathVariable String branchId){
+    public ResponseObject getDetailBranch(@PathVariable String branchId) {
         return clientCinemaSystemService.getDetailBranch(branchId);
     }
 

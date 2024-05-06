@@ -16,7 +16,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Genre là sẽ đại diện cho thể loại của 1 phim
+ * Object Genre là sẽ đại diện cho thể loại của 1 phim
  */
 
 @AllArgsConstructor

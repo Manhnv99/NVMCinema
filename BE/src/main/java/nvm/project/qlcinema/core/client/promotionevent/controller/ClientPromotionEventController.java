@@ -19,12 +19,12 @@ public class ClientPromotionEventController {
     public final ClientPromotionEventService clientPromotionEventService;
 
     @GetMapping("/get-list-promotion_event")
-    public ResponseObject getListPromotionEvent(){
+    public ResponseObject getListPromotionEvent() {
         return clientPromotionEventService.getListPromotionEvent();
     }
 
     @GetMapping("/get-detail-promotion_event/{peId}")
-    public ResponseObject getDetailPromotionEvent(@PathVariable String peId){
+    public ResponseObject getDetailPromotionEvent(@PathVariable String peId) {
         return clientPromotionEventService.getDetailPromotionEvent(peId);
     }
 

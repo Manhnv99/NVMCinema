@@ -20,11 +20,11 @@ import nvm.project.qlcinema.entity.base.PrimaryEntity;
 public class OrderDetailFood extends PrimaryEntity {
 
     @ManyToOne
-    @JoinColumn(name = "order_id",referencedColumnName = "id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order orderId;
 
     @ManyToOne
-    @JoinColumn(name = "combo_food_id",referencedColumnName = "id")
+    @JoinColumn(name = "combo_food_id", referencedColumnName = "id")
     private ComboFood comboFoodId;
 
     @Column(name = "quantity")

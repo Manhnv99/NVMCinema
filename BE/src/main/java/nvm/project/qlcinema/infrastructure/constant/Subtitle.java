@@ -11,7 +11,7 @@ public enum Subtitle {
 
     private final String name;
 
-    Subtitle(String name){
+    Subtitle(String name) {
         this.name = name;
     }
 

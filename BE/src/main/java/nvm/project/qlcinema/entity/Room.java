@@ -18,7 +18,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Room sẽ đại diễn cho các phòng tại 1 chi nhánh!
+ * Object Room sẽ đại diễn cho các phòng tại 1 chi nhánh!
  */
 
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public class Room extends PrimaryEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "branch_id" , referencedColumnName = "id")
+    @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branchId;
 
     @Column(name = "deleted")

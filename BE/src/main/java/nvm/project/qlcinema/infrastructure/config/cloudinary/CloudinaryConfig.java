@@ -18,20 +18,20 @@ public class CloudinaryConfig {
 
     private Cloudinary cloudinary;
 
-    public CloudinaryConfig(){
-        Map<String,String> valuesMap=new HashMap<>();
+    public CloudinaryConfig() {
+        Map<String, String> valuesMap = new HashMap<>();
         valuesMap.put("cloud_name", "dbxajsljz");
         valuesMap.put("api_key", "399527952585688");
         valuesMap.put("api_secret", "q1j99tlBNxR4dD2iwtSJJ6jR0rQ");
-        valuesMap.put("upload_preset","nvmstore");
-        valuesMap.put("folder","nvmcinema");
+        valuesMap.put("upload_preset", "nvmstore");
+        valuesMap.put("folder", "nvmcinema");
         cloudinary = new Cloudinary(valuesMap);
     }
 
 
     public Map upload(MultipartFile multipartFile) throws IOException {
-        File file=convert(multipartFile);
-        Map result=cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
+        File file = convert(multipartFile);
+        Map result = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
         if (!Files.deleteIfExists(file.toPath())) {
             throw new IOException("Failed to delete temporary file: " + file.getAbsolutePath());
         }
@@ -40,7 +40,7 @@ public class CloudinaryConfig {
 
 
     public Map delete(String id) throws IOException {
-        return cloudinary.uploader().destroy(id,ObjectUtils.emptyMap());
+        return cloudinary.uploader().destroy(id, ObjectUtils.emptyMap());
     }
 
 

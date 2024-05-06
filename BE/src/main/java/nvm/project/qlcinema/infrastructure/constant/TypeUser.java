@@ -11,7 +11,7 @@ public enum TypeUser {
 
     private final String type;
 
-    TypeUser(String type){
+    TypeUser(String type) {
         this.type = type;
     }
 

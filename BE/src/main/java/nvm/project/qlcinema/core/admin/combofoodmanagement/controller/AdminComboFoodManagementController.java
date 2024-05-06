@@ -31,12 +31,12 @@ public class AdminComboFoodManagementController {
     private final AdminComboFoodManagementService adminComboFoodManagementService;
 
     @GetMapping("/get-search-combo-food")
-    public PageableObject<AdminComboFoodManagementListComboFoodResponse> getListComboFood(final AdminComboFoodManagementListComboFoodRequest request){
+    public PageableObject<AdminComboFoodManagementListComboFoodResponse> getListComboFood(final AdminComboFoodManagementListComboFoodRequest request) {
         return adminComboFoodManagementService.getListComboFood(request);
     }
 
     @GetMapping("/get-detail-combo-food/{comboFoodId}")
-    public ResponseObject getDetailComboFood(@PathVariable String comboFoodId){
+    public ResponseObject getDetailComboFood(@PathVariable String comboFoodId) {
         return adminComboFoodManagementService.getDetailComboFood(comboFoodId);
     }
 
@@ -51,7 +51,7 @@ public class AdminComboFoodManagementController {
     }
 
     @DeleteMapping("/delete-combo-food/{comboFoodId}")
-    public ResponseObject deleteComboFood(@PathVariable String comboFoodId){
+    public ResponseObject deleteComboFood(@PathVariable String comboFoodId) {
         return adminComboFoodManagementService.deleteComboFood(comboFoodId);
     }
 

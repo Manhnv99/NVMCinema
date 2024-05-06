@@ -13,17 +13,17 @@ import java.util.List;
 public class HandlerException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleException(MethodArgumentNotValidException ex){
+    public ResponseEntity<?> handleException(MethodArgumentNotValidException ex) {
         List<String> valueErrors = new ArrayList<>();
-        ex.getBindingResult().getAllErrors().forEach((error)->{
-            String value=error.getDefaultMessage();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String value = error.getDefaultMessage();
             valueErrors.add(value);
         });
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(valueErrors);
     }
 
     @ExceptionHandler(RestApiException.class)
-    public ResponseEntity<?> restApiException(RestApiException restApiException){
+    public ResponseEntity<?> restApiException(RestApiException restApiException) {
         return ResponseEntity.status(restApiException.getHttpStatus()).body(restApiException.getErrors());
     }
 

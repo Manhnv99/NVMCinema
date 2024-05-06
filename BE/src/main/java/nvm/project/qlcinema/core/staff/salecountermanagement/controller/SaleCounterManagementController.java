@@ -33,52 +33,52 @@ public class SaleCounterManagementController {
     private final SaleCounterManagementService saleCounterManagementService;
 
     @GetMapping("/get-search-movie")
-    public PageableObject<SaleCounterManagementListMovieResponse> getSearchListMovie(final SaleCounterManagementListMovieRequest request){
+    public PageableObject<SaleCounterManagementListMovieResponse> getSearchListMovie(final SaleCounterManagementListMovieRequest request) {
         return saleCounterManagementService.getSearchListMovie(request);
     }
 
     @GetMapping("/get-list-country")
-    public ResponseObject getListCountry(){
+    public ResponseObject getListCountry() {
         return saleCounterManagementService.getListCountry();
     }
 
     @GetMapping("/get-list-director")
-    public ResponseObject getListDirector(){
+    public ResponseObject getListDirector() {
         return saleCounterManagementService.getListDirector();
     }
 
     @GetMapping("/get-list-genre")
-    public ResponseObject getListGenre(){
+    public ResponseObject getListGenre() {
         return saleCounterManagementService.getListGenre();
     }
 
     @GetMapping("/get-list-format")
-    public ResponseObject getListFormat(){
+    public ResponseObject getListFormat() {
         return saleCounterManagementService.getListFormat();
     }
 
     @GetMapping("/list-show-time")
-    public ResponseObject getListShowTime(final SaleCounterManagementBookTicketListShowTimeRequest request){
+    public ResponseObject getListShowTime(final SaleCounterManagementBookTicketListShowTimeRequest request) {
         return saleCounterManagementService.getListShowTime(request);
     }
 
     @GetMapping("/detail-showtime/{showTimeId}")
-    public ResponseObject getDetailShowTime(@PathVariable String showTimeId){
+    public ResponseObject getDetailShowTime(@PathVariable String showTimeId) {
         return saleCounterManagementService.getDetailShowTime(showTimeId);
     }
 
     @GetMapping("/list-ticket-chair/{showTimeId}")
-    public ResponseObject getListTicketChair(@PathVariable String showTimeId){
+    public ResponseObject getListTicketChair(@PathVariable String showTimeId) {
         return saleCounterManagementService.getListTicketChair(showTimeId);
     }
 
     @GetMapping("/list-combo-food")
-    public ResponseObject getListComboFood(){
+    public ResponseObject getListComboFood() {
         return saleCounterManagementService.getListComboFood();
     }
 
     @GetMapping("/get-pme-price")
-    public ResponseObject getPromotionEvent(@RequestParam(name = "code",required = false) String code){
+    public ResponseObject getPromotionEvent(@RequestParam(name = "code", required = false) String code) {
         return saleCounterManagementService.getPromotionEvent(code);
     }
 
@@ -88,7 +88,7 @@ public class SaleCounterManagementController {
     }
 
     @PostMapping("/start-online-banking")
-    public String startOnlineBanking(@RequestBody SaleCounterManagementBookChairPaymentRequest paymentRequest, HttpServletRequest request){
+    public String startOnlineBanking(@RequestBody SaleCounterManagementBookChairPaymentRequest paymentRequest, HttpServletRequest request) {
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         String vnpayUrl = saleCounterManagementService.startOnlineBanking(paymentRequest, baseUrl);
         return vnpayUrl;
@@ -96,11 +96,11 @@ public class SaleCounterManagementController {
 
     @GetMapping("/vnpay-payment")
     public void GetMapping(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        saleCounterManagementService.onlineBankingReturn(request,response);
+        saleCounterManagementService.onlineBankingReturn(request, response);
     }
 
     @GetMapping("/get-detail-order/{orderCode}")
-    public ResponseObject getDetailOrder(@PathVariable String orderCode){
+    public ResponseObject getDetailOrder(@PathVariable String orderCode) {
         return saleCounterManagementService.getDetailOrder(orderCode);
     }
 

@@ -41,8 +41,8 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
     public PageableObject<AdminBranchManagementListBranchResponse> getListBranch(AdminBranchManagementListBranchRequest request) {
         try {
             PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
-            return new PageableObject<>(adminBranchManagementRepository.getListBranch(pageRequest,request));
-        }catch (Exception e){
+            return new PageableObject<>(adminBranchManagementRepository.getListBranch(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách khu vực!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -53,7 +53,7 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
     public ResponseObject getListArea() {
         try {
             return new ResponseObject(adminBranchManagementAreaRepository.getListArea());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách khu vực!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -64,18 +64,18 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
     public ResponseObject postBranch(AdminBranchManagementPostRequest postRequest) throws IOException {
         List<String> errors = new ArrayList<>();
 
-        if(postRequest.getImage().isEmpty()){
+        if (postRequest.getImage().isEmpty()) {
             errors.add("Bạn chưa chọn ảnh cho chi nhánh!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         Optional<Area> isAreaExist = adminBranchManagementAreaRepository.findById(postRequest.getAreaId());
-        if(isAreaExist.isEmpty()){
+        if (isAreaExist.isEmpty()) {
             errors.add("Không tìm thấy tên khu vực bạn chọn!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
-        if(validUtils.isPhoneValid(postRequest.getHostLine())){
+        if (validUtils.isPhoneValid(postRequest.getHostLine())) {
             errors.add("Số hostline không đúng định dạng!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
@@ -88,7 +88,7 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
                 postRequest.getHostLine(),
                 postRequest.getAreaId()
         );
-        if(isBranchExist.isPresent()){
+        if (isBranchExist.isPresent()) {
             errors.add("Đã tồn tại chi nhánh này trong hệ thống!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
@@ -96,10 +96,10 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
         //post
         Branch postBranch = new Branch();
         Optional<Branch> branchNewest = adminBranchManagementRepository.getNewest();
-        if(branchNewest.isPresent()){
+        if (branchNewest.isPresent()) {
             String code = branchNewest.get().getCode();
-            postBranch.setCode(code.substring(0,3)+((Integer.parseInt(code.substring(3)))+1));
-        }else{
+            postBranch.setCode(code.substring(0, 3) + ((Integer.parseInt(code.substring(3))) + 1));
+        } else {
             postBranch.setCode("BRA1");
         }
         postBranch.setName(postRequest.getName());
@@ -107,7 +107,7 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
         postBranch.setAddress(postRequest.getAddress());
         postBranch.setHostLine(postRequest.getHostLine());
         postBranch.setAreaId(isAreaExist.get());
-        var result=cloudinaryConfig.upload(postRequest.getImage());//upload image to cloudinary
+        var result = cloudinaryConfig.upload(postRequest.getImage());//upload image to cloudinary
         postBranch.setImageId((String) result.get("public_id"));
         postBranch.setImageUrl((String) result.get("url"));
         postBranch.setDeleted(true);
@@ -122,27 +122,27 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
         List<String> errors = new ArrayList<>();
 
         Optional<Area> isAreaExist = adminBranchManagementAreaRepository.findById(putRequest.getAreaId());
-        if(isAreaExist.isEmpty()){
+        if (isAreaExist.isEmpty()) {
             errors.add("Không tìm thấy tên chi nhánh bạn chọn!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
-        if(validUtils.isPhoneValid(putRequest.getHostLine())){
+        if (validUtils.isPhoneValid(putRequest.getHostLine())) {
             errors.add("Số hostline không đúng định dạng!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check isExist
         Optional<Branch> branchOptional = adminBranchManagementRepository.findById(putRequest.getId());
-        if(branchOptional.isEmpty()){
+        if (branchOptional.isEmpty()) {
             errors.add("Không tìm thấy chi nhánh này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-        }else{
-            if(!branchOptional.get().getName().equals(putRequest.getName()) ||
-                    !branchOptional.get().getEmail().equals(putRequest.getEmail())||
-                    !branchOptional.get().getHostLine().equals(putRequest.getHostLine())||
+        } else {
+            if (!branchOptional.get().getName().equals(putRequest.getName()) ||
+                    !branchOptional.get().getEmail().equals(putRequest.getEmail()) ||
+                    !branchOptional.get().getHostLine().equals(putRequest.getHostLine()) ||
                     !branchOptional.get().getAddress().equals(putRequest.getAddress())
-            ){
+            ) {
                 Optional<Branch> isBranchExist = adminBranchManagementRepository.isBranchExist(
                         putRequest.getName(),
                         putRequest.getEmail(),
@@ -150,7 +150,7 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
                         putRequest.getHostLine(),
                         putRequest.getAreaId()
                 );
-                if(isBranchExist.isPresent()){
+                if (isBranchExist.isPresent()) {
                     errors.add("Đã tồn tại chi nhánh này trong hệ thống!");
                     throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
                 }
@@ -163,9 +163,9 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
         putBranch.setEmail(putRequest.getEmail());
         putBranch.setAddress(putRequest.getAddress());
         putBranch.setHostLine(putRequest.getHostLine());
-        if(!putRequest.getImage().isEmpty()){
+        if (!putRequest.getImage().isEmpty()) {
             cloudinaryConfig.delete(putBranch.getImageId());
-            var result=cloudinaryConfig.upload(putRequest.getImage());//upload image to cloudinary
+            var result = cloudinaryConfig.upload(putRequest.getImage());//upload image to cloudinary
             putBranch.setImageId((String) result.get("public_id"));
             putBranch.setImageUrl((String) result.get("url"));
         }
@@ -179,15 +179,15 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
     public ResponseObject deleteBranch(String id) {
         try {
             Optional<Branch> optionalBranch = adminBranchManagementRepository.findById(id);
-            if(optionalBranch.isEmpty()){
+            if (optionalBranch.isEmpty()) {
                 throw new Exception();
-            }else{
+            } else {
                 Branch deleteBranch = optionalBranch.get();
                 deleteBranch.setDeleted(!deleteBranch.isDeleted());
                 adminBranchManagementRepository.save(deleteBranch);
                 return new ResponseObject("Thay đổi trạng thái chi nhánh thành công!");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được chi nhánh này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -198,7 +198,7 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
     public ResponseObject getDetailBranch(String id) {
         try {
             return new ResponseObject(adminBranchManagementRepository.getDetailBranch(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được chi nhánh này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -209,7 +209,7 @@ public class AdminBranchManagementServiceImpl implements AdminBranchManagementSe
     public ResponseObject getOneBranch(String id) {
         try {
             return new ResponseObject(adminBranchManagementRepository.getOneBranch(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được chi nhánh này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

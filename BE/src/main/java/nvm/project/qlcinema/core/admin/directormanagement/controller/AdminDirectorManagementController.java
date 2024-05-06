@@ -29,27 +29,27 @@ public class AdminDirectorManagementController {
     private final AdminDirectorManagementService adminDirectorManagementService;
 
     @GetMapping("/get-search-director")
-    public PageableObject<AdminDirectorManagementListDirectorResponse> getListDirector(final AdminDirectorManagementListDirectorRequest request){
+    public PageableObject<AdminDirectorManagementListDirectorResponse> getListDirector(final AdminDirectorManagementListDirectorRequest request) {
         return adminDirectorManagementService.getListDirector(request);
     }
 
     @GetMapping("/get-detail-director/{directorId}")
-    public ResponseObject getDetailDirector(@PathVariable String directorId){
+    public ResponseObject getDetailDirector(@PathVariable String directorId) {
         return adminDirectorManagementService.getDetailDirector(directorId);
     }
 
     @PostMapping("/post-director")
-    public ResponseObject postDirector(@RequestBody @Valid AdminDirectorManagementPostRequest request){
+    public ResponseObject postDirector(@RequestBody @Valid AdminDirectorManagementPostRequest request) {
         return adminDirectorManagementService.postDirector(request);
     }
 
     @PutMapping("/put-director")
-    public ResponseObject putDirector(@RequestBody @Valid AdminDirectorManagementPutRequest request){
+    public ResponseObject putDirector(@RequestBody @Valid AdminDirectorManagementPutRequest request) {
         return adminDirectorManagementService.putDirector(request);
     }
 
     @DeleteMapping("/delete-director/{directorId}")
-    public ResponseObject deleteDirector(@PathVariable String directorId){
+    public ResponseObject deleteDirector(@PathVariable String directorId) {
         return adminDirectorManagementService.deleteDirector(directorId);
     }
 

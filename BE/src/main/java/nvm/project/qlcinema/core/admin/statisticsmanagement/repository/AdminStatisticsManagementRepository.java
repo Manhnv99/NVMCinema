@@ -21,80 +21,80 @@ import java.util.List;
 public interface AdminStatisticsManagementRepository extends OrderRepository {
 
     @Query(value = """
-                SELECT	COUNT(odt.ticket_chair_id) AS ticketSold,
-                		CASE WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0 ELSE SUM(DISTINCT o.total_price) END AS totalRevenue
-                FROM order_detail_ticketchair odt
-                JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
-                JOIN orders o ON o.id = odt.order_id
-                JOIN showtime st ON st.id = tc.show_time_id
-                JOIN room r ON r.id = st.room_id
-                JOIN branch b ON b.id = r.branch_id
-                JOIN area a ON a.id = b.area_id
-                WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
-                AND o.order_status = "DA_DUYET"
-                AND YEAR(o.order_date) = YEAR(NOW())
-                """,nativeQuery = true)
+            SELECT	COUNT(odt.ticket_chair_id) AS ticketSold,
+            		CASE WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0 ELSE SUM(DISTINCT o.total_price) END AS totalRevenue
+            FROM order_detail_ticketchair odt
+            JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
+            JOIN orders o ON o.id = odt.order_id
+            JOIN showtime st ON st.id = tc.show_time_id
+            JOIN room r ON r.id = st.room_id
+            JOIN branch b ON b.id = r.branch_id
+            JOIN area a ON a.id = b.area_id
+            WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
+            AND o.order_status = "DA_DUYET"
+            AND YEAR(o.order_date) = YEAR(NOW())
+            """, nativeQuery = true)
     AdminStatisticsManagementGetBlockTicketAndRevenueResponse getRevenueForYear(String areaId);
 
     @Query(value = """
-                SELECT	COUNT(odt.id) AS ticketSold,
-                		CASE WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0 ELSE SUM(DISTINCT o.total_price) END AS totalRevenue
-                FROM order_detail_ticketchair odt
-                JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
-                JOIN orders o ON o.id = odt.order_id
-                JOIN showtime st ON st.id = tc.show_time_id
-                JOIN room r ON r.id = st.room_id
-                JOIN branch b ON b.id = r.branch_id
-                JOIN area a ON a.id = b.area_id
-                WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
-                AND o.order_status = "DA_DUYET"
-                AND MONTH(o.order_date) = MONTH(NOW())
-                """,nativeQuery = true)
+            SELECT	COUNT(odt.id) AS ticketSold,
+            		CASE WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0 ELSE SUM(DISTINCT o.total_price) END AS totalRevenue
+            FROM order_detail_ticketchair odt
+            JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
+            JOIN orders o ON o.id = odt.order_id
+            JOIN showtime st ON st.id = tc.show_time_id
+            JOIN room r ON r.id = st.room_id
+            JOIN branch b ON b.id = r.branch_id
+            JOIN area a ON a.id = b.area_id
+            WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
+            AND o.order_status = "DA_DUYET"
+            AND MONTH(o.order_date) = MONTH(NOW())
+            """, nativeQuery = true)
     AdminStatisticsManagementGetBlockTicketAndRevenueResponse getRevenueForMonth(String areaId);
 
     @Query(value = """
-                SELECT	COUNT(odt.id) AS ticketSold,
-                		CASE WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0 ELSE SUM(DISTINCT o.total_price) END AS totalRevenue
-                FROM order_detail_ticketchair odt
-                JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
-                JOIN orders o ON o.id = odt.order_id
-                JOIN showtime st ON st.id = tc.show_time_id
-                JOIN room r ON r.id = st.room_id
-                JOIN branch b ON b.id = r.branch_id
-                JOIN area a ON a.id = b.area_id
-                WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
-                AND o.order_status = "DA_DUYET"
-                AND o.order_date = CURRENT_DATE()
-                """,nativeQuery = true)
+            SELECT	COUNT(odt.id) AS ticketSold,
+            		CASE WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0 ELSE SUM(DISTINCT o.total_price) END AS totalRevenue
+            FROM order_detail_ticketchair odt
+            JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
+            JOIN orders o ON o.id = odt.order_id
+            JOIN showtime st ON st.id = tc.show_time_id
+            JOIN room r ON r.id = st.room_id
+            JOIN branch b ON b.id = r.branch_id
+            JOIN area a ON a.id = b.area_id
+            WHERE :areaId IS NULL OR a.id LIKE CONCAT("%",:areaId,"%")
+            AND o.order_status = "DA_DUYET"
+            AND o.order_date = CURRENT_DATE()
+            """, nativeQuery = true)
     AdminStatisticsManagementGetBlockTicketAndRevenueResponse getRevenueForToday(String areaId);
 
     @Query(value = """
-                SELECT DISTINCT YEAR(o.order_date) AS year
-                FROM orders o
-                JOIN order_detail_ticketchair odt ON odt.order_id = o.id
-                JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
-                JOIN showtime st ON st.id = tc.show_time_id
-                JOIN room r ON r.id = st.room_id
-                JOIN branch b ON b.id = r.branch_id
-                JOIN area a ON a.id = b.area_id
-                WHERE :areaId IS NULL OR a.id LIKE CONCAT("%", :areaId ,"%")
-                AND o.order_status = "CHUA_DUYET"
-                """,nativeQuery = true)
+            SELECT DISTINCT YEAR(o.order_date) AS year
+            FROM orders o
+            JOIN order_detail_ticketchair odt ON odt.order_id = o.id
+            JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
+            JOIN showtime st ON st.id = tc.show_time_id
+            JOIN room r ON r.id = st.room_id
+            JOIN branch b ON b.id = r.branch_id
+            JOIN area a ON a.id = b.area_id
+            WHERE :areaId IS NULL OR a.id LIKE CONCAT("%", :areaId ,"%")
+            AND o.order_status = "CHUA_DUYET"
+            """, nativeQuery = true)
     List<AdminStatisticsManagementGetYearResponse> getYear(String areaId);
 
     @Query(value = """
-                SELECT DISTINCT MONTH(o.order_date) as month
-                FROM orders o
-                JOIN order_detail_ticketchair odt ON odt.order_id = o.id
-                JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
-                JOIN showtime st ON st.id = tc.show_time_id
-                JOIN room r ON r.id = st.room_id
-                JOIN branch b ON b.id = r.branch_id
-                JOIN area a ON a.id = b.area_id
-                WHERE :areaId IS NULL OR a.id LIKE CONCAT("%", :areaId ,"%")
-                AND YEAR(o.order_date) = :year
-                AND o.order_status = "CHUA_DUYET"
-                """,nativeQuery = true)
+            SELECT DISTINCT MONTH(o.order_date) as month
+            FROM orders o
+            JOIN order_detail_ticketchair odt ON odt.order_id = o.id
+            JOIN ticket_chair tc ON tc.id = odt.ticket_chair_id
+            JOIN showtime st ON st.id = tc.show_time_id
+            JOIN room r ON r.id = st.room_id
+            JOIN branch b ON b.id = r.branch_id
+            JOIN area a ON a.id = b.area_id
+            WHERE :areaId IS NULL OR a.id LIKE CONCAT("%", :areaId ,"%")
+            AND YEAR(o.order_date) = :year
+            AND o.order_status = "CHUA_DUYET"
+            """, nativeQuery = true)
     List<AdminStatisticsManagementGetMonthResponse> getMonth(int year, String areaId);
 
     @Query(value = """
@@ -131,81 +131,81 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 o.order_date
             ORDER BY
                 totalRevenue DESC;
-            """,nativeQuery = true)
+            """, nativeQuery = true)
     List<AdminStatisticsManagementGetLineTicketAndRevenueResponse> getLineTicketAndRevenue(
             AdminStatisticsManagementGetLineTicketAndRevenueRequest request
     );
 
     @Query(value = """
-                SELECT
-                    COUNT(odt.id) AS ticketSold,
-                    CASE
-                        WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0
-                        ELSE SUM(DISTINCT o.total_price)
-                    END AS totalRevenue,
-                    m.name as movieName
-                FROM
-                    order_detail_ticketchair odt
-                JOIN ticket_chair tc ON
-                    tc.id = odt.ticket_chair_id
-                JOIN orders o ON
-                    o.id = odt.order_id
-                JOIN showtime st ON
-                    st.id = tc.show_time_id
-                JOIN room r ON
-                    r.id = st.room_id
-                JOIN branch b ON
-                    b.id = r.branch_id
-                JOIN area a ON
-                    a.id = b.area_id
-                JOIN movie m ON
-                    m.id = st.movie_id
-                WHERE
-                    o.order_status = 'DA_DUYET' AND
-                    ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId + "%"} )
-                GROUP BY
-                    movieName
-                ORDER BY
-                    totalRevenue DESC
-                LIMIT :#{#request.top}
-                """,nativeQuery = true)
+            SELECT
+                COUNT(odt.id) AS ticketSold,
+                CASE
+                    WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0
+                    ELSE SUM(DISTINCT o.total_price)
+                END AS totalRevenue,
+                m.name as movieName
+            FROM
+                order_detail_ticketchair odt
+            JOIN ticket_chair tc ON
+                tc.id = odt.ticket_chair_id
+            JOIN orders o ON
+                o.id = odt.order_id
+            JOIN showtime st ON
+                st.id = tc.show_time_id
+            JOIN room r ON
+                r.id = st.room_id
+            JOIN branch b ON
+                b.id = r.branch_id
+            JOIN area a ON
+                a.id = b.area_id
+            JOIN movie m ON
+                m.id = st.movie_id
+            WHERE
+                o.order_status = 'DA_DUYET' AND
+                ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId + "%"} )
+            GROUP BY
+                movieName
+            ORDER BY
+                totalRevenue DESC
+            LIMIT :#{#request.top}
+            """, nativeQuery = true)
     List<AdminStatisticsManagementGetTopMovieAndTicketResponse> getTopMovieAndTicket(AdminStatisticsManagementGetTopMovieAndTicketRequest request);
 
     @Query(value = """
-                SELECT
-                    COUNT(odt.id) AS ticketSold,
-                    CASE
-                        WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0
-                        ELSE SUM(DISTINCT o.total_price)
-                    END AS totalRevenue,
-                    g.name as genreName
-                FROM
-                    order_detail_ticketchair odt
-                JOIN ticket_chair tc ON
-                    tc.id = odt.ticket_chair_id
-                JOIN orders o ON
-                    o.id = odt.order_id
-                JOIN showtime st ON
-                    st.id = tc.show_time_id
-                JOIN room r ON
-                    r.id = st.room_id
-                JOIN branch b ON
-                    b.id = r.branch_id
-                JOIN area a ON
-                    a.id = b.area_id
-                JOIN movie m ON
-                    m.id = st.movie_id
-                JOIN genre g ON
-                    g.id = m.genre_id
-                WHERE
-                    o.order_status = 'DA_DUYET' AND
-                    ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId + "%"} )
-                GROUP BY
-                    genreName
-                ORDER BY
-                    totalRevenue DESC
-                LIMIT :#{#request.top}
-                """,nativeQuery = true)
+            SELECT
+                COUNT(odt.id) AS ticketSold,
+                CASE
+                    WHEN SUM(DISTINCT o.total_price) IS NULL THEN 0
+                    ELSE SUM(DISTINCT o.total_price)
+                END AS totalRevenue,
+                g.name as genreName
+            FROM
+                order_detail_ticketchair odt
+            JOIN ticket_chair tc ON
+                tc.id = odt.ticket_chair_id
+            JOIN orders o ON
+                o.id = odt.order_id
+            JOIN showtime st ON
+                st.id = tc.show_time_id
+            JOIN room r ON
+                r.id = st.room_id
+            JOIN branch b ON
+                b.id = r.branch_id
+            JOIN area a ON
+                a.id = b.area_id
+            JOIN movie m ON
+                m.id = st.movie_id
+            JOIN genre g ON
+                g.id = m.genre_id
+            WHERE
+                o.order_status = 'DA_DUYET' AND
+                ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId + "%"} )
+            GROUP BY
+                genreName
+            ORDER BY
+                totalRevenue DESC
+            LIMIT :#{#request.top}
+            """, nativeQuery = true)
     List<AdminStatisticsManagementGetTopGenreAndTicketResponse> getTopGenreAndTicket(AdminStatisticsManagementGetTopGenreAndTicketRequest request);
 
     @Query(value = """
@@ -244,7 +244,7 @@ public interface AdminStatisticsManagementRepository extends OrderRepository {
                 comboName
             ORDER BY
             totalRevenue DESC
-                """,nativeQuery = true)
+                """, nativeQuery = true)
     List<AdminStatisticsManagementGetTopComboFoodResponse> getTopComboFood(String areaId);
 
 }

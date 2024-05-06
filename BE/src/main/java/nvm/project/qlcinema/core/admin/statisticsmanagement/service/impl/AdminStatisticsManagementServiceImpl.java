@@ -25,9 +25,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getRevenueForYear(String areaId) {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementRepository.getRevenueForYear(areaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được doanh số theo năm!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -36,9 +36,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getRevenueForMonth(String areaId) {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementRepository.getRevenueForMonth(areaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được doanh số theo tháng!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -47,9 +47,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getRevenueForToday(String areaId) {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementRepository.getRevenueForToday(areaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được doanh số theo ngày!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -58,9 +58,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getYear(String areaId) {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementRepository.getYear(areaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được năm!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -69,9 +69,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getMonth(int year, String areaId) {
-        try{
-            return new ResponseObject(adminStatisticsManagementRepository.getMonth(year,areaId));
-        }catch (Exception e){
+        try {
+            return new ResponseObject(adminStatisticsManagementRepository.getMonth(year, areaId));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được tháng!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -80,9 +80,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getAllArea() {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementAreaRepository.getAllArea());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách khu vực!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -91,9 +91,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getLineTicketAndRevenue(AdminStatisticsManagementGetLineTicketAndRevenueRequest request) {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementRepository.getLineTicketAndRevenue(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được tổng số vé và doanh thu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -102,9 +102,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getTopMovieAndTicket(AdminStatisticsManagementGetTopMovieAndTicketRequest request) {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementRepository.getTopMovieAndTicket(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được top bộ phim xem nhiều nhất!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -113,9 +113,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getTopGenreAndTicket(AdminStatisticsManagementGetTopGenreAndTicketRequest request) {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementRepository.getTopGenreAndTicket(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được top thể loại được xem nhiều nhất!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -124,9 +124,9 @@ public class AdminStatisticsManagementServiceImpl implements AdminStatisticsMana
 
     @Override
     public ResponseObject getTopComboFood(String areaId) {
-        try{
+        try {
             return new ResponseObject(adminStatisticsManagementRepository.getTopComboFood(areaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được top combo food bán chạy nhất!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

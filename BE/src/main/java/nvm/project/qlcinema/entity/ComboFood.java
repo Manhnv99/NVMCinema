@@ -17,7 +17,7 @@ import java.util.Date;
  */
 
 /**
- *  Object ComboFood sẽ là các combo đồ ăn mà người dùng chọn sau khi đã chọn ghế!
+ * Object ComboFood sẽ là các combo đồ ăn mà người dùng chọn sau khi đã chọn ghế!
  */
 
 @AllArgsConstructor

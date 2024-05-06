@@ -11,11 +11,11 @@ import java.util.List;
 public interface AdminStatisticsManagementAreaRepository extends AreaRepository {
 
     @Query(value = """
-                SELECT  a.id AS id,
-                        a.name AS name
-                FROM area a
-                WHERE a.deleted = true
-                """,nativeQuery = true)
+            SELECT  a.id AS id,
+                    a.name AS name
+            FROM area a
+            WHERE a.deleted = true
+            """, nativeQuery = true)
     List<AdminStatisticsManagementGetAreaResponse> getAllArea();
 
 }

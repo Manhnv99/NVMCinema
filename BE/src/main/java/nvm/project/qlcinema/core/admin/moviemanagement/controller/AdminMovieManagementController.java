@@ -31,17 +31,17 @@ public class AdminMovieManagementController {
     private final AdminMovieManagementService adminMovieManagementService;
 
     @GetMapping("/get-search-movie")
-    public PageableObject<AdminMovieManagementListMovieResponse> getSearchListMovie(final AdminMovieManagementListMovieRequest request){
+    public PageableObject<AdminMovieManagementListMovieResponse> getSearchListMovie(final AdminMovieManagementListMovieRequest request) {
         return adminMovieManagementService.getSearchListMovie(request);
     }
 
     @GetMapping("/get-one-movie/{id}")
-    public ResponseObject getOneMovie(@PathVariable String id){
+    public ResponseObject getOneMovie(@PathVariable String id) {
         return adminMovieManagementService.getOneMovie(id);
     }
 
     @GetMapping("/get-detail-movie/{id}")
-    public ResponseObject getDetailMovie(@PathVariable String id){
+    public ResponseObject getDetailMovie(@PathVariable String id) {
         return adminMovieManagementService.getDetailMovie(id);
     }
 
@@ -56,27 +56,27 @@ public class AdminMovieManagementController {
     }
 
     @DeleteMapping("/delete-movie/{id}")
-    public ResponseObject deleteMovie(@PathVariable String id){
+    public ResponseObject deleteMovie(@PathVariable String id) {
         return adminMovieManagementService.deleteMovie(id);
     }
 
     @GetMapping("/get-list-country")
-    public ResponseObject getListCountry(){
+    public ResponseObject getListCountry() {
         return adminMovieManagementService.getListCountry();
     }
 
     @GetMapping("/get-list-director")
-    public ResponseObject getListDirector(){
+    public ResponseObject getListDirector() {
         return adminMovieManagementService.getListDirector();
     }
 
     @GetMapping("/get-list-genre")
-    public ResponseObject getListGenre(){
+    public ResponseObject getListGenre() {
         return adminMovieManagementService.getListGenre();
     }
 
     @GetMapping("/get-list-format")
-    public ResponseObject getListFormat(){
+    public ResponseObject getListFormat() {
         return adminMovieManagementService.getListFormat();
     }
 

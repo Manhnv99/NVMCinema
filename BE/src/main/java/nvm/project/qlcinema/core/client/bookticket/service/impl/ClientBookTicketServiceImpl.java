@@ -23,9 +23,9 @@ public class ClientBookTicketServiceImpl implements ClientBookTicketService {
 
     @Override
     public ResponseObject getListShowTime(ClientBookTicketListShowTimeRequest request) {
-        try{
+        try {
             return new ResponseObject(clientBookTicketRepository.getListShowTime(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách lịch chiếu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -34,9 +34,9 @@ public class ClientBookTicketServiceImpl implements ClientBookTicketService {
 
     @Override
     public ResponseObject getListBranch(String areaId) {
-        try{
+        try {
             return new ResponseObject(clientBookTicketBranchRepository.getListBranch(areaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách chi nhánh!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

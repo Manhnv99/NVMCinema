@@ -23,28 +23,28 @@ public interface AdminFormatManagementRepository extends FormatRepository {
     Optional<Format> findByName(String name);
 
     @Query(value = """
-                SELECT  m.id AS id,
-                        m.code AS code,
-                        m.name AS name,
-                        m.deleted AS deleted
-                FROM format m
-                WHERE
-                (
-                    ( :#{#request.inputSearch} IS NULL OR m.code LIKE :#{ "%" + #request.inputSearch +"%"} ) OR
-                    ( :#{#request.inputSearch} IS NULL OR m.name LIKE :#{ "%" + #request.inputSearch +"%"} )
-                )
-                ORDER BY m.created_at DESC
-                """,nativeQuery = true)
+            SELECT  m.id AS id,
+                    m.code AS code,
+                    m.name AS name,
+                    m.deleted AS deleted
+            FROM format m
+            WHERE
+            (
+                ( :#{#request.inputSearch} IS NULL OR m.code LIKE :#{ "%" + #request.inputSearch +"%"} ) OR
+                ( :#{#request.inputSearch} IS NULL OR m.name LIKE :#{ "%" + #request.inputSearch +"%"} )
+            )
+            ORDER BY m.created_at DESC
+            """, nativeQuery = true)
     Page<AdminFormatManagementListFormatResponse> getListFormat(Pageable pageable, AdminFormatManagementListFormatRequest request);
 
     @Query(value = """
-                SELECT  m.id AS id,
-                        m.code AS code,
-                        m.name AS name,
-                        m.deleted AS deleted
-                FROM format m
-                WHERE m.id = :formatId
-                """,nativeQuery = true)
+            SELECT  m.id AS id,
+                    m.code AS code,
+                    m.name AS name,
+                    m.deleted AS deleted
+            FROM format m
+            WHERE m.id = :formatId
+            """, nativeQuery = true)
     AdminFormatManagementListFormatResponse getDetailFormat(String formatId);
 
 }

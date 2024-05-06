@@ -17,7 +17,7 @@ public interface ClientBookChairService {
 
     ResponseObject getPromotionEvent(String code);
 
-    String startOnlineBanking(ClientBookChairPaymentRequest paymentRequest,String urlReturn);
+    String startOnlineBanking(ClientBookChairPaymentRequest paymentRequest, String urlReturn);
 
     void onlineBankingReturn(HttpServletRequest request, HttpServletResponse response) throws IOException;
 

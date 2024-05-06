@@ -34,8 +34,8 @@ public class AdminComboFoodManagementServiceImpl implements AdminComboFoodManage
     public PageableObject<AdminComboFoodManagementListComboFoodResponse> getListComboFood(AdminComboFoodManagementListComboFoodRequest request) {
         try {
             PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
-            return new PageableObject<>(adminComboFoodManagementRepository.getListComboFood(pageRequest,request));
-        }catch (Exception e){
+            return new PageableObject<>(adminComboFoodManagementRepository.getListComboFood(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách combo đồ ăn!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -47,14 +47,14 @@ public class AdminComboFoodManagementServiceImpl implements AdminComboFoodManage
         List<String> errors = new ArrayList<>();
 
         //check image is empty
-        if(postRequest.getImage().isEmpty()){
+        if (postRequest.getImage().isEmpty()) {
             errors.add("Bạn chưa chọn ảnh cho combo này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check isExist
         Optional<ComboFood> isComboFoodNameExist = adminComboFoodManagementRepository.findByName(postRequest.getName());
-        if(isComboFoodNameExist.isPresent()){
+        if (isComboFoodNameExist.isPresent()) {
             errors.add("Đã tồn tại tên combo này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
@@ -62,15 +62,15 @@ public class AdminComboFoodManagementServiceImpl implements AdminComboFoodManage
         //post
         ComboFood putComboFood = new ComboFood();
         Optional<ComboFood> ComboFoodNewest = adminComboFoodManagementRepository.getNewest();
-        if(ComboFoodNewest.isPresent()){
+        if (ComboFoodNewest.isPresent()) {
             String code = ComboFoodNewest.get().getCode();
-            putComboFood.setCode(code.substring(0,2)+((Integer.parseInt(code.substring(2)))+1));
-        }else{
+            putComboFood.setCode(code.substring(0, 2) + ((Integer.parseInt(code.substring(2))) + 1));
+        } else {
             putComboFood.setCode("CB1");
         }
         putComboFood.setName(postRequest.getName());
         putComboFood.setPrice(postRequest.getPrice());
-        var result=cloudinaryConfig.upload(postRequest.getImage());//upload image to cloudinary
+        var result = cloudinaryConfig.upload(postRequest.getImage());//upload image to cloudinary
         putComboFood.setImageId((String) result.get("public_id"));
         putComboFood.setImageUrl((String) result.get("url"));
         putComboFood.setDeleted(true);
@@ -86,13 +86,13 @@ public class AdminComboFoodManagementServiceImpl implements AdminComboFoodManage
 
         //check isExist
         Optional<ComboFood> ComboFoodOptional = adminComboFoodManagementRepository.findById(putRequest.getId());
-        if(ComboFoodOptional.isEmpty()){
+        if (ComboFoodOptional.isEmpty()) {
             errors.add("Không tìm thấy combo này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-        }else{
-            if(!ComboFoodOptional.get().getName().equals(putRequest.getName())){
+        } else {
+            if (!ComboFoodOptional.get().getName().equals(putRequest.getName())) {
                 Optional<ComboFood> isComboFoodNameExist = adminComboFoodManagementRepository.findByName(putRequest.getName());
-                if(isComboFoodNameExist.isPresent()){
+                if (isComboFoodNameExist.isPresent()) {
                     errors.add("Đã tồn tại combo này!");
                     throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
                 }
@@ -103,9 +103,9 @@ public class AdminComboFoodManagementServiceImpl implements AdminComboFoodManage
         ComboFood putComboFood = ComboFoodOptional.get();
         putComboFood.setName(putRequest.getName());
         putComboFood.setPrice(putRequest.getPrice());
-        if(!putRequest.getImage().isEmpty()){
+        if (!putRequest.getImage().isEmpty()) {
             cloudinaryConfig.delete(putComboFood.getImageId());
-            var result=cloudinaryConfig.upload(putRequest.getImage());//upload image to cloudinary
+            var result = cloudinaryConfig.upload(putRequest.getImage());//upload image to cloudinary
             putComboFood.setImageId((String) result.get("public_id"));
             putComboFood.setImageUrl((String) result.get("url"));
         }
@@ -118,15 +118,15 @@ public class AdminComboFoodManagementServiceImpl implements AdminComboFoodManage
     public ResponseObject deleteComboFood(String comboFoodId) {
         try {
             Optional<ComboFood> optionalComboFood = adminComboFoodManagementRepository.findById(comboFoodId);
-            if(optionalComboFood.isEmpty()){
+            if (optionalComboFood.isEmpty()) {
                 throw new Exception();
-            }else{
+            } else {
                 ComboFood deleteComboFood = optionalComboFood.get();
                 deleteComboFood.setDeleted(!deleteComboFood.isDeleted());
                 adminComboFoodManagementRepository.save(deleteComboFood);
                 return new ResponseObject("Thay đổi trạng thái ComboFood thành công!");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được combo này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -137,7 +137,7 @@ public class AdminComboFoodManagementServiceImpl implements AdminComboFoodManage
     public ResponseObject getDetailComboFood(String comboFoodId) {
         try {
             return new ResponseObject(adminComboFoodManagementRepository.getDetailComboFood(comboFoodId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được combo này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

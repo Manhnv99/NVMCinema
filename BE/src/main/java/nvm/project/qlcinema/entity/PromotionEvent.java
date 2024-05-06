@@ -21,7 +21,7 @@ import java.util.Date;
  */
 
 /**
- *  Object PromotionEvent sẽ là các sự kiện giảm giá , có các mã giảm giá cho người dùng.
+ * Object PromotionEvent sẽ là các sự kiện giảm giá , có các mã giảm giá cho người dùng.
  */
 
 @AllArgsConstructor
@@ -50,7 +50,7 @@ public class PromotionEvent extends PrimaryEntity {
     @Column(name = "promotion_price")
     private BigDecimal promotionPrice;
 
-    @Column(name = "description",columnDefinition = "varchar(10000)")
+    @Column(name = "description", columnDefinition = "varchar(10000)")
     private String description;
 
     @Column(name = "image_id")

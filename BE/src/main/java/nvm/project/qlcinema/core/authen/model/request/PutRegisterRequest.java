@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class PutRegisterRequest{
+public class PutRegisterRequest {
 
     private String id;
 

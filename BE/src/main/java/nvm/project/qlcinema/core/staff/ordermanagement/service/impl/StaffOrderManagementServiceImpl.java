@@ -28,9 +28,9 @@ import java.util.Optional;
 public class StaffOrderManagementServiceImpl implements StaffOrderManagementService {
 
     //constant
-    private static final  String CANCEL_ORDER = "CANCEL_ORDER";
-    private static final  String APPROVED_ORDER = "APPROVED_ORDER";
-    private static final  String RESTORE_ORDER = "RESTORE_ORDER";
+    private static final String CANCEL_ORDER = "CANCEL_ORDER";
+    private static final String APPROVED_ORDER = "APPROVED_ORDER";
+    private static final String RESTORE_ORDER = "RESTORE_ORDER";
 
     //repository
     private final StaffOrderManagementRepository staffOrderManagementRepository;
@@ -40,9 +40,9 @@ public class StaffOrderManagementServiceImpl implements StaffOrderManagementServ
     @Override
     public PageableObject<StaffOrderManagementListOrderResponse> getListSearchOrder(StaffOrderManagementListOrderRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage() - 1 , request.getSize());
-            return new PageableObject<>(staffOrderManagementRepository.getListSearchOrder(pageRequest,request));
-        }catch (Exception e){
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
+            return new PageableObject<>(staffOrderManagementRepository.getListSearchOrder(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách hóa đơn");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -55,34 +55,34 @@ public class StaffOrderManagementServiceImpl implements StaffOrderManagementServ
 
         //Check isOrderEmpty
         Optional<Order> orderOptional = staffOrderManagementRepository.findById(approvedOrCancelRequest.getOrderId());
-        if(orderOptional.isEmpty()){
+        if (orderOptional.isEmpty()) {
             errors.add("Không tìm thấy hóa đơn này!");
         }
         //throwError
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         String messageResponse = "";
         //approvedOrCancel
-        if(approvedOrCancelRequest.getApprovedOrCancelOrRestore().equals(APPROVED_ORDER)){
+        if (approvedOrCancelRequest.getApprovedOrCancelOrRestore().equals(APPROVED_ORDER)) {
             messageResponse = "Hóa đơn đã được duyệt thành công";
             orderOptional.get().setOrderStatus(OrderStatus.DA_DUYET);
-        }else if(approvedOrCancelRequest.getApprovedOrCancelOrRestore().equals(CANCEL_ORDER)){
+        } else if (approvedOrCancelRequest.getApprovedOrCancelOrRestore().equals(CANCEL_ORDER)) {
             messageResponse = "Hóa đơn đã được hủy bỏ thành công!";
             orderOptional.get().setOrderStatus(OrderStatus.DA_HUY);
-        }else {
+        } else {
             //RESTORE make it NOT Approved
             LocalDate screeningDate = staffOrderManagementRepository.getDateScreeningByOrderId(approvedOrCancelRequest.getOrderId());
             Time timeStart = staffOrderManagementRepository.getTimeStartByOrderId(approvedOrCancelRequest.getOrderId());
 
-            if(screeningDate.isBefore(LocalDate.now())){
+            if (screeningDate.isBefore(LocalDate.now())) {
                 errors.add("Giờ chiếu của hóa đơn này đã quá thời gian không thể khôi phục!");
                 throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-            }else if(screeningDate.isEqual(LocalDate.now()) && timeStart.before(new Time(System.currentTimeMillis()))){
+            } else if (screeningDate.isEqual(LocalDate.now()) && timeStart.before(new Time(System.currentTimeMillis()))) {
                 errors.add("Giờ chiếu của hóa đơn này đã quá thời gian không thể khôi phục!");
                 throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-            }else {
+            } else {
                 messageResponse = "Hóa đơn đã được khôi phục thành công!";
                 orderOptional.get().setOrderStatus(OrderStatus.CHUA_DUYET);
             }
@@ -98,7 +98,7 @@ public class StaffOrderManagementServiceImpl implements StaffOrderManagementServ
     public ResponseObject getDetailOrder(String orderId) {
         try {
             return new ResponseObject(staffOrderManagementRepository.getDetailOrder(orderId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được hóa đơn này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

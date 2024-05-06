@@ -17,7 +17,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Format là sẽ đại diện cho thể loại của 1 phim là phim 2D hay phim 4k ...
+ * Object Format là sẽ đại diện cho thể loại của 1 phim là phim 2D hay phim 4k ...
  */
 
 @AllArgsConstructor

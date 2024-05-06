@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 /**
- *  Object User sẽ đại diễn cho các User như admin,staff
+ * Object User sẽ đại diễn cho các User như admin,staff
  */
 
 @AllArgsConstructor
@@ -82,11 +82,11 @@ public class User extends PrimaryEntity implements UserDetails {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "area_id",referencedColumnName = "id")
+    @JoinColumn(name = "area_id", referencedColumnName = "id")
     private Area areaId;
 
     @ManyToOne
-    @JoinColumn(name = "branch_id",referencedColumnName = "id")
+    @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branchId;
 
     @Override

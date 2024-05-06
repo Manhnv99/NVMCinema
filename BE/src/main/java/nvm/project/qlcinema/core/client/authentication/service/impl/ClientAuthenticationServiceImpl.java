@@ -2,8 +2,10 @@ package nvm.project.qlcinema.core.client.authentication.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.client.authentication.model.request.ClientAuthenticationLoginRequest;
+import nvm.project.qlcinema.core.client.authentication.model.request.ClientAuthenticationRefreshTokenRequest;
 import nvm.project.qlcinema.core.client.authentication.model.request.ClientAuthenticationRegisterRequest;
 import nvm.project.qlcinema.core.client.authentication.model.response.ClientAuthenticationLoginResponse;
+import nvm.project.qlcinema.core.client.authentication.model.response.ClientAuthenticationRefreshTokenResponse;
 import nvm.project.qlcinema.core.client.authentication.repository.ClientAuthenticationRepository;
 import nvm.project.qlcinema.core.client.authentication.service.ClientAuthenticationService;
 import nvm.project.qlcinema.core.common.ResponseObject;
@@ -38,50 +40,59 @@ public class ClientAuthenticationServiceImpl implements ClientAuthenticationServ
             ClientAuthenticationLoginRequest loginRequest
     ) {
         Optional<Client> loginAuthentication = clientAuthenticationRepository.loginAuthentication(loginRequest.getEmail(), loginRequest.getPassword());
-        if(loginAuthentication.isPresent()){
+        if (loginAuthentication.isPresent()) {
             return new ClientAuthenticationLoginResponse(
                     "Đăng nhập thành công!",
-                    jwtProvider.generateTokenClient(loginAuthentication.get())
+                    jwtProvider.generateTokenClient(loginAuthentication.get()),
+                    jwtProvider.generateRefreshTokenClient()
             );
-        }else{
+        } else {
             List<String> errors = new ArrayList<>();
             errors.add("Tài khoản hoặc mật khẩu không chính xác!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Override
+    public ClientAuthenticationRefreshTokenResponse refreshTokenAuthentication(ClientAuthenticationRefreshTokenRequest refreshTokenRequest) {
+        return new ClientAuthenticationRefreshTokenResponse(
+                jwtProvider.generateTokenClient(clientAuthenticationRepository.getReferenceById(refreshTokenRequest.getClientId())),
+                jwtProvider.generateRefreshTokenClient()
+        );
     }
 
     @Override
     public ResponseObject registerAuthentication(ClientAuthenticationRegisterRequest registerRequest) {
         List<String> errors = new ArrayList<>();
         //valid
-        if(validUtils.isValidEmail(registerRequest.getEmail())){
+        if (validUtils.isValidEmail(registerRequest.getEmail())) {
             errors.add("Email không hợp lệ!");
         }
-        if(validUtils.isPhoneValid(registerRequest.getPhoneNumber())){
+        if (validUtils.isPhoneValid(registerRequest.getPhoneNumber())) {
             errors.add("Số điện thoại không hợp lệ!");
         }
         //throwError
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
         //check Auth Password
-        if(!registerRequest.getPassword().equalsIgnoreCase(registerRequest.getAuthPassword())){
+        if (!registerRequest.getPassword().equalsIgnoreCase(registerRequest.getAuthPassword())) {
             errors.add("Mật khẩu xác thực không khớp với mật khẩu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
         //check Exist
         Optional<Client> isUserExist = clientAuthenticationRepository.findByEmail(registerRequest.getEmail());
-        if(isUserExist.isPresent()){
+        if (isUserExist.isPresent()) {
             errors.add("Đã tồn tại email này!");
             throw new RestApiException(errors, HttpStatus.CONFLICT);
         }
 
         Client postClient = new Client();
         Optional<Client> clientNewest = clientAuthenticationRepository.getNewest();
-        if(clientNewest.isPresent()){
+        if (clientNewest.isPresent()) {
             String code = clientNewest.get().getCode();
-            postClient.setCode(code.substring(0,2)+((Integer.parseInt(code.substring(2)))+1));
-        }else{
+            postClient.setCode(code.substring(0, 2) + ((Integer.parseInt(code.substring(2))) + 1));
+        } else {
             postClient.setCode("CL1");
         }
         postClient.setName(registerRequest.getName());
@@ -93,12 +104,12 @@ public class ClientAuthenticationServiceImpl implements ClientAuthenticationServ
         postClient.setAddressDetail(registerRequest.getAddressDetail());
         postClient.setRole(Role.ROLE_CLIENT);
         try {
-            var result=cloudinaryConfig.upload(registerRequest.getImage());//upload image to cloudinary
+            var result = cloudinaryConfig.upload(registerRequest.getImage());//upload image to cloudinary
             postClient.setImageId((String) result.get("public_id"));
             postClient.setImageUrl((String) result.get("url"));
-        }catch (Exception e){
+        } catch (Exception e) {
             errors.add("Đã xảy ra 1 vài sự cố!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
         postClient.setDeleted(true);
         postClient.setCreatedAt(new Date());

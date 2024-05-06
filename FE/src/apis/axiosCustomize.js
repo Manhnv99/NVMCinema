@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseURL } from "../app/BaseApi/BaseApi";
 import { ADMIN_ROUTE_AUTHORIZATION, ADMIN_ROUTE_FORBIDDEN, ROUTE_CLIENT_ACCOUNT } from "../app/BaseUrl/BaseUrl";
-
+import { AuthenticationAPI } from "./Client/Authentication/AuthenticationAPI";
 
 export const requestAPI = axios.create({
     baseURL: baseURL
@@ -20,10 +20,10 @@ requestAPI.interceptors.request.use((config) => {
 });
 
 requestAPI.interceptors.response.use(
-    (response) => {
+    response => {
         return response;
     },
-    (error) => {
+    error => {
         if (error.response && error.response.status === 401) {
             //redirect To Login
             //remove item from localStorage
@@ -46,15 +46,20 @@ requestAPIClient.interceptors.request.use((config) => {
 });
 
 requestAPIClient.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    (error) => {
+    response => response,
+    async error => {
+        const originalConfig = error.config;
         if (error.response && error.response.status === 401) {
             //redirect To Login
             //remove item from localStorage
             localStorage.removeItem("token");
             window.location.href = ROUTE_CLIENT_ACCOUNT;
+        } else if (error.response && error.response.status === 999 && !originalConfig._retry) {
+            originalConfig._retry = true;
+            const responseRefreshToken = await AuthenticationAPI.fetchRefreshToken();
+            localStorage.setItem("token", responseRefreshToken.data.token);
+            localStorage.setItem("refreshToken", responseRefreshToken.data.refreshToken);
+            return requestAPIClient(originalConfig); //recall original API
         } else if (error.response && error.response.status === 403) {
             //redirect To Page 403
             window.location.href = ROUTE_CLIENT_ACCOUNT;

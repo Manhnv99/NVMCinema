@@ -31,22 +31,22 @@ public class AdminBranchManagementController {
     private final AdminBranchManagementService adminBranchManagementService;
 
     @GetMapping("/get-search-branch")
-    public PageableObject<AdminBranchManagementListBranchResponse> getListBranch(final AdminBranchManagementListBranchRequest request){
+    public PageableObject<AdminBranchManagementListBranchResponse> getListBranch(final AdminBranchManagementListBranchRequest request) {
         return adminBranchManagementService.getListBranch(request);
     }
 
     @GetMapping("/get-list-area")
-    public ResponseObject getListArea(){
+    public ResponseObject getListArea() {
         return adminBranchManagementService.getListArea();
     }
 
     @GetMapping("/get-detail-branch/{id}")
-    public ResponseObject getDetailBranch(@PathVariable String id){
+    public ResponseObject getDetailBranch(@PathVariable String id) {
         return adminBranchManagementService.getDetailBranch(id);
     }
 
     @GetMapping("/get-one-branch/{id}")
-    public ResponseObject getOneBranch(@PathVariable String id){
+    public ResponseObject getOneBranch(@PathVariable String id) {
         return adminBranchManagementService.getOneBranch(id);
     }
 
@@ -61,7 +61,7 @@ public class AdminBranchManagementController {
     }
 
     @DeleteMapping("/delete-branch/{id}")
-    public ResponseObject deleteBranch(@PathVariable String id){
+    public ResponseObject deleteBranch(@PathVariable String id) {
         return adminBranchManagementService.deleteBranch(id);
     }
 

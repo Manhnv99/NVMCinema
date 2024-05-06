@@ -30,8 +30,8 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
     public PageableObject<AdminGenreManagementListGenreResponse> getListGenre(AdminGenreManagementListGenreRequest request) {
         try {
             PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
-            return new PageableObject<>(adminGenreManagementRepository.getListGenre(pageRequest,request));
-        }catch (Exception e){
+            return new PageableObject<>(adminGenreManagementRepository.getListGenre(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách thể loại!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -44,7 +44,7 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
 
         //check isExist
         Optional<Genre> isGenreNameExist = adminGenreManagementRepository.findByName(postRequest.getName());
-        if(isGenreNameExist.isPresent()){
+        if (isGenreNameExist.isPresent()) {
             errors.add("Đã tồn tại tên thể loại này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
@@ -52,10 +52,10 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
         //post
         Genre postGenre = new Genre();
         Optional<Genre> GenreNewest = adminGenreManagementRepository.getNewest();
-        if(GenreNewest.isPresent()){
+        if (GenreNewest.isPresent()) {
             String code = GenreNewest.get().getCode();
-            postGenre.setCode(code.substring(0,2)+((Integer.parseInt(code.substring(2)))+1));
-        }else{
+            postGenre.setCode(code.substring(0, 2) + ((Integer.parseInt(code.substring(2))) + 1));
+        } else {
             postGenre.setCode("GR1");
         }
         postGenre.setName(postRequest.getName());
@@ -72,13 +72,13 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
 
         //check isExist
         Optional<Genre> GenreOptional = adminGenreManagementRepository.findById(putRequest.getGenreId());
-        if(GenreOptional.isEmpty()){
+        if (GenreOptional.isEmpty()) {
             errors.add("Không tìm thấy thể loại này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-        }else{
-            if(!GenreOptional.get().getName().equals(putRequest.getName())){
+        } else {
+            if (!GenreOptional.get().getName().equals(putRequest.getName())) {
                 Optional<Genre> isGenreNameExist = adminGenreManagementRepository.findByName(putRequest.getName());
-                if(isGenreNameExist.isPresent()){
+                if (isGenreNameExist.isPresent()) {
                     errors.add("Đã tồn tại tên thể loại này!");
                     throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
                 }
@@ -97,15 +97,15 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
     public ResponseObject deleteGenre(String genreId) {
         try {
             Optional<Genre> optionalGenre = adminGenreManagementRepository.findById(genreId);
-            if(optionalGenre.isEmpty()){
+            if (optionalGenre.isEmpty()) {
                 throw new Exception();
-            }else{
+            } else {
                 Genre deleteGenre = optionalGenre.get();
                 deleteGenre.setDeleted(!deleteGenre.isDeleted());
                 adminGenreManagementRepository.save(deleteGenre);
                 return new ResponseObject("Thay đổi trạng thái thể loại thành công!");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được thể loại này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -116,7 +116,7 @@ public class AdminGenreManagementServiceImpl implements AdminGenreManagementServ
     public ResponseObject getDetailGenre(String genreId) {
         try {
             return new ResponseObject(adminGenreManagementRepository.getDetailGenre(genreId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được thể loại này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

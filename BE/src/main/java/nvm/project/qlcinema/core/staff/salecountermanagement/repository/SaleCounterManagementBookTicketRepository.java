@@ -30,7 +30,7 @@ public interface SaleCounterManagementBookTicketRepository extends ShowTimeRepos
             (s.screening_date = CURRENT_DATE() AND s.time_start > CURRENT_TIME()) OR
             (s.screening_date != CURRENT_DATE())
             )
-                """,nativeQuery = true)
+                """, nativeQuery = true)
     List<SaleCounterManagementBookTicketListShowtimeResponse> getListShowTime(SaleCounterManagementBookTicketListShowTimeRequest request);
 
 }

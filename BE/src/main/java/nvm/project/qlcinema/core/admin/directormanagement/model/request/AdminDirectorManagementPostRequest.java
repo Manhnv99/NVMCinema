@@ -17,7 +17,7 @@ public class AdminDirectorManagementPostRequest {
     private boolean gender;
 
     @NotNull(message = "Tuổi đạo diễn không được để trống!")
-    @Min(value = 1,message = "Tuổi phải lớn hơn 1!")
+    @Min(value = 1, message = "Tuổi phải lớn hơn 1!")
     private int age;
 
     @NotBlank(message = "Mô tả về đạo diễn không được để trống!")

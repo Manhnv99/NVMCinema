@@ -18,7 +18,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Branch sẽ đại diễn cho các nhánh tại 1 khu vực trên toàn quốc!
+ * Object Branch sẽ đại diễn cho các nhánh tại 1 khu vực trên toàn quốc!
  */
 
 @AllArgsConstructor
@@ -51,7 +51,7 @@ public class Branch extends PrimaryEntity {
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "area_id" , referencedColumnName = "id")
+    @JoinColumn(name = "area_id", referencedColumnName = "id")
     private Area areaId;
 
     @Column(name = "deleted")

@@ -11,13 +11,13 @@ import java.util.List;
 public interface AdminShowTimeManagementTicketChairRepository extends TicketChairRepository {
 
     @Query(value = """
-                SELECT  tc.id AS id,
-                        tc.chair_name AS name,
-                        tc.status AS status
-                FROM ticket_chair tc
-                WHERE tc.show_time_id = :showTimeId
-                ORDER BY tc.created_at ASC
-                """,nativeQuery = true)
+            SELECT  tc.id AS id,
+                    tc.chair_name AS name,
+                    tc.status AS status
+            FROM ticket_chair tc
+            WHERE tc.show_time_id = :showTimeId
+            ORDER BY tc.created_at ASC
+            """, nativeQuery = true)
     List<AdminShowTimeManagementGetListTicketChairResponse> getListTicketChair(String showTimeId);
 
 }

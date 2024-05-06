@@ -52,12 +52,12 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     @Override
     public PageableObject<AdminMovieManagementListMovieResponse> getSearchListMovie(AdminMovieManagementListMovieRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage() -1,request.getSize());
-            return new PageableObject<>(adminMovieManagementRepository.getSearchListMovie(pageRequest,request));
-        }catch (Exception e){
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
+            return new PageableObject<>(adminMovieManagementRepository.getSearchListMovie(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách phim!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -65,10 +65,10 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     public ResponseObject getOneMovie(String id) {
         try {
             return new ResponseObject(adminMovieManagementRepository.getOneMovie(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được bộ phim này!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -76,10 +76,10 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     public ResponseObject getDetailMovie(String id) {
         try {
             return new ResponseObject(adminMovieManagementRepository.getDetailMovie(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được bộ phim này!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -88,36 +88,36 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         List<String> errors = new ArrayList<>();
 
         //check Banner Empty
-        if(postRequest.getBanner().isEmpty()){
+        if (postRequest.getBanner().isEmpty()) {
             errors.add("Bạn chưa chọn banner cho bộ phim này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
         //check Duplicate
         Optional<Movie> isCodeExist = adminMovieManagementRepository.findByCode(postRequest.getCode());
-        if(isCodeExist.isPresent()){
+        if (isCodeExist.isPresent()) {
             errors.add("Đã tồn tại mã phim này trong hệ thống!");
             throw new RestApiException(errors, HttpStatus.CONFLICT);
         }
         //check isExist Entity
         Optional<Country> isCountryExist = adminMovieManagementCountryRepository.findById(postRequest.getCountryId());
-        if(isCountryExist.isEmpty()){
+        if (isCountryExist.isEmpty()) {
             errors.add("Không tìm thấy quốc gia bạn chọn!");
         }
         Optional<Director> isDirectorExist = adminMovieManagementDirectorRepository.findById(postRequest.getDirectorId());
-        if(isDirectorExist.isEmpty()){
+        if (isDirectorExist.isEmpty()) {
             errors.add("Không tìm thấy đạo diễn bạn chọn!");
         }
         Optional<Format> isFormatExist = adminMovieManagementFormatRepository.findById(postRequest.getFormatId());
-        if(isFormatExist.isEmpty()){
+        if (isFormatExist.isEmpty()) {
             errors.add("Không tìm thấy phân giải bạn chọn!");
         }
         Optional<Genre> isGenreExist = adminMovieManagementGenreRepository.findById(postRequest.getGenreId());
-        if(isGenreExist.isEmpty()){
+        if (isGenreExist.isEmpty()) {
             errors.add("Không tìm thấy thể loại bạn chọn!");
         }
         //throw error
-        if(!errors.isEmpty()){
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        if (!errors.isEmpty()) {
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
 
         //postMovie
@@ -130,11 +130,11 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         postMovie.setVideoPath(postRequest.getVideoPath());
         postMovie.setActor(postRequest.getActor());
         postMovie.setDescription(postRequest.getDescription());
-        var result=cloudinaryConfig.upload(postRequest.getBanner());//upload image to cloudinary
+        var result = cloudinaryConfig.upload(postRequest.getBanner());//upload image to cloudinary
         postMovie.setBannerId((String) result.get("public_id"));
         postMovie.setBannerUrl((String) result.get("url"));
-        for (Subtitle subtitle : Subtitle.values()){
-            if(postRequest.getSubTitle().equals(subtitle.getName())){
+        for (Subtitle subtitle : Subtitle.values()) {
+            if (postRequest.getSubTitle().equals(subtitle.getName())) {
                 postMovie.setSubTitle(subtitle.getName());
             }
         }
@@ -155,13 +155,13 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
 
         //check Duplicate
         Optional<Movie> isMovieExist = adminMovieManagementRepository.findById(putRequest.getId());
-        if(isMovieExist.isEmpty()){
+        if (isMovieExist.isEmpty()) {
             errors.add("Không tìm thấy bộ phim này!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
-        }else{
-            if(!putRequest.getCode().equals(isMovieExist.get().getCode())){
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
+        } else {
+            if (!putRequest.getCode().equals(isMovieExist.get().getCode())) {
                 Optional<Movie> isCodeExist = adminMovieManagementRepository.findByCode(putRequest.getCode());
-                if(isCodeExist.isPresent()){
+                if (isCodeExist.isPresent()) {
                     errors.add("Đã tồn tại mã phim này trong hệ thống!");
                     throw new RestApiException(errors, HttpStatus.CONFLICT);
                 }
@@ -169,24 +169,24 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         }
         //check isExist Entity
         Optional<Country> isCountryExist = adminMovieManagementCountryRepository.findById(putRequest.getCountryId());
-        if(isCountryExist.isEmpty()){
+        if (isCountryExist.isEmpty()) {
             errors.add("Không tìm thấy quốc gia bạn chọn!");
         }
         Optional<Director> isDirectorExist = adminMovieManagementDirectorRepository.findById(putRequest.getDirectorId());
-        if(isDirectorExist.isEmpty()){
+        if (isDirectorExist.isEmpty()) {
             errors.add("Không tìm thấy đạo diễn bạn chọn!");
         }
         Optional<Format> isFormatExist = adminMovieManagementFormatRepository.findById(putRequest.getFormatId());
-        if(isFormatExist.isEmpty()){
+        if (isFormatExist.isEmpty()) {
             errors.add("Không tìm thấy phân giải bạn chọn!");
         }
         Optional<Genre> isGenreExist = adminMovieManagementGenreRepository.findById(putRequest.getGenreId());
-        if(isGenreExist.isEmpty()){
+        if (isGenreExist.isEmpty()) {
             errors.add("Không tìm thấy thể loại bạn chọn!");
         }
         //throw error
-        if(!errors.isEmpty()){
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        if (!errors.isEmpty()) {
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
 
         //postMovie
@@ -199,14 +199,14 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         putMovie.setVideoPath(putRequest.getVideoPath());
         putMovie.setActor(putRequest.getActor());
         putMovie.setDescription(putRequest.getDescription());
-        if(!putRequest.getBanner().isEmpty()){
+        if (!putRequest.getBanner().isEmpty()) {
             cloudinaryConfig.delete(putMovie.getBannerId());
-            var result=cloudinaryConfig.upload(putRequest.getBanner());//upload image to cloudinary
+            var result = cloudinaryConfig.upload(putRequest.getBanner());//upload image to cloudinary
             putMovie.setBannerId((String) result.get("public_id"));
             putMovie.setBannerUrl((String) result.get("url"));
         }
-        for (Subtitle subtitle : Subtitle.values()){
-            if(putRequest.getSubTitle().equals(subtitle.getName())){
+        for (Subtitle subtitle : Subtitle.values()) {
+            if (putRequest.getSubTitle().equals(subtitle.getName())) {
                 putMovie.setSubTitle(subtitle.getName());
             }
         }
@@ -224,9 +224,9 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         List<String> errors = new ArrayList<>();
         //check isExist
         Optional<Movie> isMovieExist = adminMovieManagementRepository.findById(id);
-        if(isMovieExist.isEmpty()){
+        if (isMovieExist.isEmpty()) {
             errors.add("Không tìm thấy bộ phim này!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
         Movie deleteMovie = isMovieExist.get();
         deleteMovie.setDeleted(!deleteMovie.isDeleted());
@@ -239,10 +239,10 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     public ResponseObject getListCountry() {
         try {
             return new ResponseObject(adminMovieManagementCountryRepository.getListCountry());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách quốc gia!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -250,10 +250,10 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     public ResponseObject getListDirector() {
         try {
             return new ResponseObject(adminMovieManagementDirectorRepository.getListDirector());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách đạo diễn!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -261,10 +261,10 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     public ResponseObject getListFormat() {
         try {
             return new ResponseObject(adminMovieManagementFormatRepository.getListFormat());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách phân giải!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -272,10 +272,10 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
     public ResponseObject getListGenre() {
         try {
             return new ResponseObject(adminMovieManagementGenreRepository.getListGenre());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách thể loại!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 

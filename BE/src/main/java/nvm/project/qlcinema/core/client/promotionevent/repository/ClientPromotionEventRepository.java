@@ -12,25 +12,25 @@ import java.util.List;
 public interface ClientPromotionEventRepository extends PromotionEventRepository {
 
     @Query(value = """
-                SELECT  pe.id AS id,
-                        pe.image_url AS image,
-                        pe.name AS name,
-                        pe.date_start AS dateStart,
-                        pe.date_end AS dateEnd
-                FROM promotion_event pe
-                """,nativeQuery = true)
+            SELECT  pe.id AS id,
+                    pe.image_url AS image,
+                    pe.name AS name,
+                    pe.date_start AS dateStart,
+                    pe.date_end AS dateEnd
+            FROM promotion_event pe
+            """, nativeQuery = true)
     List<ClientPromotionEventListPromotionEventResponse> getListPromotionEvent();
 
     @Query(value = """
-                SELECT  pe.image_url AS image,
-                        pe.promotion_code AS promotionCode,
-                        pe.name AS name,
-                        pe.date_start AS dateStart,
-                        pe.date_end AS dateEnd,
-                        pe.description AS description
-                FROM promotion_event pe
-                WHERE pe.id = :peId
-                """,nativeQuery = true)
+            SELECT  pe.image_url AS image,
+                    pe.promotion_code AS promotionCode,
+                    pe.name AS name,
+                    pe.date_start AS dateStart,
+                    pe.date_end AS dateEnd,
+                    pe.description AS description
+            FROM promotion_event pe
+            WHERE pe.id = :peId
+            """, nativeQuery = true)
     ClientPromotionEventDetailPromotionEventResponse getDetailPromotionEvent(String peId);
 
 }

@@ -25,7 +25,7 @@ public class AuthenticationConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(loadUserByEmail());
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -33,12 +33,12 @@ public class AuthenticationConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService loadUserByEmail(){
+    public UserDetailsService loadUserByEmail() {
         return username -> authenticationRepository.findByEmail(username).orElseThrow(
                 () -> new UsernameNotFoundException("Không tìm thấy người dùng này!")
         );

@@ -17,19 +17,19 @@ public interface ClientCinemaSystemRepository extends BranchRepository {
                     b.name AS name
             FROM branch b
             WHERE b.deleted = true
-            """,nativeQuery = true)
+            """, nativeQuery = true)
     List<ClientCinemaSystemListBranchResponse> getListCinemaSystem();
 
     @Query(value = """
-                SELECT  b.name AS name,
-                        b.address AS address,
-                        b.hostline AS hostLine,
-                        b.email AS email,
-                        b.image_url AS image,
-                        (select COUNT(*) FROM room r WHERE r.branch_id = :branchId) AS totalRoom
-                FROM branch b
-                WHERE b.id = :branchId
-                """,nativeQuery = true)
+            SELECT  b.name AS name,
+                    b.address AS address,
+                    b.hostline AS hostLine,
+                    b.email AS email,
+                    b.image_url AS image,
+                    (select COUNT(*) FROM room r WHERE r.branch_id = :branchId) AS totalRoom
+            FROM branch b
+            WHERE b.id = :branchId
+            """, nativeQuery = true)
     ClientCinemaSystemDetailBranchResponse getDetailCinema(String branchId);
 
 }

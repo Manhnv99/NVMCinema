@@ -22,7 +22,7 @@ public class ClientPromotionEventServiceImpl implements ClientPromotionEventServ
     public ResponseObject getListPromotionEvent() {
         try {
             return new ResponseObject(clientPromotionEventRepository.getListPromotionEvent());
-        }catch (Exception e) {
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách sự kiện!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -33,7 +33,7 @@ public class ClientPromotionEventServiceImpl implements ClientPromotionEventServ
     public ResponseObject getDetailPromotionEvent(String peID) {
         try {
             return new ResponseObject(clientPromotionEventRepository.getDetailPromotionEvent(peID));
-        }catch (Exception e) {
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được sự kiện này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

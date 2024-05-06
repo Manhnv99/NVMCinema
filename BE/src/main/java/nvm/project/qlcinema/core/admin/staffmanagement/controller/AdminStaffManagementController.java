@@ -32,27 +32,27 @@ public class AdminStaffManagementController {
     private final AdminStaffManagementService adminStaffManagementService;
 
     @GetMapping("/get-all-area")
-    public ResponseObject getListArea(){
+    public ResponseObject getListArea() {
         return adminStaffManagementService.getListArea();
     }
 
     @GetMapping("/get-search-staff")
-    public PageableObject<AdminStaffManagementListStaffResponse> getListStaff(AdminStaffManagementListStaffRequest adminStaffManagementListStaffRequest){
+    public PageableObject<AdminStaffManagementListStaffResponse> getListStaff(AdminStaffManagementListStaffRequest adminStaffManagementListStaffRequest) {
         return adminStaffManagementService.getListStaff(adminStaffManagementListStaffRequest);
     }
 
     @GetMapping("/get-one-staff")
-    public ResponseObject getOneStaff(@RequestParam(name = "userId") String userId){
+    public ResponseObject getOneStaff(@RequestParam(name = "userId") String userId) {
         return adminStaffManagementService.getOneStaff(userId);
     }
 
     @GetMapping("/get-detail-staff")
-    public ResponseObject getDetailStaff(@RequestParam(name = "userId") String userId){
+    public ResponseObject getDetailStaff(@RequestParam(name = "userId") String userId) {
         return adminStaffManagementService.getDetailStaff(userId);
     }
 
     @DeleteMapping("/delete-staff/{userId}")
-    public ResponseObject deleteStaff(@PathVariable String userId){
+    public ResponseObject deleteStaff(@PathVariable String userId) {
         return adminStaffManagementService.deleteStaff(userId);
     }
 

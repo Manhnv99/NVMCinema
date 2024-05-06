@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 /**
- *  Object Client là sẽ đại diện cho các khách hàng mua vé online
+ * Object Client là sẽ đại diện cho các khách hàng mua vé online
  */
 
 @AllArgsConstructor

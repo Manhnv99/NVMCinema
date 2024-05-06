@@ -28,7 +28,7 @@ public class ClientInformationClientController {
     private final ClientInformationClientService clientInformationClientService;
 
     @GetMapping("/detail-client/{id}")
-    public ResponseObject getInformationClientDetail(@PathVariable String id){
+    public ResponseObject getInformationClientDetail(@PathVariable String id) {
         return clientInformationClientService.getInformationClientDetail(id);
     }
 
@@ -38,7 +38,7 @@ public class ClientInformationClientController {
     }
 
     @GetMapping("/transaction-history")
-    public PageableObject<ClientInformationClientTransactionHistoryResponse> getInformationClientTransactionHistory(final ClientInformationClientTransactionHistoryRequest request){
+    public PageableObject<ClientInformationClientTransactionHistoryResponse> getInformationClientTransactionHistory(final ClientInformationClientTransactionHistoryRequest request) {
         return clientInformationClientService.getInformationClientTransactionHistory(request);
     }
 

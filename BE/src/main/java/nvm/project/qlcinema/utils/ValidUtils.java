@@ -7,17 +7,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class ValidUtils{
+public class ValidUtils {
 
-//    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    //    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@gmail\\.com$";
     private static final Pattern pattern = Pattern.compile(EMAIL_REGEX);
 
-    public boolean isEmptyString(String string){
+    public boolean isEmptyString(String string) {
         return string.trim().isEmpty();
     }
 
-    public boolean isNullLocaldate(LocalDate localDate){
+    public boolean isNullLocaldate(LocalDate localDate) {
         return localDate == null;
     }
 

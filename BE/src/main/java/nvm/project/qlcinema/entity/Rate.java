@@ -21,7 +21,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Genre là sẽ đại diện cho thể loại của 1 phim
+ * Object Genre là sẽ đại diện cho thể loại của 1 phim
  */
 
 @AllArgsConstructor
@@ -37,11 +37,11 @@ public class Rate extends PrimaryEntity {
     private RateStar star;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id" , referencedColumnName = "id")
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movieId;
 
     @ManyToOne
-    @JoinColumn(name = "client_id" , referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client clientId;
 
     @Column(name = "created_at")

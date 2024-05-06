@@ -20,12 +20,12 @@ public class ClientBookTicketController {
     private final ClientBookTicketService clientBookTicketService;
 
     @GetMapping("/list-show-time")
-    public ResponseObject getListShowTime(final ClientBookTicketListShowTimeRequest request){
+    public ResponseObject getListShowTime(final ClientBookTicketListShowTimeRequest request) {
         return clientBookTicketService.getListShowTime(request);
     }
 
     @GetMapping("/list-branch/{areaId}")
-    public ResponseObject getListBranch(@PathVariable String areaId){
+    public ResponseObject getListBranch(@PathVariable String areaId) {
         return clientBookTicketService.getListBranch(areaId);
     }
 

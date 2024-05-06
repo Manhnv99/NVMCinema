@@ -1,7 +1,6 @@
 package nvm.project.qlcinema.infrastructure.security;
 
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 
 @Component
@@ -35,25 +33,31 @@ public class JwtAuthenticationConfig extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
-                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
+                                    @NonNull FilterChain filterChain) {
         try {
             String token = extractToken(request.getHeader("Authorization"));
-            if(token != null){
+            if (token != null) {
                 String typeUser = jwtProvider.extractTypeUser(token);
                 //validate Token nguyên vẹn,hết hạn
-                String tokenValid = jwtProvider.isTokenValid(token);
-                if(tokenValid.equals(AuthenticationMessage.TOKEN_INVALID.getMessage())){
+                AuthenticationMessage tokenValid = jwtProvider.isTokenValid(token);
+                //validate Refresh Token
+                AuthenticationMessage refreshTokenValid = jwtProvider.isTokenCloseToExpiration(token);
+                if (tokenValid.equals(AuthenticationMessage.TOKEN_INVALID)) {
                     throw new RuntimeException("");
-                }else if(tokenValid.equals(AuthenticationMessage.TOKEN_EXPIRATION.getMessage())){
+                } else if (tokenValid.equals(AuthenticationMessage.TOKEN_EXPIRATION)) {
                     throw new RuntimeException("");
-                }else if(tokenValid.equals(AuthenticationMessage.TOKEN_VALID.getMessage())){
+                } else if (refreshTokenValid.equals(AuthenticationMessage.TOKEN_NEED_TO_REFRESH)) {
+                    throw new Exception("");
+                } else if (refreshTokenValid.equals(AuthenticationMessage.REFRESH_TOKEN_EXPIRATION)) {
+                    throw new RuntimeException("");
+                } else if (tokenValid.equals(AuthenticationMessage.TOKEN_VALID)) {
                     //Get UserName from the token
                     String username = jwtProvider.extractUserName(token);
                     //Get UserDetail
                     UserDetails userDetails = null;
-                    if(typeUser.equalsIgnoreCase(TypeUser.USER.getType())){
+                    if (typeUser.equalsIgnoreCase(TypeUser.USER.getType())) {
                         userDetails = userDetailsService.loadUserByUsername(username);
-                    }else{
+                    } else {
                         userDetails = userDetailServiceCustom.loadUserByUsername(username);
                     }
                     //Create UserNamePassword Object to push it into SecurityContextHolder to Author the restAPI
@@ -70,14 +74,16 @@ public class JwtAuthenticationConfig extends OncePerRequestFilter {
                     SecurityContextHolder.setContext(securityContext);
                 }
             }
-            filterChain.doFilter(request,response);
-        }catch (AccessDeniedException | RuntimeException e){
+            filterChain.doFilter(request, response);
+        } catch (AccessDeniedException | RuntimeException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        } catch (Exception e) {
+            response.setStatus(999); //status for refreshToken
         }
     }
 
-    private String extractToken(String token){
-        if(StringUtils.hasText(token) && token.startsWith("Bearer ")){
+    private String extractToken(String token) {
+        if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
             return token.substring(7);
         }
         return null;

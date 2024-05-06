@@ -30,12 +30,12 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
     @Override
     public PageableObject<AdminDirectorManagementListDirectorResponse> getListDirector(AdminDirectorManagementListDirectorRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage()-1, request.getSize());
-            return new PageableObject<>(adminDirectorManagementRepository.getListDirector(pageRequest,request));
-        }catch (Exception e){
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
+            return new PageableObject<>(adminDirectorManagementRepository.getListDirector(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách đạo diễn!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -43,10 +43,10 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
     public ResponseObject getDetailDirector(String directorId) {
         try {
             return new ResponseObject(adminDirectorManagementRepository.getDetailDirector(directorId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được đạo diễn này!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -56,7 +56,7 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
 
         //check exist
         Optional<Director> isDirectorExist = adminDirectorManagementRepository.isDirectorExist(postRequest);
-        if(isDirectorExist.isPresent()){
+        if (isDirectorExist.isPresent()) {
             errors.add("Đã tồn tại đạo diễn này!");
             throw new RestApiException(errors, HttpStatus.CONFLICT);
         }
@@ -64,10 +64,10 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
         //post Director
         Optional<Director> getNewest = adminDirectorManagementRepository.getNewest();
         Director postDirector = new Director();
-        if(getNewest.isPresent()){
+        if (getNewest.isPresent()) {
             String code = getNewest.get().getCode();
-            postDirector.setCode(code.substring(0,2)+((Integer.parseInt(code.substring(2)))+1));
-        }else{
+            postDirector.setCode(code.substring(0, 2) + ((Integer.parseInt(code.substring(2))) + 1));
+        } else {
             postDirector.setCode("DR1");
         }
         postDirector.setName(postRequest.getName());
@@ -87,16 +87,16 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
 
         //check exist
         Optional<Director> directorOptional = adminDirectorManagementRepository.findById(putRequest.getDirectorId());
-        if(directorOptional.isEmpty()){
+        if (directorOptional.isEmpty()) {
             errors.add("Không tìm thấy đạo diễn này!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
-        }else{
-            if(!directorOptional.get().getName().equals(putRequest.getName()) ||
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
+        } else {
+            if (!directorOptional.get().getName().equals(putRequest.getName()) ||
                     directorOptional.get().isGender() != (putRequest.isGender()) ||
                     directorOptional.get().getAge() != (putRequest.getAge()) ||
-                    !directorOptional.get().getDescription().equals(putRequest.getDescription()) ){
+                    !directorOptional.get().getDescription().equals(putRequest.getDescription())) {
                 Optional<Director> isDirectorExist = adminDirectorManagementRepository.isDirectorExist(putRequest);
-                if(isDirectorExist.isPresent()){
+                if (isDirectorExist.isPresent()) {
                     errors.add("Đã tồn tại đạo diễn này!");
                     throw new RestApiException(errors, HttpStatus.CONFLICT);
                 }
@@ -118,18 +118,18 @@ public class AdminDirectorManagementServiceImpl implements AdminDirectorManageme
     public ResponseObject deleteDirector(String directorId) {
         try {
             Optional<Director> directorOptional = adminDirectorManagementRepository.findById(directorId);
-            if(directorOptional.isEmpty()){
+            if (directorOptional.isEmpty()) {
                 throw new Exception();
-            }else{
+            } else {
                 Director deleteDirector = directorOptional.get();
                 deleteDirector.setDeleted(!deleteDirector.isDeleted());
                 adminDirectorManagementRepository.save(deleteDirector);
             }
             return new ResponseObject("Thay đổi trạng thái đạo diễn thành công!");
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được đạo diễn này!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -31,10 +31,11 @@ public class AuthorizationFilterChainConfig {
                         .requestMatchers(UrlPath.URL_API_CLIENT_HOME_PAGE + "/list-area").permitAll() // khi vào trang đăng nhập thì nó bắt chọn area thì lúc fetch area thì không cần Author
                         .requestMatchers(UrlPath.URL_API_CLIENT_AUTHENTICATION + "/*").permitAll() // khi đăng nhập thì không cần Author
                         .requestMatchers(UrlPath.URL_API_CLIENT_BOOK_CHAIR + "/vnpay-payment").permitAll() // khi chuyển khoản thì không cần Author
+                        .requestMatchers(UrlPath.URL_API_CLIENT_AUTHENTICATION + "/refreshToken").permitAll() // Refresh Token không cần Author
                         .requestMatchers(UrlPath.URL_API_CLIENT + "/**").hasAnyAuthority(Role.ROLE_CLIENT.name())
                         //Client
                         .requestMatchers(UrlPath.URL_API_ADMIN + "/**").hasAnyAuthority(Role.ROLE_ADMIN.name())
-                        .requestMatchers(UrlPath.URL_API_ADMIN_AREA + "/**").hasAnyAuthority(Role.ROLE_ADMIN.name(), Role.ROLE_ADMIN_AREA.name())
+                        .requestMatchers(UrlPath.URL_API_ADMIN_AREA + "/**").hasAnyAuthority(Role.ROLE_ADMIN_AREA.name())
                         //Staff
                         .requestMatchers(UrlPath.URL_API_STAFF_SALE_COUNTER_MANAGEMENT + "/vnpay-payment").permitAll()
                         .requestMatchers(UrlPath.URL_API_STAFF + "/**").hasAnyAuthority(Role.ROLE_STAFF.name())

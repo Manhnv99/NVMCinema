@@ -18,10 +18,10 @@ import java.util.Date;
  */
 
 /**
- *  Object Chair sẽ đại diễn cho các ghế tại 1 phòng
- *  Mỗi phòng có thể có số lượng ghế khác nhau
- *  Ghế này dùng để khi tạo Showtime thì sẽ generate tự động
- *  Ghế có trạng thái ghế đang hỏng hay không hỏng
+ * Object Chair sẽ đại diễn cho các ghế tại 1 phòng
+ * Mỗi phòng có thể có số lượng ghế khác nhau
+ * Ghế này dùng để khi tạo Showtime thì sẽ generate tự động
+ * Ghế có trạng thái ghế đang hỏng hay không hỏng
  */
 
 @AllArgsConstructor
@@ -30,7 +30,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "chair")
-public class Chair extends PrimaryEntity  {
+public class Chair extends PrimaryEntity {
 
     @Column(name = "code")
     private String code;
@@ -45,7 +45,7 @@ public class Chair extends PrimaryEntity  {
     private boolean status; //true là ghế dùng được, false là ghế đang hỏng
 
     @ManyToOne
-    @JoinColumn(name = "room_id" , referencedColumnName = "id")
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room roomId;
 
     @Column(name = "deleted")

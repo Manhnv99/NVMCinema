@@ -53,15 +53,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse login(LoginRequest loginRequest) {
-        try{
+        try {
             //Process Authentication
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
             //Response the token to User
             String token = jwtProvider.generateToken(loginRequest.getEmail());
-            return new AuthenticationResponse(token,"Đăng nhập vào hệ thống thành công!");
-        }catch (AuthenticationException e){
+            return new AuthenticationResponse(token, "Đăng nhập vào hệ thống thành công!");
+        } catch (AuthenticationException e) {
             List<String> errors = new ArrayList<>();
             errors.add("Tài khoản hoặc mật khẩu không đúng!");
             //throw Errors
@@ -74,45 +74,45 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         List<String> errors = new ArrayList<>();
 
         //check Image Empty
-        if(registerRequest.getImage().isEmpty()){
+        if (registerRequest.getImage().isEmpty()) {
             errors.add("Bạn chưa chọn ảnh đại diện!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check Valid
-        if(validUtils.isCccdValid(registerRequest.getCccd())){
+        if (validUtils.isCccdValid(registerRequest.getCccd())) {
             errors.add("Căn cước công dân không hợp lệ");
         }
-        if(validUtils.isPhoneValid(registerRequest.getPhoneNumber())){
+        if (validUtils.isPhoneValid(registerRequest.getPhoneNumber())) {
             errors.add("Số điện thoại không hợp lệ!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check Exist
         Optional<User> isEmailExist = authenticationUserRepository.findUserByEmail(registerRequest.getEmail());
-        if(isEmailExist.isPresent()){
+        if (isEmailExist.isPresent()) {
             errors.add("Email này đã tồn tại!");
         }
         Optional<User> isCccdExist = authenticationUserRepository.findUserByCccd(registerRequest.getCccd());
-        if(isCccdExist.isPresent()){
+        if (isCccdExist.isPresent()) {
             errors.add("Căn cước công dân này đã tồn tại!");
         }
         Optional<User> isPhoneNumberExist = authenticationUserRepository.findUserByPhoneNumber(registerRequest.getPhoneNumber());
-        if(isPhoneNumberExist.isPresent()){
+        if (isPhoneNumberExist.isPresent()) {
             errors.add("Số điện thoại này đã tồn tại!");
         }
         Optional<Area> isAreaExist = authenticationAreaRepository.findById(registerRequest.getAreaId());
-        if(isAreaExist.isEmpty()){
+        if (isAreaExist.isEmpty()) {
             errors.add("Không tồn tại khu vực này!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
@@ -128,12 +128,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         postUser.setPhoneNumber(registerRequest.getPhoneNumber());
         postUser.setAddress(registerRequest.getAddress());
         postUser.setCreatedAt(new Date());
-        for (Role role : Role.values()){
-            if(registerRequest.getRole().equals(role.name())){
+        for (Role role : Role.values()) {
+            if (registerRequest.getRole().equals(role.name())) {
                 postUser.setRole(role);
             }
         }
-        var result=cloudinaryConfig.upload(registerRequest.getImage());//upload image to cloudinary
+        var result = cloudinaryConfig.upload(registerRequest.getImage());//upload image to cloudinary
         postUser.setImageId((String) result.get("public_id"));
         postUser.setImageUrl((String) result.get("url"));
         postUser.setStatus(true);
@@ -148,54 +148,54 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         List<String> errors = new ArrayList<>();
 
         //check Valid
-        if(validUtils.isCccdValid(putRegisterRequest.getCccd())){
+        if (validUtils.isCccdValid(putRegisterRequest.getCccd())) {
             errors.add("Căn cước công dân không hợp lệ");
         }
-        if(validUtils.isPhoneValid(putRegisterRequest.getPhoneNumber())){
+        if (validUtils.isPhoneValid(putRegisterRequest.getPhoneNumber())) {
             errors.add("Số điện thoại không hợp lệ!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check Exist -> if the user change those fields make it different to their old -> will check duplicate
         Optional<User> putUserOptional = authenticationUserRepository.findById(putRegisterRequest.getId());
-        if(putUserOptional.isEmpty()){
+        if (putUserOptional.isEmpty()) {
             errors.add("Không tìm thấy nhân viên này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-        }else{
-            if(!putUserOptional.get().getEmail().equalsIgnoreCase(putRegisterRequest.getEmail())){
+        } else {
+            if (!putUserOptional.get().getEmail().equalsIgnoreCase(putRegisterRequest.getEmail())) {
                 Optional<User> isEmailExist = authenticationUserRepository.findUserByEmail(putRegisterRequest.getEmail());
-                if(isEmailExist.isPresent()){
+                if (isEmailExist.isPresent()) {
                     errors.add("Email này đã tồn tại!");
                 }
             }
-            if(!putUserOptional.get().getCccd().equalsIgnoreCase(putRegisterRequest.getCccd())){
+            if (!putUserOptional.get().getCccd().equalsIgnoreCase(putRegisterRequest.getCccd())) {
                 Optional<User> isCccdExist = authenticationUserRepository.findUserByCccd(putRegisterRequest.getCccd());
-                if(isCccdExist.isPresent()){
+                if (isCccdExist.isPresent()) {
                     errors.add("Căn cước công dân này đã tồn tại!");
                 }
             }
-            if(!putUserOptional.get().getPhoneNumber().equalsIgnoreCase(putRegisterRequest.getPhoneNumber())){
+            if (!putUserOptional.get().getPhoneNumber().equalsIgnoreCase(putRegisterRequest.getPhoneNumber())) {
                 Optional<User> isPhoneNumberExist = authenticationUserRepository.findUserByPhoneNumber(putRegisterRequest.getPhoneNumber());
-                if(isPhoneNumberExist.isPresent()){
+                if (isPhoneNumberExist.isPresent()) {
                     errors.add("Số điện thoại này đã tồn tại!");
                 }
             }
             //throw Errors
-            if(!errors.isEmpty()){
+            if (!errors.isEmpty()) {
                 throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
             }
         }
 
         //check is Area Exist
         Optional<Area> isAreaExist = authenticationAreaRepository.findById(putRegisterRequest.getAreaId());
-        if(isAreaExist.isEmpty()){
+        if (isAreaExist.isEmpty()) {
             errors.add("Không tồn tại khu vực này!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
@@ -209,14 +209,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         putUser.setEmail(putRegisterRequest.getEmail());
         putUser.setPhoneNumber(putRegisterRequest.getPhoneNumber());
         putUser.setAddress(putRegisterRequest.getAddress());
-        for (Role role : Role.values()){
-            if(putRegisterRequest.getRole().equals(role.name())){
+        for (Role role : Role.values()) {
+            if (putRegisterRequest.getRole().equals(role.name())) {
                 putUser.setRole(role);
             }
         }
         //if User change their image -> do this
-        if(!putRegisterRequest.getImage().isEmpty()){
-            var result=cloudinaryConfig.upload(putRegisterRequest.getImage());//upload image to cloudinary
+        if (!putRegisterRequest.getImage().isEmpty()) {
+            var result = cloudinaryConfig.upload(putRegisterRequest.getImage());//upload image to cloudinary
             putUser.setImageId((String) result.get("public_id"));
             putUser.setImageUrl((String) result.get("url"));
         }

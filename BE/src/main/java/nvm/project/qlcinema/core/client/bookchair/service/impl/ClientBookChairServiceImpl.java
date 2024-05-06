@@ -86,9 +86,9 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
 
     @Override
     public ResponseObject getDetailShowTime(String showTimeId) {
-        try{
+        try {
             return new ResponseObject(clientBookChairRepository.getDetailShowTime(showTimeId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được thông tin của xuất chiếu này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -97,9 +97,9 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
 
     @Override
     public ResponseObject getListTicketChair(String showTimeId) {
-        try{
+        try {
             return new ResponseObject(clientBookChairRepository.getListTicketChair(showTimeId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách ghế!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -108,9 +108,9 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
 
     @Override
     public ResponseObject getListComboFood() {
-        try{
+        try {
             return new ResponseObject(clientBookChairComboFoodRepository.getListComboFood());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được ComboFood!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -121,30 +121,30 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
     public ResponseObject getPromotionEvent(String code) {
         List<String> errors = new ArrayList<>();
 
-        if(code.trim().isEmpty() || code.length() > 255){
+        if (code.trim().isEmpty() || code.length() > 255) {
             errors.add("Mã giảm giá bạn nhập không hợp lệ!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
         //check isExist
         Optional<PromotionEvent> isPromotionEventExist = clientBookChairPromotionEventRepository.getPromotionEventByCode(code);
-        if(isPromotionEventExist.isEmpty()){
+        if (isPromotionEventExist.isEmpty()) {
             errors.add("Mã giảm giá bạn nhập không tồn tại!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
-        if(isPromotionEventExist.get().getPromotionEventStatus().equals(PromotionEventStatus.DA_HET_HAN)){
+        if (isPromotionEventExist.get().getPromotionEventStatus().equals(PromotionEventStatus.DA_HET_HAN)) {
             errors.add("Mã giảm giá bạn nhập đã hết hạn sử dụng!");
         } else if (isPromotionEventExist.get().getPromotionEventStatus().equals(PromotionEventStatus.SAP_DIEN_RA)) {
             errors.add("Mã giảm giá bạn nhập chưa đến thời gian diễn ra!");
         }
         //throw Error
-        if(!errors.isEmpty()){
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        if (!errors.isEmpty()) {
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
         return new ResponseObject(isPromotionEventExist.get());
     }
 
     @Override
-    public String startOnlineBanking(ClientBookChairPaymentRequest paymentRequest,String urlReturn) {
+    public String startOnlineBanking(ClientBookChairPaymentRequest paymentRequest, String urlReturn) {
         this.handleSetPaymentRequestFinal(paymentRequest); // set payment request
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
@@ -217,7 +217,7 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
     @Override
     public void onlineBankingReturn(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map fields = new HashMap();
-        for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+        for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
             String fieldName = null;
             String fieldValue = null;
             try {
@@ -251,10 +251,10 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
         }
     }
 
-    private ResponseInternetBanking createOrder(){
-        try{
+    private ResponseInternetBanking createOrder() {
+        try {
             //xử lý cập nhật trạng thái ghế
-            for (String ticketChairId : listTicketChairIdFinal){
+            for (String ticketChairId : listTicketChairIdFinal) {
                 TicketChair ticketChair = clientBookChairTicketChairRepository.getReferenceById(ticketChairId);
                 ticketChair.setStatus(true);
                 clientBookChairTicketChairRepository.save(ticketChair);
@@ -274,7 +274,7 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
             Order orderSaved = clientBookChairOrderRepository.save(postOrder);
 
             //post orderDetailTicketChair
-            for(String ticketChairId : listTicketChairIdFinal){
+            for (String ticketChairId : listTicketChairIdFinal) {
                 clientBookChairOrderDetailTicketChairRepository.save(new OrderDetailTicketChair(
                         orderSaved,
                         clientBookChairTicketChairRepository.getReferenceById(ticketChairId)
@@ -282,15 +282,15 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
             }
 
             //post orderDetailFood
-            if(!listComboFoodRequestFinal.isEmpty()){
-                for(ClientBookChairComboFoodRequest comboFoodRequest : listComboFoodRequestFinal){
+            if (!listComboFoodRequestFinal.isEmpty()) {
+                for (ClientBookChairComboFoodRequest comboFoodRequest : listComboFoodRequestFinal) {
                     clientBookChairOrderDetailFoodRepository.save(new OrderDetailFood(
                             orderSaved,
                             clientBookChairComboFoodRepository.getReferenceById(comboFoodRequest.getComboFoodId()),
                             comboFoodRequest.getQuantity()
                     ));
                 }
-            }else{
+            } else {
                 clientBookChairOrderDetailFoodRepository.save(new OrderDetailFood(
                         orderSaved,
                         null,
@@ -298,15 +298,15 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
                 ));
             }
 
-            return new ResponseInternetBanking("Mua vé xem phim tại rap NVMCinema thành công",VNPayTransactionStatus.SUCCESS.getStatus());
-        }catch (Exception e){
+            return new ResponseInternetBanking("Mua vé xem phim tại rap NVMCinema thành công", VNPayTransactionStatus.SUCCESS.getStatus());
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Đã có 1 vài lỗi xảy ra trong quá trình xử lý");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
-    private void handleSetPaymentRequestFinal(ClientBookChairPaymentRequest paymentRequest){
+    private void handleSetPaymentRequestFinal(ClientBookChairPaymentRequest paymentRequest) {
         this.handleResetPaymentRequestFinal();
         listTicketChairIdFinal.addAll(paymentRequest.getListTicketChairId());
         totalPriceFinal = paymentRequest.getTotalPrice();
@@ -315,7 +315,7 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
         clientIdFinal = paymentRequest.getClientId();
     }
 
-    private void handleResetPaymentRequestFinal(){
+    private void handleResetPaymentRequestFinal() {
         listTicketChairIdFinal.clear();
         listComboFoodRequestFinal.clear();
         totalPriceFinal = 0;

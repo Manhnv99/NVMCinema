@@ -21,7 +21,7 @@ public class ClientHomePageServiceImpl implements ClientHomePageService {
     public ResponseObject getListMovieCurrentShowing() {
         try {
             return new ResponseObject(clientHomePageMovieRepository.getListMovieCurrentShowing());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách bộ phim đang chiếu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -32,7 +32,7 @@ public class ClientHomePageServiceImpl implements ClientHomePageService {
     public ResponseObject getListMoviePreTicket() {
         try {
             return new ResponseObject(clientHomePageMovieRepository.getListMoviePreTicket());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách bộ phim bán trước!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -43,7 +43,7 @@ public class ClientHomePageServiceImpl implements ClientHomePageService {
     public ResponseObject getListMovieUpComing() {
         try {
             return new ResponseObject(clientHomePageMovieRepository.getListMovieUpComing());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách bộ phim sắp chiếu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -54,7 +54,7 @@ public class ClientHomePageServiceImpl implements ClientHomePageService {
     public ResponseObject getListArea() {
         try {
             return new ResponseObject(clientHomePageMovieRepository.getListArea());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách khu vực!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -65,7 +65,7 @@ public class ClientHomePageServiceImpl implements ClientHomePageService {
     public ResponseObject getDetailMovie(String movieId) {
         try {
             return new ResponseObject(clientHomePageMovieRepository.getDetailMovie(movieId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được bộ phim này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

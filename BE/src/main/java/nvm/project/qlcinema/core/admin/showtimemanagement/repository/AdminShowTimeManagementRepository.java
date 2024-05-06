@@ -24,99 +24,99 @@ import java.util.Optional;
 public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
 
     @Query(value = """
-                SELECT  st.id AS id,
-                        m.banner_url AS banner,
-                        m.name AS movie,
-                        r.name AS room,
-                        b.name AS branch,
-                        a.name AS area,
-                        st.screening_date AS screeningDate,
-                        st.time_start AS timeStart,
-                        st.ticket_price AS ticketPrice
-                FROM showtime st
-                JOIN movie m ON st.movie_id = m.id
-                JOIN room r ON st.room_id = r.id
-                JOIN branch b ON r.branch_id = b.id
-                JOIN area a ON b.area_id = a.id
-                WHERE
-                (
-                    ( :#{#request.movieName} IS NULL OR m.name LIKE :#{ "%" + #request.movieName +"%" } ) AND
-                    ( :#{#request.branchId} IS NULL OR b.id LIKE :#{ "%" + #request.branchId +"%" } ) AND
-                    ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId +"%" } ) AND
-                    ( :#{#request.roomId} IS NULL OR r.id LIKE :#{ "%" + #request.roomId +"%" } )
-                )
-                ORDER BY st.created_at DESC
-                """,nativeQuery = true)
+            SELECT  st.id AS id,
+                    m.banner_url AS banner,
+                    m.name AS movie,
+                    r.name AS room,
+                    b.name AS branch,
+                    a.name AS area,
+                    st.screening_date AS screeningDate,
+                    st.time_start AS timeStart,
+                    st.ticket_price AS ticketPrice
+            FROM showtime st
+            JOIN movie m ON st.movie_id = m.id
+            JOIN room r ON st.room_id = r.id
+            JOIN branch b ON r.branch_id = b.id
+            JOIN area a ON b.area_id = a.id
+            WHERE
+            (
+                ( :#{#request.movieName} IS NULL OR m.name LIKE :#{ "%" + #request.movieName +"%" } ) AND
+                ( :#{#request.branchId} IS NULL OR b.id LIKE :#{ "%" + #request.branchId +"%" } ) AND
+                ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId +"%" } ) AND
+                ( :#{#request.roomId} IS NULL OR r.id LIKE :#{ "%" + #request.roomId +"%" } )
+            )
+            ORDER BY st.created_at DESC
+            """, nativeQuery = true)
 //                AND st.screening_date >= CURRENT_DATE
     Page<AdminShowTimeManagementListShowTimeResponse> getListSearchShowTime(Pageable pageable, AdminShowTimeManagementListShowTimeRequest request);
 
     @Query(value = """
-                SELECT  st.screening_date AS screeningDate,
-                        st.time_start AS timeStart,
-                        st.ticket_price AS ticketPrice,
-                        r.id AS roomId,
-                        b.id AS branchId,
-                        a.id AS areaId,
-                        m.id AS movieId
-                FROM showtime st
-                JOIN movie m ON st.movie_id = m.id
-                JOIN room r ON st.room_id = r.id
-                JOIN branch b ON r.branch_id = b.id
-                JOIN area a ON b.area_id = a.id
-                WHERE st.id = :id
-                """,nativeQuery = true)
+            SELECT  st.screening_date AS screeningDate,
+                    st.time_start AS timeStart,
+                    st.ticket_price AS ticketPrice,
+                    r.id AS roomId,
+                    b.id AS branchId,
+                    a.id AS areaId,
+                    m.id AS movieId
+            FROM showtime st
+            JOIN movie m ON st.movie_id = m.id
+            JOIN room r ON st.room_id = r.id
+            JOIN branch b ON r.branch_id = b.id
+            JOIN area a ON b.area_id = a.id
+            WHERE st.id = :id
+            """, nativeQuery = true)
     AdminShowTimeManagementGetOneResponse getOneShowTime(String id);
 
     @Query(value = """
-                SELECT  st.id AS id,
-                        st.screening_date AS screeningDate,
-                        st.time_start AS timeStart,
-                        st.ticket_price AS ticketPrice,
-                        r.name AS room,
-                        b.name AS branch,
-                        a.name AS area,
-                        m.name AS movie,
-                        ( SELECT COUNT(*) FROM ticket_chair tc WHERE (tc.show_time_id = :id) AND tc.status = true) AS ticketBooked,
-                        ( SELECT COUNT(*) FROM ticket_chair tc WHERE (tc.show_time_id = :id) AND tc.status = false) AS ticketNotBooked
-                FROM showtime st
-                JOIN movie m ON st.movie_id = m.id
-                JOIN room r ON st.room_id = r.id
-                JOIN branch b ON r.branch_id = b.id
-                JOIN area a ON b.area_id = a.id
-                WHERE st.id = :id
-                """,nativeQuery = true)
+            SELECT  st.id AS id,
+                    st.screening_date AS screeningDate,
+                    st.time_start AS timeStart,
+                    st.ticket_price AS ticketPrice,
+                    r.name AS room,
+                    b.name AS branch,
+                    a.name AS area,
+                    m.name AS movie,
+                    ( SELECT COUNT(*) FROM ticket_chair tc WHERE (tc.show_time_id = :id) AND tc.status = true) AS ticketBooked,
+                    ( SELECT COUNT(*) FROM ticket_chair tc WHERE (tc.show_time_id = :id) AND tc.status = false) AS ticketNotBooked
+            FROM showtime st
+            JOIN movie m ON st.movie_id = m.id
+            JOIN room r ON st.room_id = r.id
+            JOIN branch b ON r.branch_id = b.id
+            JOIN area a ON b.area_id = a.id
+            WHERE st.id = :id
+            """, nativeQuery = true)
     AdminShowTimeManagementGetDetailResponse getDetailShowTime(String id);
 
     @Query(value = """
-                SELECT  a.id AS id,
-                        a.name AS name
-                FROM area a
-                WHERE a.deleted = true
-                """,nativeQuery = true)
+            SELECT  a.id AS id,
+                    a.name AS name
+            FROM area a
+            WHERE a.deleted = true
+            """, nativeQuery = true)
     List<AdminShowTimeManagementGetListAreaResponse> getListArea();
 
     @Query(value = """
-                SELECT  b.id AS id,
-                        b.name AS name
-                FROM branch b
-                WHERE b.deleted = true AND b.area_id = :areaId
-                """,nativeQuery = true)
+            SELECT  b.id AS id,
+                    b.name AS name
+            FROM branch b
+            WHERE b.deleted = true AND b.area_id = :areaId
+            """, nativeQuery = true)
     List<AdminShowTimeManagementGetListBranchResponse> getListBranch(String areaId);
 
     @Query(value = """
-                SELECT  r.id AS id,
-                        r.name AS name
-                FROM room r
-                WHERE r.deleted = true AND r.branch_id = :branchId
-                """,nativeQuery = true)
+            SELECT  r.id AS id,
+                    r.name AS name
+            FROM room r
+            WHERE r.deleted = true AND r.branch_id = :branchId
+            """, nativeQuery = true)
     List<AdminShowTimeManagementGetListRoomResponse> getListRoom(String branchId);
 
     @Query(value = """
-                SELECT  m.id AS id,
-                        m.name AS name
-                FROM movie m
-                WHERE m.deleted = true AND m.release_date <= CURRENT_DATE()
-                """,nativeQuery = true)
+            SELECT  m.id AS id,
+                    m.name AS name
+            FROM movie m
+            WHERE m.deleted = true AND m.release_date <= CURRENT_DATE()
+            """, nativeQuery = true)
     List<AdminShowTimeManagementGetListMovieResponse> getListMovie();
 
     @Query("""
@@ -127,6 +127,6 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
                 (st.roomId.id = :roomId) AND
                 st.screeningDate >= CURRENT_DATE
             """)
-    Optional<ShowTime> isShowTimeDuplicate(LocalDate screeningDate, Time timeStart,String roomId);
+    Optional<ShowTime> isShowTimeDuplicate(LocalDate screeningDate, Time timeStart, String roomId);
 
 }

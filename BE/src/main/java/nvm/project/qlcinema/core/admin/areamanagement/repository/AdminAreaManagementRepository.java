@@ -23,28 +23,28 @@ public interface AdminAreaManagementRepository extends AreaRepository {
     Optional<Area> findByName(String name);
 
     @Query(value = """
-                SELECT  a.id AS id,
-                        a.code AS code,
-                        a.name AS name,
-                        a.deleted AS deleted
-                FROM area a
-                WHERE
-                (
-                    ( :#{#request.inputSearch} IS NULL OR a.code LIKE :#{ "%" + #request.inputSearch + "%" } ) OR
-                    ( :#{#request.inputSearch} IS NULL OR a.name LIKE :#{ "%" + #request.inputSearch + "%" } )
-                )
-                ORDER BY a.created_at DESC
-                """,nativeQuery = true)
+            SELECT  a.id AS id,
+                    a.code AS code,
+                    a.name AS name,
+                    a.deleted AS deleted
+            FROM area a
+            WHERE
+            (
+                ( :#{#request.inputSearch} IS NULL OR a.code LIKE :#{ "%" + #request.inputSearch + "%" } ) OR
+                ( :#{#request.inputSearch} IS NULL OR a.name LIKE :#{ "%" + #request.inputSearch + "%" } )
+            )
+            ORDER BY a.created_at DESC
+            """, nativeQuery = true)
     Page<AdminAreaManagementListAreaResponse> getListArea(Pageable pageable, AdminAreaManagementListAreaRequest request);
 
     @Query(value = """
-                SELECT  a.id AS id,
-                        a.code AS code,
-                        a.name AS name,
-                        a.deleted AS deleted
-                FROM area a
-                WHERE a.id = :areaId
-                """,nativeQuery = true)
+            SELECT  a.id AS id,
+                    a.code AS code,
+                    a.name AS name,
+                    a.deleted AS deleted
+            FROM area a
+            WHERE a.id = :areaId
+            """, nativeQuery = true)
     AdminAreaManagementListAreaResponse getDetailArea(String areaId);
 
 }

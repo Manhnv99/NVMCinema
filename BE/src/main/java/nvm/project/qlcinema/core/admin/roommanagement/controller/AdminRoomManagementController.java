@@ -29,47 +29,47 @@ public class AdminRoomManagementController {
     private final AdminRoomManagementService adminRoomManagementService;
 
     @GetMapping("/get-search-room")
-    public PageableObject<AdminRoomManagementListRoomResponse> getListSearchRoom(final AdminRoomManagementListRoomRequest roomRequest){
+    public PageableObject<AdminRoomManagementListRoomResponse> getListSearchRoom(final AdminRoomManagementListRoomRequest roomRequest) {
         return adminRoomManagementService.getListSearchRoom(roomRequest);
     }
 
     @GetMapping("/get-one-room/{id}")
-    public ResponseObject getOneRoom(@PathVariable String id){
+    public ResponseObject getOneRoom(@PathVariable String id) {
         return adminRoomManagementService.getOneRoom(id);
     }
 
     @GetMapping("/get-detail-room/{id}")
-    public ResponseObject getDetailRoom(@PathVariable String id){
+    public ResponseObject getDetailRoom(@PathVariable String id) {
         return adminRoomManagementService.getDetailRoom(id);
     }
 
     @GetMapping("/get-list-chair/{roomId}")
-    public ResponseObject getListChair(@PathVariable String roomId){
+    public ResponseObject getListChair(@PathVariable String roomId) {
         return adminRoomManagementService.getListChair(roomId);
     }
 
     @GetMapping("/get-list-area")
-    public ResponseObject getListArea(){
+    public ResponseObject getListArea() {
         return adminRoomManagementService.getListArea();
     }
 
     @GetMapping("/get-list-branch/{areaId}")
-    public ResponseObject getListBranch(@PathVariable String areaId){
+    public ResponseObject getListBranch(@PathVariable String areaId) {
         return adminRoomManagementService.getListBranch(areaId);
     }
 
     @PostMapping("/post-room")
-    public ResponseObject postRoom(@RequestBody @Valid AdminRoomManagementPostRoomRequest postRequest){
+    public ResponseObject postRoom(@RequestBody @Valid AdminRoomManagementPostRoomRequest postRequest) {
         return adminRoomManagementService.postRoom(postRequest);
     }
 
     @PutMapping("/put-room")
-    public ResponseObject putRoom(@RequestBody @Valid AdminRoomManagementPutRoomRequest putRequest){
+    public ResponseObject putRoom(@RequestBody @Valid AdminRoomManagementPutRoomRequest putRequest) {
         return adminRoomManagementService.putRoom(putRequest);
     }
 
     @DeleteMapping("/delete-room/{id}")
-    public ResponseObject putRoom(@PathVariable String id){
+    public ResponseObject putRoom(@PathVariable String id) {
         return adminRoomManagementService.deleteRoom(id);
     }
 

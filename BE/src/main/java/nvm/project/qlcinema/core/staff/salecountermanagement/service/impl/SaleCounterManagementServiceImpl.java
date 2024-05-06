@@ -114,9 +114,9 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
     @Override
     public PageableObject<SaleCounterManagementListMovieResponse> getSearchListMovie(SaleCounterManagementListMovieRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage() -1,request.getSize());
-            return new PageableObject<>(saleCounterManagementRepository.getSearchListMovie(pageRequest,request));
-        }catch (Exception e){
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
+            return new PageableObject<>(saleCounterManagementRepository.getSearchListMovie(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách phim!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -127,10 +127,10 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
     public ResponseObject getListCountry() {
         try {
             return new ResponseObject(saleCounterManagementCountryRepository.getListCountry());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách quốc gia!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -138,10 +138,10 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
     public ResponseObject getListDirector() {
         try {
             return new ResponseObject(saleCounterManagementDirectorRepository.getListDirector());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách đạo diễn!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -149,10 +149,10 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
     public ResponseObject getListFormat() {
         try {
             return new ResponseObject(saleCounterManagementFormatRepository.getListFormat());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách phân giải!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -160,18 +160,18 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
     public ResponseObject getListGenre() {
         try {
             return new ResponseObject(saleCounterManagementGenreRepository.getListGenre());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách thể loại!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
     public ResponseObject getListShowTime(SaleCounterManagementBookTicketListShowTimeRequest request) {
-        try{
+        try {
             return new ResponseObject(saleCounterManagementBookTicketRepository.getListShowTime(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách lịch chiếu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -180,9 +180,9 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
 
     @Override
     public ResponseObject getDetailShowTime(String showTimeId) {
-        try{
+        try {
             return new ResponseObject(saleCounterManagementBookChairRepository.getDetailShowTime(showTimeId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được thông tin của xuất chiếu này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -191,9 +191,9 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
 
     @Override
     public ResponseObject getListTicketChair(String showTimeId) {
-        try{
+        try {
             return new ResponseObject(saleCounterManagementBookChairRepository.getListTicketChair(showTimeId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách ghế!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -202,9 +202,9 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
 
     @Override
     public ResponseObject getListComboFood() {
-        try{
+        try {
             return new ResponseObject(saleCounterManagementBookChairComboFoodRepository.getListComboFood());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được ComboFood!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -215,33 +215,33 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
     public ResponseObject getPromotionEvent(String code) {
         List<String> errors = new ArrayList<>();
 
-        if(code.trim().isEmpty() || code.length() > 255){
+        if (code.trim().isEmpty() || code.length() > 255) {
             errors.add("Mã giảm giá bạn nhập không hợp lệ!");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
         //check isExist
         Optional<PromotionEvent> isPromotionEventExist = saleCounterManagementBookChairPromotionEventRepository.getPromotionEventByCode(code);
-        if(isPromotionEventExist.isEmpty()){
+        if (isPromotionEventExist.isEmpty()) {
             errors.add("Mã giảm giá bạn nhập không tồn tại!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
-        if(isPromotionEventExist.get().getPromotionEventStatus().equals(PromotionEventStatus.DA_HET_HAN)){
+        if (isPromotionEventExist.get().getPromotionEventStatus().equals(PromotionEventStatus.DA_HET_HAN)) {
             errors.add("Mã giảm giá bạn nhập đã hết hạn sử dụng!");
         } else if (isPromotionEventExist.get().getPromotionEventStatus().equals(PromotionEventStatus.SAP_DIEN_RA)) {
             errors.add("Mã giảm giá bạn nhập chưa đến thời gian diễn ra!");
         }
         //throw Error
-        if(!errors.isEmpty()){
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        if (!errors.isEmpty()) {
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
         return new ResponseObject(isPromotionEventExist.get());
     }
 
     @Override
     public SaleCounterManagementBookChairCashPaymentResponse cashPayment(SaleCounterManagementBookChairCashPaymentRequest paymentRequest) throws IOException {
-        try{
+        try {
             //xử lý cập nhật trạng thái ghế
-            for (String ticketChairId : paymentRequest.getListTicketChairId()){
+            for (String ticketChairId : paymentRequest.getListTicketChairId()) {
                 TicketChair ticketChair = saleCounterManagementBookChairTicketChairRepository.getReferenceById(ticketChairId);
                 ticketChair.setStatus(true);
                 saleCounterManagementBookChairTicketChairRepository.save(ticketChair);
@@ -261,7 +261,7 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
             Order orderSaved = saleCounterManagementBookChairOrderRepository.save(postOrder);
 
             //post orderDetailTicketChair
-            for(String ticketChairId : paymentRequest.getListTicketChairId()){
+            for (String ticketChairId : paymentRequest.getListTicketChairId()) {
                 saleCounterManagementBookChairOrderDetailTicketChairRepository.save(new OrderDetailTicketChair(
                         orderSaved,
                         saleCounterManagementBookChairTicketChairRepository.getReferenceById(ticketChairId)
@@ -269,15 +269,15 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
             }
 
             //post orderDetailFood
-            if(!paymentRequest.getListComboFoodRequest().isEmpty()){
-                for(ClientBookChairComboFoodRequest comboFoodRequest : paymentRequest.getListComboFoodRequest()){
+            if (!paymentRequest.getListComboFoodRequest().isEmpty()) {
+                for (ClientBookChairComboFoodRequest comboFoodRequest : paymentRequest.getListComboFoodRequest()) {
                     saleCounterManagementBookChairOrderDetailFoodRepository.save(new OrderDetailFood(
                             orderSaved,
                             saleCounterManagementBookChairComboFoodRepository.getReferenceById(comboFoodRequest.getComboFoodId()),
                             comboFoodRequest.getQuantity()
                     ));
                 }
-            }else{
+            } else {
                 saleCounterManagementBookChairOrderDetailFoodRepository.save(new OrderDetailFood(
                         orderSaved,
                         null,
@@ -289,13 +289,13 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
             String orderCode = orderSaved.getCode();
             return new SaleCounterManagementBookChairCashPaymentResponse(
                     UrlDomain.URL_FE_DOMAIN + "/staff/management-sale-counter?" +
-                            "codeStatus="+codeStatus + "&totalPrice="+totalPrice + "&orderCode="+orderCode
+                            "codeStatus=" + codeStatus + "&totalPrice=" + totalPrice + "&orderCode=" + orderCode
             );
-        }catch (Exception e){
+        } catch (Exception e) {
             String codeStatus = VNPayTransactionStatus.FAILED.getStatus(); //lấy ra code status
             return new SaleCounterManagementBookChairCashPaymentResponse(
                     UrlDomain.URL_FE_DOMAIN + "/staff/management-sale-counter?" +
-                            "codeStatus="+codeStatus
+                            "codeStatus=" + codeStatus
             );
         }
     }
@@ -374,7 +374,7 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
     @Override
     public void onlineBankingReturn(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map fields = new HashMap();
-        for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+        for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
             String fieldName = null;
             String fieldValue = null;
             try {
@@ -404,18 +404,18 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
                 String orderCode = this.createOrder();
                 response.sendRedirect(
                         UrlDomain.URL_FE_DOMAIN + "/staff/management-sale-counter?" +
-                                "codeStatus="+codeStatus + "&totalPrice="+totalPrice + "&orderCode="+orderCode
+                                "codeStatus=" + codeStatus + "&totalPrice=" + totalPrice + "&orderCode=" + orderCode
                 );
             } else {
                 response.sendRedirect(
                         UrlDomain.URL_FE_DOMAIN + "/staff/management-sale-counter?" +
-                                "codeStatus="+codeStatus
-                        );
+                                "codeStatus=" + codeStatus
+                );
             }
         } else {
             response.sendRedirect(
                     UrlDomain.URL_FE_DOMAIN + "/staff/management-sale-counter?" +
-                            "codeStatus="+codeStatus
+                            "codeStatus=" + codeStatus
             );
         }
     }
@@ -424,17 +424,17 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
     public ResponseObject getDetailOrder(String orderCode) {
         try {
             return new ResponseObject(saleCounterManagementBookChairOrderRepository.getDetailOrder(orderCode));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được hóa đơn này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
-    private String createOrder(){
-        try{
+    private String createOrder() {
+        try {
             //xử lý cập nhật trạng thái ghế
-            for (String ticketChairId : listTicketChairIdFinal){
+            for (String ticketChairId : listTicketChairIdFinal) {
                 TicketChair ticketChair = saleCounterManagementBookChairTicketChairRepository.getReferenceById(ticketChairId);
                 ticketChair.setStatus(true);
                 saleCounterManagementBookChairTicketChairRepository.save(ticketChair);
@@ -454,7 +454,7 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
             Order orderSaved = saleCounterManagementBookChairOrderRepository.save(postOrder);
 
             //post orderDetailTicketChair
-            for(String ticketChairId : listTicketChairIdFinal){
+            for (String ticketChairId : listTicketChairIdFinal) {
                 saleCounterManagementBookChairOrderDetailTicketChairRepository.save(new OrderDetailTicketChair(
                         orderSaved,
                         saleCounterManagementBookChairTicketChairRepository.getReferenceById(ticketChairId)
@@ -462,15 +462,15 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
             }
 
             //post orderDetailFood
-            if(!listComboFoodRequestFinal.isEmpty()){
-                for(ClientBookChairComboFoodRequest comboFoodRequest : listComboFoodRequestFinal){
+            if (!listComboFoodRequestFinal.isEmpty()) {
+                for (ClientBookChairComboFoodRequest comboFoodRequest : listComboFoodRequestFinal) {
                     saleCounterManagementBookChairOrderDetailFoodRepository.save(new OrderDetailFood(
                             orderSaved,
                             saleCounterManagementBookChairComboFoodRepository.getReferenceById(comboFoodRequest.getComboFoodId()),
                             comboFoodRequest.getQuantity()
                     ));
                 }
-            }else{
+            } else {
                 saleCounterManagementBookChairOrderDetailFoodRepository.save(new OrderDetailFood(
                         orderSaved,
                         null,
@@ -478,14 +478,14 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
                 ));
             }
             return orderSaved.getCode();
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Đã có 1 vài lỗi xảy ra trong quá trình xử lý");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
-    private void handleSetPaymentRequestFinal(SaleCounterManagementBookChairPaymentRequest paymentRequest){
+    private void handleSetPaymentRequestFinal(SaleCounterManagementBookChairPaymentRequest paymentRequest) {
         this.handleResetPaymentRequestFinal();
         listTicketChairIdFinal.addAll(paymentRequest.getListTicketChairId());
         totalPriceFinal = paymentRequest.getTotalPrice();
@@ -494,7 +494,7 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
         userId = paymentRequest.getUserId();
     }
 
-    private void handleResetPaymentRequestFinal(){
+    private void handleResetPaymentRequestFinal() {
         listTicketChairIdFinal.clear();
         listComboFoodRequestFinal.clear();
         totalPriceFinal = 0;
@@ -505,7 +505,7 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
 
     //cron Scheduled
     @PostConstruct
-    public void updateOrderExpire(){
+    public void updateOrderExpire() {
         saleCounterManagementRepository.updateOrderStatusWhenShowTimeExpire();
     }
 

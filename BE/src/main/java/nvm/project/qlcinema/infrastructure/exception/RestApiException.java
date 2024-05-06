@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RestApiException extends RuntimeException{
+public class RestApiException extends RuntimeException {
 
     private List<String> errors;
 

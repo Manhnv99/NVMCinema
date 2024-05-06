@@ -18,7 +18,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Comment sẽ đại diễn cho các Comment trong 1 phim được comment bởi người dùng
+ * Object Comment sẽ đại diễn cho các Comment trong 1 phim được comment bởi người dùng
  */
 
 @AllArgsConstructor
@@ -33,11 +33,11 @@ public class Comment extends PrimaryEntity {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id" , referencedColumnName = "id")
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movieId;
 
     @ManyToOne
-    @JoinColumn(name = "client_id" , referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client clientId;
 
     @Column(name = "created_at")

@@ -35,7 +35,7 @@ public class ClientInformationClientServiceImpl implements ClientInformationClie
     public ResponseObject getInformationClientDetail(String id) {
         try {
             return new ResponseObject(clientInformationClientRepository.getInformationClientDetail(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được người dùng này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -46,34 +46,34 @@ public class ClientInformationClientServiceImpl implements ClientInformationClie
     public ResponseObject putClientInformation(ClientInformationClientPutClientRequest putClientRequest) throws IOException {
         List<String> errors = new ArrayList<>();
 
-        if(validUtils.isPhoneValid(putClientRequest.getPhone())){
+        if (validUtils.isPhoneValid(putClientRequest.getPhone())) {
             errors.add("Số điện thoại không đúng định dạng!");
         }
-        if(validUtils.isValidEmail(putClientRequest.getEmail())){
+        if (validUtils.isValidEmail(putClientRequest.getEmail())) {
             errors.add("Email không đúng định dạng!");
         }
         //throw Erros
-        if(!errors.isEmpty()){
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        if (!errors.isEmpty()) {
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check isExist
         Optional<Client> clientOptional = clientInformationClientRepository.findById(putClientRequest.getId());
-        if(!putClientRequest.getPhone().equals(clientOptional.get().getPhoneNumber())){
+        if (!putClientRequest.getPhone().equals(clientOptional.get().getPhoneNumber())) {
             Optional<Client> isPhoneExist = clientInformationClientRepository.findClientByPhone(putClientRequest.getPhone());
-            if(isPhoneExist.isPresent()){
+            if (isPhoneExist.isPresent()) {
                 errors.add("Đã tồn tại số điện thoại này!");
             }
         }
-        if(!putClientRequest.getEmail().equals(clientOptional.get().getEmail())){
+        if (!putClientRequest.getEmail().equals(clientOptional.get().getEmail())) {
             Optional<Client> isEmailExist = clientInformationClientRepository.findClientByEmail(putClientRequest.getEmail());
-            if(isEmailExist.isPresent()){
+            if (isEmailExist.isPresent()) {
                 errors.add("Đã tồn tại email này!");
             }
         }
         //throw Erros
-        if(!errors.isEmpty()){
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+        if (!errors.isEmpty()) {
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         Client putClient = clientOptional.get();
@@ -84,9 +84,9 @@ public class ClientInformationClientServiceImpl implements ClientInformationClie
         putClient.setProvince(putClientRequest.getProvince());
         putClient.setAddressDetail(putClientRequest.getAddress());
         putClient.setPassword(putClientRequest.getPassword());
-        if(!putClientRequest.getImage().isEmpty()){
+        if (!putClientRequest.getImage().isEmpty()) {
             cloudinaryConfig.delete(putClient.getImageId());
-            var result=cloudinaryConfig.upload(putClientRequest.getImage());//upload image to cloudinary
+            var result = cloudinaryConfig.upload(putClientRequest.getImage());//upload image to cloudinary
             putClient.setImageId((String) result.get("public_id"));
             putClient.setImageUrl((String) result.get("url"));
         }
@@ -98,9 +98,9 @@ public class ClientInformationClientServiceImpl implements ClientInformationClie
     @Override
     public PageableObject<ClientInformationClientTransactionHistoryResponse> getInformationClientTransactionHistory(ClientInformationClientTransactionHistoryRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage() - 1 , request.getSize());
-            return new PageableObject<>(clientInformationClientRepository.getInformationClientTransactionHistory(pageRequest,request.getClientId(),request.getDateFind()));
-        }catch (Exception e){
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
+            return new PageableObject<>(clientInformationClientRepository.getInformationClientTransactionHistory(pageRequest, request.getClientId(), request.getDateFind()));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách lịch sử giao dịch!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

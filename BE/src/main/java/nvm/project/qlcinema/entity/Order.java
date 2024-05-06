@@ -25,7 +25,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Order là các hóa đơn mà người dùng đặt showtime
+ * Object Order là các hóa đơn mà người dùng đặt showtime
  */
 
 @AllArgsConstructor
@@ -50,15 +50,15 @@ public class Order extends PrimaryEntity {
     private FormalityOrder formality;
 
     @ManyToOne
-    @JoinColumn(name = "promotion_event_id",referencedColumnName = "id")
+    @JoinColumn(name = "promotion_event_id", referencedColumnName = "id")
     private PromotionEvent promotionEventId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
 
     @ManyToOne
-    @JoinColumn(name = "client_id",referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client clientId;
 
     @Column(name = "created_at")

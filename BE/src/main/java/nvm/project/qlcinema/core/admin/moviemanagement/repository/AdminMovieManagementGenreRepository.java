@@ -13,11 +13,11 @@ import java.util.List;
 public interface AdminMovieManagementGenreRepository extends GenreRepository {
 
     @Query(value = """
-                SELECT  g.id AS id,
-                        g.name AS name
-                FROM genre g
-                WHERE g.deleted = true
-                """,nativeQuery = true)
+            SELECT  g.id AS id,
+                    g.name AS name
+            FROM genre g
+            WHERE g.deleted = true
+            """, nativeQuery = true)
     List<AdminMovieManagementListGenreResponse> getListGenre();
 
 }

@@ -29,27 +29,27 @@ public class AdminFormatManagementController {
     private final AdminFormatManagementService adminFormatManagementService;
 
     @GetMapping("/get-search-format")
-    public PageableObject<AdminFormatManagementListFormatResponse> getListFormat(final AdminFormatManagementListFormatRequest request){
+    public PageableObject<AdminFormatManagementListFormatResponse> getListFormat(final AdminFormatManagementListFormatRequest request) {
         return adminFormatManagementService.getListFormat(request);
     }
 
     @GetMapping("/get-detail-format/{formatId}")
-    public ResponseObject getDetailFormat(@PathVariable String formatId){
+    public ResponseObject getDetailFormat(@PathVariable String formatId) {
         return adminFormatManagementService.getDetailFormat(formatId);
     }
 
     @PostMapping("/post-format")
-    public ResponseObject postFormat(@RequestBody @Valid AdminFormatManagementPostRequest postRequest){
+    public ResponseObject postFormat(@RequestBody @Valid AdminFormatManagementPostRequest postRequest) {
         return adminFormatManagementService.postFormat(postRequest);
     }
 
     @PutMapping("/put-format")
-    public ResponseObject putFormat(@RequestBody @Valid AdminFormatManagementPutRequest putRequest){
+    public ResponseObject putFormat(@RequestBody @Valid AdminFormatManagementPutRequest putRequest) {
         return adminFormatManagementService.putFormat(putRequest);
     }
 
     @DeleteMapping("/delete-format/{formatId}")
-    public ResponseObject deleteFormat(@PathVariable String formatId){
+    public ResponseObject deleteFormat(@PathVariable String formatId) {
         return adminFormatManagementService.deleteFormat(formatId);
     }
 

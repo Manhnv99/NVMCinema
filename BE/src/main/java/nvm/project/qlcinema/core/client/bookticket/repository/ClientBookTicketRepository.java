@@ -33,6 +33,6 @@ public interface ClientBookTicketRepository extends ShowTimeRepository {
             (s.screening_date != CURRENT_DATE())
             ) AND
             FIND_IN_SET( b.id , :#{#request.branchId} )
-            """,nativeQuery = true)
+            """, nativeQuery = true)
     List<ClientBookTicketListShowtimeResponse> getListShowTime(ClientBookTicketListShowTimeRequest request);
 }

@@ -15,7 +15,7 @@ public class ResponseObject {
         processResponseObject(obj);
     }
 
-    public ResponseObject(String message){
+    public ResponseObject(String message) {
         processResponseMessage(message);
     }
 

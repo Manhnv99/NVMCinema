@@ -5,9 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class ClientAuthenticationLoginResponse {
-
-    private String message;
+public class ClientAuthenticationRefreshTokenResponse {
 
     private String token;
 

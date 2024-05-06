@@ -29,6 +29,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,10 +53,10 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
     @Override
     public PageableObject<AdminShowTimeManagementListShowTimeResponse> getListSearchShowTime(AdminShowTimeManagementListShowTimeRequest request) {
-        try{
-            PageRequest pageRequest = PageRequest.of(request.getPage() - 1,request.getSize());
-            return new PageableObject<>(adminShowTimeManagementRepository.getListSearchShowTime(pageRequest,request));
-        }catch (Exception e){
+        try {
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
+            return new PageableObject<>(adminShowTimeManagementRepository.getListSearchShowTime(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách xuất chiếu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -64,9 +65,9 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
     @Override
     public ResponseObject getOneShowTime(String id) {
-        try{
+        try {
             return new ResponseObject(adminShowTimeManagementRepository.getOneShowTime(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được xuất chiếu này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -75,9 +76,9 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
     @Override
     public ResponseObject getDetailShowTime(String id) {
-        try{
+        try {
             return new ResponseObject(adminShowTimeManagementRepository.getDetailShowTime(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được xuất chiếu này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -86,9 +87,9 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
     @Override
     public ResponseObject getListTicketChair(String showTimeId) {
-        try{
+        try {
             return new ResponseObject(adminShowTimeManagementTicketChairRepository.getListTicketChair(showTimeId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách ghế ngồi!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -97,9 +98,9 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
     @Override
     public ResponseObject getListArea() {
-        try{
+        try {
             return new ResponseObject(adminShowTimeManagementRepository.getListArea());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách khu vực!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -108,9 +109,9 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
     @Override
     public ResponseObject getListBranch(String areaId) {
-        try{
+        try {
             return new ResponseObject(adminShowTimeManagementRepository.getListBranch(areaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách chi nhánh!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -119,9 +120,9 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
     @Override
     public ResponseObject getListRoom(String branchId) {
-        try{
+        try {
             return new ResponseObject(adminShowTimeManagementRepository.getListRoom(branchId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách phòng chiếu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -130,9 +131,9 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
     @Override
     public ResponseObject getListMovie() {
-        try{
+        try {
             return new ResponseObject(adminShowTimeManagementRepository.getListMovie());
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách phim!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -145,59 +146,61 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
 
         //check Movie and Room isExist
         Optional<Movie> isMovieExist = adminShowTimeManagementMovieRepository.findById(postRequest.getMovieId());
-        if(isMovieExist.isEmpty()){
+        if (isMovieExist.isEmpty()) {
             errors.add("Không tìm thấy bộ phim bạn chọn!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
-        for (String roomId : postRequest.getRoomId()){
+        for (String roomId : postRequest.getRoomId()) {
             Optional<Room> isRoomExist = adminShowTimeManagementRoomRepository.findById(roomId);
-            if(isRoomExist.isEmpty()){
+            if (isRoomExist.isEmpty()) {
                 errors.add("Không tìm thấy phòng chiếu bạn chọn!");
-                throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+                throw new RestApiException(errors, HttpStatus.NOT_FOUND);
             }
         }
 
         //checkDateValid
-        for(LocalDate date : postRequest.getScreeningDate()){
-            if(date.isBefore(LocalDate.now())){
+        for (LocalDate date : postRequest.getScreeningDate()) {
+            if (date.isBefore(LocalDate.now())) {
                 errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
-                throw new RestApiException(errors,HttpStatus.NOT_FOUND);
-            }else if (date.isEqual(LocalDate.now())){
+                throw new RestApiException(errors, HttpStatus.NOT_FOUND);
+            } else if (date.isEqual(LocalDate.now())) {
                 //checkTimeValid
-                for(String time : postRequest.getTimeStart()){
+                for (String time : postRequest.getTimeStart()) {
                     Time timeConverted = convertTime.convertStringToTime(time);
-                    if(timeConverted.before(new Time(System.currentTimeMillis()))){
-                        errors.add("Ngày: "+ date +" Thời gian chiếu không được sau thời điểm hiện tại!");
-                        throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+                    System.out.println(timeConverted);
+                    System.out.println(timeConverted.before(new Date()));
+                    if (timeConverted.toLocalTime().isBefore(LocalTime.now())) {
+                        errors.add("Ngày: " + date + " Thời gian chiếu không được sau thời điểm hiện tại!");
+                        throw new RestApiException(errors, HttpStatus.NOT_FOUND);
                     }
                 }
             }
         }
 
         //check Duplicate
-        for(LocalDate date : postRequest.getScreeningDate()){
-            for(String strRoom : postRequest.getRoomId()){
-                for (String strTime : postRequest.getTimeStart()){
+        for (LocalDate date : postRequest.getScreeningDate()) {
+            for (String strRoom : postRequest.getRoomId()) {
+                for (String strTime : postRequest.getTimeStart()) {
                     Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
                             date,
                             convertTime.convertStringToTime(strTime),
                             strRoom
                     );
-                    if(isShowTimeDuplicate.isPresent()){
+                    if (isShowTimeDuplicate.isPresent()) {
                         errors.add("Đã tồn tại phim có cùng khung giờ chiếu: " + strTime + " - Tại phòng chiếu: " + adminShowTimeManagementRoomRepository.getReferenceById(strRoom).getName() + " - Vào ngày: " + date);
                     }
                 }
             }
         }
         //throwError
-        if(!errors.isEmpty()){
-            throw new RestApiException(errors,HttpStatus.CONFLICT);
+        if (!errors.isEmpty()) {
+            throw new RestApiException(errors, HttpStatus.CONFLICT);
         }
 
 //        //postShowTime
-        for(LocalDate date : postRequest.getScreeningDate()){
-            for(String roomId : postRequest.getRoomId()){
-                for (String strTime : postRequest.getTimeStart()){
+        for (LocalDate date : postRequest.getScreeningDate()) {
+            for (String roomId : postRequest.getRoomId()) {
+                for (String strTime : postRequest.getTimeStart()) {
                     ShowTime showTimeSaved = adminShowTimeManagementRepository.save(new ShowTime(
                             date,
                             convertTime.convertStringToTime(strTime),
@@ -207,7 +210,7 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
                             true,
                             new Date()
                     ));
-                    for (Chair chair : adminShowTimeManagementChairRepository.getListChairByRoom(roomId)){
+                    for (Chair chair : adminShowTimeManagementChairRepository.getListChairByRoom(roomId)) {
                         adminShowTimeManagementTicketChairRepository.save(new TicketChair(
                                 chair.getName(),
                                 false,
@@ -227,45 +230,45 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
         List<String> errors = new ArrayList<>();
         //check isExist
         Optional<ShowTime> isShowTimeExist = adminShowTimeManagementRepository.findById(putRequest.getId());
-        if(isShowTimeExist.isEmpty()){
+        if (isShowTimeExist.isEmpty()) {
             errors.add("Không tìm thấy phòng chiếu này!");
         }
         //check Movie and Room isExist
         Optional<Movie> isMovieExist = adminShowTimeManagementMovieRepository.findById(putRequest.getMovieId());
-        if(isMovieExist.isEmpty()){
+        if (isMovieExist.isEmpty()) {
             errors.add("Không tìm thấy bộ phim bạn chọn!");
         }
         Optional<Room> isRoomExist = adminShowTimeManagementRoomRepository.findById(putRequest.getRoomId());
-        if(isRoomExist.isEmpty()){
+        if (isRoomExist.isEmpty()) {
             errors.add("Không tìm thấy phòng chiếu bạn chọn!");
         }
         //throwError
-        if(!errors.isEmpty()){
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+        if (!errors.isEmpty()) {
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
 
         //checkDateValid
-        if(putRequest.getScreeningDate().isBefore(LocalDate.now())){
+        if (putRequest.getScreeningDate().isBefore(LocalDate.now())) {
             errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
 
         //putShowTime
         ShowTime putShowTime = isShowTimeExist.get();
         //Check dup
-        if(!putRequest.getScreeningDate().isEqual(putShowTime.getScreeningDate()) ||
+        if (!putRequest.getScreeningDate().isEqual(putShowTime.getScreeningDate()) ||
                 !convertTime.convertStringToTime(putRequest.getTimeStart()).equals(putShowTime.getTimeStart()) ||
                 !putRequest.getMovieId().equalsIgnoreCase(putShowTime.getMovieId().getId()) ||
                 !putRequest.getRoomId().equalsIgnoreCase(putShowTime.getRoomId().getId())
-        ){
+        ) {
             Optional<ShowTime> isShowTimeDuplicate = adminShowTimeManagementRepository.isShowTimeDuplicate(
                     putRequest.getScreeningDate(),
                     convertTime.convertStringToTime(putRequest.getTimeStart()),
                     putRequest.getRoomId()
             );
-            if(isShowTimeDuplicate.isPresent()){
+            if (isShowTimeDuplicate.isPresent()) {
                 errors.add("Đã tồn tại phim có cùng khung giờ chiếu!");
-                throw new RestApiException(errors,HttpStatus.CONFLICT);
+                throw new RestApiException(errors, HttpStatus.CONFLICT);
             }
         }
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");

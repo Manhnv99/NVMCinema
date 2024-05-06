@@ -36,10 +36,10 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
 
     @Override
     public PageableObject<AdminRoomManagementListRoomResponse> getListSearchRoom(AdminRoomManagementListRoomRequest roomRequest) {
-        try{
+        try {
             PageRequest pageRequest = PageRequest.of(roomRequest.getPage() - 1, roomRequest.getSize());
-            return new PageableObject<>(adminRoomManagementRepository.getListSearchRoom(pageRequest,roomRequest));
-        }catch(Exception e){
+            return new PageableObject<>(adminRoomManagementRepository.getListSearchRoom(pageRequest, roomRequest));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách phòng chiếu!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -48,9 +48,9 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
 
     @Override
     public ResponseObject getOneRoom(String id) {
-        try{
+        try {
             return new ResponseObject(adminRoomManagementRepository.getOneRoom(id));
-        }catch(Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được phòng chiếu này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -59,9 +59,9 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
 
     @Override
     public ResponseObject getDetailRoom(String id) {
-        try{
+        try {
             return new ResponseObject(adminRoomManagementRepository.getDetailRoom(id));
-        }catch(Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được phòng chiếu này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -70,9 +70,9 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
 
     @Override
     public ResponseObject getListChair(String roomId) {
-        try{
+        try {
             return new ResponseObject(adminRoomManagementRepository.getListChair(roomId));
-        }catch(Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách ghế!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -81,9 +81,9 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
 
     @Override
     public ResponseObject getListArea() {
-        try{
+        try {
             return new ResponseObject(adminRoomManagementRepository.getListArea());
-        }catch(Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách khu vực!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -92,9 +92,9 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
 
     @Override
     public ResponseObject getListBranch(String areaId) {
-        try{
+        try {
             return new ResponseObject(adminRoomManagementRepository.getListBranch(areaId));
-        }catch(Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách chi nhánh!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -107,31 +107,31 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
 
         //check isBranchExist
         Optional<Branch> isBranchExist = adminRoomManagementBranchRepository.findById(postRequest.getBranchId());
-        if(isBranchExist.isEmpty()){
+        if (isBranchExist.isEmpty()) {
             errors.add("Không tìm thấy chi nhánh bạn chọn!");
-            throw new RestApiException(errors,HttpStatus.CONFLICT);
+            throw new RestApiException(errors, HttpStatus.CONFLICT);
         }
         //check isRoomDuplicate
-        Optional<Room> isRoomExist = adminRoomManagementRepository.isRoomDuplicate(postRequest.getName(),postRequest.getBranchId());
-        if(isRoomExist.isPresent()){
+        Optional<Room> isRoomExist = adminRoomManagementRepository.isRoomDuplicate(postRequest.getName(), postRequest.getBranchId());
+        if (isRoomExist.isPresent()) {
             errors.add("Đã tồn tại phòng chiếu có tên này!");
-            throw new RestApiException(errors,HttpStatus.CONFLICT);
+            throw new RestApiException(errors, HttpStatus.CONFLICT);
         }
 
         //post Room
         Room postRoom = new Room();
         Optional<Room> roomNewest = adminRoomManagementRepository.getNewest();
-        if(roomNewest.isEmpty()){
+        if (roomNewest.isEmpty()) {
             postRoom.setCode("ROOM1");
-        }else{
+        } else {
             String code = roomNewest.get().getCode();
-            postRoom.setCode(code.substring(0,4)+((Integer.parseInt(code.substring(4)))+1));
+            postRoom.setCode(code.substring(0, 4) + ((Integer.parseInt(code.substring(4))) + 1));
         }
         postRoom.setName(postRequest.getName());
         postRoom.setBranchId(isBranchExist.get());
         Room roomSaved = adminRoomManagementRepository.save(postRoom);
         //post Chair
-        generateChair(postRequest.getColumns(),postRequest.getRow(),roomSaved,"post");
+        generateChair(postRequest.getColumns(), postRequest.getRow(), roomSaved, "post");
 
         return new ResponseObject("Tạo phòng chiếu thành công!");
     }
@@ -141,24 +141,24 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
         List<String> errors = new ArrayList<>();
         //put Room
         Optional<Room> optionalRoom = adminRoomManagementRepository.findById(putRequest.getId());
-        if(optionalRoom.isEmpty()){
+        if (optionalRoom.isEmpty()) {
             errors.add("Không tìm thấy phòng chiếu này!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
         Optional<Branch> isBranchExist = adminRoomManagementBranchRepository.findById(putRequest.getBranchId());
-        if(isBranchExist.isEmpty()){
+        if (isBranchExist.isEmpty()) {
             errors.add("Không tìm thấy chi nhánh này!");
-            throw new RestApiException(errors,HttpStatus.NOT_FOUND);
+            throw new RestApiException(errors, HttpStatus.NOT_FOUND);
         }
 
         //check isRoomDuplicate
-        if(!putRequest.getName().equals(optionalRoom.get().getName()) ||
-            !putRequest.getBranchId().equals(optionalRoom.get().getBranchId().getId())
-        ){
-            Optional<Room> isRoomExist = adminRoomManagementRepository.isRoomDuplicate(putRequest.getName(),putRequest.getBranchId());
-            if(isRoomExist.isPresent()){
+        if (!putRequest.getName().equals(optionalRoom.get().getName()) ||
+                !putRequest.getBranchId().equals(optionalRoom.get().getBranchId().getId())
+        ) {
+            Optional<Room> isRoomExist = adminRoomManagementRepository.isRoomDuplicate(putRequest.getName(), putRequest.getBranchId());
+            if (isRoomExist.isPresent()) {
                 errors.add("Đã tồn tại phòng chiếu có tên này!");
-                throw new RestApiException(errors,HttpStatus.CONFLICT);
+                throw new RestApiException(errors, HttpStatus.CONFLICT);
             }
         }
 
@@ -167,10 +167,10 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
         putRoom.setBranchId(isBranchExist.get());
         Room roomSaved = adminRoomManagementRepository.save(putRoom);
         //put Chair
-        if(putRequest.getRow() != 0 && !putRequest.getColumns().isEmpty()){
+        if (putRequest.getRow() != 0 && !putRequest.getColumns().isEmpty()) {
             //update ghế
             adminRoomManagementChairRepository.deleteByRoomId(putRoom.getId());
-            generateChair(putRequest.getColumns(), putRequest.getRow(), roomSaved,"put");
+            generateChair(putRequest.getColumns(), putRequest.getRow(), roomSaved, "put");
         }
 
         return new ResponseObject("Cập nhật phòng chiếu thành công!");
@@ -178,45 +178,45 @@ public class AdminRoomManagementServiceImpl implements AdminRoomManagementServic
 
     @Override
     public ResponseObject deleteRoom(String id) {
-        try{
+        try {
             Optional<Room> isRoomExist = adminRoomManagementRepository.findById(id);
-            if(isRoomExist.isEmpty()){
+            if (isRoomExist.isEmpty()) {
                 throw new Exception();
             }
             isRoomExist.get().setDeleted(!isRoomExist.get().isDeleted());
             adminRoomManagementRepository.save(isRoomExist.get());
             return new ResponseObject("Cập nhật trạng thái phòng chiếu thành công!");
-        }catch(Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được phòng chiếu này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 
-    private void generateChair(List<String> listC ,int row,Room roomSaved,String type){
+    private void generateChair(List<String> listC, int row, Room roomSaved, String type) {
         try {
-            for (String columns: listC){
-                for(int i = 1 ; i <= row ; i++){
+            for (String columns : listC) {
+                for (int i = 1; i <= row; i++) {
                     Optional<Chair> isChairExist = adminRoomManagementChairRepository.getNewest();
-                    if(isChairExist.isEmpty()){
+                    if (isChairExist.isEmpty()) {
                         adminRoomManagementChairRepository.save(new Chair(
-                                "CHAIR1", columns+i,row, true, roomSaved, true,new Date()
+                                "CHAIR1", columns + i, row, true, roomSaved, true, new Date()
                         ));
-                    }else{
+                    } else {
                         adminRoomManagementChairRepository.save(new Chair(
-                                isChairExist.get().getCode().substring(0,5)+((Integer.parseInt(isChairExist.get().getCode().substring(5)))+1),
-                                columns+i,row, true, roomSaved, true,new Date()
+                                isChairExist.get().getCode().substring(0, 5) + ((Integer.parseInt(isChairExist.get().getCode().substring(5))) + 1),
+                                columns + i, row, true, roomSaved, true, new Date()
                         ));
                     }
                 }
             }
-        }catch (Exception e){
-            if(type.equalsIgnoreCase("post")){
+        } catch (Exception e) {
+            if (type.equalsIgnoreCase("post")) {
                 adminRoomManagementRepository.delete(roomSaved);
             }
             List<String> errors = new ArrayList<>();
             errors.add("Đã xảy ra 1 vài lỗi");
-            throw new RestApiException(errors,HttpStatus.BAD_REQUEST);
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
     }
 

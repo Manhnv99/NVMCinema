@@ -35,23 +35,23 @@ public interface AdminDirectorManagementRepository extends DirectorRepository {
     Optional<Director> isDirectorExist(AdminDirectorManagementPostRequest postRequest);
 
     @Query(value = """
-                SELECT  d.id AS id,
-                        d.code AS code,
-                        d.name AS name,
-                        d.gender AS gender,
-                        d.age AS age,
-                        d.description AS description,
-                        d.deleted AS deleted
-                FROM director d
-                WHERE
-                (
-                    ( :#{#request.inputSearch} IS NULL OR d.code LIKE :#{"%" + #request.inputSearch + "%"} ) OR
-                    ( :#{#request.inputSearch} IS NULL OR d.name LIKE :#{"%" + #request.inputSearch + "%"} ) OR
-                    ( :#{#request.inputSearch} IS NULL OR d.age LIKE :#{"%" + #request.inputSearch + "%"} ) 
-                )
-                ORDER BY d.created_at DESC
-                """
-            ,nativeQuery = true)
+            SELECT  d.id AS id,
+                    d.code AS code,
+                    d.name AS name,
+                    d.gender AS gender,
+                    d.age AS age,
+                    d.description AS description,
+                    d.deleted AS deleted
+            FROM director d
+            WHERE
+            (
+                ( :#{#request.inputSearch} IS NULL OR d.code LIKE :#{"%" + #request.inputSearch + "%"} ) OR
+                ( :#{#request.inputSearch} IS NULL OR d.name LIKE :#{"%" + #request.inputSearch + "%"} ) OR
+                ( :#{#request.inputSearch} IS NULL OR d.age LIKE :#{"%" + #request.inputSearch + "%"} ) 
+            )
+            ORDER BY d.created_at DESC
+            """
+            , nativeQuery = true)
     Page<AdminDirectorManagementListDirectorResponse> getListDirector(Pageable pageable, AdminDirectorManagementListDirectorRequest request);
 
     @Query(value = """
@@ -64,7 +64,7 @@ public interface AdminDirectorManagementRepository extends DirectorRepository {
                         d.deleted AS deleted
                 FROM director d
                 WHERE d.id = :directorId
-            """,nativeQuery = true)
+            """, nativeQuery = true)
     AdminDirectorManagementListDirectorResponse getDetailDirector(String directorId);
 
 }

@@ -30,8 +30,8 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
     public PageableObject<AdminFormatManagementListFormatResponse> getListFormat(AdminFormatManagementListFormatRequest request) {
         try {
             PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
-            return new PageableObject<>(adminFormatManagementRepository.getListFormat(pageRequest,request));
-        }catch (Exception e){
+            return new PageableObject<>(adminFormatManagementRepository.getListFormat(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách format!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -44,7 +44,7 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
 
         //check isExist
         Optional<Format> isFormatNameExist = adminFormatManagementRepository.findByName(postRequest.getName());
-        if(isFormatNameExist.isPresent()){
+        if (isFormatNameExist.isPresent()) {
             errors.add("Đã tồn tại tên format này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
@@ -52,10 +52,10 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
         //post
         Format postFormat = new Format();
         Optional<Format> formatNewest = adminFormatManagementRepository.getNewest();
-        if(formatNewest.isPresent()){
+        if (formatNewest.isPresent()) {
             String code = formatNewest.get().getCode();
-            postFormat.setCode(code.substring(0,2)+((Integer.parseInt(code.substring(2)))+1));
-        }else{
+            postFormat.setCode(code.substring(0, 2) + ((Integer.parseInt(code.substring(2))) + 1));
+        } else {
             postFormat.setCode("FM1");
         }
         postFormat.setName(postRequest.getName());
@@ -72,13 +72,13 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
 
         //check isExist
         Optional<Format> formatOptional = adminFormatManagementRepository.findById(putRequest.getFormatId());
-        if(formatOptional.isEmpty()){
+        if (formatOptional.isEmpty()) {
             errors.add("Không tìm thấy format này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-        }else{
-            if(!formatOptional.get().getName().equals(putRequest.getName())){
+        } else {
+            if (!formatOptional.get().getName().equals(putRequest.getName())) {
                 Optional<Format> isFormatNameExist = adminFormatManagementRepository.findByName(putRequest.getName());
-                if(isFormatNameExist.isPresent()){
+                if (isFormatNameExist.isPresent()) {
                     errors.add("Đã tồn tại tên format này!");
                     throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
                 }
@@ -97,15 +97,15 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
     public ResponseObject deleteFormat(String formatId) {
         try {
             Optional<Format> optionalFormat = adminFormatManagementRepository.findById(formatId);
-            if(optionalFormat.isEmpty()){
+            if (optionalFormat.isEmpty()) {
                 throw new Exception();
-            }else{
+            } else {
                 Format deleteFormat = optionalFormat.get();
                 deleteFormat.setDeleted(!deleteFormat.isDeleted());
                 adminFormatManagementRepository.save(deleteFormat);
                 return new ResponseObject("Thay đổi trạng thái format thành công!");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được format này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -116,7 +116,7 @@ public class AdminFormatManagementServiceImpl implements AdminFormatManagementSe
     public ResponseObject getDetailFormat(String formatId) {
         try {
             return new ResponseObject(adminFormatManagementRepository.getDetailFormat(formatId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được format này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

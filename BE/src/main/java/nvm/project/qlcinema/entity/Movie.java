@@ -19,7 +19,7 @@ import java.util.Date;
  */
 
 /**
- *  Object Movie sẽ đại diễn cho phim áp dụng trên toàn hệ thống!
+ * Object Movie sẽ đại diễn cho phim áp dụng trên toàn hệ thống!
  */
 
 @AllArgsConstructor
@@ -45,7 +45,7 @@ public class Movie extends PrimaryEntity {
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
-    @Column(name = "video_path",columnDefinition = "varchar(10000)")
+    @Column(name = "video_path", columnDefinition = "varchar(10000)")
     private String videoPath;
 
     @Column(name = "banner_id")
@@ -57,26 +57,26 @@ public class Movie extends PrimaryEntity {
     @Column(name = "actor")
     private String actor;
 
-    @Column(name = "description",columnDefinition = "LONGTEXT")
+    @Column(name = "description", columnDefinition = "LONGTEXT")
     private String description;
 
     @Column(name = "subtitle")
     private String subTitle;
 
     @ManyToOne
-    @JoinColumn(name = "director_id",referencedColumnName = "id")
+    @JoinColumn(name = "director_id", referencedColumnName = "id")
     private Director directorId;
 
     @ManyToOne
-    @JoinColumn(name = "genre_id",referencedColumnName = "id")
+    @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genreId;
 
     @ManyToOne
-    @JoinColumn(name = "country_id",referencedColumnName = "id")
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country countryId;
 
     @ManyToOne
-    @JoinColumn(name = "format_id",referencedColumnName = "id")
+    @JoinColumn(name = "format_id", referencedColumnName = "id")
     private Format formatId;
 
     @Column(name = "deleted")

@@ -19,7 +19,7 @@ public enum VNPayTransactionStatus {
 
     private final String status;
 
-    VNPayTransactionStatus(String status){
+    VNPayTransactionStatus(String status) {
         this.status = status;
     }
 

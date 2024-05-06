@@ -19,11 +19,11 @@ import nvm.project.qlcinema.entity.base.PrimaryEntity;
 public class OrderDetailTicketChair extends PrimaryEntity {
 
     @ManyToOne
-    @JoinColumn(name = "order_id",referencedColumnName = "id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order orderId;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_chair_id",referencedColumnName = "id")
+    @JoinColumn(name = "ticket_chair_id", referencedColumnName = "id")
     private TicketChair ticketChairId;
 
 }

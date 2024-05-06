@@ -30,8 +30,8 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
     public PageableObject<AdminAreaManagementListAreaResponse> getListArea(AdminAreaManagementListAreaRequest request) {
         try {
             PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
-            return new PageableObject<>(adminAreaManagementRepository.getListArea(pageRequest,request));
-        }catch (Exception e){
+            return new PageableObject<>(adminAreaManagementRepository.getListArea(pageRequest, request));
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách khu vực!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -44,7 +44,7 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
 
         //check isExist
         Optional<Area> isAreaNameExist = adminAreaManagementRepository.findByName(postRequest.getName());
-        if(isAreaNameExist.isPresent()){
+        if (isAreaNameExist.isPresent()) {
             errors.add("Đã tồn tại tên khu vực này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
@@ -52,10 +52,10 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
         //post
         Area postArea = new Area();
         Optional<Area> AreaNewest = adminAreaManagementRepository.getNewest();
-        if(AreaNewest.isPresent()){
+        if (AreaNewest.isPresent()) {
             String code = AreaNewest.get().getCode();
-            postArea.setCode(code.substring(0,4)+((Integer.parseInt(code.substring(4)))+1));
-        }else{
+            postArea.setCode(code.substring(0, 4) + ((Integer.parseInt(code.substring(4))) + 1));
+        } else {
             postArea.setCode("AREA1");
         }
         postArea.setName(postRequest.getName());
@@ -72,13 +72,13 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
 
         //check isExist
         Optional<Area> AreaOptional = adminAreaManagementRepository.findById(putRequest.getAreaId());
-        if(AreaOptional.isEmpty()){
+        if (AreaOptional.isEmpty()) {
             errors.add("Không tìm thấy khu vực này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-        }else{
-            if(!AreaOptional.get().getName().equals(putRequest.getName())){
+        } else {
+            if (!AreaOptional.get().getName().equals(putRequest.getName())) {
                 Optional<Area> isAreaNameExist = adminAreaManagementRepository.findByName(putRequest.getName());
-                if(isAreaNameExist.isPresent()){
+                if (isAreaNameExist.isPresent()) {
                     errors.add("Đã tồn tại tên khu vực này!");
                     throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
                 }
@@ -97,15 +97,15 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
     public ResponseObject deleteArea(String AreaId) {
         try {
             Optional<Area> optionalArea = adminAreaManagementRepository.findById(AreaId);
-            if(optionalArea.isEmpty()){
+            if (optionalArea.isEmpty()) {
                 throw new Exception();
-            }else{
+            } else {
                 Area deleteArea = optionalArea.get();
                 deleteArea.setDeleted(!deleteArea.isDeleted());
                 adminAreaManagementRepository.save(deleteArea);
                 return new ResponseObject("Thay đổi trạng thái khu vực thành công!");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được khu vực này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
@@ -116,7 +116,7 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
     public ResponseObject getDetailArea(String AreaId) {
         try {
             return new ResponseObject(adminAreaManagementRepository.getDetailArea(AreaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được khu vực này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);

@@ -11,10 +11,10 @@ import java.util.List;
 public interface AdminStaffManagementAreaRepository extends AreaRepository {
 
     @Query(value = """
-                SELECT  a.id AS id,
-                        a.name AS name
-                FROM area a
-                """,nativeQuery = true)
+            SELECT  a.id AS id,
+                    a.name AS name
+            FROM area a
+            """, nativeQuery = true)
     List<AdminStaffManagementAreaResponse> getListArea();
 
 }

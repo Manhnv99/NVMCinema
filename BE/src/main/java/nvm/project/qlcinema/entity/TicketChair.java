@@ -18,8 +18,8 @@ import java.util.Date;
  */
 
 /**
- *  Object TicketChair sẽ là các ghế sẽ được tạo sau khi tạo ShowTime
- *  Người dùng sẽ book những hàng ghế này
+ * Object TicketChair sẽ là các ghế sẽ được tạo sau khi tạo ShowTime
+ * Người dùng sẽ book những hàng ghế này
  */
 
 @AllArgsConstructor
@@ -37,7 +37,7 @@ public class TicketChair extends PrimaryEntity {
     private boolean status; //false là ghế chưa được book còn true là ghế đã được book rồi
 
     @ManyToOne
-    @JoinColumn(name = "show_time_id",referencedColumnName = "id")
+    @JoinColumn(name = "show_time_id", referencedColumnName = "id")
     private ShowTime showTimeId;
 
     @Column(name = "created_at")

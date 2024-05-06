@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdminMovieManagementPutRequest extends AdminMovieManagementPostRequest{
+public class AdminMovieManagementPutRequest extends AdminMovieManagementPostRequest {
 
     private String id;
 

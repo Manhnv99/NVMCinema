@@ -46,7 +46,7 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
     public ResponseObject getListBranch(String areaId) {
         try {
             return new ResponseObject(adminAreaStaffManagementBranchRepository.getListBranch(areaId));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách chi nhánh!");
             throw new RestApiException(errors, HttpStatus.NOT_FOUND);
@@ -56,12 +56,12 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
     @Override
     public PageableObject<AdminAreaStaffManagementListStaffResponse> getListStaff(AdminAreaStaffManagementListStaffRequest request) {
         try {
-            PageRequest pageRequest = PageRequest.of(request.getPage() - 1,request.getSize());
+            PageRequest pageRequest = PageRequest.of(request.getPage() - 1, request.getSize());
             return new PageableObject<>(adminAreaStaffManagementStaffRepository.getListStaff(
                     pageRequest,
                     request
             ));
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách nhân viên!");
             throw new RestApiException(errors, HttpStatus.NOT_FOUND);
@@ -71,12 +71,12 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
     @Override
     public ResponseObject getOneStaff(String userId) {
         try {
-            if(adminAreaStaffManagementStaffRepository.getOneStaff(userId) == null){
+            if (adminAreaStaffManagementStaffRepository.getOneStaff(userId) == null) {
                 throw new Exception();
-            }else{
+            } else {
                 return new ResponseObject(adminAreaStaffManagementStaffRepository.getOneStaff(userId));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được nhân viên này!");
             throw new RestApiException(errors, HttpStatus.NOT_FOUND);
@@ -86,12 +86,12 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
     @Override
     public ResponseObject getDetailStaff(String userId) {
         try {
-            if(adminAreaStaffManagementStaffRepository.getDetailStaff(userId) == null){
+            if (adminAreaStaffManagementStaffRepository.getDetailStaff(userId) == null) {
                 throw new Exception();
-            }else{
+            } else {
                 return new ResponseObject(adminAreaStaffManagementStaffRepository.getDetailStaff(userId));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được nhân viên này!");
             throw new RestApiException(errors, HttpStatus.NOT_FOUND);
@@ -102,18 +102,18 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
     public ResponseObject deleteStaff(String userId) {
         try {
             Optional<User> userOptional = adminAreaStaffManagementStaffRepository.findById(userId);
-            if(userOptional.isEmpty()){
+            if (userOptional.isEmpty()) {
                 throw new Exception();
-            }else{
-                if(userOptional.get().isStatus()){
+            } else {
+                if (userOptional.get().isStatus()) {
                     userOptional.get().setStatus(false);
-                }else{
+                } else {
                     userOptional.get().setStatus(true);
                 }
                 adminAreaStaffManagementStaffRepository.save(userOptional.get());
                 return new ResponseObject("Thay đổi trạng thái nhân viên thành công!");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được nhân viên này!");
             throw new RestApiException(errors, HttpStatus.NOT_FOUND);
@@ -125,45 +125,45 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
         List<String> errors = new ArrayList<>();
 
         //check Image Empty
-        if(postRequest.getImage().isEmpty()){
+        if (postRequest.getImage().isEmpty()) {
             errors.add("Bạn chưa chọn ảnh đại diện!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check Valid
-        if(validUtils.isCccdValid(postRequest.getCccd())){
+        if (validUtils.isCccdValid(postRequest.getCccd())) {
             errors.add("Căn cước công dân không hợp lệ");
         }
-        if(validUtils.isPhoneValid(postRequest.getPhoneNumber())){
+        if (validUtils.isPhoneValid(postRequest.getPhoneNumber())) {
             errors.add("Số điện thoại không hợp lệ!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check Exist
         Optional<User> isEmailExist = adminAreaStaffManagementStaffRepository.findUserByEmail(postRequest.getEmail());
-        if(isEmailExist.isPresent()){
+        if (isEmailExist.isPresent()) {
             errors.add("Email này đã tồn tại!");
         }
         Optional<User> isCccdExist = adminAreaStaffManagementStaffRepository.findUserByCccd(postRequest.getCccd());
-        if(isCccdExist.isPresent()){
+        if (isCccdExist.isPresent()) {
             errors.add("Căn cước công dân này đã tồn tại!");
         }
         Optional<User> isPhoneNumberExist = adminAreaStaffManagementStaffRepository.findUserByPhoneNumber(postRequest.getPhoneNumber());
-        if(isPhoneNumberExist.isPresent()){
+        if (isPhoneNumberExist.isPresent()) {
             errors.add("Số điện thoại này đã tồn tại!");
         }
         Optional<Branch> isBranchExist = adminAreaStaffManagementBranchRepository.findById(postRequest.getBranchId());
-        if(isBranchExist.isEmpty()){
+        if (isBranchExist.isEmpty()) {
             errors.add("Không tồn chi nhánh này!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
@@ -180,7 +180,7 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
         postUser.setAddress(postRequest.getAddress());
         postUser.setCreatedAt(new Date());
         postUser.setRole(Role.ROLE_STAFF);
-        var result=cloudinaryConfig.upload(postRequest.getImage());//upload image to cloudinary
+        var result = cloudinaryConfig.upload(postRequest.getImage());//upload image to cloudinary
         postUser.setImageId((String) result.get("public_id"));
         postUser.setImageUrl((String) result.get("url"));
         postUser.setStatus(true);
@@ -196,54 +196,54 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
         List<String> errors = new ArrayList<>();
 
         //check Valid
-        if(validUtils.isCccdValid(putRequest.getCccd())){
+        if (validUtils.isCccdValid(putRequest.getCccd())) {
             errors.add("Căn cước công dân không hợp lệ");
         }
-        if(validUtils.isPhoneValid(putRequest.getPhoneNumber())){
+        if (validUtils.isPhoneValid(putRequest.getPhoneNumber())) {
             errors.add("Số điện thoại không hợp lệ!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
         //check Exist -> if the user change those fields make it different to their old -> will check duplicate
         Optional<User> putUserOptional = adminAreaStaffManagementStaffRepository.findById(putRequest.getId());
-        if(putUserOptional.isEmpty()){
+        if (putUserOptional.isEmpty()) {
             errors.add("Không tìm thấy nhân viên này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
-        }else{
-            if(!putUserOptional.get().getEmail().equalsIgnoreCase(putRequest.getEmail())){
+        } else {
+            if (!putUserOptional.get().getEmail().equalsIgnoreCase(putRequest.getEmail())) {
                 Optional<User> isEmailExist = adminAreaStaffManagementStaffRepository.findUserByEmail(putRequest.getEmail());
-                if(isEmailExist.isPresent()){
+                if (isEmailExist.isPresent()) {
                     errors.add("Email này đã tồn tại!");
                 }
             }
-            if(!putUserOptional.get().getCccd().equalsIgnoreCase(putRequest.getCccd())){
+            if (!putUserOptional.get().getCccd().equalsIgnoreCase(putRequest.getCccd())) {
                 Optional<User> isCccdExist = adminAreaStaffManagementStaffRepository.findUserByCccd(putRequest.getCccd());
-                if(isCccdExist.isPresent()){
+                if (isCccdExist.isPresent()) {
                     errors.add("Căn cước công dân này đã tồn tại!");
                 }
             }
-            if(!putUserOptional.get().getPhoneNumber().equalsIgnoreCase(putRequest.getPhoneNumber())){
+            if (!putUserOptional.get().getPhoneNumber().equalsIgnoreCase(putRequest.getPhoneNumber())) {
                 Optional<User> isPhoneNumberExist = adminAreaStaffManagementStaffRepository.findUserByPhoneNumber(putRequest.getPhoneNumber());
-                if(isPhoneNumberExist.isPresent()){
+                if (isPhoneNumberExist.isPresent()) {
                     errors.add("Số điện thoại này đã tồn tại!");
                 }
             }
             //throw Errors
-            if(!errors.isEmpty()){
+            if (!errors.isEmpty()) {
                 throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
             }
         }
 
         //check is Area Exist
         Optional<Branch> isBranchExist = adminAreaStaffManagementBranchRepository.findById(putRequest.getBranchId());
-        if(isBranchExist.isEmpty()){
+        if (isBranchExist.isEmpty()) {
             errors.add("Không tồn tại chi nhánh này!");
         }
         //throw Errors
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
 
@@ -258,8 +258,8 @@ public class AdminAreaStaffManagementServiceImpl implements AdminAreaStaffManage
         putUser.setPhoneNumber(putRequest.getPhoneNumber());
         putUser.setAddress(putRequest.getAddress());
         //if User change their image -> do this
-        if(!putRequest.getImage().isEmpty()){
-            var result=cloudinaryConfig.upload(putRequest.getImage());//upload image to cloudinary
+        if (!putRequest.getImage().isEmpty()) {
+            var result = cloudinaryConfig.upload(putRequest.getImage());//upload image to cloudinary
             putUser.setImageId((String) result.get("public_id"));
             putUser.setImageUrl((String) result.get("url"));
         }
