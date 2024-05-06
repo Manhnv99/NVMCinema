@@ -63,6 +63,7 @@ public interface ClientHomePageMovieRepository extends MovieRepository {
             SELECT  a.id AS id,
                     a.name AS name
             FROM area a
+            WHERE a.deleted = true
             """, nativeQuery = true)
     List<ClientHomePageListAreaResponse> getListArea();
 
