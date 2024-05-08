@@ -4,13 +4,6 @@ import { requestAPIClient } from "../../axiosCustomize"
 
 export class BookTicketAPI {
 
-    static fetchListBranch = (areaId) => {
-        return requestAPIClient({
-            method: "GET",
-            url: URL_API_CLIENT_BOOK_TICKET + `/list-branch/${areaId}`
-        });
-    };
-
     static fetchListShowTime = (movieId, branchId, areaId, date) => {
         return requestAPIClient({
             method: "GET",
@@ -21,6 +14,20 @@ export class BookTicketAPI {
                 areaId: areaId,
                 date: date,
             }
+        });
+    };
+
+    static fetchListBranch = (areaId) => {
+        return requestAPIClient({
+            method: "GET",
+            url: URL_API_CLIENT_BOOK_TICKET + `/list-branch/${areaId}`
+        });
+    };
+
+    static fetchGetClosestScreeningDate = (movieId) => {
+        return requestAPIClient({
+            method: "GET",
+            url: URL_API_CLIENT_BOOK_TICKET + `/get-closest-screening-date/${movieId}`
         });
     };
 

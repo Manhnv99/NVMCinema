@@ -29,4 +29,9 @@ public class ClientBookTicketController {
         return clientBookTicketService.getListBranch(areaId);
     }
 
+    @GetMapping("/get-closest-screening-date/{movieId}")
+    public ResponseObject getClosestScreeningDate(@PathVariable String movieId){
+        return clientBookTicketService.getClosestScreeningDate(movieId);
+    }
+
 }

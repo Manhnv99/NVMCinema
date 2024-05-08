@@ -170,7 +170,12 @@ export const SaleCounterBookChair = () => {
         <>
             <div className="bg-[#1a1d29] rounded-md h-full">
                 <div className="max-w-[95%] mx-auto pb-[50px] text-[#FFF]">
-                    <p className="text-center  font-bold text-[22px] md:text-[26px] py-[30px]">Bước {bookTicketProgress}: Chọn ghế ngồi</p>
+                    <p className="text-center  font-bold text-[22px] md:text-[26px] py-[30px]">
+                        Bước {bookTicketProgress}:
+                        {bookTicketProgress === 2 ? " Chọn ghế ngồi" :
+                            bookTicketProgress === 3 ? " Chọn đồ ăn" : " Thanh toán"
+                        }
+                    </p>
                     <div className="grid grid-cols-12 gap-4 mt-[20px]">
                         <div className="col-span-12 xl:col-span-8">
                             {bookTicketProgress === 2 //Trạng thái bằng 2 thì sẽ là chọn ghế
@@ -393,21 +398,9 @@ export const SaleCounterBookChair = () => {
                                                 </p>
                                             </div>
                                             <button onClick={handleSolveProgress} className="font-bold text-[18px] mt-[20px] mb-[10px] bg-[var(--primary-limegreen)] w-full h-[45px] rounded-md uppercase outline-none">
-                                                {bookTicketProgress === 2
-                                                    ?
-                                                    <span>
-                                                        Chọn ghế ngồi ({bookTicketProgress}/4)
-                                                    </span>
-                                                    :
-                                                    bookTicketProgress === 3 ?
-                                                        <span>
-                                                            Chọn Đồ Ăn ({bookTicketProgress}/4)
-                                                        </span>
-                                                        :
-                                                        <span>
-                                                            Thanh toán ({bookTicketProgress}/4)
-                                                        </span>
-                                                }
+                                                {bookTicketProgress === 2 ? "Chọn ghế ngồi " :
+                                                    bookTicketProgress === 3 ? "Chọn Đồ Ăn " : "Thanh toán "
+                                                } ({bookTicketProgress}/4)
                                             </button>
                                         </>
                                         :

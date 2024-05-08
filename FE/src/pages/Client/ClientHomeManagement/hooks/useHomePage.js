@@ -20,10 +20,10 @@ export const useHomePage = () => {
     const dispatch = useDispatch();
 
     //handle
-    const handleFetchListMovieCurrentShowing = async () => {
+    const handleFetchListMovieCurrentShowing = async (areaId) => {
         dispatch(setLoadingTrue());
         try {
-            const response = await HomePageAPI.fetchListMovieCurrentShowing();
+            const response = await HomePageAPI.fetchListMovieCurrentShowing(areaId);
             setListMovieCurrentShowing(response.data.data);
         } catch (e) {
             for (let errMessage in e.response.data) {
@@ -34,10 +34,10 @@ export const useHomePage = () => {
         }
     };
 
-    const handleFetchListMoviePreTicket = async () => {
+    const handleFetchListMoviePreTicket = async (areaId) => {
         dispatch(setLoadingTrue());
         try {
-            const response = await HomePageAPI.fetchListMoviePreTicket();
+            const response = await HomePageAPI.fetchListMoviePreTicket(areaId);
             setListMoviePreTicket(response.data.data);
         } catch (e) {
             for (let errMessage in e.response.data) {
@@ -77,8 +77,8 @@ export const useHomePage = () => {
     }
 
     useEffect(() => {
-        handleFetchListMovieCurrentShowing();
-        handleFetchListMoviePreTicket();
+        handleFetchListMovieCurrentShowing(localStorage.getItem("area"));
+        handleFetchListMoviePreTicket(localStorage.getItem("area"));
         handleFetchListMovieUpComming();
     }, [areaChange]);
 

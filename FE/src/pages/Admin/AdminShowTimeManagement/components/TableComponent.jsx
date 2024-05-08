@@ -84,7 +84,7 @@ export const TableComponent = () => {
                                 <FontAwesomeIcon icon={faEye} />
                             </Button>
                         </Tooltip>
-                        <Tooltip title="Ghế ngồi" className="mx-[10px]">
+                        <Tooltip title="Ghế ngồi">
                             <Button onClick={() => {
                                 setOpenModalChair(true);
                                 setShowTimeId(record.id);
@@ -156,7 +156,7 @@ export const TableComponent = () => {
                         columns={columns}
                         dataSource={state.inforListShowTime.listShowTime}
                         scroll={{
-                            x: "1500px"
+                            x: "1600px"
                         }}
                         pagination={false}
                     >

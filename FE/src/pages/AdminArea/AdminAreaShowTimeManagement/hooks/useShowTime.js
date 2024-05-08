@@ -73,12 +73,12 @@ export const useShowTime = () => {
         }
     }
 
-    const handlePostShowTime = async (postRequest, handleCloseModal) => {
+    const handlePostShowTime = async (postRequest, handleCloseModal, areaId) => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await ShowTimeManagementAPI.fetchPost(postRequest);
             message.success(response.data.message);
-            handleFetchListSearchShowTime("", state.areaId, "", "", state.currentPage);
+            handleFetchListSearchShowTime("", areaId, "", "", state.currentPage);
             handleCloseModal();
         } catch (e) {
             for (let errMessage in e.response.data) {
@@ -89,12 +89,12 @@ export const useShowTime = () => {
         }
     };
 
-    const handlePutShowTime = async (putRequest, handleCloseModal) => {
+    const handlePutShowTime = async (putRequest, handleCloseModal, areaId) => {
         dispatchStore(setLoadingTrue());
         try {
             const response = await ShowTimeManagementAPI.fetchPut(putRequest);
             message.success(response.data.message);
-            handleFetchListSearchShowTime("", state.areaId, "", "", state.currentPage);
+            handleFetchListSearchShowTime("", areaId, "", "", state.currentPage);
             handleCloseModal();
         } catch (e) {
             for (let errMessage in e.response.data) {

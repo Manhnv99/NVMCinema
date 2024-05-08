@@ -9,9 +9,6 @@ public interface AdminMovieManagementGetOneMovieResponse {
     @Value("#{target.id}")
     String getId();
 
-    @Value("#{target.code}")
-    String getCode();
-
     @Value("#{target.name}")
     String getName();
 

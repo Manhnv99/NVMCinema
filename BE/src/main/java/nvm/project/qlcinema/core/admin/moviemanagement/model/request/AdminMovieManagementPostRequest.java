@@ -12,9 +12,6 @@ import java.time.LocalDate;
 @Setter
 public class AdminMovieManagementPostRequest {
 
-    @NotBlank(message = "Mã phim không được để trống!")
-    private String code;
-
     @NotBlank(message = "Tên phim không được để trống!")
     private String name;
 

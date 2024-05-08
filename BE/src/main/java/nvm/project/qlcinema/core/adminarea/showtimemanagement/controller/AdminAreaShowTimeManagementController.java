@@ -59,9 +59,14 @@ public class AdminAreaShowTimeManagementController {
         return adminAreaShowTimeManagementService.getListRoom(branchId);
     }
 
-    @GetMapping("/get-list-movie")
-    public ResponseObject getListMovie() {
-        return adminAreaShowTimeManagementService.getListMovie();
+    @GetMapping("/get-list-movie-current-showing")
+    public ResponseObject getListMovieCurrentShowing() {
+        return adminAreaShowTimeManagementService.getListMovieCurrentShowing();
+    }
+
+    @GetMapping("/get-list-movie-pre-ticket")
+    public ResponseObject getListMoviePreTicket() {
+        return adminAreaShowTimeManagementService.getListMoviePreTicket();
     }
 
     @PostMapping("/post-showtime")

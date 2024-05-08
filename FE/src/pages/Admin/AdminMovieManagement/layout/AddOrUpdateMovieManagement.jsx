@@ -54,7 +54,6 @@ export const AddOrUpdateMovieManagement = () => {
                         releaseDate: dayjs(form.getFieldsValue().releaseDate).format("YYYY-MM-DD")
                     }
                     const postMovie = new FormData();
-                    postMovie.append("code", fieldsValue.code);
                     postMovie.append("name", fieldsValue.name);
                     postMovie.append("duration", fieldsValue.duration);
                     postMovie.append("ageRestriction", fieldsValue.ageRestriction);
@@ -74,7 +73,6 @@ export const AddOrUpdateMovieManagement = () => {
                     }
                     handleFetchPostMovie(postMovie);
                 } else {
-                    console.log("run");
                     //update
                     const fieldsValue = {
                         ...form.getFieldsValue(),
@@ -82,7 +80,6 @@ export const AddOrUpdateMovieManagement = () => {
                     }
                     const putMovie = new FormData();
                     putMovie.append("id", id);
-                    putMovie.append("code", fieldsValue.code);
                     putMovie.append("name", fieldsValue.name);
                     putMovie.append("duration", fieldsValue.duration);
                     putMovie.append("ageRestriction", fieldsValue.ageRestriction);
@@ -108,7 +105,6 @@ export const AddOrUpdateMovieManagement = () => {
 
     const handleFillFieldsValue = (data) => {
         form.setFieldsValue({
-            code: data.code,
             name: data.name,
             directorId: data.directorId,
             genreId: data.genreId,
@@ -144,6 +140,11 @@ export const AddOrUpdateMovieManagement = () => {
             reader.onerror = (error) => reject(error);
         });
 
+    //For disable the past for Component DatePicker
+    const isPast = (date) => {
+        return dayjs(date).format("YYYY-MM-DD") < dayjs(new Date()).format("YYYY-MM-DD");
+    };
+
     return (
         <>
             <span onClick={() => {
@@ -156,13 +157,6 @@ export const AddOrUpdateMovieManagement = () => {
                 <FontAwesomeIcon icon={faFilm} className='text-[30px] mr-[5px]' />
                 {id === undefined ? "Thêm Bộ Phim" : "Cập Nhật Bộ Phim"}
             </p>
-            {/* <div>
-                <img style={{
-                    width: "100%",
-                    height: "500px",
-                    objectFit: "cover"
-                }} src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' />
-            </div> */}
             <div className='shadow-xl rounded-[5px]'>
                 <Form
                     className='container mx-auto max-w-[1200px] my-[20px]'
@@ -177,17 +171,6 @@ export const AddOrUpdateMovieManagement = () => {
                     }}>
                         <Col span={11}>
                             <Form.Item
-                                label="Mã phim"
-                                name="code"
-                                rules={[
-                                    { required: true, message: "Mã phim không được để trống!" }
-                                ]}
-                            >
-                                <Input allowClear placeholder='Nhập mã phim...' />
-                            </Form.Item>
-                        </Col>
-                        <Col span={11}>
-                            <Form.Item
                                 label="Tên phim"
                                 name="name"
                                 rules={[
@@ -197,12 +180,6 @@ export const AddOrUpdateMovieManagement = () => {
                                 <Input allowClear placeholder='Nhập tên phim...' />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    {/*Row 2*/}
-                    <Row gutter={20} style={{
-                        justifyContent: "center",
-                        marginTop: "20px"
-                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Đạo diễn"
@@ -224,6 +201,12 @@ export const AddOrUpdateMovieManagement = () => {
                                 />
                             </Form.Item>
                         </Col>
+                    </Row>
+                    {/*Row 2*/}
+                    <Row gutter={20} style={{
+                        justifyContent: "center",
+                        marginTop: "20px"
+                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Thể loại"
@@ -245,12 +228,6 @@ export const AddOrUpdateMovieManagement = () => {
                                 />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    {/*Row 3*/}
-                    <Row gutter={20} style={{
-                        justifyContent: "center",
-                        marginTop: "20px"
-                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Quốc Gia"
@@ -272,6 +249,13 @@ export const AddOrUpdateMovieManagement = () => {
                                 />
                             </Form.Item>
                         </Col>
+                    </Row>
+                    {/*Row 3*/}
+                    <Row gutter={20} style={{
+                        justifyContent: "center",
+                        marginTop: "20px"
+                    }}>
+
                         <Col span={11}>
                             <Form.Item
                                 label="Phân giải"
@@ -293,12 +277,6 @@ export const AddOrUpdateMovieManagement = () => {
                                 />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    {/*Row 4*/}
-                    <Row gutter={20} style={{
-                        justifyContent: "center",
-                        marginTop: "20px"
-                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Thời lượng phim"
@@ -310,6 +288,12 @@ export const AddOrUpdateMovieManagement = () => {
                                 <Input allowClear type='number' placeholder='Nhập thời lượng phim...' />
                             </Form.Item>
                         </Col>
+                    </Row>
+                    {/*Row 4*/}
+                    <Row gutter={20} style={{
+                        justifyContent: "center",
+                        marginTop: "20px"
+                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Tuổi khuyến cáo"
@@ -321,12 +305,6 @@ export const AddOrUpdateMovieManagement = () => {
                                 <Input allowClear type='number' placeholder='Nhập tuổi khuyến cáo phim...' />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    {/*Row 5*/}
-                    <Row gutter={20} style={{
-                        justifyContent: "center",
-                        marginTop: "20px"
-                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Diễn viên nổi bật"
@@ -338,6 +316,12 @@ export const AddOrUpdateMovieManagement = () => {
                                 <Input allowClear placeholder='Nhập diễn viên nổi bật...' />
                             </Form.Item>
                         </Col>
+                    </Row>
+                    {/*Row 5*/}
+                    <Row gutter={20} style={{
+                        justifyContent: "center",
+                        marginTop: "20px"
+                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Đường dẫn video"
@@ -349,12 +333,6 @@ export const AddOrUpdateMovieManagement = () => {
                                 <Input allowClear placeholder='Nhập đường dẫn video...' />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    {/*Row 6*/}
-                    <Row gutter={20} style={{
-                        justifyContent: "center",
-                        marginTop: "20px"
-                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Ngày công chiếu"
@@ -363,9 +341,15 @@ export const AddOrUpdateMovieManagement = () => {
                                     { required: true, message: "Ngày công chiếu chưa được chọn!" }
                                 ]}
                             >
-                                <DatePicker allowClear format="YYYY-MM-DD" placeholder="Chọn ngày công chiếu" style={{ width: "100%" }} />
+                                <DatePicker disabledDate={isPast} allowClear format="YYYY-MM-DD" placeholder="Chọn ngày công chiếu" style={{ width: "100%" }} />
                             </Form.Item>
                         </Col>
+                    </Row>
+                    {/*Row 6*/}
+                    <Row gutter={20} style={{
+                        justifyContent: "center",
+                        marginTop: "20px"
+                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Mô tả"
@@ -377,12 +361,6 @@ export const AddOrUpdateMovieManagement = () => {
                                 <Input.TextArea rows={5} allowClear placeholder='Nhập mô tả phim...' />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    {/*Row 7*/}
-                    <Row gutter={20} style={{
-                        justifyContent: "center",
-                        marginTop: "20px"
-                    }}>
                         <Col span={11}>
                             <Form.Item
                                 label="Phụ đề"
@@ -397,6 +375,12 @@ export const AddOrUpdateMovieManagement = () => {
                                 </Radio.Group>
                             </Form.Item>
                         </Col>
+                    </Row>
+                    {/*Row 7*/}
+                    <Row gutter={20} style={{
+                        justifyContent: "center",
+                        marginTop: "20px"
+                    }}>
                         <Col span={11}>
                             {id === undefined
                                 ?
@@ -443,6 +427,7 @@ export const AddOrUpdateMovieManagement = () => {
                                 />
                             )}
                         </Col>
+                        <Col span={11} />
                     </Row>
                     {/*Row 8*/}
                     {id !== undefined &&

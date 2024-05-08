@@ -2,7 +2,7 @@ import { Card, Row, Col, Form, Input, Select, Button } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { FilterOutlined } from "@ant-design/icons";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ShowTimeContext } from "../store/context/context";
 import { useFetchEntity } from "../hooks/useFetchEntity";
 import { setInforSearchAction } from "../store/actions/ShowTimeActions";
@@ -14,14 +14,10 @@ export const SearchComponent = () => {
     //useForm
     const [form] = Form.useForm();
     //custom Hooks
-    const { handleFetchListArea, listArea,
+    const { listArea,
         handleFetchListBranch, listBranch,
         handleFetchListRoom, listRoom
     } = useFetchEntity();
-
-    useEffect(() => {
-        handleFetchListArea();
-    }, []);
 
     //handle
     const handleClearFieldsValue = () => {

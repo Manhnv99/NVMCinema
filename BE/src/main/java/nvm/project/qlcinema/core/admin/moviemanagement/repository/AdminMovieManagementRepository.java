@@ -17,8 +17,6 @@ import java.util.Optional;
 @Repository
 public interface AdminMovieManagementRepository extends MovieRepository {
 
-    Optional<Movie> findByCode(String code);
-
     @Query(value = """
             SELECT	m.id AS id,
             		m.code AS code,
@@ -53,7 +51,6 @@ public interface AdminMovieManagementRepository extends MovieRepository {
 
     @Query(value = """
             SELECT	m.id AS id,
-            		m.code AS code,
                     m.name AS name,
                     m.duration AS duration,
                     m.age_restriction AS ageRestriction,
@@ -101,5 +98,10 @@ public interface AdminMovieManagementRepository extends MovieRepository {
             WHERE m.id = :id
             """, nativeQuery = true)
     AdminMovieManagementDetailMovieResponse getDetailMovie(String id);
+
+    @Query("""
+            SELECT m FROM Movie m ORDER BY m.createdAt DESC LIMIT 1
+            """)
+    Optional<Movie> getNewest();
 
 }

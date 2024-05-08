@@ -140,7 +140,7 @@ export const TableComponent = () => {
                         columns={columns}
                         dataSource={state.inforListMovie.listMovie}
                         scroll={{
-                            x: "2000px"
+                            x: "2100px"
                         }}
                         pagination={false}
                     >

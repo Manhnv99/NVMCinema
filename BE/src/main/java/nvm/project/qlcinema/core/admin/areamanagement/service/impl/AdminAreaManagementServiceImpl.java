@@ -51,9 +51,9 @@ public class AdminAreaManagementServiceImpl implements AdminAreaManagementServic
 
         //post
         Area postArea = new Area();
-        Optional<Area> AreaNewest = adminAreaManagementRepository.getNewest();
-        if (AreaNewest.isPresent()) {
-            String code = AreaNewest.get().getCode();
+        Optional<Area> areaNewest = adminAreaManagementRepository.getNewest();
+        if (areaNewest.isPresent()) {
+            String code = areaNewest.get().getCode();
             postArea.setCode(code.substring(0, 4) + ((Integer.parseInt(code.substring(4))) + 1));
         } else {
             postArea.setCode("AREA1");

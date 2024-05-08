@@ -15,6 +15,7 @@ import nvm.project.qlcinema.core.admin.moviemanagement.repository.AdminMovieMana
 import nvm.project.qlcinema.core.admin.moviemanagement.service.AdminMovieManagementService;
 import nvm.project.qlcinema.core.common.PageableObject;
 import nvm.project.qlcinema.core.common.ResponseObject;
+import nvm.project.qlcinema.entity.Area;
 import nvm.project.qlcinema.entity.Country;
 import nvm.project.qlcinema.entity.Director;
 import nvm.project.qlcinema.entity.Format;
@@ -92,12 +93,6 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
             errors.add("Bạn chưa chọn banner cho bộ phim này!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
-        //check Duplicate
-        Optional<Movie> isCodeExist = adminMovieManagementRepository.findByCode(postRequest.getCode());
-        if (isCodeExist.isPresent()) {
-            errors.add("Đã tồn tại mã phim này trong hệ thống!");
-            throw new RestApiException(errors, HttpStatus.CONFLICT);
-        }
         //check isExist Entity
         Optional<Country> isCountryExist = adminMovieManagementCountryRepository.findById(postRequest.getCountryId());
         if (isCountryExist.isEmpty()) {
@@ -122,7 +117,13 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
 
         //postMovie
         Movie postMovie = new Movie();
-        postMovie.setCode(postRequest.getCode());
+        Optional<Movie> movieNewest = adminMovieManagementRepository.getNewest();
+        if (movieNewest.isPresent()) {
+            String code = movieNewest.get().getCode();
+            postMovie.setCode(code.substring(0, 2) + ((Integer.parseInt(code.substring(2))) + 1));
+        } else {
+            postMovie.setCode("MV1");
+        }
         postMovie.setName(postRequest.getName());
         postMovie.setDuration(postRequest.getDuration());
         postMovie.setAgeRestriction(postRequest.getAgeRestriction());
@@ -158,14 +159,6 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
         if (isMovieExist.isEmpty()) {
             errors.add("Không tìm thấy bộ phim này!");
             throw new RestApiException(errors, HttpStatus.NOT_FOUND);
-        } else {
-            if (!putRequest.getCode().equals(isMovieExist.get().getCode())) {
-                Optional<Movie> isCodeExist = adminMovieManagementRepository.findByCode(putRequest.getCode());
-                if (isCodeExist.isPresent()) {
-                    errors.add("Đã tồn tại mã phim này trong hệ thống!");
-                    throw new RestApiException(errors, HttpStatus.CONFLICT);
-                }
-            }
         }
         //check isExist Entity
         Optional<Country> isCountryExist = adminMovieManagementCountryRepository.findById(putRequest.getCountryId());
@@ -191,7 +184,6 @@ public class AdminMovieManagementServiceImpl implements AdminMovieManagementServ
 
         //postMovie
         Movie putMovie = isMovieExist.get();
-        putMovie.setCode(putRequest.getCode());
         putMovie.setName(putRequest.getName());
         putMovie.setDuration(putRequest.getDuration());
         putMovie.setAgeRestriction(putRequest.getAgeRestriction());

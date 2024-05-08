@@ -29,13 +29,21 @@ export const BookTicket = () => {
     //custom hooks
     const {
         handleFetchListBranch,
-        handleFetchListShowTime
+        handleFetchListShowTime,
+        handleFetchClosestScreeningDate
     } = useBookTicket();
 
     //use for Fetch List ShowTime Movie Today
     useEffect(() => {
         handleFetchListShowTimeByBranch();
     }, [dateChoose, areaChange]);
+
+    //To fetch ScreeningDate
+    useEffect(() => {
+        handleFetchClosestScreeningDate(movieId).then(closestScreeningDate => {
+            setDateChoose(closestScreeningDate);
+        });
+    }, []);
 
     const handleFetchListShowTimeByBranch = () => {
         dispatch(setLoadingTrue());
@@ -67,6 +75,7 @@ export const BookTicket = () => {
                                 <Calendar
                                     disabled={isPast}
                                     disabledDate={isPast}
+                                    value={dayjs(dateChoose)}
                                     style={{
                                         width: "100%",
                                         border: `1px solid ${token.colorBorderSecondary}`,

@@ -9,4 +9,6 @@ public interface ClientBookTicketService {
 
     ResponseObject getListBranch(String areaId);
 
+    ResponseObject getClosestScreeningDate(String movieId);
+
 }

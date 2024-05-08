@@ -57,7 +57,7 @@ public interface AdminAreaShowTimeManagementRepository extends ShowTimeRepositor
                     r.id AS roomId,
                     b.id AS branchId,
                     a.id AS areaId,
-                    m.id AS movieId
+                    CONCAT(m.id,"*",m.release_date) AS movieId
             FROM showtime st
             JOIN movie m ON st.movie_id = m.id
             JOIN room r ON st.room_id = r.id
@@ -104,12 +104,20 @@ public interface AdminAreaShowTimeManagementRepository extends ShowTimeRepositor
     List<AdminAreaShowTimeManagementGetListRoomResponse> getListRoom(String branchId);
 
     @Query(value = """
-            SELECT  m.id AS id,
+            SELECT  CONCAT(m.id,"*",m.release_date) AS id,
                     m.name AS name
             FROM movie m
             WHERE m.deleted = true AND m.release_date <= CURRENT_DATE()
             """, nativeQuery = true)
-    List<AdminAreaShowTimeManagementGetListMovieResponse> getListMovie();
+    List<AdminAreaShowTimeManagementGetListMovieResponse> getListMovieCurrentShowing();
+
+    @Query(value = """
+            SELECT  CONCAT(m.id,"*",m.release_date) AS id,
+                    m.name AS name
+            FROM movie m
+            WHERE m.deleted = true AND m.release_date > CURRENT_DATE()
+            """, nativeQuery = true)
+    List<AdminAreaShowTimeManagementGetListMovieResponse> getListMoviePreTicket();
 
     @Query("""
             SELECT st FROM ShowTime st

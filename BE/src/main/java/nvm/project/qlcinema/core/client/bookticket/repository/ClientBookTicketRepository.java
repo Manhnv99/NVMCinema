@@ -1,6 +1,7 @@
 package nvm.project.qlcinema.core.client.bookticket.repository;
 
 import nvm.project.qlcinema.core.client.bookticket.model.request.ClientBookTicketListShowTimeRequest;
+import nvm.project.qlcinema.core.client.bookticket.model.response.ClientBookTicketGetClosestScreeningDateResponse;
 import nvm.project.qlcinema.core.client.bookticket.model.response.ClientBookTicketListShowtimeResponse;
 import nvm.project.qlcinema.repository.ShowTimeRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -35,4 +36,18 @@ public interface ClientBookTicketRepository extends ShowTimeRepository {
             FIND_IN_SET( b.id , :#{#request.branchId} )
             """, nativeQuery = true)
     List<ClientBookTicketListShowtimeResponse> getListShowTime(ClientBookTicketListShowTimeRequest request);
+
+    @Query(value = """
+                SELECT s.screening_date AS screeningDate
+                FROM movie m
+                JOIN showtime s ON m.id = s.movie_id
+                WHERE m.id = :movieId AND
+                (
+                (s.screening_date = CURRENT_DATE() AND s.time_start > CURRENT_TIME()) OR
+                (s.screening_date != CURRENT_DATE())
+                )
+                ORDER BY s.created_at ASC LIMIT 1
+                """,nativeQuery = true)
+    ClientBookTicketGetClosestScreeningDateResponse getClosestScreeningDate(String movieId);
+
 }

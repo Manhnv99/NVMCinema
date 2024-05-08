@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { message } from "antd";
 import { ShowTimeManagementAPI } from "../../../../apis/Admin/ShowTimeManagement/ShowTimeManagementAPI";
 
@@ -9,7 +9,8 @@ export const useFetchEntity = () => {
     const [listArea, setListArea] = useState([]);
     const [listBranch, setListBranch] = useState([]);
     const [listRoom, setListRoom] = useState([]);
-    const [listMovie, setListMovie] = useState([]);
+    const [listMovieCurrentShowing, setListMovieCurrentShowing] = useState([]);
+    const [listMoviePreTicket, setListMoviePreTicket] = useState([]);
 
     const handleFetchListArea = async () => {
         try {
@@ -44,22 +45,39 @@ export const useFetchEntity = () => {
         }
     };
 
-    const handleFetchListMovie = async () => {
+    const handleFetchListMovieCurrentShowing = async () => {
         try {
-            const response = await ShowTimeManagementAPI.fetchListMovie();
-            setListMovie(response.data.data);
+            const response = await ShowTimeManagementAPI.fetchListMovieCurrentShowing();
+            setListMovieCurrentShowing(response.data.data);
         } catch (e) {
             for (let errMessage in e.response.data) {
                 message.error(e.response.data[errMessage]);
             }
         }
-    }
+    };
+
+    const handleFetchListMoviePreTicket = async () => {
+        try {
+            const response = await ShowTimeManagementAPI.fetchListMoviePreTicket();
+            setListMoviePreTicket(response.data.data);
+        } catch (e) {
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        }
+    };
+
+    useEffect(() => {
+        handleFetchListArea();
+        handleFetchListMovieCurrentShowing();
+        handleFetchListMoviePreTicket();
+    }, []);
 
     return {
-        handleFetchListArea, listArea,
+        listArea,
         handleFetchListBranch, listBranch,
         handleFetchListRoom, listRoom,
-        handleFetchListMovie, listMovie
-    }
+        listMovieCurrentShowing, listMoviePreTicket,
+    };
 
 }

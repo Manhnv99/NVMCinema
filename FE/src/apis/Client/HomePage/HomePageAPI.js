@@ -3,17 +3,17 @@ import { requestAPIClient } from "../../axiosCustomize"
 
 export class HomePageAPI {
 
-    static fetchListMovieCurrentShowing = () => {
+    static fetchListMovieCurrentShowing = (areaId) => {
         return requestAPIClient({
             method: "GET",
-            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-current-showing`
+            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-current-showing/${areaId}`
         });
     };
 
-    static fetchListMoviePreTicket = () => {
+    static fetchListMoviePreTicket = (areaId) => {
         return requestAPIClient({
             method: "GET",
-            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-pre-ticket`
+            url: URL_API_CLIENT_HOME_PAGE + `/list-movie-pre-ticket/${areaId}`
         });
     };
 

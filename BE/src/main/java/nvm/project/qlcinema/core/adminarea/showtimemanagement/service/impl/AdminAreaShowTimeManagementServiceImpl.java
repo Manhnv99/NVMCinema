@@ -118,9 +118,20 @@ public class AdminAreaShowTimeManagementServiceImpl implements AdminAreaShowTime
     }
 
     @Override
-    public ResponseObject getListMovie() {
+    public ResponseObject getListMovieCurrentShowing() {
         try {
-            return new ResponseObject(adminAreaShowTimeManagementRepository.getListMovie());
+            return new ResponseObject(adminAreaShowTimeManagementRepository.getListMovieCurrentShowing());
+        } catch (Exception e) {
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được danh sách phim!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseObject getListMoviePreTicket() {
+        try {
+            return new ResponseObject(adminAreaShowTimeManagementRepository.getListMoviePreTicket());
         } catch (Exception e) {
             List<String> errors = new ArrayList<>();
             errors.add("Không lấy được danh sách phim!");

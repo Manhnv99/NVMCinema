@@ -21,13 +21,22 @@ public interface ClientHomePageMovieRepository extends MovieRepository {
                     m.age_restriction AS ageRestriction,
                     m.subtitle AS subTitle,
                     f.name AS format,
-                    g.name AS genre
+                    g.name AS genre,
+                    COUNT(*) AS count
             FROM movie m
             JOIN format f ON m.format_id = f.id
             JOIN genre g ON m.genre_id = g.id
-            WHERE m.release_date <= current_date()
+            JOIN showtime s ON s.movie_id = m.id
+            JOIN room r ON s.room_id = r.id
+            JOIN branch b ON r.branch_id = b.id
+            JOIN area a ON b.area_id = a.id
+            WHERE m.release_date <= CURRENT_DATE() AND a.id = :areaId
+            GROUP BY
+            	m.id,m.banner_url,m.name,m.age_restriction,
+            	m.subtitle,f.name,g.name
+            HAVING COUNT(*) > 0
             """, nativeQuery = true)
-    List<ClientHomePageListMovieCurrentShowingResponse> getListMovieCurrentShowing();
+    List<ClientHomePageListMovieCurrentShowingResponse> getListMovieCurrentShowing(String areaId);
 
     @Query(value = """
             SELECT  m.id AS id,
@@ -36,26 +45,66 @@ public interface ClientHomePageMovieRepository extends MovieRepository {
                     m.age_restriction AS ageRestriction,
                     m.subtitle AS subTitle,
                     f.name AS format,
-                    g.name AS genre
+                    g.name AS genre,
+                    COUNT(*) AS count
             FROM movie m
             JOIN format f ON m.format_id = f.id
             JOIN genre g ON m.genre_id = g.id
-            WHERE m.release_date > current_date()
+            JOIN showtime s ON s.movie_id = m.id
+            JOIN room r ON s.room_id = r.id
+            JOIN branch b ON r.branch_id = b.id
+            JOIN area a ON b.area_id = a.id
+            WHERE m.release_date > CURRENT_DATE() AND a.id = :areaId
+            GROUP BY
+            	m.id,m.banner_url,m.name,m.age_restriction,
+            	m.subtitle,f.name,g.name
+            HAVING COUNT(*) > 0
             """, nativeQuery = true)
-    List<ClientHomePageListMoviePreTicketResponse> getListMoviePreTicket();
+    List<ClientHomePageListMoviePreTicketResponse> getListMoviePreTicket(String areaId);
 
     @Query(value = """
-            SELECT  m.id AS id,
-                    m.banner_url AS imageUrl,
-                    m.name AS movie,
-                    m.age_restriction AS ageRestriction,
-                    m.subtitle AS subTitle,
-                    f.name AS format,
-                    g.name AS genre
-            FROM movie m
-            JOIN format f ON m.format_id = f.id
-            JOIN genre g ON m.genre_id = g.id
-            WHERE m.release_date > current_date()
+            select
+            	m.id as id,
+            	m.banner_url as imageUrl,
+            	m.name as movie,
+            	m.age_restriction as ageRestriction,
+            	m.subtitle as subTitle,
+            	f.name as format,
+            	g.name as genre
+            from
+            	movie m
+            join format f on
+            	m.format_id = f.id
+            join genre g on
+            	m.genre_id = g.id
+            where
+            	m.release_date > current_date()
+            	and
+            	m.id not in\s
+            	(
+            	select
+            		m.id as id
+            	from
+            		movie m
+            	join format f on
+            		m.format_id = f.id
+            	join genre g on
+            		m.genre_id = g.id
+            	join showtime s on
+            		s.movie_id = m.id
+            	where
+            		m.release_date > CURRENT_DATE()
+            	group by
+            		m.id,
+            		m.banner_url,
+            		m.name,
+            		m.age_restriction,
+            		m.subtitle,
+            		f.name,
+            		g.name
+            	having
+            		COUNT(*) > 0
+            	)
             """, nativeQuery = true)
     List<ClientHomePageListMovieUpComingResponse> getListMovieUpComing();
 

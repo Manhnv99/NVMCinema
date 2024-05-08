@@ -43,4 +43,15 @@ public class ClientBookTicketServiceImpl implements ClientBookTicketService {
         }
     }
 
+    @Override
+    public ResponseObject getClosestScreeningDate(String movieId) {
+        try {
+            return new ResponseObject(clientBookTicketRepository.getClosestScreeningDate(movieId));
+        } catch (Exception e) {
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được xuất chiếu gần nhất!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

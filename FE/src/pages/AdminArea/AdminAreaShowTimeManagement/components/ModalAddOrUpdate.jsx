@@ -1,21 +1,22 @@
-import { Form, Modal, Row, Col, Select, Button, message, DatePicker, InputNumber } from "antd";
-import { useEffect } from "react";
+import { Form, Modal, Row, Col, Select, Button, message, DatePicker, InputNumber, TreeSelect } from "antd";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useFetchEntity } from "../hooks/useFetchEntity";
 import { LIST_TIME_FRAME } from "../../../../app/Constant/ShowTimeConstant";
 import dayjs from "dayjs";
 import { useShowTime } from "../hooks/useShowTime";
-import { ExtractInforToken } from "../../../../utils/Extract/ExtractInforToken";
 
-export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTimeId, render }) => {
+export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTimeId, areaId, render }) => {
 
     //use Form
     const [form] = Form.useForm();
+    //state
+    const [releaseDate, setReleaseDate] = useState("");
     //custom Hooks
     const {
         handleFetchListBranch, listBranch,
         handleFetchListRoom, listRoom,
-        handleFetchListMovie, listMovie
+        listMovieCurrentShowing, listMoviePreTicket
     } = useFetchEntity();
 
     const {
@@ -23,11 +24,6 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
         handlePutShowTime,
         handleFetchGetOneShowTime
     } = useShowTime();
-
-    //useEffect
-    useEffect(() => {
-        handleFetchListMovie();
-    }, []);
 
     useEffect(() => {
         if (showTimeId !== "") {
@@ -37,8 +33,28 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
         }
     }, [render]);
 
+    //treeSelect
+    const treeSelect = [
+        {
+            title: 'Phim Đang Chiếu',
+            value: '1',
+            children: listMovieCurrentShowing.map(item => ({
+                title: item.name,
+                value: item.id
+            }))
+        },
+        {
+            title: 'Vé Bán Trước',
+            value: '2',
+            children: listMoviePreTicket.map(item => ({
+                title: item.name,
+                value: item.id
+            }))
+        },
+    ];
+
     useEffect(() => {
-        handleFetchListBranch(ExtractInforToken().areaId);
+        handleFetchListBranch(areaId);
     }, []);
 
     //handle
@@ -56,17 +72,19 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                     //post
                     const postRequest = {
                         ...form.getFieldsValue(),
+                        movieId: form.getFieldsValue().movieId.split("*")[0],
                         screeningDate: form.getFieldsValue().screeningDate.map(item => dayjs(item).format("YYYY-MM-DD"))
                     }
-                    handlePostShowTime(postRequest, handleCloseModal);
+                    handlePostShowTime(postRequest, handleCloseModal, areaId);
                 } else {
                     //put
                     const putRequest = {
                         ...form.getFieldsValue(),
+                        movieId: form.getFieldsValue().movieId.split("*")[0],
                         screeningDate: dayjs(form.getFieldsValue().screeningDate).format("YYYY-MM-DD"),
                         id: showTimeId
                     }
-                    handlePutShowTime(putRequest, handleCloseModal);
+                    handlePutShowTime(putRequest, handleCloseModal, areaId);
                 }
             }
         });
@@ -101,7 +119,17 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
 
     //For disable the past for Component DatePicker
     const isPast = (date) => {
-        return dayjs(date).format("YYYY-MM-DD") < dayjs(new Date()).format("YYYY-MM-DD");
+        let today = dayjs(new Date()).format("YYYY-MM-DD");
+        let dateChoose = dayjs(date).format("YYYY-MM-DD");
+        if (releaseDate !== "") {
+            if (releaseDate > today) {
+                return dateChoose < releaseDate;
+            } else {
+                return dateChoose < today;
+            }
+        } else {
+            return dateChoose < today;
+        }
     };
 
     return (
@@ -126,13 +154,19 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, showTime
                                 { required: true, message: "Bạn chưa chọn phim!" }
                             ]}
                         >
-                            <Select
-                                allowClear
+                            <TreeSelect
+                                showSearch
+                                style={{
+                                    width: '100%',
+                                }}
+                                dropdownStyle={{
+                                    maxHeight: 400,
+                                    overflow: 'auto',
+                                }}
                                 placeholder="--Chọn phim--"
-                                options={listMovie.map(item => ({
-                                    label: item.name,
-                                    value: item.id
-                                }))}
+                                onChange={(value) => setReleaseDate(value.split("*")[1])}
+                                allowClear
+                                treeData={treeSelect}
                             />
                         </Form.Item>
                     </Col>

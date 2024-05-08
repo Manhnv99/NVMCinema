@@ -52,10 +52,17 @@ export class ShowTimeManagementAPI {
         });
     };
 
-    static fetchListMovie = () => {
+    static fetchListMovieCurrentShowing = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_AREA_SHOWTIME_MANAGEMENT + `/get-list-movie`,
+            url: URL_API_ADMIN_AREA_SHOWTIME_MANAGEMENT + `/get-list-movie-current-showing`,
+        });
+    };
+
+    static fetchListMoviePreTicket = () => {
+        return requestAPI({
+            method: "GET",
+            url: URL_API_ADMIN_AREA_SHOWTIME_MANAGEMENT + `/get-list-movie-pre-ticket`,
         });
     };
 
