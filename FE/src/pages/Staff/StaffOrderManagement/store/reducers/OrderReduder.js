@@ -13,7 +13,8 @@ export const INITIAL_STATE = {
     },
     inforSearch: {
         orderCode: "",
-        date: null,
+        dateStart: null,
+        dateEnd: null,
         timeStart: null
     },
     orderStatus: CHUA_DUYET_CONSTANT,

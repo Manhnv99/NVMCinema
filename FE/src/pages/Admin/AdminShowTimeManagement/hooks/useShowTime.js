@@ -14,10 +14,10 @@ export const useShowTime = () => {
     //useContext
     const [state, dispatch] = useContext(ShowTimeContext);
 
-    const handleFetchListSearchShowTime = async (movieName, areaId, branchId, roomId, page) => {
+    const handleFetchListSearchShowTime = async (movieName, areaId, branchId, roomId, typeShowTime, page) => {
         dispatchStore(setLoadingTrue());
         try {
-            const response = await ShowTimeManagementAPI.fetchListSearch(movieName, areaId, branchId, roomId, page);
+            const response = await ShowTimeManagementAPI.fetchListSearch(movieName, areaId, branchId, roomId, typeShowTime, page);
             dispatch(setInforListSearchAction({
                 listShowTime: response.data.data,
                 totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE

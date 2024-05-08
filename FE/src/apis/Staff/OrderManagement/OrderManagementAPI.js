@@ -4,13 +4,14 @@ import { requestAPI } from "../../axiosCustomize";
 
 export class OrderManagementAPI {
 
-    static fetchListSearchOrder = (orderCode, date, timeStart, branchId, orderStatus, page) => {
+    static fetchListSearchOrder = (orderCode, dateStart, dateEnd, timeStart, branchId, orderStatus, page) => {
         return requestAPI({
             method: "GET",
             url: URL_API_STAFF_ORDER_MANAGEMENT + "/get-search-order",
             params: {
                 orderCode: orderCode,
-                date: date,
+                dateStart: dateStart,
+                dateEnd: dateEnd,
                 timeStart: timeStart,
                 branchId: branchId,
                 orderStatus: orderStatus,

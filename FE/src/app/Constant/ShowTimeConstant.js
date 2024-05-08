@@ -19,4 +19,13 @@ export const LIST_TIME_FRAME = [
     TimeFrame7,
     TimeFrame8,
     TimeFrame9,
-]
+];
+
+export const MOVIE_CURRENT_SHOWING = {
+    title: "Phim đang chiếu",
+    value: "MOVIE_CURRENT_SHOWING",
+};
+export const MOVIE_PRE_TICKET = {
+    title: "Vé bán trước",
+    value: "MOVIE_PRE_TICKET"
+};

@@ -3,7 +3,7 @@ import { requestAPI } from "../../axiosCustomize"
 
 export class ShowTimeManagementAPI {
 
-    static fetchListSearch = (movieName, areaId, branchId, roomId, page) => {
+    static fetchListSearch = (movieName, areaId, branchId, roomId, typeShowTime, page) => {
         return requestAPI({
             method: "GET",
             url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + "/get-search-showtime",
@@ -12,6 +12,7 @@ export class ShowTimeManagementAPI {
                 areaId: areaId,
                 branchId: branchId,
                 roomId: roomId,
+                typeShowTime: typeShowTime,
                 page: page
             }
         });

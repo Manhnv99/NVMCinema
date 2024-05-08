@@ -51,7 +51,7 @@ public interface StaffOrderManagementRepository extends OrderRepository {
                 (b.id = :#{#request.branchId}) AND
                 (o.order_status = :#{#request.orderStatus}) AND
                 (:#{#request.orderCode} IS NULL OR o.code LIKE CONCAT('%', :#{#request.orderCode}, '%')) AND
-                (:#{#request.date} IS NULL OR o.order_date = :#{#request.date}) AND
+                ( ( :#{#request.dateStart} OR :#{#request.dateEnd} ) IS NULL OR ( :#{#request.dateStart} <= o.order_date AND :#{#request.dateEnd} >= o.order_date )) AND
                 (:#{#request.timeStart} IS NULL OR st.time_start = :#{#request.timeStart})
             GROUP BY
                 o.id,o.code, c.code, c.name, m.name, m.banner_url, CONCAT(st.screening_date, " ", st.time_start), o.total_price, pme.promotion_price,o.created_at,
@@ -60,7 +60,6 @@ public interface StaffOrderManagementRepository extends OrderRepository {
                 o.created_at DESC;
             """, nativeQuery = true)
     Page<StaffOrderManagementListOrderResponse> getListSearchOrder(Pageable pageable, StaffOrderManagementListOrderRequest request);
-
     @Query("""
             SELECT DISTINCT st.screeningDate
             FROM Order o

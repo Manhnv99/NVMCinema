@@ -11,7 +11,8 @@ export const INITIAL_STATE = {
         genre: "",
         format: "",
         country: ""
-    }
+    },
+    
 };
 
 export const movieReducers = (state = INITIAL_STATE, action) => {

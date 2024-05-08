@@ -268,7 +268,8 @@ export const TableComponent = () => {
         setUserToken(inforToken);
         handleFetchListSearchOrder(
             state.inforSearch.orderCode,
-            state.inforSearch.date,
+            state.inforSearch.dateStart,
+            state.inforSearch.dateEnd,
             state.inforSearch.timeStart,
             inforToken.branchId,
             state.orderStatus,

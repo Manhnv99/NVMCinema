@@ -6,6 +6,8 @@ import { OrderContext } from "../store/context/context";
 import { useContext } from "react";
 import { LIST_TIME_FRAME } from "../../../../app/Constant/ShowTimeConstant";
 import { setInforSearchAction } from "../store/actions/OrderActions";
+import { messageWarResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
+import dayjs from "dayjs";
 
 export const SearchComponent = () => {
 
@@ -16,7 +18,22 @@ export const SearchComponent = () => {
 
     //handle Function
     const handleChangeSearchValue = () => {
-        dispatch(setInforSearchAction(form.getFieldsValue()));
+        let dateStart = form.getFieldsValue().dateStart;
+        let dateEnd = form.getFieldsValue().dateEnd;
+        if (dateStart !== undefined && dateEnd === undefined) {
+            messageWarResponse("Ngày kết thúc không được để trống!");
+        } else if (dateStart === undefined && dateEnd !== undefined) {
+            messageWarResponse("Ngày bắt đầu không được để trống!");
+        } else if (dateStart === undefined && dateEnd === undefined) {
+            dispatch(setInforSearchAction(form.getFieldsValue()));
+        } else {
+            const searchValue = {
+                ...form.getFieldsValue(),
+                dateStart: dayjs(form.getFieldsValue().dateStart).format("YYYY-MM-DD"),
+                dateEnd: dayjs(form.getFieldsValue().dateEnd).format("YYYY-MM-DD"),
+            }
+            dispatch(setInforSearchAction(searchValue));
+        }
     };
 
     const handleClearFieldsValue = () => {
@@ -52,13 +69,13 @@ export const SearchComponent = () => {
                     </Col>
                     <Col span={11}>
                         <Form.Item
-                            label="Ngày"
-                            name="date"
+                            label="Ngày Bắt Đầu"
+                            name="dateStart"
                         >
                             <DatePicker
                                 allowClear
                                 format={"YYYY-MM-DD"}
-                                placeholder="Chọn ngày"
+                                placeholder="--Chọn ngày bắt đầu--"
                                 className="w-full"
                             />
                         </Form.Item>
@@ -83,7 +100,19 @@ export const SearchComponent = () => {
                             />
                         </Form.Item>
                     </Col>
-                    <Col span={11} />
+                    <Col span={11}>
+                        <Form.Item
+                            label="Ngày Kết Thúc"
+                            name="dateEnd"
+                        >
+                            <DatePicker
+                                allowClear
+                                format={"YYYY-MM-DD"}
+                                placeholder="--Chọn ngày kết thúc--"
+                                className="w-full"
+                            />
+                        </Form.Item>
+                    </Col>
                 </Row>
                 <div className="flex justify-center items-center">
                     <Button type="primary" htmlType="submit">

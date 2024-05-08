@@ -39,6 +39,14 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
             JOIN branch b ON r.branch_id = b.id
             JOIN area a ON b.area_id = a.id
             WHERE
+            st.screening_date > CURRENT_DATE() AND
+            (
+                CASE
+                    WHEN :#{#request.typeShowTime.name() == "MOVIE_CURRENT_SHOWING"} THEN m.release_date <= CURRENT_DATE()
+                    ELSE m.release_date > CURRENT_DATE()
+                END
+            )
+            AND
             (
                 ( :#{#request.movieName} IS NULL OR m.name LIKE :#{ "%" + #request.movieName +"%" } ) AND
                 ( :#{#request.branchId} IS NULL OR b.id LIKE :#{ "%" + #request.branchId +"%" } ) AND

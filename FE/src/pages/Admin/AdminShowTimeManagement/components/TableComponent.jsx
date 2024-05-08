@@ -1,4 +1,4 @@
-import { Card, Button, Table, Pagination, Tooltip, Image } from "antd";
+import { Card, Button, Table, Pagination, Tooltip, Image, Radio } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup, faPenToSquare, faEye, faCouch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useEffect, useState } from "react";
@@ -9,7 +9,8 @@ import { ModalDetail } from "./ModalDetail";
 import dayjs from "dayjs";
 import { ModalTicketChair } from "./ModalTicketChair";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
-import { setCurrentPage } from "../store/actions/ShowTimeActions";
+import { setCurrentPage, setTypeOfMovieAction } from "../store/actions/ShowTimeActions";
+import { MOVIE_CURRENT_SHOWING, MOVIE_PRE_TICKET } from "../../../../app/Constant/ShowTimeConstant";
 
 
 export const TableComponent = () => {
@@ -106,9 +107,10 @@ export const TableComponent = () => {
             state.inforSearch.areaId,
             state.inforSearch.branchId,
             state.inforSearch.roomId,
+            state.typeOrMovie,
             1
         );
-    }, [state.inforSearch]);
+    }, [state.inforSearch, state.typeOrMovie]);
 
     return (
         <>
@@ -143,13 +145,21 @@ export const TableComponent = () => {
                         </span>
                     }
                     extra={
-                        <Button onClick={() => {
-                            setWhatAction("post");
-                            setOpenModalAddOrUpdate(true);
-                        }} type="primary" className="h-[40px] text-[15px]">
-                            <FontAwesomeIcon icon={faPlus} className="mr-[5px]" />
-                            Thêm xuất chiếu
-                        </Button>
+                        <>
+                            <Radio.Group onChange={(value) => {
+                                dispatch(setTypeOfMovieAction(value.target.value))
+                            }} value={state.typeOrMovie}>
+                                <Radio value={MOVIE_CURRENT_SHOWING.value}>{MOVIE_CURRENT_SHOWING.title}</Radio>
+                                <Radio value={MOVIE_PRE_TICKET.value}>{MOVIE_PRE_TICKET.title}</Radio>
+                            </Radio.Group>
+                            <Button onClick={() => {
+                                setWhatAction("post");
+                                setOpenModalAddOrUpdate(true);
+                            }} type="primary" className="h-[40px] text-[15px]">
+                                <FontAwesomeIcon icon={faPlus} className="mr-[5px]" />
+                                Thêm xuất chiếu
+                            </Button>
+                        </>
                     }
                 >
                     <Table
@@ -168,6 +178,7 @@ export const TableComponent = () => {
                             state.inforSearch.areaId,
                             state.inforSearch.branchId,
                             state.inforSearch.roomId,
+                            state.typeOrMovie,
                             page
                         );
                         dispatch(setCurrentPage(page));

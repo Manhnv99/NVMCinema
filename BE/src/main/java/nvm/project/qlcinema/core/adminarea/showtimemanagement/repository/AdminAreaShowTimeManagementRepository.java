@@ -40,6 +40,7 @@ public interface AdminAreaShowTimeManagementRepository extends ShowTimeRepositor
             JOIN area a ON b.area_id = a.id
             WHERE
                 a.id = :#{#request.areaId} AND
+                st.screening_date > CURRENT_DATE() AND
             (
                 ( :#{#request.movieName} IS NULL OR m.name LIKE :#{ "%" + #request.movieName +"%" } ) AND
                 ( :#{#request.branchId} IS NULL OR b.id LIKE :#{ "%" + #request.branchId +"%" } ) AND
