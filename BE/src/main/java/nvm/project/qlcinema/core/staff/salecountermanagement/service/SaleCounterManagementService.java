@@ -43,4 +43,5 @@ public interface SaleCounterManagementService {
 
     ResponseObject getDetailOrder(String orderCode);
 
+    ResponseObject getClosestScreeningDate(String movieId);
 }

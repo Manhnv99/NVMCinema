@@ -30,7 +30,9 @@ public interface ClientHomePageMovieRepository extends MovieRepository {
             JOIN room r ON s.room_id = r.id
             JOIN branch b ON r.branch_id = b.id
             JOIN area a ON b.area_id = a.id
-            WHERE m.release_date <= CURRENT_DATE() AND a.id = :areaId
+            WHERE m.release_date <= CURRENT_DATE() AND
+                s.screening_date > CURRENT_DATE() AND
+                a.id = :areaId
             GROUP BY
             	m.id,m.banner_url,m.name,m.age_restriction,
             	m.subtitle,f.name,g.name

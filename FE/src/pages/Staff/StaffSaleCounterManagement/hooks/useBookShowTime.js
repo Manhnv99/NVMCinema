@@ -15,8 +15,20 @@ export const useBookShowTime = () => {
         }
     };
 
+    const handleFetchClosestScreeningDate = async (movieId) => {
+        try {
+            const response = await SaleCounterManagementAPI.fetchClosestScreeningDate(movieId);
+            return response.data.data.screeningDate;
+        } catch (e) {
+            for (let errMessage in e.response.data) {
+                messageErrResponse(e.response.data[errMessage]);
+            }
+        }
+    };
+
     return {
-        handleFetchListShowTime
+        handleFetchListShowTime,
+        handleFetchClosestScreeningDate
     };
 
 };

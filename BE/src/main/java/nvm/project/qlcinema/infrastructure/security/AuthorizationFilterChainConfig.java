@@ -26,6 +26,7 @@ public class AuthorizationFilterChainConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.authorizeHttpRequests(authorization ->
                 authorization
+                        .requestMatchers("/test" + "/**").permitAll()
                         .requestMatchers(UrlPath.URL_API_AUTHENTICATION + "/**").permitAll()
                         //Client
                         .requestMatchers(UrlPath.URL_API_CLIENT_HOME_PAGE + "/list-area").permitAll() // khi vào trang đăng nhập thì nó bắt chọn area thì lúc fetch area thì không cần Author

@@ -336,7 +336,7 @@ export const InformationClient = () => {
                         </Table>
                         <Pagination onChange={(page) => {
                             setCurrentPage(page);
-                        }} size={DEFAUTL_PAGE_SIZE} total={totalPages} />
+                        }} pageSize={DEFAUTL_PAGE_SIZE} total={totalPages} />
                     </Card>
                 </div>
             </div>

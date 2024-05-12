@@ -178,8 +178,6 @@ public class AdminShowTimeManagementServiceImpl implements AdminShowTimeManageme
                 //checkTimeValid
                 for (String time : postRequest.getTimeStart()) {
                     Time timeConverted = convertTime.convertStringToTime(time);
-                    System.out.println(timeConverted);
-                    System.out.println(timeConverted.before(new Date()));
                     if (timeConverted.toLocalTime().isBefore(LocalTime.now())) {
                         errors.add("Ngày: " + date + " Thời gian chiếu không được sau thời điểm hiện tại!");
                         throw new RestApiException(errors, HttpStatus.NOT_FOUND);

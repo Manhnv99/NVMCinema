@@ -42,7 +42,7 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
             st.screening_date > CURRENT_DATE() AND
             (
                 CASE
-                    WHEN :#{#request.typeShowTime.name() == "MOVIE_CURRENT_SHOWING"} THEN m.release_date <= CURRENT_DATE()
+                    WHEN :#{#request.typeShowTime == "MOVIE_CURRENT_SHOWING"} THEN m.release_date <= CURRENT_DATE()
                     ELSE m.release_date > CURRENT_DATE()
                 END
             )

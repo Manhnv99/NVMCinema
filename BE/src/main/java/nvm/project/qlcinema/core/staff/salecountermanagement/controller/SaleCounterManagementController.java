@@ -67,6 +67,11 @@ public class SaleCounterManagementController {
         return saleCounterManagementService.getDetailShowTime(showTimeId);
     }
 
+    @GetMapping("/get-closest-screening-date/{movieId}")
+    public ResponseObject getClosestScreeningDate(@PathVariable String movieId){
+        return saleCounterManagementService.getClosestScreeningDate(movieId);
+    }
+
     @GetMapping("/list-ticket-chair/{showTimeId}")
     public ResponseObject getListTicketChair(@PathVariable String showTimeId) {
         return saleCounterManagementService.getListTicketChair(showTimeId);

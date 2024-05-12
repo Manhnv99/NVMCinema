@@ -45,7 +45,7 @@ public interface ClientBookTicketRepository extends ShowTimeRepository {
                 (
                 (s.screening_date = CURRENT_DATE() AND s.time_start > CURRENT_TIME()) OR
                 (s.screening_date != CURRENT_DATE())
-                )
+                ) AND s.screening_date > CURRENT_DATE()
                 ORDER BY s.created_at ASC LIMIT 1
                 """,nativeQuery = true)
     ClientBookTicketGetClosestScreeningDateResponse getClosestScreeningDate(String movieId);

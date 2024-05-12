@@ -66,6 +66,7 @@ export const useHomePage = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await HomePageAPI.fetchDetailMovie(movieId);
+            console.log(response);
             setDetailMovie(response.data.data);
         } catch (e) {
             for (let errMessage in e.response.data) {

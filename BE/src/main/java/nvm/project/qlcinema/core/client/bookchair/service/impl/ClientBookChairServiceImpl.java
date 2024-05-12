@@ -310,6 +310,7 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
         this.handleResetPaymentRequestFinal();
         listTicketChairIdFinal.addAll(paymentRequest.getListTicketChairId());
         totalPriceFinal = paymentRequest.getTotalPrice();
+        System.out.println(paymentRequest.getPromotionEventCode());
         promotionEventCodeFinal = paymentRequest.getPromotionEventCode();
         listComboFoodRequestFinal.addAll(paymentRequest.getListComboFoodRequest());
         clientIdFinal = paymentRequest.getClientId();

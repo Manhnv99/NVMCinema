@@ -2,13 +2,13 @@ import { Card, Button, Table, Pagination, Tooltip, Image, Tag } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLayerGroup, faTicket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 import { SaleCounterContext } from "../store/context/context";
 import { useSaleCounter } from "../hooks/useSaleCounter";
+import { ExtractInforToken } from "../../../../utils/Extract/ExtractInforToken";
 
-export const TableComponent = () => {
+export const TableComponent = ({ branchId }) => {
 
     //useNav
     const navigate = useNavigate();
@@ -83,9 +83,11 @@ export const TableComponent = () => {
             inforSearch.genre,
             inforSearch.format,
             inforSearch.country,
+            branchId,
             1
         );
-    }, [state.inforSearch]);
+        console.log(branchId);
+    }, [state.inforSearch, branchId]);
 
     return (
         <>

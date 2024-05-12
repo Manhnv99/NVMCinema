@@ -18,4 +18,6 @@ public class SaleCounterManagementListMovieRequest extends PageableRequest {
 
     private String country = "";
 
+    private String branchId = "";
+
 }

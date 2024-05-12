@@ -431,6 +431,17 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
         }
     }
 
+    @Override
+    public ResponseObject getClosestScreeningDate(String movieId) {
+        try {
+            return new ResponseObject(saleCounterManagementBookTicketRepository.getClosestScreeningDate(movieId));
+        } catch (Exception e) {
+            List<String> errors = new ArrayList<>();
+            errors.add("Không lấy được xuất chiếu gần nhất!");
+            throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     private String createOrder() {
         try {
             //xử lý cập nhật trạng thái ghế

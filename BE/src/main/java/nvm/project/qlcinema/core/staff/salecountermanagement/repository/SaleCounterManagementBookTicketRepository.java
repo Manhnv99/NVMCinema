@@ -1,7 +1,9 @@
 package nvm.project.qlcinema.core.staff.salecountermanagement.repository;
 
+import nvm.project.qlcinema.core.client.bookticket.model.response.ClientBookTicketGetClosestScreeningDateResponse;
 import nvm.project.qlcinema.core.staff.salecountermanagement.model.request.SaleCounterManagementBookTicketListShowTimeRequest;
 import nvm.project.qlcinema.core.staff.salecountermanagement.model.response.SaleCounterManagementBookTicketListShowtimeResponse;
+import nvm.project.qlcinema.core.staff.salecountermanagement.model.response.SaleCounterManagementGetClosestScreeningDateResponse;
 import nvm.project.qlcinema.repository.ShowTimeRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -32,5 +34,19 @@ public interface SaleCounterManagementBookTicketRepository extends ShowTimeRepos
             )
                 """, nativeQuery = true)
     List<SaleCounterManagementBookTicketListShowtimeResponse> getListShowTime(SaleCounterManagementBookTicketListShowTimeRequest request);
+
+
+    @Query(value = """
+                SELECT s.screening_date AS screeningDate
+                FROM movie m
+                JOIN showtime s ON m.id = s.movie_id
+                WHERE m.id = :movieId AND
+                (
+                (s.screening_date = CURRENT_DATE() AND s.time_start > CURRENT_TIME()) OR
+                (s.screening_date != CURRENT_DATE())
+                ) AND s.screening_date > CURRENT_DATE()
+                ORDER BY s.created_at ASC LIMIT 1
+                """,nativeQuery = true)
+    SaleCounterManagementGetClosestScreeningDateResponse getClosestScreeningDate(String movieId);
 
 }

@@ -25,7 +25,6 @@ public class StaffOrderManagementController {
 
     @GetMapping("/get-search-order")
     public PageableObject<StaffOrderManagementListOrderResponse> getListSearchOrder(final StaffOrderManagementListOrderRequest request) {
-        System.out.println(request.toString());
         return staffOrderManagementService.getListSearchOrder(request);
     }
 

@@ -1,4 +1,9 @@
-import { SET_CURRENT_PAGE, SET_INFOR_LIST_SEARCH_CONSTANT, SET_INFOR_SEARCH_CONSTANT, SET_TYPE_OF_MOVIE_CONSTANT } from "../constant/ShowTimeConstants";
+import {
+    SET_CURRENT_PAGE,
+    SET_INFOR_LIST_SEARCH_CONSTANT,
+    SET_INFOR_SEARCH_CONSTANT,
+    SET_TYPE_OF_MOVIE_CONSTANT
+} from "../constant/ShowTimeConstants";
 
 export const setInforListSearchAction = (data) => {
     return {

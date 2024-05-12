@@ -4,7 +4,7 @@ import { requestAPI } from "../../axiosCustomize";
 
 export class SaleCounterManagementAPI {
 
-    static fetchListSearchMovie = (name, director, genre, format, country, page) => {
+    static fetchListSearchMovie = (name, director, genre, format, country, branchId, page) => {
         return requestAPI({
             method: "GET",
             url: URL_API_STAFF_SALE_COUNTER_MANAGEMENT + "/get-search-movie",
@@ -14,6 +14,7 @@ export class SaleCounterManagementAPI {
                 genre: genre,
                 format: format,
                 country: country,
+                branchId: branchId,
                 page: page
             }
         });
@@ -63,6 +64,13 @@ export class SaleCounterManagementAPI {
         return requestAPI({
             method: "GET",
             url: URL_API_STAFF_SALE_COUNTER_MANAGEMENT + `/detail-showtime/${showTimeId}`
+        });
+    };
+
+    static fetchClosestScreeningDate = (movieId) => {
+        return requestAPI({
+            method: "GET",
+            url: URL_API_STAFF_SALE_COUNTER_MANAGEMENT + `/get-closest-screening-date/${movieId}`
         });
     };
 

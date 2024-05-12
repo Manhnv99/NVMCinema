@@ -60,8 +60,8 @@ export const useInformation = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await InformationClientAPI.fetchTransactionHistory(clientId, dateFind, page);
-            console.log(response);
             setListTransactionHistory(response.data.data);
+            console.log(response.data.totalPages * DEFAUTL_PAGE_SIZE);
             setTotalPages(response.data.totalPages * DEFAUTL_PAGE_SIZE);
         } catch (e) {
             for (let errMessage in e.response.data) {

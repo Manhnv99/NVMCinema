@@ -26,7 +26,8 @@ export const SaleCounterBookShowTime = () => {
     const areaChange = useSelector(state => state.area.areaChange);
     //custom hooks
     const {
-        handleFetchListShowTime
+        handleFetchListShowTime,
+        handleFetchClosestScreeningDate
     } = useBookShowTime();
 
     //use for Fetch List ShowTime Movie Today
@@ -39,6 +40,13 @@ export const SaleCounterBookShowTime = () => {
             });
         }, [1000]);
     }, [dateChoose, areaChange]);
+
+    //To fetch ScreeningDate
+    useEffect(() => {
+        handleFetchClosestScreeningDate(movieId).then(closestScreeningDate => {
+            setDateChoose(closestScreeningDate);
+        });
+    }, []);
 
     //For disable the past for Component Carlendar
     const isPast = (date) => {
@@ -56,6 +64,7 @@ export const SaleCounterBookShowTime = () => {
                                 <Calendar
                                     disabled={isPast}
                                     disabledDate={isPast}
+                                    value={dayjs(dateChoose)}
                                     style={{
                                         width: "100%",
                                         border: `1px solid ${token.colorBorderSecondary}`,

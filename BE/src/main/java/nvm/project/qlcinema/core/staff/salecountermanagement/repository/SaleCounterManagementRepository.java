@@ -29,13 +29,21 @@ public interface SaleCounterManagementRepository extends OrderRepository {
                     g.name AS genre,
                     c.name AS country,
                     f.name AS format,
-                    m.deleted AS deleted
+                    m.deleted AS deleted,
+                    m.created_at,
+                    COUNT(*) AS count
             FROM movie m
             JOIN country c ON m.country_id = c.id
             JOIN director d ON m.director_id = d.id
             JOIN format f ON m.format_id = f.id
             JOIN genre g ON m.genre_id = g.id
+            JOIN showtime s ON s.movie_id = m.id
+            JOIN room r ON s.room_id = r.id
+            JOIN branch b ON r.branch_id = b.id
             WHERE
+                m.release_date <= CURRENT_DATE() AND
+                s.screening_date > CURRENT_DATE() AND
+                b.id = :#{#request.branchId} AND
             (
                 ( :#{#request.name} IS NULL OR m.name LIKE :#{ "%" + #request.name + "%"} ) AND
                 ( :#{#request.director} IS NULL OR d.name LIKE :#{ "%" + #request.director + "%"} ) AND
@@ -43,6 +51,9 @@ public interface SaleCounterManagementRepository extends OrderRepository {
                 ( :#{#request.format} IS NULL OR f.name LIKE :#{ "%" + #request.format + "%"} ) AND
                 ( :#{#request.country} IS NULL OR c.name LIKE :#{ "%" + #request.country + "%"} )
             )
+            GROUP BY m.id, m.code, m.name, m.duration, m.age_restriction, m.release_date, m.actor, m.subtitle,
+                     m.banner_url, d.name, g.name, c.name, f.name, m.deleted, m.created_at
+            HAVING COUNT(*) > 0
             ORDER BY m.created_at DESC
             """, nativeQuery = true)
     Page<SaleCounterManagementListMovieResponse> getSearchListMovie(Pageable pageable, SaleCounterManagementListMovieRequest request);

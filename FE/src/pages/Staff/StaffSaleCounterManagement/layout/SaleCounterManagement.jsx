@@ -6,6 +6,7 @@ import { TableComponent } from "../components/TableComponent"
 import { useEffect, useState } from "react"
 import { ModalPayment } from "../components/ModalPayment"
 import { useSaleCounter } from "../hooks/useSaleCounter"
+import { ExtractInforToken } from "../../../../utils/Extract/ExtractInforToken"
 
 
 export const SaleCounterManagement = () => {
@@ -21,9 +22,12 @@ export const SaleCounterManagement = () => {
     const {
         handleFetchDetailOrder
     } = useSaleCounter();
+    //state
+    const [branchId, setBranchId] = useState("");
 
     //get params from url
     useEffect(() => {
+        setBranchId(ExtractInforToken().branchId);
         const params = new URLSearchParams(window.location.search);
         const paramValue = params.get('codeStatus');
         if (paramValue) {
@@ -46,7 +50,7 @@ export const SaleCounterManagement = () => {
                 Bán vé tại quầy
             </Typography.Title>
             <SearchComponent />
-            <TableComponent />
+            <TableComponent branchId={branchId} />
         </>
     )
 }

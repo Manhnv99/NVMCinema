@@ -15,10 +15,10 @@ export const useSaleCounter = () => {
     //use Context
     const [state, dispatch] = useContext(SaleCounterContext);
 
-    const handleFetchListSearchMovie = async (name, director, genre, format, country, page) => {
+    const handleFetchListSearchMovie = async (name, director, genre, format, country, branchId, page) => {
         dispatchStore(setLoadingTrue());
         try {
-            const response = await SaleCounterManagementAPI.fetchListSearchMovie(name, director, genre, format, country, page);
+            const response = await SaleCounterManagementAPI.fetchListSearchMovie(name, director, genre, format, country, branchId, page);
             dispatch(setInforListMovieAction({
                 listMovie: response.data.data,
                 totalElement: response.data.totalPages * DEFAUTL_PAGE_SIZE

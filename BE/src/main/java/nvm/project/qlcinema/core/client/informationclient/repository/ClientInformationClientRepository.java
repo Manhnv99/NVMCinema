@@ -30,7 +30,8 @@ public interface ClientInformationClientRepository extends ClientRepository {
     ClientInformationClientDetailClientResponse getInformationClientDetail(String id);
 
     @Query(value = """
-            SELECT	o.code AS code,
+            SELECT	o.created_at,
+                    o.code AS code,
             		m.name AS movie,
             		m.banner_url AS movieImage,
                     CONCAT(b.name," - ",b.address) AS branch,
@@ -57,7 +58,9 @@ public interface ClientInformationClientRepository extends ClientRepository {
                      	CONCAT(b.name, " - ", b.address) ,
                      	CONCAT(st.screening_date, " ", st.time_start) ,
                      	o.total_price ,
-                     	pme.promotion_price;
+                     	pme.promotion_price,
+                     	o.created_at
+            ORDER BY o.created_at DESC
             """, nativeQuery = true)
     Page<ClientInformationClientTransactionHistoryResponse> getInformationClientTransactionHistory(Pageable pageable, String clientId, LocalDate dateFind);
 
