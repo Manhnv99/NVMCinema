@@ -1,4 +1,4 @@
-export const baseURL = "http://localhost:8080";
+export const baseURL = import.meta.env.VITE_REACT_APP_API_URL;
 
 // base API Follow by role
 

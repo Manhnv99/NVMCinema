@@ -28,7 +28,8 @@ services:
     container_name: db-mysql
     restart: on-failure
     volumes:
-      - nvm_cinema_volumns:/var/lib/mysql
+      - db:/var/lib/mysql
+      - ./db/initDB.sql:/docker-entrypoint-initdb.d/initDB.sql
     environment:
       MYSQL_ROOT_PASSWORD: manh99123
       MYSQL_DATABASE: nvmcinema
@@ -39,4 +40,7 @@ services:
 networks:
   nvm_cinema_network:
 volumes:
-  nvm_cinema_volumns:
+  db:
+    driver: local
+
+# chỉ được init database khi volumns mới tạo.
