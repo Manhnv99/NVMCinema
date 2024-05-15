@@ -9,7 +9,20 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            scope:
+              - profile
+              - email
 jwt:
   secretKey: "d3775c0fefb657b49d334eacae493726e131ea10e36b9f8800185b05d210ddd4"
+domain:
+  fe: "http://localhost:9999"
 server:
   port: 8080

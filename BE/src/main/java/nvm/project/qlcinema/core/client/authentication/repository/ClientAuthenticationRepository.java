@@ -11,11 +11,6 @@ import java.util.Optional;
 public interface ClientAuthenticationRepository extends ClientRepository {
 
     @Query("""
-            SELECT c FROM Client c ORDER BY c.createdAt ASC
-            """)
-    Optional<Client> getNewest();
-
-    @Query("""
             SELECT c FROM Client c WHERE c.email = :email
             """)
     Optional<Client> findByEmail(String email);

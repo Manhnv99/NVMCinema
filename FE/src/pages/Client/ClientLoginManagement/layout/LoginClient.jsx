@@ -207,6 +207,9 @@ export const LoginClient = () => {
                                         <button onClick={handleLogin}
                                             className="bg-[#f3ea28] outline-none font-bold w-full py-[10px] text-[18px] rounded-md"
                                         >Đăng nhập</button>
+                                        <button onClick={() => window.location.href = "http://localhost:8080/"}
+                                            className="outline-none font-bold w-full py-[10px] text-[18px] rounded-md"
+                                        >Đăng nhập Google</button>
                                     </div>
                                 </div>
                                 :
@@ -344,7 +347,6 @@ export const LoginClient = () => {
                                     </div>
                                 </div>
                             }
-
                         </div>
                     </div>
                 </div>

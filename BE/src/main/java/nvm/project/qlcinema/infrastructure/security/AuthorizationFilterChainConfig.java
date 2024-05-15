@@ -3,6 +3,7 @@ package nvm.project.qlcinema.infrastructure.security;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.infrastructure.constant.Role;
 import nvm.project.qlcinema.infrastructure.constant.UrlPath;
+import nvm.project.qlcinema.infrastructure.security.oauth2.OAuth2AuthenticationConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,6 +21,8 @@ public class AuthorizationFilterChainConfig {
     private final JwtAuthenticationConfig jwtAuthenticationConfig;
 
     private final AuthenticationProvider authenticationProvider;
+
+    private final OAuth2AuthenticationConfig oAuth2LoginSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -40,9 +43,11 @@ public class AuthorizationFilterChainConfig {
                         //Staff
                         .requestMatchers(UrlPath.URL_API_STAFF_SALE_COUNTER_MANAGEMENT + "/vnpay-payment").permitAll()
                         .requestMatchers(UrlPath.URL_API_STAFF + "/**").hasAnyAuthority(Role.ROLE_STAFF.name())
-                        //Staff
                         .anyRequest().authenticated()
         );
+        httpSecurity.oauth2Login(oauth2Login -> {
+            oauth2Login.successHandler(oAuth2LoginSuccessHandler.oAuth2LoginSuccessHandler());
+        });
         httpSecurity.authenticationProvider(authenticationProvider);
         httpSecurity.addFilterBefore(jwtAuthenticationConfig, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
