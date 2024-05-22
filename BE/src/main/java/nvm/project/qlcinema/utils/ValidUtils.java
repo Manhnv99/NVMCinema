@@ -48,7 +48,6 @@ public class ValidUtils {
 
     public static void main(String[] args) {
         ValidUtils validUtils = new ValidUtils();
-        System.out.println(validUtils.isPhoneValid("321"));
     }
 
 }

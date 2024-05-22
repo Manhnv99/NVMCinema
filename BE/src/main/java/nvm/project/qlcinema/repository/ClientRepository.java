@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, String> {
 
     @Query("""
-            SELECT c FROM Client c ORDER BY c.createdAt ASC
+            SELECT c FROM Client c ORDER BY c.createdAt DESC LIMIT 1
             """)
     Optional<Client> getNewest();
 

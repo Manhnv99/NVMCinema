@@ -36,7 +36,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users")
-public class User extends PrimaryEntity implements UserDetails {
+public class User extends PrimaryEntity {
 
     @Column(name = "code")
     private String code;
@@ -88,35 +88,5 @@ public class User extends PrimaryEntity implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branchId;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
 }

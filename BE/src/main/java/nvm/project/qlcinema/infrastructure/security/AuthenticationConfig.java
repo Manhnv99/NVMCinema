@@ -2,6 +2,7 @@ package nvm.project.qlcinema.infrastructure.security;
 
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.infrastructure.security.repository.AuthenticationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -46,8 +50,8 @@ public class AuthenticationConfig {
 
     @Bean
     public UserDetailsService loadUserByEmail() {
-        return username -> authenticationRepository.findByEmail(username).orElseThrow(
-                () -> new UsernameNotFoundException("Không tìm thấy người dùng này!")
+        return username -> UserPrincipal.create(authenticationRepository.findByEmail(username).orElseThrow(
+                () -> new UsernameNotFoundException("Không tìm thấy người dùng này!"))
         );
     }
 

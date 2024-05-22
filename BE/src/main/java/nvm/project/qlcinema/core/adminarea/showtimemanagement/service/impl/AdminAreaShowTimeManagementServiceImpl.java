@@ -159,7 +159,6 @@ public class AdminAreaShowTimeManagementServiceImpl implements AdminAreaShowTime
 
         //checkDateValid
         for (LocalDate date : postRequest.getScreeningDate()) {
-            System.out.println(date);
             if (date.isBefore(LocalDate.now())) {
                 errors.add("Ngày chiếu không được nhỏ hơn ngày hôm nay!");
                 throw new RestApiException(errors, HttpStatus.NOT_FOUND);

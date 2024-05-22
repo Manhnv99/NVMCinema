@@ -34,7 +34,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "client")
-public class Client extends PrimaryEntity implements UserDetails {
+public class Client extends PrimaryEntity {
 
     @Column(name = "code")
     private String code;
@@ -75,35 +75,5 @@ public class Client extends PrimaryEntity implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
 }

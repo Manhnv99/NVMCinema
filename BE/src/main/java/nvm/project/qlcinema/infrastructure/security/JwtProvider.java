@@ -11,6 +11,7 @@ import nvm.project.qlcinema.entity.User;
 import nvm.project.qlcinema.infrastructure.constant.AuthenticationMessage;
 import nvm.project.qlcinema.infrastructure.constant.TypeUser;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
@@ -83,19 +84,19 @@ public class JwtProvider {
 
     public String generateToken(String username) {
         //Get UserDetail
-        User user = (User) userDetailsService.loadUserByUsername(username);
+        UserPrincipal user = (UserPrincipal) userDetailsService.loadUserByUsername(username);
         //create ExtraUser to put into Claims
         Map<String, Object> extraUser = new HashMap<>();
-        extraUser.put("username", user.getUsername());
+        extraUser.put("username", user.getEmail());
         extraUser.put("roles", user.getAuthorities());
         extraUser.put("email", user.getEmail());
-        extraUser.put("areaId", user.getAreaId().getId());
+        extraUser.put("areaId", user.getArea().getId());
         extraUser.put("userImage", user.getImageUrl());
         extraUser.put("userFullName", user.getName());
         extraUser.put("userId", user.getId());
         extraUser.put("typeUser", TypeUser.USER.getType());
-        if (user.getBranchId() != null) {
-            extraUser.put("branchId", user.getBranchId().getId());
+        if (user.getBranch() != null) {
+            extraUser.put("branchId", user.getBranch().getId());
         }
         //Write setClaims on the top to prevent overwrite the behind
         return Jwts.builder()
@@ -119,6 +120,25 @@ public class JwtProvider {
         return Jwts.builder()
                 .setClaims(extraUser)
                 .setSubject(client.getEmail())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)))
+                .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String generateTokenClient(Authentication authentication) {
+        //create ExtraUser to put into Claims
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        Map<String, Object> extraUser = new HashMap<>();
+        extraUser.put("id", userPrincipal.getId());
+        extraUser.put("image", userPrincipal.getImageUrl());
+        extraUser.put("province", userPrincipal.getProvince());
+        extraUser.put("fullName", userPrincipal.getName());
+        extraUser.put("typeUser", TypeUser.CLIENT.getType());
+        //Write setClaims on the top to prevent overwrite the behind
+        return Jwts.builder()
+                .setClaims(extraUser)
+                .setSubject(userPrincipal.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)

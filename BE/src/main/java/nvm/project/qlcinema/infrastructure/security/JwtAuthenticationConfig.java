@@ -7,7 +7,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.infrastructure.constant.AuthenticationMessage;
 import nvm.project.qlcinema.infrastructure.constant.TypeUser;
-import nvm.project.qlcinema.infrastructure.security.custom.UserDetailServiceCustom;
+import nvm.project.qlcinema.infrastructure.security.custom.ClientDetailServiceCustom;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +28,7 @@ public class JwtAuthenticationConfig extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
 
-    private final UserDetailServiceCustom userDetailServiceCustom;
+    private final ClientDetailServiceCustom clientDetailServiceCustom;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -58,7 +58,7 @@ public class JwtAuthenticationConfig extends OncePerRequestFilter {
                     if (typeUser.equalsIgnoreCase(TypeUser.USER.getType())) {
                         userDetails = userDetailsService.loadUserByUsername(username);
                     } else {
-                        userDetails = userDetailServiceCustom.loadUserByUsername(username);
+                        userDetails = clientDetailServiceCustom.loadUserByUsername(username);
                     }
                     //Create UserNamePassword Object to push it into SecurityContextHolder to Author the restAPI
                     assert userDetails != null;

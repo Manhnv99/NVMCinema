@@ -3,7 +3,10 @@ package nvm.project.qlcinema.infrastructure.security;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.infrastructure.constant.Role;
 import nvm.project.qlcinema.infrastructure.constant.UrlPath;
-import nvm.project.qlcinema.infrastructure.security.oauth2.OAuth2AuthenticationConfig;
+import nvm.project.qlcinema.infrastructure.security.oauth2.CustomOAuth2UserService;
+import nvm.project.qlcinema.infrastructure.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import nvm.project.qlcinema.infrastructure.security.oauth2.OAuth2AuthenticationFailureHandler;
+import nvm.project.qlcinema.infrastructure.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,7 +25,13 @@ public class AuthorizationFilterChainConfig {
 
     private final AuthenticationProvider authenticationProvider;
 
-    private final OAuth2AuthenticationConfig oAuth2LoginSuccessHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
+
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -45,8 +54,19 @@ public class AuthorizationFilterChainConfig {
                         .requestMatchers(UrlPath.URL_API_STAFF + "/**").hasAnyAuthority(Role.ROLE_STAFF.name())
                         .anyRequest().authenticated()
         );
-        httpSecurity.oauth2Login(oauth2Login -> {
-            oauth2Login.successHandler(oAuth2LoginSuccessHandler.oAuth2LoginSuccessHandler());
+        httpSecurity.oauth2Login(oauth2 -> {
+            oauth2.authorizationEndpoint(authorizationEndpointConfig -> {
+                authorizationEndpointConfig.baseUri("/oauth2/authorize")
+                        .authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository);
+            });
+            oauth2.redirectionEndpoint(redirectionEndpointConfig -> {
+                redirectionEndpointConfig.baseUri("/oauth2/callback/*");
+            });
+            oauth2.userInfoEndpoint(userInfoEndpointConfig -> {
+                userInfoEndpointConfig.userService(customOAuth2UserService);
+            });
+            oauth2.successHandler(oAuth2AuthenticationSuccessHandler);
+            oauth2.failureHandler(oAuth2AuthenticationFailureHandler);
         });
         httpSecurity.authenticationProvider(authenticationProvider);
         httpSecurity.addFilterBefore(jwtAuthenticationConfig, UsernamePasswordAuthenticationFilter.class);

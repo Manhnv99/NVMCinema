@@ -43,8 +43,6 @@ public class ClientAuthenticationController {
     public ClientAuthenticationRefreshTokenResponse refreshTokenAuthentication(
             @RequestBody ClientAuthenticationRefreshTokenRequest refreshTokenRequest
     ){
-        System.out.println(refreshTokenRequest.getRefreshToken());
-        System.out.println(refreshTokenRequest.getClientId());
         return clientAuthenticationService.refreshTokenAuthentication(refreshTokenRequest);
     }
 
