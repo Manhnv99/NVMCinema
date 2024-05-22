@@ -2,7 +2,7 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme, Dropdown, message } from 'antd';
+import { Layout, Menu, Button, theme, Dropdown, message, Affix } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from 'antd';
@@ -17,6 +17,7 @@ import {
     ROUTE_STAFF_MANAGEMENT_ORDER,
     ROUTE_STAFF_MANAGEMENT_SALE_COUNTER
 } from '../../app/BaseUrl/BaseUrl';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../app/Constant/TokenConstant';
 const { Header, Sider, Content } = Layout;
 
 export const StaffLayoutManagement = ({ children }) => {
@@ -35,7 +36,7 @@ export const StaffLayoutManagement = ({ children }) => {
     const [userAuthen, setUserAuthen] = useState({});
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem(ACCESS_TOKEN)) {
             const inforToken = ExtractInforToken();
             setUserAuthen(inforToken);
             if (inforToken && inforToken.typeUser) {
@@ -58,7 +59,8 @@ export const StaffLayoutManagement = ({ children }) => {
     ];
 
     const handleItemClick = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.removeItem(REFRESH_TOKEN);
         navigate(ROUTE_LOGIN);
         message.success("Đăng xuất tài khoản thành công!")
     }
@@ -72,7 +74,12 @@ export const StaffLayoutManagement = ({ children }) => {
         <Layout style={{
             minHeight: "100vh"
         }}>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
+            <Sider
+                trigger={null}
+                collapsible
+                collapsed={collapsed}
+                className="fixed h-screen overflow-auto left-0 top-0" style={{ position: 'sticky', top: 0 }}
+            >
                 <div className='text-center'>
                     <Avatar
                         style={{
@@ -102,40 +109,42 @@ export const StaffLayoutManagement = ({ children }) => {
                 />
             </Sider>
             <Layout>
-                <Header
-                    style={{
-                        padding: "0",
-                        background: colorBgContainer,
-                    }}
-                    className='flex items-center justify-between'
-                >
-                    <Button
-                        type="text"
-                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        onClick={() => setCollapsed(!collapsed)}
+                <Affix>
+                    <Header
                         style={{
-                            fontSize: '16px',
-                            width: 64,
-                            height: 64,
+                            padding: "0",
+                            background: colorBgContainer,
                         }}
-                    />
-                    <div className='pr-[20px]'>
-                        <span className="font-medium text-[16px] mr-[10px]">{userAuthen.userFullName}</span>
-                        <Dropdown
-                            className='cursor-pointer'
-                            overlay={<Menu onClick={handleItemClick} items={items} />}
-                            trigger={['click']}
-                        >
-                            <Avatar
-                                style={{
-                                    height: "45px",
-                                    width: "45px"
-                                }}
-                                src={userAuthen.userImage}
-                            />
-                        </Dropdown>
-                    </div>
-                </Header>
+                        className='flex items-center justify-between'
+                    >
+                        <Button
+                            type="text"
+                            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                            onClick={() => setCollapsed(!collapsed)}
+                            style={{
+                                fontSize: '16px',
+                                width: 64,
+                                height: 64,
+                            }}
+                        />
+                        <div className='pr-[20px]'>
+                            <span className="font-medium text-[16px] mr-[10px]">{userAuthen.userFullName}</span>
+                            <Dropdown
+                                className='cursor-pointer'
+                                overlay={<Menu onClick={handleItemClick} items={items} />}
+                                trigger={['click']}
+                            >
+                                <Avatar
+                                    style={{
+                                        height: "45px",
+                                        width: "45px"
+                                    }}
+                                    src={userAuthen.userImage}
+                                />
+                            </Dropdown>
+                        </div>
+                    </Header>
+                </Affix>
                 <Content
                     style={{
                         margin: '24px 16px',

@@ -12,6 +12,7 @@ import { ExtractInforToken } from '../../utils/Extract/ExtractInforToken';
 import { TYPE_USER_CLIENT } from '../../app/Constant/TypeUser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartSimple, faUsers, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { ACCESS_TOKEN } from '../../app/Constant/TokenConstant';
 const { Header, Sider, Content } = Layout;
 
 export const AdminAreaLayoutManagement = ({ children }) => {
@@ -27,7 +28,7 @@ export const AdminAreaLayoutManagement = ({ children }) => {
     const [userAuthen, setUserAuthen] = useState({});
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem(ACCESS_TOKEN)) {
             const inforToken = ExtractInforToken();
             setUserAuthen(inforToken);
             if (inforToken && inforToken.typeUser) {
@@ -50,7 +51,7 @@ export const AdminAreaLayoutManagement = ({ children }) => {
     ];
 
     const handleItemClick = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem(ACCESS_TOKEN);
         navigate(ROUTE_LOGIN);
         message.success("Đăng xuất tài khoản thành công!")
     }

@@ -7,6 +7,7 @@ import { useBookTicket } from "../hooks/useBookTicket";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { setBookTicketProgress } from "../../../../app/Redux/Slice/BookTicketSlice";
+import { AREA_CLIENT } from "../../../../app/Constant/TokenConstant";
 
 export const BookTicket = () => {
     let isMovieEmpty = 0;
@@ -51,7 +52,7 @@ export const BookTicket = () => {
             handleFetchListBranch().then(branch => {
                 const listBranchId = branch.map(item => item.id);
                 setListBranch(branch);
-                handleFetchListShowTime(movieId, listBranchId.join(","), localStorage.getItem("area"), dateChoose).then(response => {
+                handleFetchListShowTime(movieId, listBranchId.join(","), localStorage.getItem(AREA_CLIENT), dateChoose).then(response => {
                     setListShowTime(response);
                     dispatch(setLoadingFalse());
                 });

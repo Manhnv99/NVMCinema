@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { messageErrResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
+import { AREA_CLIENT } from "../../../../app/Constant/TokenConstant";
 
 export const useHomePage = () => {
 
@@ -24,10 +25,10 @@ export const useHomePage = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await HomePageAPI.fetchListMovieCurrentShowing(areaId);
-            setListMovieCurrentShowing(response.data.data);
+            setListMovieCurrentShowing(response?.data?.data);
         } catch (e) {
-            for (let errMessage in e.response.data) {
-                messageErrResponse(e.response.data[errMessage]);
+            for (let errMessage in e?.response?.data) {
+                messageErrResponse(e?.response?.data[errMessage]);
             }
         } finally {
             dispatch(setLoadingFalse());
@@ -38,10 +39,10 @@ export const useHomePage = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await HomePageAPI.fetchListMoviePreTicket(areaId);
-            setListMoviePreTicket(response.data.data);
+            setListMoviePreTicket(response?.data?.data);
         } catch (e) {
-            for (let errMessage in e.response.data) {
-                messageErrResponse(e.response.data[errMessage]);
+            for (let errMessage in e?.response?.data) {
+                messageErrResponse(e?.response?.data[errMessage]);
             }
         } finally {
             dispatch(setLoadingFalse());
@@ -52,10 +53,10 @@ export const useHomePage = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await HomePageAPI.fetchListMovieUpComming();
-            setListMovieUpComming(response.data.data);
+            setListMovieUpComming(response?.data?.data);
         } catch (e) {
-            for (let errMessage in e.response.data) {
-                messageErrResponse(e.response.data[errMessage]);
+            for (let errMessage in e?.response?.data) {
+                messageErrResponse(e?.response?.data[errMessage]);
             }
         } finally {
             dispatch(setLoadingFalse());
@@ -66,11 +67,10 @@ export const useHomePage = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await HomePageAPI.fetchDetailMovie(movieId);
-            console.log(response);
             setDetailMovie(response.data.data);
         } catch (e) {
-            for (let errMessage in e.response.data) {
-                messageErrResponse(e.response.data[errMessage]);
+            for (let errMessage in e?.response?.data) {
+                messageErrResponse(e?.response?.data[errMessage]);
             }
         } finally {
             dispatch(setLoadingFalse());
@@ -78,8 +78,8 @@ export const useHomePage = () => {
     }
 
     useEffect(() => {
-        handleFetchListMovieCurrentShowing(localStorage.getItem("area"));
-        handleFetchListMoviePreTicket(localStorage.getItem("area"));
+        handleFetchListMovieCurrentShowing(localStorage.getItem(AREA_CLIENT));
+        handleFetchListMoviePreTicket(localStorage.getItem(AREA_CLIENT));
         handleFetchListMovieUpComming();
     }, [areaChange]);
 

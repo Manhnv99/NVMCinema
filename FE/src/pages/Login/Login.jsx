@@ -6,6 +6,7 @@ import { TYPE_USER_CLIENT, TYPE_USER_USER } from "../../app/Constant/TypeUser";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_ADMIN_AREA_MANAGEMENT_WELCOME, ROUTE_ADMIN_MANAGEMENT_WELCOME, ROUTE_CLIENT_HOME, ROUTE_STAFF_MANAGEMENT_WELCOME } from "../../app/BaseUrl/BaseUrl";
 import { ROLE_ADMIN, ROLE_ADMIN_AREA } from "../../app/Constant/RoleConstant";
+import { ACCESS_TOKEN } from "../../app/Constant/TokenConstant";
 
 export const Login = () => {
 
@@ -28,7 +29,7 @@ export const Login = () => {
     }
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem(ACCESS_TOKEN)) {
             const inforToken = ExtractInforToken();
             if (inforToken && inforToken.typeUser) {
                 if (inforToken.typeUser === TYPE_USER_CLIENT) {

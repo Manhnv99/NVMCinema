@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { setStatusLogin } from "../../../../app/Redux/Slice/LoadingSlice";
 import { ModalChooseArea } from "../components/ModalChooseArea";
 import { isAreaExistInLocalStore } from "../../../../utils/CheckInforLocalStore/CheckInforLocalStore";
+import { OAUTH2_GOOGLE_AUTHENTICATION_URL } from "../../../../app/Constant/OAuth2Constant";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../../app/Constant/TokenConstant";
 
 
 export const LoginClient = () => {
@@ -79,8 +81,8 @@ export const LoginClient = () => {
     const handleLogin = () => {
         if (isAreaExistInLocalStore()) {
             handleFetchLogin(loginRequest).then(response => {
-                localStorage.setItem("token", response.data.token);
-                localStorage.setItem("refreshToken", response.data.refreshToken);
+                localStorage.setItem(ACCESS_TOKEN, response.data.token);
+                localStorage.setItem(REFRESH_TOKEN, response.data.refreshToken);
                 message.success(response.data.message);
                 dispatch(setStatusLogin());
                 navigate(ROUTE_CLIENT_HOME);
@@ -207,7 +209,7 @@ export const LoginClient = () => {
                                         <button onClick={handleLogin}
                                             className="bg-[#f3ea28] outline-none font-bold w-full py-[10px] text-[18px] rounded-md"
                                         >Đăng nhập</button>
-                                        <button onClick={() => window.location.href = "http://localhost:8080/"}
+                                        <button onClick={() => window.location.href = OAUTH2_GOOGLE_AUTHENTICATION_URL}
                                             className="outline-none font-bold w-full py-[10px] text-[18px] rounded-md"
                                         >Đăng nhập Google</button>
                                     </div>

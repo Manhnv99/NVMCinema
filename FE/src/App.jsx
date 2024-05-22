@@ -95,6 +95,7 @@ import { SaleCounterBookChair } from './pages/Staff/StaffSaleCounterManagement/l
 import { NotExist } from './pages/Error/NotExist/NotExist';
 import { CinemaSystem } from './pages/Client/ClientCinemaSystemManagement/layout/CinemaSystem';
 import { PromotionEvent } from './pages/Client/ClientPromotionEventManagement/layout/PromotionEvent';
+import { OAuth2RedirectHandler } from './pages/Client/ClientLoginManagement/oauth2/OAuth2RedirectHandler';
 
 function App() {
 
@@ -430,6 +431,9 @@ function App() {
           </Route>
           {/*Login Route*/}
           <Route path={ROUTE_LOGIN} element={<Login />} />;
+
+          {/*Oauth2*/}
+          <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
 
           {/*Error Route*/}
           {loadingErrorRoute()};

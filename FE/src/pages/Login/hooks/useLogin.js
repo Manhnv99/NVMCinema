@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../app/Redux/Slice/LoadingSlice";
 import { ROLE_ADMIN, ROLE_ADMIN_AREA, ROLE_STAFF } from "../../../app/Constant/RoleConstant";
 import { jwtDecode } from "jwt-decode";
+import { ACCESS_TOKEN } from "../../../app/Constant/TokenConstant";
 
 export const useLogin = () => {
 
@@ -18,7 +19,7 @@ export const useLogin = () => {
         dispatch(setLoadingTrue());
         try {
             const response = await LoginAPI.fetchLoginAPI(loginRequest);
-            handleLoginSuccess(response.data.token);
+            handleLoginSuccess(response?.data?.token);
         } catch (error) {
             handleLoginError(error);
         } finally {
@@ -28,8 +29,8 @@ export const useLogin = () => {
 
     //LoginSuccess
     const handleLoginSuccess = (token) => {
-        localStorage.setItem("token", token);
-        const roleToken = jwtDecode(token).roles[0].authority;
+        localStorage.setItem(ACCESS_TOKEN, token);
+        const roleToken = jwtDecode(token)?.roles[0]?.authority;
         message.success("Đăng nhập thành công");
         redirectUser(roleToken);
     };
@@ -38,8 +39,8 @@ export const useLogin = () => {
     const handleLoginError = (error) => {
         message.error("Đăng nhập thất bại");
         if (error.response) {
-            for (let errorMessage in error.response.data) {
-                message.error(error.response.data[errorMessage]);
+            for (let errorMessage in error?.response?.data) {
+                message.error(error?.response?.data[errorMessage]);
             }
         } else {
             console.error("Lỗi khi kết nối đến server:", error.message);

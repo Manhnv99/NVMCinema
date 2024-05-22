@@ -8,6 +8,7 @@ import { Avatar, Dropdown, Menu, Select, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { HomePageAPI } from "../../apis/Client/HomePage/HomePageAPI";
 import { setAreaChange, setListAreaGlobal } from "../../app/Redux/Slice/AreaSlice";
+import { ACCESS_TOKEN, AREA_CLIENT, REFRESH_TOKEN } from "../../app/Constant/TokenConstant";
 
 export const ClientHeaderLayout = () => {
 
@@ -24,14 +25,14 @@ export const ClientHeaderLayout = () => {
     const [currentArea, setCurrentArea] = useState("");
 
     const handleChooseArea = (value) => {
-        localStorage.setItem("area", value);
+        localStorage.setItem(AREA_CLIENT, value);
         dispatch(setAreaChange());
     };
 
     useEffect(() => {
-        if (localStorage.getItem("token") && localStorage.getItem("area")) {
+        if (localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(AREA_CLIENT)) {
             const inforUser = ExtractInforToken();
-            if (inforUser.typeUser === undefined) {
+            if (inforUser?.typeUser === undefined) {
                 navigate(ROUTE_CLIENT_ACCOUNT);
             } else {
                 setUserAuthen(inforUser);
@@ -49,12 +50,12 @@ export const ClientHeaderLayout = () => {
 
     //Two-way-binding
     useEffect(() => {
-        setCurrentArea(localStorage.getItem("area"));
+        setCurrentArea(localStorage.getItem(AREA_CLIENT));
     }, [areaChange]);
 
     useEffect(() => {
         HomePageAPI.fetchListArea().then(response => {
-            dispatch(setListAreaGlobal(response.data.data));
+            dispatch(setListAreaGlobal(response?.data?.data));
         });
     }, []);
 
@@ -73,7 +74,8 @@ export const ClientHeaderLayout = () => {
         if (e.key === ROUTE_CLIENT_INFORMATION) {
             navigate(ROUTE_CLIENT_INFORMATION)
         } else {
-            localStorage.removeItem("token");
+            localStorage.removeItem(ACCESS_TOKEN);
+            localStorage.removeItem(REFRESH_TOKEN);
             navigate(ROUTE_CLIENT_ACCOUNT);
             message.success("Đăng xuất tài khoản thành công!")
         }

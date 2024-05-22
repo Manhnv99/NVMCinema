@@ -1,4 +1,5 @@
 import { BookTicketAPI } from "../../../../apis/Client/BookTicket/BookTicketAPI";
+import { AREA_CLIENT } from "../../../../app/Constant/TokenConstant";
 import { messageErrResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
 
 export const useBookTicket = () => {
@@ -16,7 +17,7 @@ export const useBookTicket = () => {
 
     const handleFetchListBranch = async () => {
         try {
-            const response = await BookTicketAPI.fetchListBranch(localStorage.getItem("area"));
+            const response = await BookTicketAPI.fetchListBranch(localStorage.getItem(AREA_CLIENT));
             return response.data.data;
         } catch (e) {
             for (let errMessage in e.response.data) {

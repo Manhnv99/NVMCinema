@@ -9,7 +9,7 @@ import { ModalDetail } from "./ModalDetail";
 import dayjs from "dayjs";
 import { ModalTicketChair } from "./ModalTicketChair";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
-import { setCurrentPage, setTypeOfMovieAction } from "../store/actions/ShowTimeActions";
+import { setCurrentPageAction, setTypeOfMovieAction } from "../store/actions/ShowTimeActions";
 import { MOVIE_CURRENT_SHOWING, MOVIE_PRE_TICKET } from "../../../../app/Constant/ShowTimeConstant";
 
 
@@ -181,7 +181,7 @@ export const TableComponent = () => {
                             state.typeOrMovie,
                             page
                         );
-                        dispatch(setCurrentPage(page));
+                        dispatch(setCurrentPageAction(page));
                     }} pageSize={DEFAUTL_PAGE_SIZE} total={state.inforListShowTime.totalElement} />
                 </Card>
             </div>
