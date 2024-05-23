@@ -89,13 +89,9 @@ export const ClientHeaderLayout = () => {
                     <div className="container max-w-[90%] mx-auto h-full">
                         <div className="flex justify-between h-full py-[10px]">
                             <div className="flex items-center w-[50%] h-full">
-                                <img onClick={() => {
-                                    navigate(ROUTE_CLIENT_HOME); //chuyển đến trang chủ
-                                }} src={LogoNVM} className="h-full rounded-[50%] cursor-pointer" />
+                                <img onClick={() => navigate(ROUTE_CLIENT_HOME)} src={LogoNVM} className="h-full rounded-[50%] cursor-pointer" />
                                 <div className="flex ml-[30px]">
-                                    <p onClick={() => {
-                                        navigate(ROUTE_CLIENT_HOME);
-                                    }} className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Lịch chiếu</p>
+                                    <p onClick={() => navigate(ROUTE_CLIENT_HOME)} className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Lịch chiếu</p>
                                     <p onClick={() => navigate(ROUTE_CLIENT_BRANCH_SYSTEM)} className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mr-[15px] mb-0">Hệ thống rạp</p>
                                     <p onClick={() => navigate(ROUTE_CLIENT_PROMOTION_EVENT)} className="cursor-pointer hover:text-[var(--primary-limegreen)] duration-[0.3s] font-bold text-[#cfcfd0] mb-0">Khuyến mãi/Sự kiện</p>
                                 </div>
@@ -137,14 +133,16 @@ export const ClientHeaderLayout = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
                 :
                 <div className="bg-[var(--primary-nvm)] text-[var(--primary-white)] h-[80px] border-b border-[#999]">
                     <div className="container max-w-[90%] mx-auto h-full">
                         <div className="flex h-full py-[10px]">
                             <div className="flex justify-end w-[50%] h-full">
                                 <img onClick={() => {
-                                    navigate(ROUTE_CLIENT_HOME); //chuyển đến trang chủ
+                                    if (localStorage.getItem(ACCESS_TOKEN)) {
+                                        navigate(ROUTE_CLIENT_HOME); //chuyển đến trang chủ
+                                    }
                                 }} src={LogoNVM} className="h-full rounded-[50%] cursor-pointer" />
                             </div>
                             <div className="w-[50%] flex items-center justify-end">

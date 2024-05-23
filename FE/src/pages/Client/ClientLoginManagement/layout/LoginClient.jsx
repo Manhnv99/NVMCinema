@@ -9,7 +9,7 @@ import { ModalChooseArea } from "../components/ModalChooseArea";
 import { isAreaExistInLocalStore } from "../../../../utils/CheckInforLocalStore/CheckInforLocalStore";
 import { OAUTH2_GOOGLE_AUTHENTICATION_URL } from "../../../../app/Constant/OAuth2Constant";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../../app/Constant/TokenConstant";
-
+import logoGoogle from "../../../../assets/google-logo.png";
 
 export const LoginClient = () => {
 
@@ -210,8 +210,11 @@ export const LoginClient = () => {
                                             className="bg-[#f3ea28] outline-none font-bold w-full py-[10px] text-[18px] rounded-md"
                                         >Đăng nhập</button>
                                         <button onClick={() => window.location.href = OAUTH2_GOOGLE_AUTHENTICATION_URL}
-                                            className="outline-none font-bold w-full py-[10px] text-[18px] rounded-md"
-                                        >Đăng nhập Google</button>
+                                            className="border mt-[5px] flex justify-center items-center outline-none font-bold w-full py-[5px] text-[18px] rounded-md"
+                                        >
+                                            <img className="w-[30px] mr-[5px]" src={logoGoogle} />
+                                            <p>Đăng nhập Google</p>
+                                        </button>
                                     </div>
                                 </div>
                                 :

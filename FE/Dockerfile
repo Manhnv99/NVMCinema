@@ -20,4 +20,6 @@ COPY tailwind.config.js /fe
 
 COPY vite.config.js /fe
 
+COPY .env /fe/
+
 CMD ["npm", "run","dev"]
