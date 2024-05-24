@@ -144,12 +144,12 @@ public class ClientBookChairServiceImpl implements ClientBookChairService {
     }
 
     @Override
-    public String startOnlineBanking(ClientBookChairPaymentRequest paymentRequest, String urlReturn) {
+    public String startOnlineBanking(ClientBookChairPaymentRequest paymentRequest, String urlReturn, String domainIP) {
         this.handleSetPaymentRequestFinal(paymentRequest); // set payment request
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
-        String vnp_IpAddr = "127.0.0.1";
+        String vnp_IpAddr = domainIP;
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
         String orderType = "order-type";
 

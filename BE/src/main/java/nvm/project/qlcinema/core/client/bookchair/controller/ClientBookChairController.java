@@ -8,6 +8,7 @@ import nvm.project.qlcinema.core.client.bookchair.service.ClientBookChairService
 import nvm.project.qlcinema.core.common.ResponseInternetBanking;
 import nvm.project.qlcinema.core.common.ResponseObject;
 import nvm.project.qlcinema.infrastructure.constant.UrlPath;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ import java.io.IOException;
 public class ClientBookChairController {
 
     private final ClientBookChairService clientBookChairService;
+
+    @Value("${domain.be}")
+    private String domainIP;
 
     @GetMapping("/detail-showtime/{showTimeId}")
     public ResponseObject getDetailShowTime(@PathVariable String showTimeId) {
@@ -50,8 +54,8 @@ public class ClientBookChairController {
 
     @PostMapping("/start-online-banking")
     public String startOnlineBanking(@RequestBody ClientBookChairPaymentRequest paymentRequest, HttpServletRequest request) {
-        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        String vnpayUrl = clientBookChairService.startOnlineBanking(paymentRequest, baseUrl);
+        String baseUrl = request.getScheme() + "://" + domainIP + ":" + request.getServerPort();
+        String vnpayUrl = clientBookChairService.startOnlineBanking(paymentRequest, baseUrl, domainIP);
         return vnpayUrl;
     }
 

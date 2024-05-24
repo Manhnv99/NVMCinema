@@ -39,6 +39,7 @@ services:
       - nvm_cinema_network
 networks:
   nvm_cinema_network:
+    driver: bridge
 volumes:
   db:
     driver: local

@@ -14,8 +14,8 @@ spring:
       client:
         registration:
           google:
-            clientId: ${CLIENT_ID}
-            clientSecret: ${CLIENT_SECRET}
+            clientId: 283263190878-ednkm73ltsu83cnctnjsj269qgvihqce.apps.googleusercontent.com
+            clientSecret: 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
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - profile
@@ -24,9 +24,10 @@ jwt:
   secretKey: "d3775c0fefb657b49d334eacae493726e131ea10e36b9f8800185b05d210ddd4"
 domain:
   fe: "http://localhost:9999"
+  be: ${DOMAIN_BE}
 app:
   oauth2:
     authorizedRedirectUris:
-      - ${OAUTH2_REDIRECT_URI}
+      - http://localhost:9999/oauth2/redirect
 server:
   port: 8080

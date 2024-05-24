@@ -325,6 +325,7 @@ public class SaleCounterManagementServiceImpl implements SaleCounterManagementSe
         vnp_Params.put("vnp_Locale", locate);
 
         urlReturn += VNPayConfig.offline_vnp_ReturnUrl;
+        System.out.println(urlReturn);
         vnp_Params.put("vnp_ReturnUrl", urlReturn);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
