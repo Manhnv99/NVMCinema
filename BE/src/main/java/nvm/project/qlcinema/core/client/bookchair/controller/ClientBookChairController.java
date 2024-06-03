@@ -54,7 +54,8 @@ public class ClientBookChairController {
 
     @PostMapping("/start-online-banking")
     public String startOnlineBanking(@RequestBody ClientBookChairPaymentRequest paymentRequest, HttpServletRequest request) {
-        String baseUrl = request.getScheme() + "://" + domainIP + ":" + request.getServerPort();
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        System.out.println(baseUrl);
         String vnpayUrl = clientBookChairService.startOnlineBanking(paymentRequest, baseUrl, domainIP);
         return vnpayUrl;
     }

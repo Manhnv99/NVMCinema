@@ -3,6 +3,7 @@ package nvm.project.qlcinema.core.client.bookchair.service.impl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import nvm.project.qlcinema.core.client.bookchair.model.request.ClientBookChairComboFoodRequest;
 import nvm.project.qlcinema.core.client.bookchair.model.request.ClientBookChairPaymentRequest;
 import nvm.project.qlcinema.core.client.bookchair.repository.ClientBookChairClientRepository;
@@ -53,6 +54,7 @@ import java.util.TimeZone;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ClientBookChairServiceImpl implements ClientBookChairService {
 
     private final ClientBookChairRepository clientBookChairRepository;

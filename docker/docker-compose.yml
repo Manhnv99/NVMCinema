@@ -13,6 +13,7 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: manh99123
       MYSQL_DB: nvmcinema
+      TZ: Asia/Ho_Chi_Minh
     depends_on:
       - db-mysql
   fe-reactjs:

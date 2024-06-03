@@ -56,13 +56,19 @@ public class AuthorizationFilterChainConfig {
         );
         httpSecurity.oauth2Login(oauth2 -> {
             oauth2.authorizationEndpoint(authorizationEndpointConfig -> {
+                //Cấu hình endpoint để truy cập đến authorization server
                 authorizationEndpointConfig.baseUri("/oauth2/authorize")
                         .authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository);
+                //Cấu tạo 1 lớp đề xử lý trước khi truy cập đến đường link của authorization server
+                //ở đây là hình sẽ tạo 2 giá trị cookie để gửi lên web và ở request sau thì lại trích xuất cookie đó ra để lấy giá trị redirectUrl
             });
             oauth2.redirectionEndpoint(redirectionEndpointConfig -> {
+                //Cấu hình endpoint redirectUrl -> Nó sẽ đựọc gọi với endpoint chỉ định này với 1 mã code mà Authorization Server trả về
                 redirectionEndpointConfig.baseUri("/oauth2/callback/*");
             });
             oauth2.userInfoEndpoint(userInfoEndpointConfig -> {
+                //Sau khi mà được Authorization Server trả về cho các thông tin của người dùng thì sẽ lưu nó trong đối tượng OAuth2UserRequest
+                //Và lớp này sẽ xử lý việc tạo user thêm vào repo hay là update.
                 userInfoEndpointConfig.userService(customOAuth2UserService);
             });
             oauth2.successHandler(oAuth2AuthenticationSuccessHandler);

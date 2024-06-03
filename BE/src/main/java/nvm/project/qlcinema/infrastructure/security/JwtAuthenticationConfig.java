@@ -64,7 +64,7 @@ public class JwtAuthenticationConfig extends OncePerRequestFilter {
                     assert userDetails != null;
                     UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(
                             userDetails.getUsername(),
-                            "",
+                            userDetails.getPassword(),
                             userDetails.getAuthorities()
                     );
                     //Create SecurityContextHolder for Authorization

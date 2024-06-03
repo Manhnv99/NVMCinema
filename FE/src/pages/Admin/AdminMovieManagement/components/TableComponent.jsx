@@ -103,7 +103,6 @@ export const TableComponent = () => {
         },
     ];
 
-
     useEffect(() => {
         let inforSearch = { ...state.inforSearch };
         handleFetchListSearchMovie(

@@ -1,6 +1,7 @@
 package nvm.project.qlcinema.core.admin.areamanagement.controller;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementListAreaRequest;
 import nvm.project.qlcinema.core.admin.areamanagement.model.request.AdminAreaManagementPostRequest;

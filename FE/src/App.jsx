@@ -96,6 +96,8 @@ import { NotExist } from './pages/Error/NotExist/NotExist';
 import { CinemaSystem } from './pages/Client/ClientCinemaSystemManagement/layout/CinemaSystem';
 import { PromotionEvent } from './pages/Client/ClientPromotionEventManagement/layout/PromotionEvent';
 import { OAuth2RedirectHandler } from './pages/Client/ClientLoginManagement/oauth2/OAuth2RedirectHandler';
+import ScrollToTop from './utils/ScrollToTop';
+// import ScrollToTop
 
 function App() {
 
@@ -424,11 +426,10 @@ function App() {
 
       {/*Route App*/}
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           {/*HomePage auto Redirect*/}
-          <Route path='/' element={<Navigate to={ROUTE_CLIENT_HOME} />}>
-            {/* <Redirect to={ROUTE_CLIENT_HOME} /> */}
-          </Route>
+          <Route path='/' element={<Navigate to={ROUTE_CLIENT_HOME} />} />
           {/*Login Route*/}
           <Route path={ROUTE_LOGIN} element={<Login />} />;
 
@@ -450,7 +451,7 @@ function App() {
           {/*Client Route */}
           {loadingClientRoute()};
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter >
     </>
   )
 }
