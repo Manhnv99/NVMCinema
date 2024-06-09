@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -28,7 +29,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "movie")
-public class Movie extends PrimaryEntity {
+public class Movie extends PrimaryEntity implements Serializable {
 
     @Column(name = "code")
     private String code;

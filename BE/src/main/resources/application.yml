@@ -25,12 +25,11 @@ spring:
             scope:
               - profile
               - email
-  data:
-    redis:
-      host: localhost
-      port: 6379
 jwt:
   secretKey: "d3775c0fefb657b49d334eacae493726e131ea10e36b9f8800185b05d210ddd4"
+redis:
+  host: localhost
+  port: 6379
 domain:
   fe: "http://localhost:9999"
   be: ${DOMAIN_BE}
