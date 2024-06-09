@@ -2,6 +2,7 @@ package nvm.project.qlcinema.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -9,9 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import nvm.project.qlcinema.entity.base.PrimaryEntity;
+import nvm.project.qlcinema.entity.listener.MovieListenerRedis;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -29,7 +31,9 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "movie")
-public class Movie extends PrimaryEntity implements Serializable {
+@ToString
+@EntityListeners(MovieListenerRedis.class)
+public class Movie extends PrimaryEntity {
 
     @Column(name = "code")
     private String code;
