@@ -1,0 +1,47 @@
+services:
+  cinema-db:
+    image: mysql
+    container_name: cinema-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: nvmcinema
+      MYSQL_ROOT_PASSWORD: Manh99123
+    ports:
+      - "3306:3306"
+    volumes:
+      - cinema_data:/var/lib/cinema_db
+  cinema-fe:
+    image: manhnv99/cinema-fe:0.0.1
+    container_name: cinema-fe
+    restart: always
+    ports:
+      - "9999:9999"
+    depends_on:
+      - cinema-be
+  cinema-be:
+    container_name: cinema-be
+    image: manhnv99/cinema-be:0.0.3
+    restart: always
+    ports:
+      - "8088:8088"
+    environment:
+      #DATABASE INFORMATION
+      MYSQL_HOST: cinema-db
+      MYSQL_PORT: 3306
+      MYSQL_DB: nvmcinema
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Manh99123
+      SERVER_PORT: 8088
+      DOMAIN_BE: cinema-be
+      TZ: Asia/Ho_Chi_Minh
+    depends_on:
+      - cinema-db
+    volumes:
+      - cinemma_be_data:/var/lib/cinemma_be_db
+volumes:
+  cinema_data:
+  cinemma_be_data:
+
+networks:
+  default:
+    name: cinema-networks
