@@ -12,7 +12,7 @@ services:
       - cinema_data:/var/lib/cinema_db
       
   cinema-fe:
-    image: manhnv99/cinema-fe:0.0.1
+    image: manhnv99/cinema-fe:0.0.2
     container_name: cinema-fe
     restart: always
     ports:
@@ -31,10 +31,10 @@ services:
 
   cinema-be:
     container_name: cinema-be
-    image: manhnv99/cinema-be:0.0.5
+    image: manhnv99/cinema-be:0.0.8
     restart: always
     ports:
-      - "8088:8088"
+      - "8080:8080"
     environment:
       #DATABASE INFORMATION
       MYSQL_HOST: cinema-db
@@ -42,8 +42,10 @@ services:
       MYSQL_DB: nvmcinema
       MYSQL_USER: root
       MYSQL_PASSWORD: Manh99123
-      SERVER_PORT: 8088
+      SERVER_PORT: 8080
       DOMAIN_BE: cinema-be
+      REDIS_HOST: cinema-redis
+      REDIS_PORT: 6379
       TZ: Asia/Ho_Chi_Minh
     depends_on:
       - cinema-db
