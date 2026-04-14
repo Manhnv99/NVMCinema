@@ -1,25 +1,32 @@
-FROM node:18-alpine
+# Stage 1: Build stage
+FROM node:20 AS build
 
-WORKDIR /fe
+# Set the working directory to /app
+WORKDIR /app
 
-COPY public/ /fe/public
-COPY src/ /fe/src
-COPY package-lock.json /fe
-COPY package.json /fe
-# COPY . /fe
+# Copy package.json and yarn.lock to the working directory
+COPY package.json /app/package.json
 
-RUN npm install --force
+# Install dependencies
+RUN npm install
 
-COPY index.html /fe
+# Copy the entire project to the working directory
+COPY . /app
 
-COPY .eslintrc.cjs /fe
+# Build the project
+RUN npm run build
 
-COPY postcss.config.js /fe
+# Stage 2: Production stage
+FROM nginx:stable-alpine
 
-COPY tailwind.config.js /fe
+# Copy the built files from the build stage to the nginx html directory
+COPY --from=build /app/dist /usr/share/nginx/html
 
-COPY vite.config.js /fe
+# Copy the nginx configuration file to the nginx conf directory
+COPY /nginx/nginx.conf /etc/nginx/nginx.conf
 
-COPY .env /fe/
+# Expose port 1234
+EXPOSE 9999
 
-CMD ["npm", "run","dev"]
+# Start nginx with the specified configuration
+CMD ["nginx", "-g", "daemon off;"]
