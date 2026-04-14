@@ -10,6 +10,7 @@ services:
       - "3306:3306"
     volumes:
       - cinema_data:/var/lib/cinema_db
+      
   cinema-fe:
     image: manhnv99/cinema-fe:0.0.1
     container_name: cinema-fe
@@ -18,9 +19,19 @@ services:
       - "9999:9999"
     depends_on:
       - cinema-be
+
+  cinema-redis:
+    image: redis:7
+    container_name: cinema-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - cinema_redis_data:/var/lib/redis_db
+
   cinema-be:
     container_name: cinema-be
-    image: manhnv99/cinema-be:0.0.3
+    image: manhnv99/cinema-be:0.0.5
     restart: always
     ports:
       - "8088:8088"
@@ -41,6 +52,7 @@ services:
 volumes:
   cinema_data:
   cinemma_be_data:
+  cinema_redis_data:
 
 networks:
   default:
