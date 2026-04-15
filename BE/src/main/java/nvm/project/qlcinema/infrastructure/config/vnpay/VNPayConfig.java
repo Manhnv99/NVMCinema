@@ -26,9 +26,9 @@ public class VNPayConfig {
 
     public static String offline_vnp_ReturnUrl = UrlPath.URL_API_STAFF_SALE_COUNTER_MANAGEMENT + "/vnpay-payment";
 
-    public static String vnp_TmnCode = "1SRN2PE4";
+    public static String vnp_TmnCode = "QVFWSZ40";
 
-    public static String vnp_HashSecret = "SYZCKYESYYVJDQUOYHNSAXUTQLEEBAXE";
+    public static String vnp_HashSecret = "TS9XMWPWVITOS4ZOSRNX6Y11SU0FBI47";
 
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
