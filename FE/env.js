@@ -1,0 +1,3 @@
+window.VITE_REACT_APP_API_URL = 'http://localhost:8080';
+window.VITE_REACT_APP_BE_DOMAIN = 'http://localhost:8080/';
+window.VITE_REACT_APP_FE_DOMAIN = 'http://localhost:9999/';

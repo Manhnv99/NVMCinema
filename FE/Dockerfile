@@ -24,9 +24,12 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy the nginx configuration file to the nginx conf directory
 COPY /nginx/nginx.conf /etc/nginx/nginx.conf
+COPY /public/env.template.js /usr/share/nginx/html/env.template.js
+COPY entrypoint.sh /docker-entrypoint.d/entrypoint.sh
 
-# Expose port 1234
-EXPOSE 9999
+COPY env.js /usr/share/nginx/html/env.js 
+
+RUN chmod +x /docker-entrypoint.d/entrypoint.sh
 
 # Start nginx with the specified configuration
 CMD ["nginx", "-g", "daemon off;"]

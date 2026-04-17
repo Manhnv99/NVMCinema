@@ -1,4 +1,4 @@
-export const baseURL = import.meta.env.VITE_REACT_APP_API_URL;
+export const baseURL = window.VITE_REACT_APP_API_URL;
 
 // base API Follow by role
 
