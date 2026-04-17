@@ -12,9 +12,13 @@ services:
       - cinema_data:/var/lib/cinema_db
       
   cinema-fe:
-    image: manhnv99/cinema-fe:0.0.2
+    image: manhnv99/cinema-fe:0.0.8
     container_name: cinema-fe
     restart: always
+    environment:
+      VITE_REACT_APP_API_URL: http://localhost:8080
+      VITE_REACT_APP_BE_DOMAIN: http://localhost:8080/
+      VITE_REACT_APP_FE_DOMAIN: http://localhost:9999/
     ports:
       - "9999:9999"
     depends_on:
