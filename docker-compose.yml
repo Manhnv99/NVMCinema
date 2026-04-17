@@ -12,7 +12,7 @@ services:
       - cinema_data:/var/lib/cinema_db
       
   cinema-fe:
-    image: manhnv99/cinema-fe:0.0.8
+    image: manhnv99/cinema-fe:0.0.9
     container_name: cinema-fe
     restart: always
     environment:
@@ -35,7 +35,7 @@ services:
 
   cinema-be:
     container_name: cinema-be
-    image: manhnv99/cinema-be:0.0.8
+    image: manhnv99/cinema-be:0.0.9
     restart: always
     ports:
       - "8080:8080"
