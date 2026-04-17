@@ -7,7 +7,7 @@ export class InformationClientAPI {
     static fetchProvince = () => {
         return requestAPIClient({
             method: "GET",
-            url: "https://vnprovinces.pythonanywhere.com/api/provinces/?basic=true&limit=100",
+            url: URL_API_CLIENT_INFORMATION_CLIENT + "/provinces",
         });
     };
 

@@ -19,7 +19,8 @@ export const useInformation = () => {
     const handleFetchProvince = async () => {
         try {
             const response = await InformationClientAPI.fetchProvince();
-            setProvinces(response.data.results);
+            const provinces = JSON.parse(response.data.message);
+            setProvinces(provinces);
         } catch (e) {
             messageErrResponse("Không lấy được danh sách tỉnh thành phố!");
         }
