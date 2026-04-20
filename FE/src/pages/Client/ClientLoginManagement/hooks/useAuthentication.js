@@ -41,13 +41,13 @@ export const useAuthentication = () => {
     };
 
     const handleFetchProvince = async () => {
-        setProvinces([]);
-        // try {
-        //     const response = await AuthenticationAPI.fetchProvince();
-        //     setProvinces(response.data.results);
-        // } catch (e) {
-        //     messageErrResponse("Không lấy được danh sách tỉnh thành phố!");
-        // }
+        try {
+            const response = await AuthenticationAPI.fetchProvince();
+            const provinces = JSON.parse(response.data.message);
+            setProvinces(provinces);
+        } catch (e) {
+            messageErrResponse("Không lấy được danh sách tỉnh thành phố!");
+        }
     };
 
     useEffect(() => {

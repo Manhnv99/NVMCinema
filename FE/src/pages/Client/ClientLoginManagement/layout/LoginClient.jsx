@@ -264,7 +264,11 @@ export const LoginClient = () => {
                                         <span className="font-medium text-[#222c37]">Thành Phố</span>
                                         <span className="text-[red]">*</span>
                                         <br />
-                                        <select onChange={(e) => {
+                                        <select
+                                            onClick={(e) => {
+                                                onChangeFieldsRegister(e, "province");
+                                            }}
+                                            onChange={(e) => {
                                             onChangeFieldsRegister(e, "province");
                                         }} value={registerRequest.province} className="my-[10px] border border-[#e2e8f0]
                                             outline-none py-[10px] px-[10px] text-[15px] rounded-md w-full">
