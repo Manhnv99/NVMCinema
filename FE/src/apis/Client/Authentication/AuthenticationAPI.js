@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL_API_CLIENT_AUTHENTICATION } from "../../../app/BaseApi/BaseApi";
+import {URL_API_CLIENT_AUTHENTICATION, URL_API_CLIENT_INFORMATION_CLIENT} from "../../../app/BaseApi/BaseApi";
 import { requestAPIClient } from "../../axiosCustomize";
 import { ExtractInforToken } from "../../../utils/Extract/ExtractInforToken";
 
@@ -24,7 +24,7 @@ export class AuthenticationAPI {
     static fetchProvince = () => {
         return requestAPIClient({
             method: "GET",
-            url: "https://vnprovinces.pythonanywhere.com/api/provinces/?basic=true&limit=100",
+            url: URL_API_CLIENT_AUTHENTICATION + "/provinces",
         });
     };
 
