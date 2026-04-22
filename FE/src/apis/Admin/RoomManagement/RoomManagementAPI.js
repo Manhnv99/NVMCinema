@@ -6,7 +6,7 @@ export class RoomManagementAPI {
     static fetchListSearch = (inputSearch, branchId, page) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + "/get-search-room",
+            url: URL_API_ADMIN_ROOM_MANAGEMENT,
             params: {
                 inputSearch: inputSearch,
                 branchId: branchId,
@@ -18,42 +18,42 @@ export class RoomManagementAPI {
     static fetchGetOne = (id) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/get-one-room/${id}`,
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/one/${id}`,
         });
     };
 
     static fetchGetDetail = (id) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/get-detail-room/${id}`,
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/${id}`,
         });
     };
 
     static fetchListChair = (roomId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/get-list-chair/${roomId}`,
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/chairs/${roomId}`,
         });
     };
 
     static fetchListArea = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/get-list-area`,
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/areas`,
         });
     };
 
     static fetchListBranch = (areaId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/get-list-branch/${areaId}`,
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/branchs/${areaId}`,
         });
     };
 
     static fetchPost = (postRequest) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + "/post-room",
+            url: URL_API_ADMIN_ROOM_MANAGEMENT,
             data: postRequest
         });
     };
@@ -61,7 +61,7 @@ export class RoomManagementAPI {
     static fetchPut = (putRequest) => {
         return requestAPI({
             method: "PUT",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + "/put-room",
+            url: URL_API_ADMIN_ROOM_MANAGEMENT,
             data: putRequest
         });
     };
@@ -69,7 +69,7 @@ export class RoomManagementAPI {
     static fetchDelete = (id) => {
         return requestAPI({
             method: "DELETE",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/delete-room/${id}`,
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/${id}`,
         });
     };
 

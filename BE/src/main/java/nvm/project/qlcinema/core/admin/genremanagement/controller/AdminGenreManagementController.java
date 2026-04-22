@@ -28,27 +28,27 @@ public class AdminGenreManagementController {
 
     private final AdminGenreManagementService adminGenreManagementService;
 
-    @GetMapping("/get-search-genre")
+    @GetMapping
     public PageableObject<AdminGenreManagementListGenreResponse> getListGenre(final AdminGenreManagementListGenreRequest request) {
         return adminGenreManagementService.getListGenre(request);
     }
 
-    @GetMapping("/get-detail-genre/{genreId}")
+    @GetMapping("/{genreId}")
     public ResponseObject getDetailGenre(@PathVariable String genreId) {
         return adminGenreManagementService.getDetailGenre(genreId);
     }
 
-    @PostMapping("/post-genre")
+    @PostMapping
     public ResponseObject postGenre(@RequestBody @Valid AdminGenreManagementPostRequest postRequest) {
         return adminGenreManagementService.postGenre(postRequest);
     }
 
-    @PutMapping("/put-genre")
+    @PutMapping
     public ResponseObject putGenre(@RequestBody @Valid AdminGenreManagementPutRequest putRequest) {
         return adminGenreManagementService.putGenre(putRequest);
     }
 
-    @DeleteMapping("/delete-genre/{genreId}")
+    @DeleteMapping("/{genreId}")
     public ResponseObject deleteGenre(@PathVariable String genreId) {
         return adminGenreManagementService.deleteGenre(genreId);
     }

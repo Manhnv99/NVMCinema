@@ -6,7 +6,7 @@ export class CountryManagementAPI {
     static fetchPostCountry = (data) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_COUNTRY_MANAGEMENT + "/post-country",
+            url: URL_API_ADMIN_COUNTRY_MANAGEMENT,
             data: data
         });
     };
@@ -14,7 +14,7 @@ export class CountryManagementAPI {
     static fetchPutCountry = (data) => {
         return requestAPI({
             method: "PUT",
-            url: URL_API_ADMIN_COUNTRY_MANAGEMENT + "/put-country",
+            url: URL_API_ADMIN_COUNTRY_MANAGEMENT,
             data: data
         });
     };
@@ -22,14 +22,14 @@ export class CountryManagementAPI {
     static fetchDeleteCountry = (countryId) => {
         return requestAPI({
             method: "DELETE",
-            url: URL_API_ADMIN_COUNTRY_MANAGEMENT + `/delete-country/${countryId}`,
+            url: URL_API_ADMIN_COUNTRY_MANAGEMENT + `/${countryId}`,
         });
     };
 
     static fetchListSearch = (inputSearch, page) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_COUNTRY_MANAGEMENT + "/get-search-country",
+            url: URL_API_ADMIN_COUNTRY_MANAGEMENT,
             params: {
                 inputSearch: inputSearch,
                 page: page
@@ -40,7 +40,7 @@ export class CountryManagementAPI {
     static fetchDetailCountry = (countryId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_COUNTRY_MANAGEMENT + `/get-detail-country/${countryId}`,
+            url: URL_API_ADMIN_COUNTRY_MANAGEMENT + `/${countryId}`,
         });
     };
 

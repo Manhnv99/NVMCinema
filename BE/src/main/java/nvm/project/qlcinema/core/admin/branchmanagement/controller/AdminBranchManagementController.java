@@ -30,37 +30,37 @@ public class AdminBranchManagementController {
 
     private final AdminBranchManagementService adminBranchManagementService;
 
-    @GetMapping("/get-search-branch")
+    @GetMapping
     public PageableObject<AdminBranchManagementListBranchResponse> getListBranch(final AdminBranchManagementListBranchRequest request) {
         return adminBranchManagementService.getListBranch(request);
     }
 
-    @GetMapping("/get-list-area")
+    @GetMapping("/areas")
     public ResponseObject getListArea() {
         return adminBranchManagementService.getListArea();
     }
 
-    @GetMapping("/get-detail-branch/{id}")
+    @GetMapping("/{id}")
     public ResponseObject getDetailBranch(@PathVariable String id) {
         return adminBranchManagementService.getDetailBranch(id);
     }
 
-    @GetMapping("/get-one-branch/{id}")
+    @GetMapping("/one/{id}")
     public ResponseObject getOneBranch(@PathVariable String id) {
         return adminBranchManagementService.getOneBranch(id);
     }
 
-    @PostMapping("/post-branch")
+    @PostMapping
     public ResponseObject postBranch(@ModelAttribute @Valid AdminBranchManagementPostRequest postRequest) throws IOException {
         return adminBranchManagementService.postBranch(postRequest);
     }
 
-    @PutMapping("/put-branch")
+    @PutMapping
     public ResponseObject putBranch(@ModelAttribute @Valid AdminBranchManagementPutRequest putRequest) throws IOException {
         return adminBranchManagementService.putBranch(putRequest);
     }
 
-    @DeleteMapping("/delete-branch/{id}")
+    @DeleteMapping("/{id}")
     public ResponseObject deleteBranch(@PathVariable String id) {
         return adminBranchManagementService.deleteBranch(id);
     }

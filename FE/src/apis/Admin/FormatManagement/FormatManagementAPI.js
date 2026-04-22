@@ -6,7 +6,7 @@ export class FormatManagementAPI {
     static fetchPostFormat = (data) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_FORMAT_MANAGEMENT + "/post-format",
+            url: URL_API_ADMIN_FORMAT_MANAGEMENT,
             data: data
         });
     };
@@ -14,7 +14,7 @@ export class FormatManagementAPI {
     static fetchPutFormat = (data) => {
         return requestAPI({
             method: "PUT",
-            url: URL_API_ADMIN_FORMAT_MANAGEMENT + "/put-format",
+            url: URL_API_ADMIN_FORMAT_MANAGEMENT,
             data: data
         });
     };
@@ -22,14 +22,14 @@ export class FormatManagementAPI {
     static fetchDeleteFormat = (formatId) => {
         return requestAPI({
             method: "DELETE",
-            url: URL_API_ADMIN_FORMAT_MANAGEMENT + `/delete-format/${formatId}`,
+            url: URL_API_ADMIN_FORMAT_MANAGEMENT + `/${formatId}`,
         });
     };
 
     static fetchListSearch = (inputSearch, page) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_FORMAT_MANAGEMENT + "/get-search-format",
+            url: URL_API_ADMIN_FORMAT_MANAGEMENT,
             params: {
                 inputSearch: inputSearch,
                 page: page
@@ -40,7 +40,7 @@ export class FormatManagementAPI {
     static fetchDetailFormat = (formatId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_FORMAT_MANAGEMENT + `/get-detail-format/${formatId}`,
+            url: URL_API_ADMIN_FORMAT_MANAGEMENT + `/${formatId}`,
         });
     };
 

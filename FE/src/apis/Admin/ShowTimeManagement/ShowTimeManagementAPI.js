@@ -6,7 +6,7 @@ export class ShowTimeManagementAPI {
     static fetchListSearch = (movieName, areaId, branchId, roomId, typeShowTime, page) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + "/get-search-showtime",
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT,
             params: {
                 movieName: movieName,
                 areaId: areaId,
@@ -21,63 +21,63 @@ export class ShowTimeManagementAPI {
     static fetchGetOne = (id) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-one-showtime/${id}`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/one/${id}`,
         });
     };
 
     static fetchGetDetail = (id) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-detail-showtime/${id}`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/${id}`,
         });
     };
 
     static fetchListTicketChair = (showTimeId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-list-ticket-chair/${showTimeId}`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/ticket-chair/${showTimeId}`,
         });
     };
 
     static fetchListArea = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-list-area`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/areas`,
         });
     };
 
     static fetchListBranch = (areaId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-list-branch/${areaId}`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/branches/${areaId}`,
         });
     };
 
     static fetchListRoom = (branchId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-list-room/${branchId}`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/rooms/${branchId}`,
         });
     };
 
     static fetchListMovieCurrentShowing = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-list-movie-current-showing`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/movie-current-showing`,
         });
     };
 
     static fetchListMoviePreTicket = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/get-list-movie-pre-ticker`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/movie-pre-ticker`,
         });
     };
 
     static fetchPost = (postRequest) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/post-showtime`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT,
             data: postRequest
         });
     };
@@ -85,7 +85,7 @@ export class ShowTimeManagementAPI {
     static fetchPut = (putRequest) => {
         return requestAPI({
             method: "PUT",
-            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT + `/put-showtime`,
+            url: URL_API_ADMIN_SHOWTIME_MANAGEMENT,
             data: putRequest
         });
     };

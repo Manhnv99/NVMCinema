@@ -7,7 +7,7 @@ export class ComboFoodManagementAPI {
     static fetchPostComboFood = (data) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT + "/post-combo-food",
+            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT,
             data: data
         });
     };
@@ -15,7 +15,7 @@ export class ComboFoodManagementAPI {
     static fetchPutComboFood = (data) => {
         return requestAPI({
             method: "PUT",
-            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT + "/put-combo-food",
+            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT,
             data: data
         });
     };
@@ -23,14 +23,14 @@ export class ComboFoodManagementAPI {
     static fetchDeleteComboFood = (comboFood) => {
         return requestAPI({
             method: "DELETE",
-            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT + `/delete-combo-food/${comboFood}`,
+            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT + `/${comboFood}`,
         });
     };
 
     static fetchListSearch = (inputSearch, page) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT + "/get-search-combo-food",
+            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT,
             params: {
                 inputSearch: inputSearch,
                 page: page
@@ -41,7 +41,7 @@ export class ComboFoodManagementAPI {
     static fetchDetailComboFood = (comboFood) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT + `/get-detail-combo-food/${comboFood}`,
+            url: URL_API_ADMIN_COMBO_FOOD_MANAGEMENT + `/${comboFood}`,
         });
     };
 

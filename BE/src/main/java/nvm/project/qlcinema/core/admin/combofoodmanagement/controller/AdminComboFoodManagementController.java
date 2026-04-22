@@ -30,27 +30,27 @@ public class AdminComboFoodManagementController {
 
     private final AdminComboFoodManagementService adminComboFoodManagementService;
 
-    @GetMapping("/get-search-combo-food")
+    @GetMapping
     public PageableObject<AdminComboFoodManagementListComboFoodResponse> getListComboFood(final AdminComboFoodManagementListComboFoodRequest request) {
         return adminComboFoodManagementService.getListComboFood(request);
     }
 
-    @GetMapping("/get-detail-combo-food/{comboFoodId}")
+    @GetMapping("/{comboFoodId}")
     public ResponseObject getDetailComboFood(@PathVariable String comboFoodId) {
         return adminComboFoodManagementService.getDetailComboFood(comboFoodId);
     }
 
-    @PostMapping("/post-combo-food")
+    @PostMapping
     public ResponseObject postComboFood(@ModelAttribute @Valid AdminComboFoodManagementPostRequest postRequest) throws IOException {
         return adminComboFoodManagementService.postComboFood(postRequest);
     }
 
-    @PutMapping("/put-combo-food")
+    @PutMapping
     public ResponseObject putComboFood(@ModelAttribute @Valid AdminComboFoodManagementPutRequest putRequest) throws IOException {
         return adminComboFoodManagementService.putComboFood(putRequest);
     }
 
-    @DeleteMapping("/delete-combo-food/{comboFoodId}")
+    @DeleteMapping("/{comboFoodId}")
     public ResponseObject deleteComboFood(@PathVariable String comboFoodId) {
         return adminComboFoodManagementService.deleteComboFood(comboFoodId);
     }

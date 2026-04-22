@@ -6,7 +6,7 @@ export class GenreManagementAPI {
     static fetchPostGenre = (data) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_GENRE_MANAGEMENT + "/post-genre",
+            url: URL_API_ADMIN_GENRE_MANAGEMENT,
             data: data
         });
     };
@@ -14,7 +14,7 @@ export class GenreManagementAPI {
     static fetchPutGenre = (data) => {
         return requestAPI({
             method: "PUT",
-            url: URL_API_ADMIN_GENRE_MANAGEMENT + "/put-genre",
+            url: URL_API_ADMIN_GENRE_MANAGEMENT,
             data: data
         });
     };
@@ -22,14 +22,14 @@ export class GenreManagementAPI {
     static fetchDeleteGenre = (genreId) => {
         return requestAPI({
             method: "DELETE",
-            url: URL_API_ADMIN_GENRE_MANAGEMENT + `/delete-genre/${genreId}`,
+            url: URL_API_ADMIN_GENRE_MANAGEMENT + `/${genreId}`,
         });
     };
 
     static fetchListSearch = (inputSearch, page) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_GENRE_MANAGEMENT + "/get-search-genre",
+            url: URL_API_ADMIN_GENRE_MANAGEMENT,
             params: {
                 inputSearch: inputSearch,
                 page: page
@@ -40,7 +40,7 @@ export class GenreManagementAPI {
     static fetchDetailGenre = (genreId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_GENRE_MANAGEMENT + `/get-detail-genre/${genreId}`,
+            url: URL_API_ADMIN_GENRE_MANAGEMENT + `/${genreId}`,
         });
     };
 

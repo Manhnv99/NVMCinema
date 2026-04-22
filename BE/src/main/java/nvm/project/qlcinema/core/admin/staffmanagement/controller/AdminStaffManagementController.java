@@ -31,37 +31,37 @@ public class AdminStaffManagementController {
 
     private final AdminStaffManagementService adminStaffManagementService;
 
-    @GetMapping("/get-all-area")
+    @GetMapping("/areas")
     public ResponseObject getListArea() {
         return adminStaffManagementService.getListArea();
     }
 
-    @GetMapping("/get-search-staff")
+    @GetMapping
     public PageableObject<AdminStaffManagementListStaffResponse> getListStaff(AdminStaffManagementListStaffRequest adminStaffManagementListStaffRequest) {
         return adminStaffManagementService.getListStaff(adminStaffManagementListStaffRequest);
     }
 
-    @GetMapping("/get-one-staff")
+    @GetMapping("/one")
     public ResponseObject getOneStaff(@RequestParam(name = "userId") String userId) {
         return adminStaffManagementService.getOneStaff(userId);
     }
 
-    @GetMapping("/get-detail-staff")
-    public ResponseObject getDetailStaff(@RequestParam(name = "userId") String userId) {
+    @GetMapping("/{userId}")
+    public ResponseObject getDetailStaff(@PathVariable String userId) {
         return adminStaffManagementService.getDetailStaff(userId);
     }
 
-    @DeleteMapping("/delete-staff/{userId}")
+    @DeleteMapping("/{userId}")
     public ResponseObject deleteStaff(@PathVariable String userId) {
         return adminStaffManagementService.deleteStaff(userId);
     }
 
-    @PostMapping("/post-staff")
+    @PostMapping
     public ResponseObject postStaff(@ModelAttribute @Valid AdminStaffManagementPostRequest postRequest) throws IOException {
         return adminStaffManagementService.postStaff(postRequest);
     }
 
-    @PutMapping("/put-staff")
+    @PutMapping
     public ResponseObject putStaff(@ModelAttribute @Valid AdminStaffManagementPutRequest putRequest) throws IOException {
         return adminStaffManagementService.putStaff(putRequest);
     }

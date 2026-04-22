@@ -29,57 +29,57 @@ public class AdminShowTimeManagementController {
 
     private final AdminShowTimeManagementService adminShowTimeManagementService;
 
-    @GetMapping("/get-search-showtime")
+    @GetMapping
     public PageableObject<AdminShowTimeManagementListShowTimeResponse> getListSearchShowTime(final AdminShowTimeManagementListShowTimeRequest request) {
         return adminShowTimeManagementService.getListSearchShowTime(request);
     }
 
-    @GetMapping("/get-one-showtime/{id}")
+    @GetMapping("/one/{id}")
     public ResponseObject getOneShowTime(@PathVariable String id) {
         return adminShowTimeManagementService.getOneShowTime(id);
     }
 
-    @GetMapping("/get-detail-showtime/{id}")
+    @GetMapping("/{id}")
     public ResponseObject getDetailShowTime(@PathVariable String id) {
         return adminShowTimeManagementService.getDetailShowTime(id);
     }
 
-    @GetMapping("/get-list-ticket-chair/{showTimeId}")
+    @GetMapping("/ticket-chair/{showTimeId}")
     public ResponseObject getListTicketChair(@PathVariable String showTimeId) {
         return adminShowTimeManagementService.getListTicketChair(showTimeId);
     }
 
-    @GetMapping("/get-list-area")
+    @GetMapping("/areas")
     public ResponseObject getListTicketChair() {
         return adminShowTimeManagementService.getListArea();
     }
 
-    @GetMapping("/get-list-branch/{areaId}")
+    @GetMapping("/branches/{areaId}")
     public ResponseObject getListBranch(@PathVariable String areaId) {
         return adminShowTimeManagementService.getListBranch(areaId);
     }
 
-    @GetMapping("/get-list-room/{branchId}")
+    @GetMapping("/rooms/{branchId}")
     public ResponseObject getListRoom(@PathVariable String branchId) {
         return adminShowTimeManagementService.getListRoom(branchId);
     }
 
-    @GetMapping("/get-list-movie-current-showing")
+    @GetMapping("/movie-current-showing")
     public ResponseObject getListMovieCurrentShowing() {
         return adminShowTimeManagementService.getListMovieCurrentShowing();
     }
 
-    @GetMapping("/get-list-movie-pre-ticker")
+    @GetMapping("/movie-pre-ticker")
     public ResponseObject getListMoviePreTicket() {
         return adminShowTimeManagementService.getListMoviePreTicket();
     }
 
-    @PostMapping("/post-showtime")
+    @PostMapping
     public ResponseObject postShowTime(@RequestBody @Valid AdminShowTimeManagementPostRequest postRequest) throws ParseException {
         return adminShowTimeManagementService.postShowTime(postRequest);
     }
 
-    @PutMapping("/put-showtime")
+    @PutMapping
     public ResponseObject putShowTime(@RequestBody @Valid AdminShowTimeManagementPutRequest putRequest) throws ParseException {
         return adminShowTimeManagementService.putShowTime(putRequest);
     }

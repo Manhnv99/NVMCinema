@@ -7,7 +7,7 @@ export class PromotionEventAPI {
     static fetchListSearch = (name, timeStart, timeEnd, page) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT + "/get-list-search-promotion_event",
+            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT,
             params: {
                 name: name,
                 timeStart: timeStart,
@@ -20,14 +20,14 @@ export class PromotionEventAPI {
     static fetchDetail = (id) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT + `/get-detail-promotion_event/${id}`,
+            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT + `/${id}`,
         });
     };
 
     static fetchPost = (postRequest) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT + `/post-promotion_event`,
+            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT,
             data: postRequest
         });
     };
@@ -35,7 +35,7 @@ export class PromotionEventAPI {
     static fetchPut = (putRequest) => {
         return requestAPI({
             method: "PUT",
-            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT + `/put-promotion_event`,
+            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT,
             data: putRequest
         });
     };

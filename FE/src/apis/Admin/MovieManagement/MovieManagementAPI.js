@@ -6,7 +6,7 @@ export class MovieManagementAPI {
     static fetchListSearchMovie = (name, director, genre, format, country, page) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/get-search-movie",
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT,
             params: {
                 name: name,
                 director: director,
@@ -21,21 +21,21 @@ export class MovieManagementAPI {
     static fetchGetOneMovie = (id) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + `/get-one-movie/${id}`
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT + `/one/${id}`
         });
     };
 
     static fetchDetailMovie = (id) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + `/get-detail-movie/${id}`
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT + `/${id}`
         });
     };
 
     static fetchPostMovie = (postMovie) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/post-movie",
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT,
             data: postMovie
         });
     };
@@ -43,7 +43,7 @@ export class MovieManagementAPI {
     static fetchPutMovie = (putMovie) => {
         return requestAPI({
             method: "PUT",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/put-movie",
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT,
             data: putMovie
         });
     };
@@ -51,35 +51,35 @@ export class MovieManagementAPI {
     static fetchDeleteMovie = (id) => {
         return requestAPI({
             method: "DELETE",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + `/delete-movie/${id}`,
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT + `/${id}`,
         });
     }
 
     static fetchListCountry = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/get-list-country"
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/countries"
         });
     };
 
     static fetchListDirector = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/get-list-director"
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/directors"
         });
     };
 
     static fetchListGenre = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/get-list-genre"
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/genres"
         });
     };
 
     static fetchListFormat = () => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/get-list-format"
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT + "/formats"
         });
     };
 

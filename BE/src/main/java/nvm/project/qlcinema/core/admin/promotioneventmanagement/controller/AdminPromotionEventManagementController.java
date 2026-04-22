@@ -30,22 +30,22 @@ public class AdminPromotionEventManagementController {
 
     private final AdminPromotionEventManagementService adminPromotionEventManagementService;
 
-    @GetMapping("/get-list-search-promotion_event")
+    @GetMapping
     public PageableObject<AdminPromotionEventManagementListPromotionEventResponse> getListSearchPromotionEvent(final AdminPromotionEventManagementListPromotionEventRequest request) {
         return adminPromotionEventManagementService.getListSearchPromotionEvent(request);
     }
 
-    @GetMapping("/get-detail-promotion_event/{id}")
+    @GetMapping("/{id}")
     public ResponseObject getDetailPromotionEvent(@PathVariable String id) {
         return adminPromotionEventManagementService.getDetailPromotionEvent(id);
     }
 
-    @PostMapping("/post-promotion_event")
+    @PostMapping
     public ResponseObject postPromotionEvent(@ModelAttribute @Valid AdminPromotionEventManagementPostRequest postRequest) throws IOException {
         return adminPromotionEventManagementService.postPromotionEvent(postRequest);
     }
 
-    @PutMapping("/put-promotion_event")
+    @PutMapping
     public ResponseObject putPromotionEvent(@ModelAttribute @Valid AdminPromotionEventManagementPutRequest putRequest) throws IOException {
         return adminPromotionEventManagementService.putPromotionEvent(putRequest);
     }

@@ -29,27 +29,27 @@ public class AdminAreaManagementController {
 
     private final AdminAreaManagementService adminAreaManagementService;
 
-    @GetMapping("/get-search-area")
+    @GetMapping
     public PageableObject<AdminAreaManagementListAreaResponse> getListArea(final AdminAreaManagementListAreaRequest request) {
         return adminAreaManagementService.getListArea(request);
     }
 
-    @GetMapping("/get-detail-area/{areaId}")
+    @GetMapping("/{areaId}")
     public ResponseObject getDetailArea(@PathVariable String areaId) {
         return adminAreaManagementService.getDetailArea(areaId);
     }
 
-    @PostMapping("/post-area")
+    @PostMapping
     public ResponseObject postArea(@RequestBody @Valid AdminAreaManagementPostRequest postRequest) {
         return adminAreaManagementService.postArea(postRequest);
     }
 
-    @PutMapping("/put-area")
+    @PutMapping
     public ResponseObject putArea(@RequestBody @Valid AdminAreaManagementPutRequest putRequest) {
         return adminAreaManagementService.putArea(putRequest);
     }
 
-    @DeleteMapping("/delete-area/{areaId}")
+    @DeleteMapping("/{areaId}")
     public ResponseObject deleteArea(@PathVariable String areaId) {
         return adminAreaManagementService.deleteArea(areaId);
     }
