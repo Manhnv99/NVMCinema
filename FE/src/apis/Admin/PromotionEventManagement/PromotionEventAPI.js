@@ -24,6 +24,13 @@ export class PromotionEventAPI {
         });
     };
 
+    static fetchDelete = (id) => {
+        return requestAPI({
+            method: "DELETE",
+            url: URL_API_ADMIN_PROMOTION_EVENT_MANAGEMENT + `/${id}`,
+        });
+    };
+
     static fetchPost = (postRequest) => {
         return requestAPI({
             method: "POST",

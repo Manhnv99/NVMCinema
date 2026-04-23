@@ -77,11 +77,28 @@ export const usePromotionEvent = () => {
         }
     };
 
+    const handleFetchDelete = async (id) => {
+        dispatchStore(setLoadingTrue());
+        try {
+            const response = await PromotionEventAPI.fetchDelete(id);
+            message.success(response.data.message);
+            handleFetchListSearch("", "", "", state.currentPageStore);
+            handleClose();
+        } catch (e) {
+            for (let errMessage in e.response.data) {
+                message.error(e.response.data[errMessage]);
+            }
+        } finally {
+            dispatchStore(setLoadingFalse());
+        }
+    };
+
     return {
         handleFetchListSearch,
         handleFetchDetail,
         handleFetchPost,
         handleFetchPut,
+        handleFetchDelete,
     }
 
 }

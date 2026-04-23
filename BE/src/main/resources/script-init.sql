@@ -2,7 +2,7 @@ INSERT INTO area (id,code,created_at,deleted,name) VALUES
 	 ('e3d23466-e107-4480-8137-3fde64a17bd4','HN','2026-04-13 00:00:00',1,'Hà Nội');
 
 INSERT INTO branch (id,address,code,created_at,deleted,email,hostline,image_id,image_url,name,area_id) VALUES
-	 ('e3d23466-e107-4480-8137-3fde64a17bd4','Melinh Plaza Hà Đông','LTT','2026-04-13 00:00:00',1,'manhnv99.dev@gmail.com','0343144320','doc5imyiy0ofu5jarhn0','http://res.cloudinary.com/dbxajsljz/image/upload/v1776090292/doc5imyiy0ofu5jarhn0.jpg','Mê Linh Hà Đông','e3d23466-e107-4480-8137-3fde64a17bd4');
+	 ('e3d23466-e107-4480-8137-3fde64a17bd4','Melinh Plaza Hà Đông','BRA1','2026-04-13 00:00:00',1,'manhnv99.dev@gmail.com','0343144320','doc5imyiy0ofu5jarhn0','http://res.cloudinary.com/dbxajsljz/image/upload/v1776090292/doc5imyiy0ofu5jarhn0.jpg','Mê Linh Hà Đông','e3d23466-e107-4480-8137-3fde64a17bd4');
 
 INSERT INTO room (id,code,created_at,deleted,name,branch_id) VALUES
     ('294e5211-f216-47c6-80b9-fbf7b985dde7','ROOM1','2026-04-13 21:25:45.346000',1,'VIP1','e3d23466-e107-4480-8137-3fde64a17bd4');
@@ -113,9 +113,9 @@ INSERT INTO genre (id,code,created_at,deleted,name) VALUES
 	 ('5c209878-c95f-4109-9381-6044e80fadbe','GR1','2026-04-13 21:27:29.364000',1,'Kinh Dị');
 INSERT INTO movie (id,actor,age_restriction,banner_id,banner_url,code,created_at,deleted,description,duration,name,release_date,subtitle,video_path,country_id,director_id,format_id,genre_id) VALUES
 	 ('8124b8c6-5ca1-42e1-987f-72ee6dc38dac','Trấn Thành',18,'nlmmfodtgacc4obaocwb','http://res.cloudinary.com/dbxajsljz/image/upload/v1776090609/nlmmfodtgacc4obaocwb.jpg','MV1','2026-04-13 21:30:10.159000',1,'Kinh Dị',120,'Án Mạng Lầu 4','2026-04-13','Phụ Đề','https://www.youtube.com/embed/agzckaoLRaY?si=Y4WMz3QX7cK7ylDm','b4825cfc-cad6-4384-a3e6-693ee261a68f','b10b66b6-6e76-4e05-982b-168dd96946ff','e59107a4-6f49-4848-be0f-9cfa7d0e1a3f','5c209878-c95f-4109-9381-6044e80fadbe');
-INSERT INTO promotion_event (id,code,created_at,date_end,date_start,description,image_id,image_url,name,promotion_code,status,promotion_price) VALUES
-	 ('a5379a79-6afb-46ea-9b1c-191254f7b2a3','PE1','2026-04-13 21:33:14.616000','2026-04-30','2026-04-13','abc','wtfmrzdxqq0svhp6zr9o','http://res.cloudinary.com/dbxajsljz/image/upload/v1776090793/wtfmrzdxqq0svhp6zr9o.png','Khuyến Mãi 1','PE1','DANG_DIEN_RA',20000.00),
-	 ('cefab9ba-03d8-44c0-8260-d75ca80d6dcc','PE2','2026-04-13 21:33:48.165000','2026-04-30','2026-04-13','abc','jb3nouiso4nw3xgmd4l3','http://res.cloudinary.com/dbxajsljz/image/upload/v1776090827/jb3nouiso4nw3xgmd4l3.png','Khuyến Mãi 2','PE2','DANG_DIEN_RA',20000.00);
+INSERT INTO promotion_event (id,code,created_at,date_end,date_start,description,image_id,image_url,name,promotion_code,status,promotion_price,min_order_value,quantity,used_quantity) VALUES
+	 ('a5379a79-6afb-46ea-9b1c-191254f7b2a3','PE1','2026-04-13 21:33:14.616000','2026-04-30','2026-04-13','abc','wtfmrzdxqq0svhp6zr9o','http://res.cloudinary.com/dbxajsljz/image/upload/v1776090793/wtfmrzdxqq0svhp6zr9o.png','Khuyến Mãi 1','PE1','DANG_DIEN_RA',20000.00,20000.00,1000,0),
+	 ('cefab9ba-03d8-44c0-8260-d75ca80d6dcc','PE2','2026-04-13 21:33:48.165000','2026-04-30','2026-04-13','abc','jb3nouiso4nw3xgmd4l3','http://res.cloudinary.com/dbxajsljz/image/upload/v1776090827/jb3nouiso4nw3xgmd4l3.png','Khuyến Mãi 2','PE2','DANG_DIEN_RA',20000.00,20000.00,1000,0);
 INSERT INTO showtime (id,created_at,deleted,screening_date,ticket_price,time_start,movie_id,room_id) VALUES
 	 ('5254701e-fe4c-475c-9ef9-6a0cd9966e48','2026-04-13 21:31:14.337000',1,'2026-04-30',100000.00,'11:30:00.000000','8124b8c6-5ca1-42e1-987f-72ee6dc38dac','294e5211-f216-47c6-80b9-fbf7b985dde7');
 INSERT INTO ticket_chair (id,chair_name,created_at,status,show_time_id) VALUES

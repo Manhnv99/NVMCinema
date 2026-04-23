@@ -59,7 +59,7 @@ CREATE TABLE `branch` (
   `code` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `hostline` varchar(255) DEFAULT NULL,
-  `id` varchar(255) NOT NULL,
+  `id` varchar(255) NOT NULL,s
   `image_id` varchar(255) DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -478,6 +478,9 @@ CREATE TABLE `promotion_event` (
   `code` varchar(255) DEFAULT NULL,
   `description` varchar(10000) DEFAULT NULL,
   `id` varchar(255) NOT NULL,
+  `min_order_value` decimal(38,2) DEFAULT NULL,
+  `used_quantity` bigint DEFAULT NULL,
+  `quantity` bigint DEFAULT NULL,
   `image_id` varchar(255) DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,

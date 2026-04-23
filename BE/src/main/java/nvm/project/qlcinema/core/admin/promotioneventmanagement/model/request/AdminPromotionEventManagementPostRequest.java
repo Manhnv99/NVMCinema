@@ -1,5 +1,6 @@
 package nvm.project.qlcinema.core.admin.promotioneventmanagement.model.request;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -32,5 +33,11 @@ public class AdminPromotionEventManagementPostRequest {
     private String description;
 
     private MultipartFile image;
+
+    @NotNull(message = "Số lượng sử dụng không được để trống!")
+    private Long quantity;
+
+    @NotNull(message = "Giá tiền tối thiểu áp dụng không được để trống!")
+    private BigDecimal minOrderValue;
 
 }

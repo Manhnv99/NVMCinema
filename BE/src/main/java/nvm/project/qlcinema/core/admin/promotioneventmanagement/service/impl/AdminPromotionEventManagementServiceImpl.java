@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -103,6 +104,8 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
         postPromotionEvent.setImageId((String) result.get("public_id"));
         postPromotionEvent.setImageUrl((String) result.get("url"));
         postPromotionEvent.setCreatedAt(new Date());
+        postPromotionEvent.setQuantity(postRequest.getQuantity());
+        postPromotionEvent.setMinOrderValue(postRequest.getMinOrderValue());
         postPromotionEvent.setPromotionEventStatus(
                 handleGenPromotionEvent(postRequest.getTimeStart(),
                         postRequest.getTimeEnd())
@@ -159,6 +162,8 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
         putPromotionEvent.setPromotionCode(putRequest.getPromotionCode());
         putPromotionEvent.setPromotionPrice(putRequest.getPromotionPrice());
         putPromotionEvent.setDescription(putRequest.getDescription());
+        putPromotionEvent.setQuantity(putRequest.getQuantity());
+        putPromotionEvent.setMinOrderValue(putRequest.getMinOrderValue());
         if (!putRequest.getImage().isEmpty()) {
             cloudinaryConfig.delete(putPromotionEvent.getImageId());
             var result = cloudinaryConfig.upload(putRequest.getImage());//upload image to cloudinary
@@ -176,6 +181,17 @@ public class AdminPromotionEventManagementServiceImpl implements AdminPromotionE
             errors.add("Đã có 1 vài sự cố sảy ra!");
             throw new RestApiException(errors, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @Override
+    public ResponseObject delete(String id) throws IOException {
+        Optional<PromotionEvent> promotionEvent = adminPromotionEventManagementRepository.findById(id);
+        if (promotionEvent.isPresent()) {
+            cloudinaryConfig.delete(promotionEvent.get().getImageId());
+            adminPromotionEventManagementRepository.delete(promotionEvent.get());
+            return new ResponseObject("Xóa thành công!");
+        }
+        throw new RestApiException(null, HttpStatus.NOT_FOUND);
     }
 
     private void handleCheckDateValid(LocalDate timeStart, LocalDate timeEnd) {
