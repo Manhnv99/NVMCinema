@@ -50,4 +50,8 @@ public class AdminPromotionEventManagementController {
         return adminPromotionEventManagementService.putPromotionEvent(putRequest);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseObject delete(@PathVariable String id) throws IOException {
+        return adminPromotionEventManagementService.delete(id);
+    }
 }

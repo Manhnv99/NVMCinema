@@ -1,6 +1,6 @@
 import { Card, Button, Table, Pagination, Tooltip, Image, Tag } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLayerGroup, faPenToSquare, faEye, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faLayerGroup, faPenToSquare, faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useEffect, useState } from "react";
 import { PromotionEventContext } from "../store/context/context";
 import { ModalAddOrUpdate } from "./ModalAddOrUpdate";
@@ -9,6 +9,7 @@ import { ModalDetail } from "./ModalDetail";
 import { DANG_DIEN_RA, SAP_DIEN_RA } from "../../../../app/Constant/PromotionEventConstant";
 import { DEFAUTL_PAGE_SIZE } from "../../../../app/Constant/PaginationConstant";
 import { setCurrentPageStore } from "../store/actions/PromotionEventActions";
+import Swal from "sweetalert2";
 
 export const TableComponent = () => {
 
@@ -29,7 +30,8 @@ export const TableComponent = () => {
 
     //custom hooks
     const {
-        handleFetchListSearch
+        handleFetchListSearch,
+        handleFetchDelete,
     } = usePromotionEvent();
 
     const columns = [
@@ -53,7 +55,10 @@ export const TableComponent = () => {
             title: "Mã Khuyến Mãi", dataIndex: "promotionCode", key: "promotionCode",
             render: (promotionCode) => <Tag color="green" children={promotionCode} />
         },
+        { title: "Số lượng", dataIndex: "quantity", key: "quantity" },
+        { title: "Đã sử dụng", dataIndex: "usedQuantity", key: "usedQuantity" },
         { title: "Giá Khuyến Mãi", dataIndex: "promotionPrice", key: "promotionPrice" },
+        { title: "Giá trị đơn tối thiểu", dataIndex: "minOrderValue", key: "minOrderValue" },
         {
             title: "Trạng Thái", dataIndex: "status", key: "status",
             render: (status) => {
@@ -94,6 +99,28 @@ export const TableComponent = () => {
                                 setRenderModalDetail(!renderModalDetail);
                             }}>
                                 <FontAwesomeIcon icon={faEye} />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip title="Xóa khuyến mãi">
+                            <Button
+                                onClick={() => {
+                                    Swal.fire({
+                                        title: "Bạn có chắc muốn xóa khuyến mãi?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Xóa",
+                                        cancelButtonText: "Hủy"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            handleFetchDelete(record.id);
+                                        }
+                                    });
+                                }}
+                                style={{ backgroundColor: "red", color: "#fff" }}
+                            >
+                                <FontAwesomeIcon icon={faTrash} />
                             </Button>
                         </Tooltip>
                     </div>

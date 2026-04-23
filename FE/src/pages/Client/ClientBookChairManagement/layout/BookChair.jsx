@@ -288,7 +288,12 @@ export const BookChair = () => {
                                             <div className="p-[20px] border-t border-dashed border-[#999]">
                                                 <input value={valuePromotionCode} onChange={(e) => setValuePromotionCode(e.target.value)} className="w-[85%] pl-[5px] py-[8px] outline-none border border-[#454D6A] rounded-md text-[16px] text-[#999] placeholder-gray-[#ccc]" placeholder="Nhập mã giảm giá tại đây..." />
                                                 <button onClick={() => {
-                                                    handleFetchPromotionEvent(valuePromotionCode);
+
+                                                    const currentOrderValue =
+                                                        listTicketChair.reduce((sum, item) => sum + item.ticketPrice, 0) +
+                                                        listFood.reduce((sum, item) => sum + (item.comboFoodPrice * item.quantity), 0);
+
+                                                    handleFetchPromotionEvent(valuePromotionCode, currentOrderValue);
                                                 }} className="w-[15%] uppercase bg-[var(--primary-limegreen)] outline-none text-[16px] py-[8px]
                                                 border border-[var(--primary-limegreen)] rounded-md font-bold">Áp dụng</button>
                                             </div>
@@ -395,7 +400,7 @@ export const BookChair = () => {
                                                             listFood.reduce((avg, item) => avg + (item.comboFoodPrice * item.quantity), 0)
                                                             - promotionApplied.price)
                                                         :
-                                                        ConvertCurrencyVND(listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0))
+                                                        ConvertCurrencyVND(listTicketChair.reduce((avg, item) => avg + item.ticketPrice, 0) - promotionApplied.price)
                                                     }
                                                 </p>
                                             </div>

@@ -27,7 +27,10 @@ public interface AdminPromotionEventManagementRepository extends PromotionEventR
                     pe.promotion_price AS promotionPrice,
                     pe.description AS description,
                     pe.image_url AS imageUrl,
-                    pe.status AS status
+                    pe.status AS status,
+                    pe.min_order_value AS minOrderValue, 
+                    pe.used_quantity AS usedQuantity,
+                    pe.quantity AS quantity
             FROM promotion_event pe
             WHERE
             (
@@ -51,7 +54,10 @@ public interface AdminPromotionEventManagementRepository extends PromotionEventR
                     pe.promotion_price AS promotionPrice,
                     pe.description AS description,
                     pe.image_url AS imageUrl,
-                    pe.status AS status
+                    pe.status AS status,
+                    pe.min_order_value AS minOrderValue, 
+                    pe.used_quantity AS usedQuantity,
+                    pe.quantity AS quantity
             FROM promotion_event pe
             WHERE pe.id = :id
             """, nativeQuery = true)

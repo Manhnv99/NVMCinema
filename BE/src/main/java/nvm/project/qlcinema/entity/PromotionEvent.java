@@ -59,6 +59,15 @@ public class PromotionEvent extends PrimaryEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "quantity")
+    private Long quantity;
+
+    @Column(name = "used_quantity")
+    private Long usedQuantity = 0L;
+
+    @Column(name = "min_order_value")
+    private BigDecimal minOrderValue;
+
     @Column(name = "created_at")
     private Date createdAt;
 

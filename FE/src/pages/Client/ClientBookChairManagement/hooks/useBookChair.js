@@ -3,6 +3,7 @@ import { BookChairAPI } from "../../../../apis/Client/BookChair/BookChairAPI";
 import { useDispatch } from "react-redux";
 import { setLoadingFalse, setLoadingTrue } from "../../../../app/Redux/Slice/LoadingSlice";
 import { messageErrResponse, messageSuccessResponse, messageWarResponse } from "../../../../app/CustomizeMessage/CustomizeMessage";
+import {ConvertCurrencyVND} from "../../../../utils/ConvertCurrency/ConvertCurrency.js";
 
 
 export const useBookChair = () => {
@@ -15,7 +16,10 @@ export const useBookChair = () => {
     const [listComboFood, setListComboFood] = useState([]);
     const [promotionApplied, setPromotionApplied] = useState({
         code: "",
-        price: 0
+        price: 0,
+        quantity: 0,
+        usedQuantity: 0,
+        minOrderValue: 0,
     });
 
     const handleFetchListTicketChair = (showTimeId) => {
@@ -61,32 +65,65 @@ export const useBookChair = () => {
         }
     };
 
-    const handleFetchPromotionEvent = (code) => {
-        if (promotionApplied.code !== "" && promotionApplied.code === code) {
-            messageWarResponse("Bạn giảm giá này đang được áp dụng vào hóa đơn của bạn!");
-        } else {
-            dispatch(setLoadingTrue());
-            setTimeout(async () => {
-                try {
-                    const response = await BookChairAPI.fetchPromotionEvent(code);
-                    messageSuccessResponse("Áp dụng mã giảm giá thành công!");
-                    setPromotionApplied({
-                        code: code,
-                        price: response.data.data.promotionPrice
-                    });
-                } catch (e) {
-                    setPromotionApplied({
-                        code: "",
-                        price: 0
-                    });
+    const handleFetchPromotionEvent = (code, currentOrderValue) => {
+        if (!code || code.trim() === "") {
+            messageWarResponse("Vui lòng nhập mã giảm giá!");
+            return;
+        }
+
+        if (promotionApplied.code && promotionApplied.code === code) {
+            messageWarResponse("Mã giảm giá này đã được áp dụng!");
+            return;
+        }
+
+        dispatch(setLoadingTrue());
+
+        setTimeout(async () => {
+            try {
+                const response = await BookChairAPI.fetchPromotionEvent(code);
+                const promo = response?.data?.data;
+
+                if (!promo) {
+                    messageErrResponse("Mã giảm giá không tồn tại!");
+                    return;
+                }
+
+                if (promo.minOrderValue && currentOrderValue < promo.minOrderValue) {
+                    messageWarResponse(
+                        `Đơn hàng tối thiểu phải từ ${ConvertCurrencyVND(promo.minOrderValue)} để áp dụng mã này!`
+                    );
+                    return;
+                }
+
+                if (!promo.promotionPrice || promo.promotionPrice <= 0) {
+                    messageErrResponse("Mã giảm giá không hợp lệ!");
+                    return;
+                }
+
+                setPromotionApplied({
+                    code: code,
+                    price: promo.promotionPrice
+                });
+
+                messageSuccessResponse("Áp dụng mã giảm giá thành công!");
+
+            } catch (e) {
+                setPromotionApplied({
+                    code: "",
+                    price: 0
+                });
+
+                if (e?.response?.data) {
                     for (let errMessage in e.response.data) {
                         messageErrResponse(e.response.data[errMessage]);
                     }
-                } finally {
-                    dispatch(setLoadingFalse());
+                } else {
+                    messageErrResponse("Có lỗi xảy ra, vui lòng thử lại!");
                 }
-            }, [1000]);
-        }
+            } finally {
+                dispatch(setLoadingFalse());
+            }
+        }, 1000);
     };
 
     const handleFetchOnlineBanking = async (paymentRequest) => {

@@ -56,6 +56,8 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                     postRequest.append("promotionCode", fieldsValue.promotionCode);
                     postRequest.append("promotionPrice", fieldsValue.promotionPrice);
                     postRequest.append("description", fieldsValue.description);
+                    postRequest.append("minOrderValue", fieldsValue.minOrderValue);
+                    postRequest.append("quantity", fieldsValue.quantity);
                     if (fieldsValue.image === undefined) {
                         postRequest.append("image", new File([], "empty-file"));
                     } else {
@@ -77,6 +79,8 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                     putRequest.append("promotionCode", fieldsValue.promotionCode);
                     putRequest.append("promotionPrice", fieldsValue.promotionPrice);
                     putRequest.append("description", fieldsValue.description);
+                    putRequest.append("minOrderValue", fieldsValue.minOrderValue);
+                    putRequest.append("quantity", fieldsValue.quantity);
                     if (fieldsValue.image === undefined) {
                         putRequest.append("image", new File([], "empty-file"));
                     } else {
@@ -97,7 +101,9 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
             promotionPrice: data.promotionPrice,
             description: data.description,
             timeStart: dayjs(data.dateStart, "YYYY-MM-DD"),
-            timeEnd: dayjs(data.dateEnd, "YYYY-MM-DD")
+            timeEnd: dayjs(data.dateEnd, "YYYY-MM-DD"),
+            quantity: data.quantity,
+            minOrderValue: data.minOrderValue
         });
     };
 
@@ -141,9 +147,11 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                 form={form}
                 onFinish={handleAddOrUpdate}
                 onFinishFailed={handleAddOrUpdateFailed}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
             >
                 <Row className="justify-center" gutter={16}>
-                    <Col span={11}>
+                    <Col span={12}>
                         <Form.Item
                             label="Tên sự kiện"
                             name="name"
@@ -154,7 +162,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                             <Input placeholder="Nhập tên sự kiện" />
                         </Form.Item>
                     </Col>
-                    <Col span={11}>
+                    <Col span={12}>
                         <Form.Item
                             label="Mã khuyến mãi"
                             name="promotionCode"
@@ -168,7 +176,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                 </Row>
                 {/*  */}
                 <Row className="justify-center" gutter={16}>
-                    <Col span={11}>
+                    <Col span={12}>
                         <Form.Item
                             label="Giá khuyến mãi"
                             name="promotionPrice"
@@ -176,10 +184,15 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                                 { required: true, message: "Giá khuyến mãi không được để trống!" }
                             ]}
                         >
-                            <InputNumber formatter={formatter} parser={parser} placeholder="Điền giá vé..." className="w-full" />
+                            <InputNumber
+                                className="w-full"
+                                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                parser={(value) => value.replace(/(,*)/g, '')}
+                                addonAfter="VNĐ"
+                            />
                         </Form.Item>
                     </Col>
-                    <Col span={11}>
+                    <Col span={12}>
                         <Form.Item
                             label="Mô tả sự kiện"
                             name="description"
@@ -193,7 +206,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                 </Row>
                 {/*  */}
                 <Row className="justify-center" gutter={16}>
-                    <Col span={11}>
+                    <Col span={12}>
                         <Form.Item
                             label="Ngày Bắt Đầu"
                             name="timeStart"
@@ -204,7 +217,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                             <DatePicker allowClear format="YYYY-MM-DD" placeholder="Chọn ngày bắt đầu sự kiện" className="w-full" />
                         </Form.Item>
                     </Col>
-                    <Col span={11}>
+                    <Col span={12}>
                         <Form.Item
                             label="Ngày Kết Thúc"
                             name="timeEnd"
@@ -216,12 +229,42 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                         </Form.Item>
                     </Col>
                 </Row>
+                <Row className="justify-center" gutter={16}>
+                    <Col span={12}>
+                        <Form.Item
+                            label="Số lượng"
+                            name="quantity"
+                            rules={[
+                                { required: true, message: "Số lượng không được để trống!" }
+                            ]}
+                        >
+                            <InputNumber className="w-full" min={0} placeholder="Nhập số lượng" />
+                        </Form.Item>
+                    </Col>
+
+                    <Col span={12}>
+                        <Form.Item
+                            label="Giá trị đơn tối thiểu"
+                            name="minOrderValue"
+                            rules={[
+                                { required: true, message: "Giá trị đơn tối thiểu không được để trống!" }
+                            ]}
+                        >
+                            <InputNumber
+                                className="w-full"
+                                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                parser={(value) => value.replace(/(,*)/g, '')}
+                                addonAfter="VNĐ"
+                            />
+                        </Form.Item>
+                    </Col>
+                </Row>
                 {/*  */}
                 <Row className="justify-center" gutter={16}>
                     {whatAction === "post"
                         ?
                         <>
-                            <Col span={11}>
+                            <Col span={12}>
                                 <Form.Item
                                     label="Ảnh Sự Kiện"
                                     name="image"
@@ -250,11 +293,11 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                                     />
                                 )}
                             </Col>
-                            <Col span={11} />
+                            <Col span={12} />
                         </>
                         :
                         <>
-                            <Col span={11}>
+                            <Col span={12}>
                                 <Form.Item
                                     label="Ảnh Sự Kiện"
                                     name="image"
@@ -280,7 +323,7 @@ export const ModalAddOrUpdate = ({ openModal, setOpenModal, whatAction, PEId, re
                                     />
                                 )}
                             </Col>
-                            <Col span={11}>
+                            <Col span={12}>
                                 <Image
                                     className="w-full rounded-[5px]"
                                     src={imageShow}

@@ -34,6 +34,15 @@ public interface AdminPromotionEventManagementListPromotionEventResponse {
     @Value("#{target.imageUrl}")
     String getImageUrl();
 
+    @Value("#{target.quantity}")
+    String getQuantity();
+
+    @Value("#{target.usedQuantity}")
+    String getUsedQuantity();
+
+    @Value("#{target.minOrderValue}")
+    String getMinOrderValue();
+
     @Value("#{target.status}")
     String getStatus();
 
