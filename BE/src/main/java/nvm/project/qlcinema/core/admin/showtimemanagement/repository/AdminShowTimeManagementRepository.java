@@ -39,7 +39,7 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
             JOIN branch b ON r.branch_id = b.id
             JOIN area a ON b.area_id = a.id
             WHERE
-            st.screening_date > CURRENT_DATE() AND
+            st.screening_date >= CURRENT_DATE() AND
             (
                 CASE
                     WHEN :#{#request.typeShowTime == "MOVIE_CURRENT_SHOWING"} THEN m.release_date <= CURRENT_DATE()
@@ -48,11 +48,18 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
             )
             AND
             (
-                ( :#{#request.movieName} IS NULL OR m.name LIKE :#{ "%" + #request.movieName +"%" } ) AND
-                ( :#{#request.branchId} IS NULL OR b.id LIKE :#{ "%" + #request.branchId +"%" } ) AND
-                ( :#{#request.areaId} IS NULL OR a.id LIKE :#{ "%" + #request.areaId +"%" } ) AND
-                ( :#{#request.roomId} IS NULL OR r.id LIKE :#{ "%" + #request.roomId +"%" } )
-            )
+                 ( :#{#request.movieName == null || #request.movieName.isEmpty()} = true
+                   OR m.name LIKE :#{ "%" + #request.movieName + "%" } )
+             AND
+                 ( :#{#request.branchId == null || #request.branchId.isEmpty()} = true
+                   OR b.id = :#{#request.branchId} )
+             AND
+                 ( :#{#request.areaId == null || #request.areaId.isEmpty()} = true
+                   OR a.id = :#{#request.areaId} )
+             AND
+                 ( :#{#request.roomId == null || #request.roomId.isEmpty()} = true
+                   OR r.id = :#{#request.roomId} )
+             )
             ORDER BY st.created_at DESC
             """, nativeQuery = true)
 //                AND st.screening_date >= CURRENT_DATE

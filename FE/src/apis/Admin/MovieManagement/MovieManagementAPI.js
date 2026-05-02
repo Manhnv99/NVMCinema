@@ -35,7 +35,7 @@ export class MovieManagementAPI {
     static fetchPostMovie = (postMovie) => {
         return requestAPI({
             method: "POST",
-            url: URL_API_ADMIN_MOVIE_MANAGEMENT,
+            url: URL_API_ADMIN_MOVIE_MANAGEMENT + '/post-movie',
             data: postMovie
         });
     };

@@ -45,6 +45,11 @@ public class AdminMovieManagementController {
         return adminMovieManagementService.getDetailMovie(id);
     }
 
+    @PostMapping
+    public ResponseObject postMovie2(@ModelAttribute @Valid AdminMovieManagementPostRequest postRequest) throws IOException {
+        return adminMovieManagementService.postMovie(postRequest);
+    }
+
     @PostMapping("/post-movie")
     public ResponseObject postMovie(@ModelAttribute @Valid AdminMovieManagementPostRequest postRequest) throws IOException {
         return adminMovieManagementService.postMovie(postRequest);
