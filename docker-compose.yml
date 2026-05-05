@@ -9,7 +9,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - cinema_data:/var/lib/cinema_db
+      - cinema_data:/var/lib/mysql
       
   cinema-fe:
     image: manhnv99/cinema-fe:latest
@@ -57,8 +57,11 @@ services:
       - cinemma_be_data:/var/lib/cinemma_be_db
 volumes:
   cinema_data:
+    name: cinema_data
   cinemma_be_data:
+    name: cinemma_be_data
   cinema_redis_data:
+    name: cinema_redis_data
 
 networks:
   default:
