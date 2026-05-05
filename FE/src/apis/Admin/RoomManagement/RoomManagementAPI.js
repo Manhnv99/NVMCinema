@@ -32,7 +32,7 @@ export class RoomManagementAPI {
     static fetchListChair = (roomId) => {
         return requestAPI({
             method: "GET",
-            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/chairs/${roomId}`,
+            url: URL_API_ADMIN_ROOM_MANAGEMENT + `/get-list-chair/${roomId}`,
         });
     };
 

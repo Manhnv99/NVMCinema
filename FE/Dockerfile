@@ -29,6 +29,7 @@ COPY entrypoint.sh /docker-entrypoint.d/entrypoint.sh
 
 COPY env.js /usr/share/nginx/html/env.js 
 
+RUN sed -i 's/\r$//' /docker-entrypoint.d/entrypoint.sh
 RUN chmod +x /docker-entrypoint.d/entrypoint.sh
 
 # Start nginx with the specified configuration
