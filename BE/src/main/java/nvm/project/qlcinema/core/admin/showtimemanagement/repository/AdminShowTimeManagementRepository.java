@@ -39,7 +39,7 @@ public interface AdminShowTimeManagementRepository extends ShowTimeRepository {
             JOIN branch b ON r.branch_id = b.id
             JOIN area a ON b.area_id = a.id
             WHERE
-            st.screening_date >= CURRENT_DATE() AND
+            st.screening_date > CURRENT_DATE() AND
             (
                 CASE
                     WHEN :#{#request.typeShowTime == "MOVIE_CURRENT_SHOWING"} THEN m.release_date <= CURRENT_DATE()

@@ -31,7 +31,7 @@ public interface ClientHomePageMovieRepository extends MovieRepository {
             JOIN branch b ON r.branch_id = b.id
             JOIN area a ON b.area_id = a.id
             WHERE m.release_date <= CURRENT_DATE() AND
-                s.screening_date >= CURRENT_DATE() AND
+                s.screening_date > CURRENT_DATE() AND
                 a.id = :areaId
             GROUP BY
             	m.id,m.banner_url,m.name,m.age_restriction,
@@ -82,7 +82,7 @@ public interface ClientHomePageMovieRepository extends MovieRepository {
             where
             	m.release_date > current_date()
             	and
-            	m.id not in\s
+            	m.id not in
             	(
             	select
             		m.id as id
