@@ -1,6 +1,6 @@
 services:
   cinema-db:
-    image: mysql
+    image: mysql:8.4
     container_name: cinema-db
     restart: always
     environment:
@@ -12,15 +12,15 @@ services:
       - cinema_data:/var/lib/mysql
       
   cinema-fe:
-    image: manhnv99/cinema-fe:latest
+    image: manhnv99/cinema-fe:0.0.1
     container_name: cinema-fe
     restart: always
     environment:
-      VITE_REACT_APP_API_URL: http://localhost:8080
-      VITE_REACT_APP_BE_DOMAIN: http://localhost:8080/
-      VITE_REACT_APP_FE_DOMAIN: http://localhost:9999/
+      VITE_REACT_APP_API_URL: http://221.132.19.112
+      VITE_REACT_APP_BE_DOMAIN: http://221.132.19.112/
+      VITE_REACT_APP_FE_DOMAIN: http://221.132.19.112/
     ports:
-      - "9999:9999"
+      - "127.0.0.1:9999:80"
     depends_on:
       - cinema-be
 
@@ -29,16 +29,16 @@ services:
     container_name: cinema-redis
     restart: always
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     volumes:
       - cinema_redis_data:/var/lib/redis_db
 
   cinema-be:
     container_name: cinema-be
-    image: manhnv99/cinema-be:latest
+    image: manhnv99/cinema-be:0.0.1
     restart: always
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8081:8080"
     environment:
       #DATABASE INFORMATION
       MYSQL_HOST: cinema-db
@@ -50,9 +50,12 @@ services:
       DOMAIN_BE: cinema-be
       REDIS_HOST: cinema-redis
       REDIS_PORT: 6379
+      # Các domain được phép gọi API (CORS), phân tách bằng dấu phẩy
+      CORS_ALLOWED_ORIGINS: http://221.132.19.112
       TZ: Asia/Ho_Chi_Minh
     depends_on:
       - cinema-db
+      - cinema-redis
     volumes:
       - cinemma_be_data:/var/lib/cinemma_be_db
 volumes:
