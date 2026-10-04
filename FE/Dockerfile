@@ -11,6 +11,9 @@ COPY package.json /app/package.json
 RUN npm install
 
 # Copy the entire project to the working directory
+# COPY src /app/src
+# COPY public /app/public
+# COPY index.html /app/index.html
 COPY . /app
 
 # Build the project
@@ -26,8 +29,6 @@ COPY --from=build /app/dist /usr/share/nginx/html
 COPY /nginx/nginx.conf /etc/nginx/nginx.conf
 COPY /public/env.template.js /usr/share/nginx/html/env.template.js
 COPY entrypoint.sh /docker-entrypoint.d/entrypoint.sh
-
-COPY env.js /usr/share/nginx/html/env.js 
 
 RUN sed -i 's/\r$//' /docker-entrypoint.d/entrypoint.sh
 RUN chmod +x /docker-entrypoint.d/entrypoint.sh
