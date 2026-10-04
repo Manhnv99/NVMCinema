@@ -10,6 +10,7 @@ import nvm.project.qlcinema.infrastructure.security.oauth2.OAuth2AuthenticationS
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -36,6 +37,7 @@ public class AuthorizationFilterChainConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.cors(Customizer.withDefaults()); // Dùng bean corsConfigurationSource trong CorsConfig
         httpSecurity.authorizeHttpRequests(authorization ->
                 authorization
                         .requestMatchers("/test" + "/**").permitAll()
